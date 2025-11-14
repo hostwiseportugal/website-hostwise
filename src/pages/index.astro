@@ -10,9 +10,9 @@ import GuaranteedRentSection from '../components/GuaranteedRentSection.astro';
 import PricingSection from '../components/PricingSection.astro';
 import RegionsCarousel from '../components/RegionsCarousel.astro';
 import FAQSection from '../components/FAQSection.astro';
-import { getPosts } from '../lib/wordpress';
+// import { getPosts } from '../lib/wordpress'; 
 
-const posts = await getPosts();
+// const posts = await getPosts();
 ---
 
 <Layout title="Gestão de Alojamentos Locais">
@@ -83,7 +83,7 @@ const posts = await getPosts();
     </div>
   </section>
 
-  <!-- Blog -->
+  <!-- Blog
   <section id="blog" class="section blog">
     <div class="container">
       <div class="section-header">
@@ -112,7 +112,7 @@ const posts = await getPosts();
         <a href="/blog" class="btn-secondary">Ver Todos os Artigos</a>
       </div>
     </div>
-  </section>
+  </section>-->
 
   <!-- FAQ Section -->
 <FAQSection />
