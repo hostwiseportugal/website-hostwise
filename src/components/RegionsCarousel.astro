@@ -1,0 +1,458 @@
+---
+const regions = [
+  {
+    name: 'Porto',
+    tag: 'Cidade Invicta',
+    title: 'História, cultura e alta procura turística',
+    description: 'A segunda maior cidade de Portugal atrai milhões de visitantes todos os anos. Com a nossa gestão especializada, garanta ocupação máxima no seu alojamento.',
+    image: '/images/regions/porto.webp'
+  },
+  {
+    name: 'Algarve',
+    tag: 'Sol & Praia',
+    title: 'O destino de férias mais procurado de Portugal',
+    description: 'Praias paradisíacas, clima excecional e golfe de classe mundial. O Algarve oferece retorno sobre investimento incomparável durante todo o ano.',
+    image: '/images/regions/algarve.webp'
+  },
+  {
+    name: 'Douro',
+    tag: 'Património Mundial',
+    title: 'Turismo premium em paisagens únicas',
+    description: 'Vinhedos em socalcos, quintas históricas e experiências enogastronómicas. O Douro atrai turistas de luxo dispostos a pagar preços premium.',
+    image: '/images/regions/douro.webp'
+  },
+  {
+    name: 'Madeira',
+    tag: 'Pérola do Atlântico',
+    title: 'Procura constante durante todo o ano',
+    description: 'Clima subtropical, paisagens deslumbrantes e eventos internacionais. A Madeira oferece uma das taxas de ocupação mais estáveis de Portugal.',
+    image: '/images/regions/madeira.webp'
+  }
+];
+---
+
+<section class="regions-carousel-section">
+  <div class="carousel-container">
+    <div class="carousel-header">
+      <h2>Onde Operamos</h2>
+      <p>Presença consolidada nas regiões mais procuradas de Portugal</p>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carouselTrack">
+        {regions.map((region, index) => (
+          <div class="carousel-slide" data-index={index}>
+            <div class="slide-image">
+              <img src={region.image} alt={`Gestão de alojamento local no ${region.name}`} />
+              <div class="slide-overlay"></div>
+            </div>
+            <div class="slide-content">
+              <span class="slide-tag">{region.tag}</span>
+              <h3>{region.name}</h3>
+              <h4>{region.title}</h4>
+              <p>{region.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="carousel-controls">
+      <button class="carousel-btn carousel-prev" id="prevBtn" aria-label="Região anterior">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+        </svg>
+      </button>
+
+      <div class="carousel-dots" id="carouselDots">
+        {regions.map((_, index) => (
+          <button 
+            class={`carousel-dot ${index === 0 ? 'active' : ''}`}
+            data-index={index}
+            aria-label={`Ir para slide ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+
+      <button class="carousel-btn carousel-next" id="nextBtn" aria-label="Próxima região">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .regions-carousel-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, var(--gray-light) 0%, white 100%);
+    overflow: hidden;
+  }
+
+  .carousel-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .carousel-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .carousel-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .carousel-header p {
+    font-size: 1.2rem;
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  .carousel-wrapper {
+    position: relative;
+    overflow: visible;
+    margin-bottom: 40px;
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 24px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 20px 0;
+  }
+
+  .carousel-slide {
+    min-width: 360px;
+    max-width: 360px;
+    height: 560px;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    cursor: grab;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .carousel-slide:active {
+    cursor: grabbing;
+  }
+
+  .carousel-slide:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  }
+
+  .slide-image {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .slide-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(12, 68, 99, 0.1) 0%,
+      rgba(12, 68, 99, 0.6) 60%,
+      rgba(12, 68, 99, 0.9) 100%
+    );
+  }
+
+  .slide-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+    color: white;
+  }
+
+  .slide-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    align-self: flex-start;
+  }
+
+  .slide-content h3 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .slide-content h4 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+    opacity: 0.95;
+  }
+
+  .slide-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .carousel-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(12, 68, 99, 0.1);
+    color: var(--primary);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .carousel-btn:hover:not(:disabled) {
+    background: rgba(12, 68, 99, 0.2);
+    transform: scale(1.1);
+  }
+
+  .carousel-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .carousel-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 12px;
+    background: rgba(12, 68, 99, 0.1);
+    padding: 12px 24px;
+    border-radius: 30px;
+  }
+
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(12, 68, 99, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .carousel-dot:hover {
+    background: rgba(12, 68, 99, 0.5);
+    transform: scale(1.3);
+  }
+
+  .carousel-dot.active {
+    background: var(--primary);
+    width: 24px;
+    border-radius: 10px;
+  }
+
+  @media (max-width: 1200px) {
+    .carousel-slide {
+      min-width: 320px;
+      max-width: 320px;
+      height: 520px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .regions-carousel-section {
+      padding: 60px 0;
+    }
+
+    .carousel-header h2 {
+      font-size: 2rem;
+    }
+
+    .carousel-slide {
+      min-width: 280px;
+      max-width: 280px;
+      height: 480px;
+    }
+
+    .slide-content {
+      padding: 32px;
+    }
+
+    .slide-content h3 {
+      font-size: 1.75rem;
+    }
+
+    .slide-content h4 {
+      font-size: 1.1rem;
+    }
+
+    .carousel-controls {
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+<script>
+  class RegionsCarousel {
+    private track: HTMLElement;
+    private slides: NodeListOf<HTMLElement>;
+    private dots: NodeListOf<HTMLElement>;
+    private prevBtn: HTMLElement;
+    private nextBtn: HTMLElement;
+    private currentIndex: number = 0;
+    private startX: number = 0;
+    private isDragging: boolean = false;
+    private currentTranslate: number = 0;
+    private prevTranslate: number = 0;
+
+    constructor() {
+      this.track = document.getElementById('carouselTrack')!;
+      this.slides = document.querySelectorAll('.carousel-slide');
+      this.dots = document.querySelectorAll('.carousel-dot');
+      this.prevBtn = document.getElementById('prevBtn')!;
+      this.nextBtn = document.getElementById('nextBtn')!;
+
+      this.init();
+    }
+
+    init() {
+      // Botões
+      this.prevBtn.addEventListener('click', () => this.goToPrev());
+      this.nextBtn.addEventListener('click', () => this.goToNext());
+
+      // Dots
+      this.dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => this.goToSlide(index));
+      });
+
+      // Touch/Drag
+      this.track.addEventListener('mousedown', this.dragStart.bind(this));
+      this.track.addEventListener('touchstart', this.dragStart.bind(this));
+      this.track.addEventListener('mousemove', this.drag.bind(this));
+      this.track.addEventListener('touchmove', this.drag.bind(this));
+      this.track.addEventListener('mouseup', this.dragEnd.bind(this));
+      this.track.addEventListener('touchend', this.dragEnd.bind(this));
+      this.track.addEventListener('mouseleave', this.dragEnd.bind(this));
+
+      // Keyboard
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') this.goToPrev();
+        if (e.key === 'ArrowRight') this.goToNext();
+      });
+
+      this.updateCarousel();
+    }
+
+    goToSlide(index: number) {
+      this.currentIndex = Math.max(0, Math.min(index, this.slides.length - 1));
+      this.updateCarousel();
+    }
+
+    goToPrev() {
+      if (this.currentIndex > 0) {
+        this.currentIndex--;
+        this.updateCarousel();
+      }
+    }
+
+    goToNext() {
+      if (this.currentIndex < this.slides.length - 1) {
+        this.currentIndex++;
+        this.updateCarousel();
+      }
+    }
+
+    updateCarousel() {
+      const slideWidth = this.slides[0].offsetWidth + 24; // width + gap
+      const offset = -this.currentIndex * slideWidth;
+      
+      this.track.style.transform = `translateX(${offset}px)`;
+      this.currentTranslate = offset;
+      this.prevTranslate = offset;
+
+      // Update dots
+      this.dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === this.currentIndex);
+      });
+
+      // Update buttons
+      this.prevBtn.toggleAttribute('disabled', this.currentIndex === 0);
+      this.nextBtn.toggleAttribute('disabled', this.currentIndex === this.slides.length - 1);
+    }
+
+    dragStart(e: MouseEvent | TouchEvent) {
+      this.isDragging = true;
+      this.startX = this.getPositionX(e);
+      this.track.style.cursor = 'grabbing';
+    }
+
+    drag(e: MouseEvent | TouchEvent) {
+      if (!this.isDragging) return;
+      
+      const currentPosition = this.getPositionX(e);
+      const diff = currentPosition - this.startX;
+      this.currentTranslate = this.prevTranslate + diff;
+      
+      this.track.style.transform = `translateX(${this.currentTranslate}px)`;
+    }
+
+    dragEnd() {
+      if (!this.isDragging) return;
+      
+      this.isDragging = false;
+      this.track.style.cursor = 'grab';
+
+      const movedBy = this.currentTranslate - this.prevTranslate;
+      
+      if (movedBy < -100 && this.currentIndex < this.slides.length - 1) {
+        this.currentIndex++;
+      }
+      
+      if (movedBy > 100 && this.currentIndex > 0) {
+        this.currentIndex--;
+      }
+
+      this.updateCarousel();
+    }
+
+    getPositionX(e: MouseEvent | TouchEvent): number {
+      return e.type.includes('mouse') 
+        ? (e as MouseEvent).pageX 
+        : (e as TouchEvent).touches[0].clientX;
+    }
+  }
+
+  // Inicializar carousel
+  if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+      new RegionsCarousel();
+    });
+  }
+</script>

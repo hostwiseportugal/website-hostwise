@@ -1,0 +1,376 @@
+---
+// Estas são reviews de exemplo - substitui pelos dados reais da API do Google
+const reviews = [
+  {
+    author: "Maria Silva",
+    rating: 5,
+    text: "Excelente serviço! A Host Wise transformou o meu apartamento num negócio rentável. Recomendo totalmente!",
+    date: "Há 2 dias",
+    avatar: "MS"
+  },
+  {
+    author: "João Costa",
+    rating: 5,
+    text: "Profissionalismo e dedicação. A equipa cuida de tudo e recebo os pagamentos pontualmente. Muito satisfeito!",
+    date: "Há 1 semana",
+    avatar: "JC"
+  },
+  {
+    author: "Ana Rodrigues",
+    rating: 5,
+    text: "Melhor decisão que tomei! Deixei a gestão do meu alojamento com a Host Wise e os resultados superaram as expectativas.",
+    date: "Há 2 semanas",
+    avatar: "AR"
+  },
+  {
+    author: "Pedro Martins",
+    rating: 4,
+    text: "Muito bom serviço de gestão. Comunicação clara e transparente. A minha propriedade está sempre impecável.",
+    date: "Há 3 semanas",
+    avatar: "PM"
+  },
+  {
+    author: "Catarina Lopes",
+    rating: 5,
+    text: "Fantástico! A Host Wise maximizou a ocupação do meu imóvel. Equipa profissional e atenta aos detalhes.",
+    date: "Há 1 mês",
+    avatar: "CL"
+  }
+];
+
+const totalReviews = 127;
+const averageRating = 4.8;
+---
+
+<section class="google-reviews">
+  <div class="container">
+    <div class="reviews-header">
+      <div class="rating-summary">
+        <div class="google-logo">
+          <svg viewBox="0 0 48 48" width="32" height="32">
+            <path fill="#4285F4" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#34A853" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#EA4335" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+        </div>
+        <div class="rating-info">
+          <div class="rating-score">
+            <span class="score">{averageRating}</span>
+            <div class="stars">
+              {[...Array(5)].map((_, i) => (
+                <svg class={i < Math.floor(averageRating) ? 'star filled' : i < averageRating ? 'star half' : 'star'} viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+              ))}
+            </div>
+          </div>
+          <p class="review-count">Baseado em <strong>{totalReviews} avaliações</strong></p>
+          <p class="review-filter">A mostrar avaliações de 4 e 5 estrelas</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews-carousel">
+      <button class="carousel-btn prev" id="prevReview">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </button>
+
+      <div class="reviews-track" id="reviewsTrack">
+        {reviews.map((review) => (
+          <div class="review-card">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <div class="avatar">{review.avatar}</div>
+                <div>
+                  <div class="reviewer-name">{review.author}</div>
+                  <div class="review-date">{review.date}</div>
+                </div>
+              </div>
+              <div class="review-rating">
+                {[...Array(5)].map((_, i) => (
+                  <svg class={i < review.rating ? 'star filled' : 'star'} viewBox="0 0 24 24" width="16" height="16">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                ))}
+              </div>
+            </div>
+            <p class="review-text">{review.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <button class="carousel-btn next" id="nextReview">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .google-reviews {
+    padding: 80px 0;
+    background: white;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .reviews-header {
+    margin-bottom: 50px;
+  }
+
+  .rating-summary {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .google-logo {
+    flex-shrink: 0;
+  }
+
+  .rating-info {
+    flex: 1;
+  }
+
+  .rating-score {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .score {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .stars {
+    display: flex;
+    gap: 4px;
+  }
+
+  .star {
+    fill: #E0E0E0;
+  }
+
+  .star.filled {
+    fill: #FBBC04;
+  }
+
+  .star.half {
+    fill: url(#half-star);
+  }
+
+  .review-count {
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .review-count strong {
+    color: var(--primary);
+  }
+
+  .review-filter {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  /* Carousel */
+  .reviews-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .carousel-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--gray-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-shrink: 0;
+    z-index: 2;
+  }
+
+  .carousel-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  .carousel-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .reviews-track {
+    display: flex;
+    gap: 24px;
+    overflow: hidden;
+    scroll-behavior: smooth;
+  }
+
+  .review-card {
+    min-width: 350px;
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s;
+  }
+
+  .review-card:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+  }
+
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .reviewer-name {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .review-date {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  .review-rating {
+    display: flex;
+    gap: 2px;
+  }
+
+  .review-text {
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 768px) {
+    .google-reviews {
+      padding: 60px 0;
+    }
+
+    .rating-summary {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .score {
+      font-size: 2.5rem;
+    }
+
+    .reviews-carousel {
+      gap: 12px;
+    }
+
+    .carousel-btn {
+      width: 40px;
+      height: 40px;
+    }
+
+    .review-card {
+      min-width: 280px;
+    }
+  }
+</style>
+
+<script>
+  class ReviewsCarousel {
+    private track: HTMLElement;
+    private prevBtn: HTMLElement;
+    private nextBtn: HTMLElement;
+    private currentIndex: number = 0;
+    private cardWidth: number = 350 + 24; // card width + gap
+
+    constructor() {
+      this.track = document.getElementById('reviewsTrack')!;
+      this.prevBtn = document.getElementById('prevReview')!;
+      this.nextBtn = document.getElementById('nextReview')!;
+
+      this.init();
+    }
+
+    init() {
+      this.prevBtn.addEventListener('click', () => this.prev());
+      this.nextBtn.addEventListener('click', () => this.next());
+      this.updateButtons();
+    }
+
+    prev() {
+      if (this.currentIndex > 0) {
+        this.currentIndex--;
+        this.scroll();
+      }
+    }
+
+    next() {
+      const maxScroll = this.track.scrollWidth - this.track.clientWidth;
+      if (this.track.scrollLeft < maxScroll - 50) {
+        this.currentIndex++;
+        this.scroll();
+      }
+    }
+
+    scroll() {
+      this.track.scrollLeft = this.currentIndex * this.cardWidth;
+      this.updateButtons();
+    }
+
+    updateButtons() {
+      this.prevBtn.toggleAttribute('disabled', this.currentIndex === 0);
+      const maxScroll = this.track.scrollWidth - this.track.clientWidth;
+      this.nextBtn.toggleAttribute('disabled', this.track.scrollLeft >= maxScroll - 50);
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+      new ReviewsCarousel();
+    });
+  }
+</script>

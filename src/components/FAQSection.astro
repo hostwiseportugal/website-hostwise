@@ -1,0 +1,513 @@
+---
+const faqCategories = [
+  {
+    id: 'servicos',
+    label: 'Serviços',
+    questions: [
+      {
+        question: 'Que serviços incluem na gestão completa?',
+        answer: 'A gestão completa inclui: criação e otimização de anúncios, presença nas principais plataformas (Airbnb, Booking), gestão de reservas 24/7, limpeza profissional, manutenção da propriedade, comunicação com hóspedes, check-in/out automatizado, fotografia profissional, gestão de avaliações, e relatórios financeiros mensais.'
+      },
+      {
+        question: 'Qual a diferença entre os modelos de comissão e rentabilidade garantida?',
+        answer: 'No modelo de comissão, pagamos uma percentagem sobre a receita gerada (9-19% conforme o serviço). No modelo de rentabilidade garantida, recebe um valor fixo mensal independentemente da ocupação, garantindo previsibilidade total e zero risco de vacância.'
+      },
+      {
+        question: 'Gerem propriedades em que zonas?',
+        answer: 'Atualmente gerimos propriedades no Porto, Lisboa, Braga, Cascais e principais cidades portuguesas. Se o seu imóvel está noutra localização, contacte-nos para avaliarmos a viabilidade.'
+      },
+      {
+        question: 'Fazem a manutenção do imóvel?',
+        answer: 'Sim! Incluímos suporte de manutenção preventiva e corretiva, inspeções regulares de qualidade, e coordenação de reparações necessárias. Mantemos o seu imóvel sempre em perfeitas condições.'
+      }
+    ]
+  },
+  {
+    id: 'comissoes',
+    label: 'Comissões e Pagamentos',
+    questions: [
+      {
+        question: 'Quando recebo os pagamentos?',
+        answer: 'Os pagamentos são efetuados mensalmente, até ao dia 15 do mês seguinte. Recebe um relatório detalhado com todas as receitas, despesas e a sua parte líquida.'
+      },
+      {
+        question: 'Que comissões cobram?',
+        answer: 'As comissões variam entre 9% (gestão de preços) e 19% (serviço completo) sobre a receita bruta gerada. O valor exato depende do perfil do imóvel, localização e serviços contratados.'
+      },
+      {
+        question: 'Há custos escondidos ou taxas adicionais?',
+        answer: 'Não! A nossa comissão cobre todos os serviços incluídos no pacote. As únicas despesas extra são custos diretos como electricidade, água, gás e condomínio (se aplicável), que são deduzidos da receita antes do pagamento.'
+      },
+      {
+        question: 'Como funciona a rentabilidade garantida?',
+        answer: 'Avaliamos o seu imóvel e oferecemos um valor fixo mensal garantido. Assinamos um contrato de arrendamento (3-5 anos) onde nos comprometemos a pagar esse valor todos os meses, independentemente da ocupação. Todas as despesas operacionais ficam por nossa conta.'
+      }
+    ]
+  },
+  {
+    id: 'inicio',
+    label: 'Como Começar',
+    questions: [
+      {
+        question: 'Quanto tempo demora até começar a receber hóspedes?',
+        answer: 'Normalmente entre 7 a 14 dias. Fazemos a avaliação do imóvel, fotografia profissional, criação dos anúncios, e otimização nas plataformas. As primeiras reservas costumam aparecer logo na primeira semana.'
+      },
+      {
+        question: 'Preciso de licença de Alojamento Local?',
+        answer: 'Sim, é obrigatório por lei. Se ainda não tiver, podemos ajudá-lo em todo o processo de licenciamento junto da Câmara Municipal e Turismo de Portugal.'
+      },
+      {
+        question: 'O que preciso para começar?',
+        answer: 'Precisa de: imóvel mobilado e equipado, documentos de propriedade, NIFs, contrato de fornecimento de utilidades, e fotos/plantas do espaço. Nós tratamos do resto!'
+      },
+      {
+        question: 'Há um período mínimo de contrato?',
+        answer: 'Para o modelo de comissão, recomendamos um mínimo de 6 meses para otimizar resultados, mas não há lock-in obrigatório. Para rentabilidade garantida, o contrato é tipicamente de 3-5 anos.'
+      }
+    ]
+  },
+  {
+    id: 'operacional',
+    label: 'Operações Diárias',
+    questions: [
+      {
+        question: 'Quem comunica com os hóspedes?',
+        answer: 'Nós! A nossa equipa gere toda a comunicação 24/7: antes, durante e depois da estadia. Respondemos a dúvidas, gerimos check-ins/outs, e resolvemos qualquer problema que surja.'
+      },
+      {
+        question: 'Como funciona a limpeza?',
+        answer: 'Temos equipas de limpeza profissional certificadas que fazem a limpeza completa entre estadias, com standards de hotelaria 5 estrelas. Fazemos também inspeções de qualidade regulares.'
+      },
+      {
+        question: 'Posso usar o meu imóvel ocasionalmente?',
+        answer: 'Sim! No modelo de comissão, pode bloquear datas para uso pessoal através do nosso portal. No modelo de rentabilidade garantida, como assinamos um contrato de arrendamento, o uso pessoal não é possível.'
+      },
+      {
+        question: 'E se houver danos causados por hóspedes?',
+        answer: 'Todos os hóspedes são verificados e têm seguro. Em caso de danos, gerimos todo o processo de reclamação e reembolso. Temos também cobertura adicional para proteção do proprietário.'
+      }
+    ]
+  }
+];
+---
+
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-header">
+      <span class="section-badge">FAQ</span>
+      <h2>Tem Perguntas? Temos Respostas.</h2>
+      <p>Tudo o que precisa de saber sobre a gestão do seu imóvel com a Host Wise.</p>
+    </div>
+
+    <div class="faq-wrapper">
+      <!-- Categories Sidebar -->
+      <div class="faq-categories">
+        {faqCategories.map((category, index) => (
+          <button 
+            class={`category-btn ${index === 0 ? 'active' : ''}`}
+            data-category={category.id}
+          >
+            {category.label}
+          </button>
+        ))}
+      </div>
+
+      <!-- Questions Container -->
+      <div class="faq-content">
+        {faqCategories.map((category, categoryIndex) => (
+          <div 
+            class={`category-questions ${categoryIndex === 0 ? 'active' : ''}`}
+            data-content={category.id}
+          >
+            {category.questions.map((faq, faqIndex) => (
+              <div class="faq-item" data-faq-index={`${categoryIndex}-${faqIndex}`}>
+                <button class="faq-question">
+                  <span>{faq.question}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" class="faq-icon">
+                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                  </svg>
+                </button>
+                <div class="faq-answer">
+                  <p>{faq.answer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="faq-cta">
+      <div class="cta-content">
+        <h3>Ainda tem dúvidas?</h3>
+        <p>A nossa equipa está disponível para esclarecer todas as suas questões.</p>
+        <a href="/contacto" class="btn-primary">
+          Falar Connosco
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .faq-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: rgba(92, 176, 214, 0.15);
+    color: var(--secondary);
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .faq-header h2 {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .faq-header p {
+    font-size: 1.15rem;
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  /* Wrapper */
+  .faq-wrapper {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+  }
+
+  /* Categories Sidebar */
+  .faq-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: sticky;
+    top: 120px;
+    align-self: start;
+  }
+
+  .category-btn {
+    padding: 14px 20px;
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 12px;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .category-btn:hover {
+    border-color: var(--secondary);
+    background: var(--blue-light);
+    color: var(--primary);
+  }
+
+  .category-btn.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-color: var(--secondary);
+    color: white;
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.2);
+  }
+
+  /* Questions */
+  .faq-content {
+    position: relative;
+  }
+
+  .category-questions {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  .category-questions.active {
+    display: flex;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .faq-item {
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .faq-item:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .faq-item.open {
+    border-color: var(--secondary);
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .faq-question:hover {
+    color: var(--secondary);
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    color: var(--secondary);
+    transition: transform 0.3s;
+  }
+
+  .faq-item.open .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 500px;
+    padding: 0 28px 24px 28px;
+  }
+
+  .faq-answer p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  /* CTA */
+  .faq-cta {
+    background: linear-gradient(135deg, var(--blue-light) 0%, rgba(92, 176, 214, 0.2) 100%);
+    border-radius: 24px;
+    padding: 60px 48px;
+    text-align: center;
+    border: 2px solid var(--gray-light);
+  }
+
+  .cta-content h3 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .cta-content p {
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 28px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 18px 36px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.2);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(12, 68, 99, 0.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .faq-wrapper {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .faq-categories {
+      position: relative;
+      top: 0;
+      flex-direction: row;
+      overflow-x: auto;
+      padding-bottom: 12px;
+    }
+
+    .category-btn {
+      white-space: nowrap;
+    }
+
+    .faq-header h2 {
+      font-size: 2.25rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .faq-section {
+      padding: 80px 20px;
+    }
+
+    .faq-header {
+      margin-bottom: 60px;
+    }
+
+    .faq-header h2 {
+      font-size: 2rem;
+    }
+
+    .faq-header p {
+      font-size: 1rem;
+    }
+
+    .faq-categories {
+      gap: 8px;
+    }
+
+    .category-btn {
+      padding: 12px 16px;
+      font-size: 0.9rem;
+    }
+
+    .faq-question {
+      padding: 20px;
+      font-size: 1rem;
+    }
+
+    .faq-item.open .faq-answer {
+      padding: 0 20px 20px 20px;
+    }
+
+    .faq-answer p {
+      font-size: 0.95rem;
+    }
+
+    .faq-cta {
+      padding: 48px 28px;
+    }
+
+    .cta-content h3 {
+      font-size: 1.75rem;
+    }
+
+    .cta-content p {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script>
+  class FAQManager {
+    private categoryButtons: NodeListOf<HTMLElement>;
+    private categoryContents: NodeListOf<HTMLElement>;
+    private faqItems: NodeListOf<HTMLElement>;
+
+    constructor() {
+      this.categoryButtons = document.querySelectorAll('.category-btn');
+      this.categoryContents = document.querySelectorAll('.category-questions');
+      this.faqItems = document.querySelectorAll('.faq-item');
+
+      this.init();
+    }
+
+    init() {
+      // Category switching
+      this.categoryButtons.forEach(btn => {
+        btn.addEventListener('click', () => this.switchCategory(btn));
+      });
+
+      // FAQ accordion
+      this.faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question?.addEventListener('click', () => this.toggleFAQ(item));
+      });
+    }
+
+    switchCategory(clickedBtn: HTMLElement) {
+      const targetCategory = clickedBtn.dataset.category;
+
+      // Update buttons
+      this.categoryButtons.forEach(btn => btn.classList.remove('active'));
+      clickedBtn.classList.add('active');
+
+      // Update content
+      this.categoryContents.forEach(content => {
+        content.classList.remove('active');
+      });
+
+      const targetContent = document.querySelector(`[data-content="${targetCategory}"]`);
+      targetContent?.classList.add('active');
+
+      // Close all open FAQs when switching category
+      this.faqItems.forEach(item => item.classList.remove('open'));
+    }
+
+    toggleFAQ(item: HTMLElement) {
+      const isOpen = item.classList.contains('open');
+
+      // Close all FAQs in the current category
+      const currentCategory = item.closest('.category-questions');
+      currentCategory?.querySelectorAll('.faq-item').forEach(faq => {
+        faq.classList.remove('open');
+      });
+
+      // Toggle current FAQ
+      if (!isOpen) {
+        item.classList.add('open');
+      }
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+      new FAQManager();
+    });
+  }
+</script>

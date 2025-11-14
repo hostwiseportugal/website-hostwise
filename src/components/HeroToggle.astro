@@ -1,0 +1,454 @@
+---
+---
+
+<section class="hero-new">
+  <div class="hero-wrapper">
+    <!-- Tabs -->
+    <div class="toggle-tabs">
+      <button class="toggle-tab active" data-tab="owners">
+        Sou Proprietário
+      </button>
+      <button class="toggle-tab" data-tab="guests">
+        Sou Hóspede
+      </button>
+    </div>
+
+    <div class="hero-grid">
+      <!-- Imagens -->
+      <div class="hero-images">
+        <div class="image-item"><img src="/images/property-1.webp" alt="" /></div>
+        <div class="image-item"><img src="/images/hero.webp" alt="" /></div>
+        <div class="image-item"><img src="/images/property-2.webp" alt="" /></div>
+      </div>
+
+      <!-- Conteúdo -->
+      <div class="hero-main">
+        <!-- TAB PROPRIETÁRIOS -->
+        <div class="tab-content active" data-content="owners">
+          <span class="label">Empresa de Gestão de Alojamento Local</span>
+          <h1>Maximize os Lucros do Seu Imóvel</h1>
+          <p>Gestão profissional e completa. Deixe connosco toda a operação enquanto desfruta dos rendimentos.</p>
+          
+          <div class="cta-buttons">
+            <a href="#contacto" class="btn-primary-hero">Receber Proposta</a>
+            <button class="link-switch" data-switch="guests">Sou hóspede →</button>
+          </div>
+        </div>
+
+        <!-- TAB HÓSPEDES -->
+        <div class="tab-content" data-content="guests">
+          <span class="label">Alojamentos Premium em Portugal</span>
+          <h1>Book. Stay. Repeat.</h1>
+          <p>Reserve diretamente e aproveite as melhores tarifas. Alojamentos selecionados com experiência garantida.</p>
+          
+          <div class="booking-form">
+            <div class="form-row">
+              <input type="text" placeholder="Destination" />
+            </div>
+            <div class="form-row two-col">
+              <input type="text" placeholder="Check in" />
+              <input type="text" placeholder="Check out" />
+            </div>
+            <div class="form-row">
+              <input type="text" placeholder="Guests" />
+            </div>
+            <a href="https://hostwisebooking.pt/" target="_blank" class="btn-primary-hero">Procurar Alojamentos</a>
+            <button class="link-switch" data-switch="owners">Sou proprietário →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-new {
+    background: linear-gradient(135deg, #E5F4FE 0%, #fff 100%);
+    padding: 100px 20px 60px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .toggle-tabs {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 50px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 6px;
+    border-radius: 50px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+
+  .toggle-tab {
+    padding: 10px 28px;
+    border: none;
+    background: transparent;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #2D2D2D;
+  }
+
+  .toggle-tab.active {
+    background: #0C4463;
+    color: white;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-images {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    height: 500px;
+  }
+
+  .image-item {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  }
+
+  .image-item:nth-child(2) {
+    transform: translateY(30px);
+  }
+
+  .image-item:nth-child(3) {
+    transform: translateY(15px);
+  }
+
+  .image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-main {
+    position: relative;
+  }
+
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.5s;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .label {
+    display: inline-block;
+    background: rgba(92, 176, 214, 0.15);
+    color: #0A75AF;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .tab-content h1 {
+    font-size: 3rem;
+    color: #0C4463;
+    margin: 0 0 16px 0;
+    line-height: 1.1;
+  }
+
+  .tab-content p {
+    font-size: 1.15rem;
+    color: #2D2D2D;
+    margin-bottom: 32px;
+    opacity: 0.9;
+    line-height: 1.6;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .btn-primary-hero {
+    padding: 16px 40px;
+    background: linear-gradient(135deg, #0C4463 0%, #0A75AF 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary-hero:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(12, 68, 99, 0.3);
+  }
+
+  .link-switch {
+    background: none;
+    border: none;
+    color: #0A75AF;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 0;
+    transition: color 0.3s;
+  }
+
+  .link-switch:hover {
+    color: #0C4463;
+  }
+
+  /* Booking Form */
+  .booking-form {
+    background: white;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .form-row.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .booking-form input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #f8f9fa;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+
+  .booking-form input:focus {
+    outline: none;
+    border-color: #5CB0D6;
+  }
+
+  .booking-form .btn-primary-hero {
+    width: 100%;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  .booking-form .link-switch {
+    text-align: center;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-new {
+      padding: 100px 20px 40px;
+      min-height: auto;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .hero-images {
+      order: 2;
+      height: 350px;
+    }
+
+    .hero-main {
+      order: 1;
+    }
+
+    .tab-content h1 {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+  .hero-new {
+    padding: 90px 20px 40px;
+  }
+
+  .toggle-tabs {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 32px;
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .toggle-tab {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    flex: 1;
+    text-align: center;
+  }
+
+  .toggle-tab.active {
+    box-shadow: 0 2px 8px rgba(12, 68, 99, 0.2);
+  }
+
+  .tab-content h1 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .tab-content p {
+    font-size: 1rem;
+    margin-bottom: 24px;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    padding: 5px 14px;
+    margin-bottom: 12px;
+  }
+
+  .hero-images {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 12px;
+  }
+
+  .image-item {
+    height: 200px;
+  }
+
+  .image-item:nth-child(2),
+  .image-item:nth-child(3) {
+    transform: translateY(0);
+  }
+
+  .form-row.two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-form {
+    padding: 20px;
+  }
+
+  .cta-buttons {
+    width: 100%;
+  }
+
+  .btn-primary-hero {
+    width: 100%;
+    text-align: center;
+    padding: 14px 32px;
+    font-size: 1rem;
+  }
+
+  .link-switch {
+    width: 100%;
+    text-align: left;
+    padding: 8px 0;
+  }
+}
+
+/* Melhorias extra para telas muito pequenas */
+@media (max-width: 480px) {
+  .hero-new {
+    padding: 80px 16px 32px;
+  }
+
+  .toggle-tabs {
+    margin-bottom: 28px;
+  }
+
+  .toggle-tab {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+
+  .tab-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .label {
+    font-size: 0.75rem;
+  }
+
+  .image-item {
+    height: 180px;
+  }
+}
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('[data-tab]');
+    const contents = document.querySelectorAll('[data-content]');
+    const switches = document.querySelectorAll('[data-switch]');
+
+    // Filtra apenas os elementos do hero (que têm "owners" ou "guests")
+    const heroTabs = Array.from(tabs).filter(t => 
+      t.getAttribute('data-tab') === 'owners' || 
+      t.getAttribute('data-tab') === 'guests'
+    );
+
+    const heroContents = Array.from(contents).filter(c => 
+      c.getAttribute('data-content') === 'owners' || 
+      c.getAttribute('data-content') === 'guests'
+    );
+
+    function switchTo(target: string) {
+      heroTabs.forEach(t => {
+        const tab = t as HTMLElement;
+        tab.classList.toggle('active', tab.dataset.tab === target);
+      });
+      
+      heroContents.forEach(c => {
+        const content = c as HTMLElement;
+        content.classList.toggle('active', content.dataset.content === target);
+      });
+    }
+
+    heroTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const htmlTab = tab as HTMLElement;
+        switchTo(htmlTab.dataset.tab!);
+      });
+    });
+
+    switches.forEach(sw => {
+      sw.addEventListener('click', () => {
+        const htmlSwitch = sw as HTMLElement;
+        switchTo(htmlSwitch.dataset.switch!);
+      });
+    });
+  });
+</script>

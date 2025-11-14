@@ -1,0 +1,559 @@
+---
+const shortTermPlans = [
+  {
+    badge: null,
+    name: "Gestão de Preços",
+    commission: "9%",
+    description: "Ideal para proprietários que querem manter controlo operacional",
+    features: [
+      "Criação e otimização de anúncios",
+      "Presença nas principais plataformas",
+      "Gestão e otimização diária de preços",
+      "Gestão de pagamentos"
+    ],
+    cta: { text: "Quero Este Modelo", href: "/contacto" }
+  },
+  {
+    badge: "Mais Popular",
+    name: "Serviço Completo",
+    commission: "19%",
+    description: "Gestão 100% dedicada - não se preocupe com nada",
+    features: [
+      "Todos os serviços da Gestão de Preços",
+      "Suporte de manutenção da propriedade",
+      "Serviço de limpeza profissional",
+      "Acesso ao Portal do Proprietário",
+      "Comunicação com hóspedes 24/7",
+      "Comunicação UCFE/SEF",
+      "Pagamento de taxa turística",
+      "Serviço de faturação",
+      "Inspeções de controlo de qualidade",
+      "Apoio em fotografia profissional",
+      "Verificação de hóspedes",
+      "Artigos de higiene pessoal",
+      "Check-in automático"
+    ],
+    cta: { text: "Quero Este Modelo", href: "/contacto" }
+  }
+];
+
+const midTermPlans = [
+  {
+    badge: null,
+    name: "Gestão Média Duração",
+    commission: "14%",
+    description: "Para arrendamentos de 1 a 12 meses com estabilidade",
+    features: [
+      "Criação e otimização de anúncios",
+      "Presença nas principais plataformas especializadas",
+      "Verificação de hóspedes",
+      "Cobrança de renda, cauções e outras despesas",
+      "Gestão e otimização de preços",
+      "Comunicação com hóspedes 24/7",
+      "Inspeção e devolução de caução no fim da estadia",
+      "Gestão de faturação e obrigações legais"
+    ],
+    cta: { text: "Quero Este Modelo", href: "/contacto" }
+  }
+];
+---
+
+<section class="pricing-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="pricing-header">
+      <h2>Escolha o Modelo de Comissão Ideal para o Seu Imóvel</h2>
+      <p>Com o nosso modelo de comissões, tem a liberdade de escolher o nível de gestão que melhor se adequa ao seu perfil. Confira as opções disponíveis e descubra como podemos rentabilizar o seu imóvel com total transparência.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="pricing-tabs">
+      <div class="tabs-container">
+        <div class="tabs-background" id="pricingBackground"></div>
+        <button class="tab-button active" data-tab="short-term">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5zm2 4h10v2H7v-2z"/>
+          </svg>
+          Curta Duração
+        </button>
+        <button class="tab-button" data-tab="mid-term">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+          </svg>
+          Média Duração
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="pricing-content">
+      <!-- Short Term -->
+      <div class="tab-content active" data-content="short-term">
+        <div class="pricing-grid">
+          {shortTermPlans.map((plan) => (
+            <div class={`pricing-card ${plan.badge ? 'featured' : ''}`}>
+              {plan.badge && (
+                <div class="card-badge">{plan.badge}</div>
+              )}
+              
+              <div class="card-header">
+                <div class="commission-display">
+                  <span class="starting-text">a partir de</span>
+                  <span class="commission-value">{plan.commission}</span>
+                </div>
+                <h3 class="plan-name">{plan.name}</h3>
+                <p class="plan-description">{plan.description}</p>
+              </div>
+
+              <div class="card-features">
+                <ul>
+                  {plan.features.map((feature) => (
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                      </svg>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <a href={plan.cta.href} class="plan-cta">
+                {plan.cta.text}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Mid Term -->
+      <div class="tab-content" data-content="mid-term">
+        <div class="pricing-grid single">
+          {midTermPlans.map((plan) => (
+            <div class="pricing-card">
+              <div class="card-header">
+                <div class="commission-display">
+                  <span class="starting-text">a partir de</span>
+                  <span class="commission-value">{plan.commission}</span>
+                </div>
+                <h3 class="plan-name">{plan.name}</h3>
+                <p class="plan-description">{plan.description}</p>
+              </div>
+
+              <div class="card-features">
+                <ul>
+                  {plan.features.map((feature) => (
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                      </svg>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <a href={plan.cta.href} class="plan-cta">
+                {plan.cta.text}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Note -->
+    <div class="pricing-footer">
+      <p>Comissão sobre o faturamento bruto. A comissão dependerá do perfil do imóvel e da sua localização.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .pricing-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+  }
+
+  .pricing-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .pricing-header p {
+    font-size: 1.1rem;
+    color: var(--text);
+    line-height: 1.7;
+    opacity: 0.9;
+  }
+
+  /* Tabs */
+  .pricing-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 60px;
+  }
+
+  .tabs-container {
+    position: relative;
+    display: flex;
+    gap: 8px;
+    background: var(--gray-light);
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  .tabs-background {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    height: calc(100% - 12px);
+    background: var(--primary);
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .tab-button {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+
+  .tab-button.active {
+    color: white;
+  }
+
+  .tab-button:not(.active):hover {
+    color: var(--primary);
+  }
+
+  /* Content */
+  .tab-content {
+    display: none;
+    animation: fadeInUp 0.5s ease-out;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .pricing-grid.single {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Pricing Card */
+  .pricing-card {
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 20px;
+    padding: 40px;
+    transition: all 0.3s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pricing-card:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .pricing-card.featured {
+    border-color: var(--secondary);
+    box-shadow: 0 8px 32px rgba(92, 176, 214, 0.2);
+  }
+
+  .card-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--secondary);
+    color: white;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Card Header */
+  .card-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .commission-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .starting-text {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  .commission-value {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+  }
+
+  .plan-name {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .plan-description {
+    font-size: 1rem;
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  /* Features */
+  .card-features {
+    flex: 1;
+    margin-bottom: 32px;
+  }
+
+  .card-features ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .card-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .card-features svg {
+    flex-shrink: 0;
+    color: var(--secondary);
+    margin-top: 2px;
+  }
+
+  /* CTA */
+  .plan-cta {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    text-align: center;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: all 0.3s;
+  }
+
+  .plan-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(12, 68, 99, 0.3);
+  }
+
+  /* Footer */
+  .pricing-footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 2px solid var(--gray-light);
+  }
+
+  .pricing-footer p {
+    font-size: 0.95rem;
+    color: #666;
+    font-style: italic;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .pricing-header h2 {
+      font-size: 2rem;
+    }
+
+    .pricing-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .commission-value {
+      font-size: 3.5rem;
+    }
+
+    .plan-name {
+      font-size: 1.75rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pricing-section {
+      padding: 80px 20px;
+    }
+
+    .pricing-header {
+      margin-bottom: 40px;
+    }
+
+    .pricing-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .pricing-header p {
+      font-size: 1rem;
+    }
+
+    .tabs-container {
+      flex-direction: column;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .tab-button {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .pricing-card {
+      padding: 32px 24px;
+    }
+
+    .commission-value {
+      font-size: 3rem;
+    }
+
+    .plan-name {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  class PricingTabs {
+    private tabs: NodeListOf<HTMLElement>;
+    private contents: NodeListOf<HTMLElement>;
+    private background: HTMLElement;
+    private pricingSection: Element | null;
+
+    constructor() {
+      // Scope específico para pricing
+      this.pricingSection = document.querySelector('.pricing-section');
+      if (!this.pricingSection) return;
+
+      this.tabs = this.pricingSection.querySelectorAll('.tab-button');
+      this.contents = this.pricingSection.querySelectorAll('.tab-content');
+      this.background = document.getElementById('pricingBackground')!;
+
+      if (this.tabs.length > 0 && this.background) {
+        this.init();
+      }
+    }
+
+    init() {
+      // Set initial background
+      const activeTab = this.pricingSection?.querySelector('.tab-button.active') as HTMLElement;
+      if (activeTab) {
+        this.updateBackground(activeTab);
+      }
+
+      // Add click handlers
+      this.tabs.forEach(tab => {
+        tab.addEventListener('click', () => this.switchTab(tab));
+      });
+
+      // Update on resize
+      window.addEventListener('resize', () => {
+        const activeTab = this.pricingSection?.querySelector('.tab-button.active') as HTMLElement;
+        if (activeTab) {
+          this.updateBackground(activeTab);
+        }
+      });
+    }
+
+    switchTab(clickedTab: HTMLElement) {
+      const targetId = clickedTab.dataset.tab;
+
+      // Update tabs
+      this.tabs.forEach(tab => tab.classList.remove('active'));
+      clickedTab.classList.add('active');
+
+      // Update content
+      this.contents.forEach(content => content.classList.remove('active'));
+      const targetContent = this.pricingSection?.querySelector(`[data-content="${targetId}"]`);
+      targetContent?.classList.add('active');
+
+      // Update background
+      this.updateBackground(clickedTab);
+    }
+
+    updateBackground(tab: HTMLElement) {
+      const offsetLeft = tab.offsetLeft;
+      const width = tab.offsetWidth;
+
+      this.background.style.left = `${offsetLeft}px`;
+      this.background.style.width = `${width}px`;
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+      new PricingTabs();
+    });
+  }
+</script>
