@@ -10,139 +10,684 @@ const menuItems = [
 ---
 
 <header class="header">
-  <div class="container">
-    <nav class="nav">
-      <a href="/" class="logo">
-        <img src="/images/logo.svg" alt="Host Wise" />
-      </a>
-      
-      <button class="menu-toggle" id="menuToggle">
+  <div class="header-container">
+    <!-- Logo -->
+    <a href="/" class="logo">
+      <img src="/images/logo.svg" alt="Host Wise" />
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-desktop">
+      <!-- Serviços com Mega Menu -->
+      <div class="nav-item has-mega">
+        <button class="nav-link">
+          Os Nossos Serviços
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+          </svg>
+        </button>
+        
+        <div class="mega-menu">
+          <div class="mega-menu-content">
+            <a href="/alojamento-local" class="mega-item">
+              <div class="mega-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+              </div>
+              <div class="mega-text">
+                <h4>Gestão de Alojamento Local</h4>
+                <p>Maximização de receitas em Airbnb e Booking.com</p>
+              </div>
+            </a>
+            
+            <a href="/gestao-propriedades" class="mega-item">
+              <div class="mega-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                  <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                </svg>
+              </div>
+              <div class="mega-text">
+                <h4>Gestão de Propriedades</h4>
+                <p>Gestão completa e profissional do seu imóvel</p>
+              </div>
+            </a>
+            
+            <a href="/media-duracao" class="mega-item">
+              <div class="mega-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                  <path d="M17 10H7v2h10v-2zm2-7h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-5-5H7v2h7v-2z"/>
+                </svg>
+              </div>
+              <div class="mega-text">
+                <h4>Arrendamentos Média Duração</h4>
+                <p>Contratos de 1-11 meses para rendimento estável</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modelos com Mega Menu -->
+      <div class="nav-item has-mega">
+        <button class="nav-link">
+          Os Nossos Modelos
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+          </svg>
+        </button>
+        
+        <div class="mega-menu">
+          <div class="mega-menu-content">
+            <a href="/rentabilidade-garantida" class="mega-item">
+              <div class="mega-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                </svg>
+              </div>
+              <div class="mega-text">
+                <h4>Rentabilidade Garantida</h4>
+                <p>Receba um valor fixo mensal, sem preocupações</p>
+              </div>
+            </a>
+            
+            <a href="/modelo-comissao" class="mega-item">
+              <div class="mega-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                  <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                </svg>
+              </div>
+              <div class="mega-text">
+                <h4>Modelo de Comissão</h4>
+                <p>Pague apenas por resultados: 9-19% da receita</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Links Simples -->
+      <a href="/blog" class="nav-link">Blog</a>
+      <a href="/referrals" class="nav-link">Referrals</a>
+    </nav>
+
+    <!-- CTAs e Language -->
+    <div class="header-actions">
+      <!-- Language Selector -->
+      <div class="language-selector">
+        <button class="lang-btn active" data-lang="pt">
+          <span class="flag">🇵🇹</span>
+          <span class="lang-text">PT</span>
+        </button>
+        <button class="lang-btn" data-lang="en">
+          <span class="flag">🇬🇧</span>
+          <span class="lang-text">EN</span>
+        </button>
+      </div>
+
+      <!-- CTAs Desktop -->
+      <div class="cta-buttons">
+        <a href="/proposta" class="btn-primary">Receber Proposta</a>
+        <a href="https://hostwisebooking.pt" target="_blank" class="btn-secondary">Reserve Connosco</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="mobile-menu-btn" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
+    </div>
+  </div>
 
-      <ul class="nav-menu" id="navMenu">
-        {menuItems.map(item => (
-          <li><a href={item.href}>{item.name}</a></li>
-        ))}
-        <li><a href="#contacto" class="btn-primary">Falar Connosco</a></li>
-      </ul>
-    </nav>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <div class="mobile-menu-content">
+      <!-- Serviços Mobile -->
+      <div class="mobile-section">
+        <button class="mobile-section-title">
+          Os Nossos Serviços
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+          </svg>
+        </button>
+        <div class="mobile-submenu">
+          <a href="/alojamento-local">Gestão de Alojamento Local</a>
+          <a href="/gestao-propriedades">Gestão de Propriedades</a>
+          <a href="/media-duracao">Arrendamentos Média Duração</a>
+        </div>
+      </div>
+
+      <!-- Modelos Mobile -->
+      <div class="mobile-section">
+        <button class="mobile-section-title">
+          Os Nossos Modelos
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+          </svg>
+        </button>
+        <div class="mobile-submenu">
+          <a href="/rentabilidade-garantida">Rentabilidade Garantida</a>
+          <a href="/modelo-comissao">Modelo de Comissão</a>
+        </div>
+      </div>
+
+      <a href="/blog" class="mobile-link">Blog</a>
+      <a href="/referrals" class="mobile-link">Referrals</a>
+
+      <!-- CTAs Mobile -->
+      <div class="mobile-ctas">
+        <a href="/proposta" class="btn-primary">Receber Proposta</a>
+        <a href="https://hostwisebooking.pt" target="_blank" class="btn-secondary">Reserve Connosco</a>
+      </div>
+    </div>
   </div>
 </header>
 
 <style>
+  /* Header - Transparente no topo */
   .header {
-  background: transparent;
-  box-shadow: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 20px 0;
-  transition: all 0.3s ease;
-}
-
-.header.scrolled {
-  background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-  .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    transition: all 0.3s;
   }
 
+  .header.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Logo - mantém cor original sempre */
   .logo img {
     height: 40px;
+    width: auto;
+    transition: all 0.3s;
   }
 
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    background: transparent;
-    gap: 6px;
-    padding: 10px;
-  }
-
-  .menu-toggle span {
-    width: 25px;
-    height: 3px;
-    background: var(--primary);
-    border-radius: 3px;
-    transition: all 0.3s ease;
-  }
-
-  .nav-menu {
+  /* Desktop Navigation */
+  .nav-desktop {
     display: flex;
-    list-style: none;
-    gap: 32px;
     align-items: center;
+    gap: 32px;
   }
 
-  .nav-menu a {
-    color: var(--text);
-    font-weight: 500;
-    font-size: 15px;
+  .nav-item {
+    position: relative;
   }
 
-  .nav-menu a:hover {
+  /* Links brancos no topo, azuis quando scrolled */
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 8px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .header.scrolled .nav-link {
     color: var(--primary);
   }
 
-  .nav-menu .btn-primary {
+  .nav-link:hover {
+    color: var(--secondary);
+  }
+
+  .nav-link svg {
+    transition: transform 0.3s;
+  }
+
+  .has-mega:hover .nav-link svg {
+    transform: rotate(180deg);
+  }
+
+  /* Mega Menu */
+  .mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 16px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    min-width: 420px;
+  }
+
+  .has-mega:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    margin-top: 12px;
+  }
+
+  .mega-menu-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mega-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+
+  .mega-item:hover {
+    background: var(--blue-light);
+  }
+
+  .mega-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: var(--blue-light);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+  }
+
+  .mega-item:hover .mega-icon {
+    background: white;
+  }
+
+  .mega-text h4 {
+    font-size: 1rem;
+    color: var(--primary);
+    margin: 0 0 4px 0;
+  }
+
+  .mega-text p {
+    font-size: 0.85rem;
+    color: var(--text);
+    opacity: 0.8;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Header Actions */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Language Selector */
+.language-selector {
+  display: flex;
+  gap: 8px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.header.scrolled .language-selector {
+  background: var(--gray-light);
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--primary); /* Sempre da cor primária quando não ativo */
+}
+
+.lang-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.header.scrolled .lang-btn:hover {
+  background: white;
+}
+
+.lang-btn.active {
+  background: var(--primary);
+  color: white; /* Sempre branco quando ativo */
+}
+
+.flag {
+  font-size: 1.1rem;
+}
+  /* CTA Buttons */
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn-secondary, .btn-primary {
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  /* Receber Proposta - DESTAQUE */
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(12, 68, 99, 0.4);
+  }
+
+  /* Reserve Connosco - Secundário */
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid var(--primary);
+    color: 2px solid var(--primary);
+    backdrop-filter: blur(10px);
+  }
+
+  .header.scrolled .btn-secondary {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+  }
+
+  .btn-secondary:hover {
+    background: var(--primary);
     color: white;
   }
 
-  @media (max-width: 968px) {
-    .menu-toggle {
+  .header.scrolled .btn-secondary:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  /* Mobile Menu Button */
+  .mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .mobile-menu-btn span {
+    width: 24px;
+    height: 2px;
+    background: var(--primary);
+    transition: all 0.3s;
+  }
+
+  .header.scrolled .mobile-menu-btn span {
+    background: var(--primary);
+  }
+
+  .mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(7px);
+  }
+
+  .mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-7px);
+  }
+
+  /* Mobile Menu */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 73px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s;
+  }
+
+  .mobile-menu.active {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-content {
+    padding: 24px;
+  }
+
+  .mobile-section {
+    border-bottom: 1px solid var(--gray-light);
+    padding: 16px 0;
+  }
+
+  .mobile-section-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    padding: 12px 0;
+    cursor: pointer;
+  }
+
+  .mobile-section-title svg {
+    transition: transform 0.3s;
+  }
+
+  .mobile-section.active .mobile-section-title svg {
+    transform: rotate(180deg);
+  }
+
+  .mobile-submenu {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 0 0 16px;
+  }
+
+  .mobile-section.active .mobile-submenu {
+    display: flex;
+  }
+
+  .mobile-submenu a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 8px 0;
+    font-size: 0.95rem;
+  }
+
+  .mobile-link {
+    display: block;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--gray-light);
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+  }
+
+  .mobile-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .mobile-ctas .btn-secondary,
+  .mobile-ctas .btn-primary {
+    width: 100%;
+    text-align: center;
+    padding: 14px 24px;
+  }
+
+  .mobile-ctas .btn-secondary {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+  }
+
+  .mobile-ctas .btn-secondary:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .nav-desktop {
+      display: none;
+    }
+
+    .cta-buttons {
+      display: none;
+    }
+
+    .mobile-menu-btn {
       display: flex;
     }
 
-    .nav-menu {
-      position: fixed;
-      left: -100%;
-      top: 80px;
-      flex-direction: column;
-      background-color: white;
-      width: 100%;
-      text-align: center;
-      transition: 0.3s;
-      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-      padding: 40px 0;
+    .mobile-menu {
+      display: block;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      padding: 12px 20px;
     }
 
-    .nav-menu.active {
-      left: 0;
+    .logo img {
+      height: 32px;
+    }
+
+    .language-selector {
+      gap: 4px;
+    }
+
+    .lang-btn {
+      padding: 6px 8px;
+      font-size: 0.8rem;
+    }
+
+    .lang-text {
+      display: none;
     }
   }
 </style>
 
 <script>
-  const menuToggle = document.getElementById('menuToggle');
-  const navMenu = document.getElementById('navMenu');
+  class HeaderManager {
+    private header: HTMLElement | null;
+    private mobileMenuBtn: HTMLElement | null;
+    private mobileMenu: HTMLElement | null;
+    private mobileSections: NodeListOf<HTMLElement>;
+    private langButtons: NodeListOf<HTMLElement>;
 
-  menuToggle?.addEventListener('click', () => {
-    navMenu?.classList.toggle('active');
-  });
+    constructor() {
+      this.header = document.querySelector('.header');
+      this.mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      this.mobileMenu = document.querySelector('.mobile-menu');
+      this.mobileSections = document.querySelectorAll('.mobile-section');
+      this.langButtons = document.querySelectorAll('.lang-btn');
 
-  // Fechar menu ao clicar num link
-  document.querySelectorAll('.nav-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      navMenu?.classList.remove('active');
-    });
-  });
-</script>
-<script>
-  window.addEventListener('scroll', () => {
-    const header = document.querySelector('.header');
-    if (window.scrollY > 50) {
-      header?.classList.add('scrolled');
-    } else {
-      header?.classList.remove('scrolled');
+      this.init();
     }
-  });
+
+    init() {
+      // Scroll detection
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          this.header?.classList.add('scrolled');
+        } else {
+          this.header?.classList.remove('scrolled');
+        }
+      });
+
+      // Mobile menu toggle
+      this.mobileMenuBtn?.addEventListener('click', () => {
+        this.mobileMenuBtn?.classList.toggle('active');
+        this.mobileMenu?.classList.toggle('active');
+        document.body.style.overflow = this.mobileMenu?.classList.contains('active') ? 'hidden' : '';
+      });
+
+      // Mobile sections accordion
+      this.mobileSections.forEach(section => {
+        const title = section.querySelector('.mobile-section-title');
+        title?.addEventListener('click', () => {
+          section.classList.toggle('active');
+        });
+      });
+
+      // Language switcher
+      this.langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          this.langButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          const lang = btn.dataset.lang;
+          console.log('Language changed to:', lang);
+        });
+      });
+
+      // Close mobile menu on link click
+      const mobileLinks = document.querySelectorAll('.mobile-submenu a, .mobile-link');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          this.mobileMenuBtn?.classList.remove('active');
+          this.mobileMenu?.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+      new HeaderManager();
+    });
+  }
 </script>

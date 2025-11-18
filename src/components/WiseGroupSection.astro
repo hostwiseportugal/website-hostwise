@@ -1,0 +1,298 @@
+---
+const companies = [
+  {
+    name: "Host Wise",
+    tagline: "Gestão de Alojamento Local",
+    description: "Maximizamos os rendimentos do seu imóvel através de gestão profissional em plataformas como Airbnb e Booking.com.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>`,
+    link: "/",
+    color: "#0C4463"
+  },
+  {
+    name: "Work Wise",
+    tagline: "Espaços de Escritório",
+    description: "Escritórios modernos e flexíveis para empresas e profissionais que procuram ambientes de trabalho premium.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+      <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+    </svg>`,
+    link: "https://workwise.pt",
+    color: "#0A75AF"
+  },
+  {
+    name: "Invest Wise",
+    tagline: "Consultoria Imobiliária",
+    description: "Auxiliamos investidores na identificação, compra e venda de propriedades de alto potencial de rentabilidade.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+      <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+    </svg>`,
+    link: "https://investwise.pt",
+    color: "#5CB0D6"
+  }
+];
+---
+
+<section class="wise-group-section">
+  <div class="container">
+    <div class="section-intro">
+      <span class="section-badge">Wise Group</span>
+      <h2>Parte de Um Ecossistema Completo</h2>
+      <p>A Host Wise faz parte do Wise Group, um conjunto de empresas dedicadas a criar valor no setor imobiliário português.</p>
+    </div>
+
+    <div class="companies-grid">
+      {companies.map((company) => (
+        <a href={company.link} class="company-card" style={`--company-color: ${company.color}`}>
+          <div class="card-icon" set:html={company.icon} />
+          <h3>{company.name}</h3>
+          <p class="tagline">{company.tagline}</p>
+          <p class="description">{company.description}</p>
+          <div class="card-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .wise-group-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-intro {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: rgba(92, 176, 214, 0.15);
+    color: var(--secondary);
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .section-intro h2 {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .section-intro p {
+    font-size: 1.15rem;
+    color: var(--text);
+    opacity: 0.8;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .companies-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 80px;
+  }
+
+  .company-card {
+    position: relative;
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 20px;
+    padding: 40px 32px;
+    text-decoration: none;
+    transition: all 0.3s;
+    overflow: hidden;
+  }
+
+  .company-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--company-color);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .company-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .company-card:hover {
+    border-color: var(--company-color);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--blue-light);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    transition: all 0.3s;
+  }
+
+  .card-icon svg {
+    color: var(--company-color);
+  }
+
+  .company-card:hover .card-icon {
+    background: var(--company-color);
+  }
+
+  .company-card:hover .card-icon svg {
+    color: white;
+  }
+
+  .company-card h3 {
+    font-size: 1.75rem;
+    color: var(--primary);
+    margin: 0 0 8px 0;
+  }
+
+  .tagline {
+    font-size: 0.95rem;
+    color: var(--company-color);
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin: 0 0 24px 0;
+  }
+
+  .card-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: var(--company-color);
+    transition: transform 0.3s;
+  }
+
+  .company-card:hover .card-arrow {
+    transform: translateX(8px);
+  }
+
+  /* Group Benefits */
+  .group-benefits {
+    background: linear-gradient(135deg, #F8FCFF 0%, #E5F4FE 100%);
+    border-radius: 24px;
+    padding: 60px 48px;
+  }
+
+  .group-benefits h3 {
+    text-align: center;
+    font-size: 2.25rem;
+    color: var(--primary);
+    margin: 0 0 48px 0;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .benefit-item {
+    text-align: center;
+  }
+
+  .benefit-icon {
+    width: 72px;
+    height: 72px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .benefit-icon svg {
+    color: var(--secondary);
+  }
+
+  .benefit-item h4 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin: 0 0 12px 0;
+  }
+
+  .benefit-item p {
+    font-size: 1rem;
+    color: var(--text);
+    opacity: 0.9;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1024px) {
+    .companies-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .benefits-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .wise-group-section {
+      padding: 80px 20px;
+    }
+
+    .section-intro h2 {
+      font-size: 2rem;
+    }
+
+    .section-intro p {
+      font-size: 1rem;
+    }
+
+    .company-card {
+      padding: 32px 24px;
+    }
+
+    .company-card h3 {
+      font-size: 1.5rem;
+    }
+
+    .group-benefits {
+      padding: 48px 28px;
+    }
+
+    .group-benefits h3 {
+      font-size: 1.75rem;
+    }
+  }
+</style>

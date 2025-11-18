@@ -1,0 +1,315 @@
+---
+const testimonials = [
+  {
+    name: "João Silva",
+    location: "Porto",
+    property: "Apartamento T2 na Ribeira",
+    rating: 5,
+    comment: "Desde que comecei a trabalhar com a Host Wise, os meus rendimentos aumentaram 40%. A equipa é extremamente profissional e cuida de tudo, desde a limpeza até à comunicação com os hóspedes. Não podia estar mais satisfeito!"
+  },
+  {
+    name: "Maria Santos",
+    location: "Lisboa",
+    property: "Moradia V3 em Cascais",
+    rating: 5,
+    comment: "Tinha receio de colocar a minha casa em alojamento local, mas a Host Wise simplificou tudo. Recebo o meu pagamento todos os meses sem stress e a casa está sempre impecável. Recomendo a 100%!"
+  },
+  {
+    name: "Carlos Ferreira",
+    location: "Algarve",
+    property: "Apartamento T1 na Praia da Rocha",
+    rating: 5,
+    comment: "Após 2 anos com a Host Wise, posso dizer que foi a melhor decisão. A ocupação é consistente, os hóspedes são bem selecionados, e eu não tenho de me preocupar com nada. É lucro passivo verdadeiro!"
+  },
+  {
+    name: "Ana Costa",
+    location: "Douro",
+    property: "Casa Tradicional no Pinhão",
+    rating: 5,
+    comment: "A equipa da Host Wise transformou a minha propriedade familiar numa fonte de rendimento estável. O cuidado que têm com a casa e a transparência nos relatórios financeiros é exemplar. Estou muito grata!"
+  },
+  {
+    name: "Pedro Almeida",
+    location: "Braga",
+    property: "Apartamento T2 no Centro Histórico",
+    rating: 5,
+    comment: "Optei pelo modelo de rentabilidade garantida e é fantástico. Recebo um valor fixo todos os meses sem falhas, independentemente da ocupação. Zero preocupações, rendimento garantido!"
+  },
+  {
+    name: "Sofia Rodrigues",
+    location: "Madeira",
+    property: "Apartamento T1 no Funchal",
+    rating: 5,
+    comment: "Trabalhar com a Host Wise mudou completamente a minha experiência como proprietária. A gestão é profissional, a comunicação é clara, e os resultados são excelentes. Altamente recomendado!"
+  }
+];
+---
+
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">Testemunhos</span>
+      <h2>O Que Dizem os Nossos Proprietários</h2>
+      <p>Centenas de proprietários confiam na Host Wise para maximizar os seus rendimentos</p>
+    </div>
+
+    <div class="testimonials-grid">
+      {testimonials.map((testimonial) => (
+        <div class="testimonial-card">
+          <div class="card-header">
+            <div class="owner-info">
+              <div class="owner-avatar">
+                <div class="avatar-placeholder">
+                  {testimonial.name.charAt(0)}
+                </div>
+              </div>
+              <div class="owner-details">
+                <h4>{testimonial.name}</h4>
+                <p class="location">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  {testimonial.location}
+                </p>
+              </div>
+            </div>
+            <div class="rating">
+              {Array.from({ length: testimonial.rating }).map(() => (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+              ))}
+            </div>
+          </div>
+
+          <p class="property-type">{testimonial.property}</p>
+          <p class="comment">"{testimonial.comment}"</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="cta-section">
+      <h3>Pronto Para Maximizar os Seus Rendimentos?</h3>
+      <p>Junte-se a centenas de proprietários satisfeitos</p>
+      <a href="/proposta" class="btn-primary">Receber Proposta Gratuita</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #F8FCFF 0%, #fff 100%);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: rgba(92, 176, 214, 0.15);
+    color: var(--secondary);
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .section-header h2 {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .section-header p {
+    font-size: 1.15rem;
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 32px;
+    margin-bottom: 80px;
+  }
+
+  .testimonial-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .owner-info {
+    display: flex;
+    gap: 16px;
+  }
+
+  .owner-avatar {
+    flex-shrink: 0;
+  }
+
+  .avatar-placeholder {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .owner-details h4 {
+    font-size: 1.1rem;
+    color: var(--primary);
+    margin: 0 0 4px 0;
+  }
+
+  .location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: var(--text);
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .location svg {
+    color: var(--secondary);
+  }
+
+  .rating {
+    display: flex;
+    gap: 4px;
+  }
+
+  .rating svg {
+    color: #FFC107;
+  }
+
+  .property-type {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: 600;
+    margin: 0 0 16px 0;
+  }
+
+  .comment {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 24px;
+    padding: 60px 40px;
+    color: white;
+  }
+
+  .cta-section h3 {
+    font-size: 2.25rem;
+    margin: 0 0 12px 0;
+  }
+
+  .cta-section p {
+    font-size: 1.15rem;
+    opacity: 0.95;
+    margin: 0 0 32px 0;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 18px 40px;
+    background: white;
+    color: var(--primary);
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 1024px) {
+    .testimonials-grid {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .testimonials-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .section-header p {
+      font-size: 1rem;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    .testimonial-card {
+      padding: 24px;
+    }
+
+    .cta-section {
+      padding: 48px 28px;
+    }
+
+    .cta-section h3 {
+      font-size: 1.75rem;
+    }
+
+    .cta-section p {
+      font-size: 1rem;
+    }
+  }
+</style>

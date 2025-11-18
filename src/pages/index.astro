@@ -10,6 +10,8 @@ import GuaranteedRentSection from '../components/GuaranteedRentSection.astro';
 import PricingSection from '../components/PricingSection.astro';
 import RegionsCarousel from '../components/RegionsCarousel.astro';
 import FAQSection from '../components/FAQSection.astro';
+import OwnerTestimonials from '../components/OwnerTestimonials.astro';
+import WiseGroupSection from '../components/WiseGroupSection.astro';
 // import { getPosts } from '../lib/wordpress'; 
 
 // const posts = await getPosts();
@@ -25,12 +27,17 @@ import FAQSection from '../components/FAQSection.astro';
   <!-- Intro Section -->
 <IntroSection />
 
-  <!-- Stats Section -->
+  
+
+  <!-- Services Switch Section -->
+<ServicesSwitch />
+
+<!-- Stats Section -->
   <section class="section stats-section">
     <div class="container">
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-number" data-target="150">0</div>
+          <div class="stat-number" data-target="600">0</div>
           <div class="stat-label">Propriedades Geridas</div>
         </div>
         <div class="stat-card">
@@ -48,9 +55,6 @@ import FAQSection from '../components/FAQSection.astro';
       </div>
     </div>
   </section>
-
-  <!-- Services Switch Section -->
-<ServicesSwitch />
 
   <!-- Models Intro -->
 <ModelsIntro />
@@ -73,12 +77,12 @@ import FAQSection from '../components/FAQSection.astro';
       </div>
       
       <div class="partners-grid">
-        <div class="partner-logo">Airbnb</div>
-        <div class="partner-logo">Booking.com</div>
-        <div class="partner-logo">Vrbo</div>
-        <div class="partner-logo">Expedia</div>
-        <div class="partner-logo">HomeAway</div>
-        <div class="partner-logo">TripAdvisor</div>
+        <div class="partner-logo">Farfetch</div>
+        <div class="partner-logo">Natixis</div>
+        <div class="partner-logo">Atlântida WTA</div>
+        <div class="partner-logo">Apartool</div>
+        <div class="partner-logo">Digin</div>
+        <div class="partner-logo">Revolut</div>
       </div>
     </div>
   </section>
@@ -114,9 +118,12 @@ import FAQSection from '../components/FAQSection.astro';
     </div>
   </section>-->
 
+<OwnerTestimonials />
+
   <!-- FAQ Section -->
 <FAQSection />
 
+<WiseGroupSection />
   
 </Layout>
 
