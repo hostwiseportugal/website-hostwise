@@ -388,6 +388,7 @@
     font-size: 1.05rem;
     transition: all 0.3s;
     width: fit-content;
+    text-decoration: none;
   }
 
   .link-arrow:hover {
@@ -501,149 +502,110 @@
   }
 
   @media (max-width: 768px) {
-  .services-intro {
-    padding: 80px 20px 60px;
+    .services-switch {
+      padding: 80px 20px 60px;
+    }
+
+    .services-nav {
+      top: 80px;
+      margin-bottom: 40px;
+    }
+
+    /* Mobile Navigation - Stack Vertical */
+    .nav-container {
+      flex-direction: column;
+      width: 100%;
+      max-width: 500px;
+      gap: 8px;
+    }
+
+    .nav-background {
+      display: none; /* Remove o background animado em mobile */
+    }
+
+    .nav-tab {
+      width: 100%;
+      justify-content: flex-start;
+      padding: 16px 20px;
+      background: white;
+      border: 2px solid var(--gray-light);
+      border-radius: 12px;
+      color: var(--text);
+    }
+
+    .nav-tab.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-color: var(--secondary);
+      color: white;
+    }
+
+    .nav-tab.active svg {
+      color: white;
+    }
+
+    .nav-tab:not(.active) svg {
+      color: var(--primary);
+    }
+
+    .nav-tab:not(.active):hover {
+      background: var(--blue-light);
+      border-color: var(--secondary);
+    }
+
+    /* Content */
+    .service-layout {
+      gap: 40px;
+    }
+
+    .service-text h2 {
+      font-size: 1.75rem;
+    }
+
+    .service-text p {
+      font-size: 1rem;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-item {
+      font-size: 0.9rem;
+    }
+
+    .image-badge {
+      bottom: 20px;
+      right: 20px;
+      padding: 16px 20px;
+    }
+
+    .badge-number {
+      font-size: 1.5rem;
+    }
+
+    .badge-text {
+      font-size: 0.8rem;
+    }
   }
 
-  .section-header {
-    margin-bottom: 40px;
-  }
+  @media (max-width: 480px) {
+    .services-switch {
+      padding: 80px 16px 60px;
+    }
 
-  .section-header h2 {
-    font-size: 2rem;
-  }
+    .nav-container {
+      padding: 6px;
+    }
 
-  .section-header p {
-    font-size: 1rem;
-  }
+    .nav-tab {
+      padding: 14px 16px;
+      font-size: 0.9rem;
+    }
 
-  /* Mobile Cards - Stack vertical */
-  .services-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
+    .service-text h2 {
+      font-size: 1.5rem;
+    }
   }
-
-  .service-card {
-    width: 100%;
-    padding: 20px;
-    background: white;
-    border: 2px solid var(--gray-light);
-    transition: all 0.3s;
-  }
-
-  .service-card:hover {
-    background: white;
-    border-color: var(--secondary);
-    transform: none;
-  }
-
-  .service-card.active {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    border-color: var(--secondary);
-    color: white;
-  }
-
-  /* Texto branco apenas quando ativo */
-  .service-card.active .card-icon {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-  }
-
-  .service-card.active h3,
-  .service-card.active p {
-    color: white;
-  }
-
-  /* Texto normal quando não ativo */
-  .service-card:not(.active) .card-icon {
-    background: var(--blue-light);
-    color: var(--primary);
-  }
-
-  .service-card:not(.active) h3 {
-    color: var(--primary);
-  }
-
-  .service-card:not(.active) p {
-    color: var(--text);
-  }
-
-  .card-icon {
-    width: 56px;
-    height: 56px;
-  }
-
-  .card-icon svg {
-    width: 28px;
-    height: 28px;
-  }
-
-  .service-card h3 {
-    font-size: 1.15rem;
-  }
-
-  .service-card p {
-    font-size: 0.9rem;
-    margin: 0;
-  }
-
-  /* Content */
-  .services-content {
-    margin-top: 32px;
-  }
-
-  .content-item h3 {
-    font-size: 1.75rem;
-  }
-
-  .content-item p {
-    font-size: 1rem;
-  }
-
-  .features-list {
-    gap: 12px;
-  }
-
-  .feature-item {
-    font-size: 0.95rem;
-  }
-
-  .content-cta {
-    flex-direction: column;
-    margin-top: 24px;
-  }
-
-  .btn-primary,
-  .btn-secondary {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .services-intro {
-    padding: 80px 16px 60px;
-  }
-
-  .section-header h2 {
-    font-size: 1.75rem;
-  }
-
-  .service-card {
-    padding: 18px;
-  }
-
-  .card-icon {
-    width: 52px;
-    height: 52px;
-  }
-
-  .content-item h3 {
-    font-size: 1.5rem;
-  }
-}
 </style>
 
 <script>
