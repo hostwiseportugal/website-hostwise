@@ -25,9 +25,9 @@
       <div class="hero-main">
         <!-- TAB PROPRIETÁRIOS -->
         <div class="tab-content active" data-content="owners">
-          <span class="label">Empresa de Gestão de Propriedades</span>
-          <h1>Do Apartamento Vazio ao Ativo Hoteleiro de Performance</h1>
-          <p>Gestão profissional que combina standards hoteleiros, tecnologia avançada, e conhecimento profundo do mercado português. Para proprietários individuais, multi-unit owners, e investidores institucionais</p>
+          <h1>Gestão de Alojamento Local e Asset Management de Hospitalidade</h1>
+          <h2>Do Apartamento ao Portfolio. Gestão que Maximiza Rentabilidade.</h2>
+          <p>Gestão profissional que combina standards hoteleiros, tecnologia avançada, e conhecimento profundo do mercado português. Para proprietários individuais, edifícios completos, e portfolios institucionais.</p>
           
           <div class="cta-buttons">
             <a href="#contacto" class="btn-primary-hero">Quero Receber uma Proposta</a>
@@ -38,7 +38,7 @@
         <!-- TAB HÓSPEDES -->
         <div class="tab-content" data-content="guests">
           <span class="label">Reserve Diretamente com a HostWise</span>
-          <h1>Book. Stay. Repeat.</h1>
+          <div class="title-large">Book. Stay. Repeat.</div>
           <p>Alojamentos Locais espalhados por Portugal aos melhores preços. Reserve Já!</p>
           
           <div class="booking-form">
@@ -160,6 +160,28 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* H1 - Aparência de label pequeno (apenas proprietários) */
+  .tab-content h1 {
+    display: inline-block;
+    background: rgba(92, 176, 214, 0.15);
+    color: #0A75AF;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+  }
+
+  /* H2 - Aparência de título grande (apenas proprietários) */
+  .tab-content h2 {
+    font-size: 3rem;
+    color: #0C4463;
+    margin: 0 0 16px 0;
+    line-height: 1.1;
+    font-weight: 700;
+  }
+
+  /* Label para hóspedes (visual igual ao H1 mas sem heading) */
   .label {
     display: inline-block;
     background: rgba(92, 176, 214, 0.15);
@@ -171,11 +193,13 @@
     margin-bottom: 16px;
   }
 
-  .tab-content h1 {
+  /* Title large para hóspedes (visual igual ao H2 mas sem heading) */
+  .title-large {
     font-size: 3rem;
     color: #0C4463;
     margin: 0 0 16px 0;
     line-height: 1.1;
+    font-weight: 700;
   }
 
   .tab-content p {
@@ -293,119 +317,124 @@
       order: 1;
     }
 
-    .tab-content h1 {
+    .tab-content h2,
+    .title-large {
       font-size: 2.5rem;
     }
   }
 
   @media (max-width: 768px) {
-  .hero-new {
-    padding: 90px 20px 40px;
+    .hero-new {
+      padding: 90px 20px 40px;
+    }
+
+    .toggle-tabs {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 32px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .toggle-tab {
+      padding: 12px 20px;
+      font-size: 0.9rem;
+      flex: 1;
+      text-align: center;
+    }
+
+    .toggle-tab.active {
+      box-shadow: 0 2px 8px rgba(12, 68, 99, 0.2);
+    }
+
+    .tab-content h1,
+    .label {
+      font-size: 0.8rem;
+      padding: 5px 14px;
+      margin-bottom: 12px;
+    }
+
+    .tab-content h2,
+    .title-large {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .tab-content p {
+      font-size: 1rem;
+      margin-bottom: 24px;
+    }
+
+    .hero-images {
+      grid-template-columns: 1fr;
+      height: auto;
+      gap: 12px;
+    }
+
+    .image-item {
+      height: 200px;
+    }
+
+    .image-item:nth-child(2),
+    .image-item:nth-child(3) {
+      transform: translateY(0);
+    }
+
+    .form-row.two-col {
+      grid-template-columns: 1fr;
+    }
+
+    .booking-form {
+      padding: 20px;
+    }
+
+    .cta-buttons {
+      width: 100%;
+    }
+
+    .btn-primary-hero {
+      width: 100%;
+      text-align: center;
+      padding: 14px 32px;
+      font-size: 1rem;
+    }
+
+    .link-switch {
+      width: 100%;
+      text-align: left;
+      padding: 8px 0;
+    }
   }
 
-  .toggle-tabs {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 32px;
-    padding: 4px;
-    gap: 4px;
-  }
+  /* Melhorias extra para telas muito pequenas */
+  @media (max-width: 480px) {
+    .hero-new {
+      padding: 80px 16px 32px;
+    }
 
-  .toggle-tab {
-    padding: 12px 20px;
-    font-size: 0.9rem;
-    flex: 1;
-    text-align: center;
-  }
+    .toggle-tabs {
+      margin-bottom: 28px;
+    }
 
-  .toggle-tab.active {
-    box-shadow: 0 2px 8px rgba(12, 68, 99, 0.2);
-  }
+    .toggle-tab {
+      padding: 10px 16px;
+      font-size: 0.85rem;
+    }
 
-  .tab-content h1 {
-    font-size: 2rem;
-    margin-bottom: 12px;
-  }
+    .tab-content h1,
+    .label {
+      font-size: 0.75rem;
+    }
 
-  .tab-content p {
-    font-size: 1rem;
-    margin-bottom: 24px;
-  }
+    .tab-content h2,
+    .title-large {
+      font-size: 1.75rem;
+    }
 
-  .label {
-    font-size: 0.8rem;
-    padding: 5px 14px;
-    margin-bottom: 12px;
+    .image-item {
+      height: 180px;
+    }
   }
-
-  .hero-images {
-    grid-template-columns: 1fr;
-    height: auto;
-    gap: 12px;
-  }
-
-  .image-item {
-    height: 200px;
-  }
-
-  .image-item:nth-child(2),
-  .image-item:nth-child(3) {
-    transform: translateY(0);
-  }
-
-  .form-row.two-col {
-    grid-template-columns: 1fr;
-  }
-
-  .booking-form {
-    padding: 20px;
-  }
-
-  .cta-buttons {
-    width: 100%;
-  }
-
-  .btn-primary-hero {
-    width: 100%;
-    text-align: center;
-    padding: 14px 32px;
-    font-size: 1rem;
-  }
-
-  .link-switch {
-    width: 100%;
-    text-align: left;
-    padding: 8px 0;
-  }
-}
-
-/* Melhorias extra para telas muito pequenas */
-@media (max-width: 480px) {
-  .hero-new {
-    padding: 80px 16px 32px;
-  }
-
-  .toggle-tabs {
-    margin-bottom: 28px;
-  }
-
-  .toggle-tab {
-    padding: 10px 16px;
-    font-size: 0.85rem;
-  }
-
-  .tab-content h1 {
-    font-size: 1.75rem;
-  }
-
-  .label {
-    font-size: 0.75rem;
-  }
-
-  .image-item {
-    height: 180px;
-  }
-}
 </style>
 
 <script>
