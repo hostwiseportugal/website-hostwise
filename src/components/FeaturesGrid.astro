@@ -1,0 +1,380 @@
+---
+const features = [
+  {
+    title: "Gestão de Reservas 24/7",
+    description: "Resposta a inquéritos, gestão de check-ins/check-outs, e suporte ao hóspede em múltiplas línguas.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+    </svg>`,
+    span: "row-span-1"
+  },
+  {
+    title: "Otimização de Preços Dinâmica",
+    description: "Algoritmos avançados que ajustam preços em tempo real para maximizar ocupação e receita.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+    </svg>`,
+    span: "row-span-1"
+  },
+  {
+    title: "Limpeza e Manutenção Profissional",
+    description: "Equipa dedicada para garantir padrões de limpeza 5 estrelas e manutenção preventiva regular.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+    </svg>`,
+    span: "row-span-2",
+    featured: true
+  },
+  {
+    title: "Marketing Multi-Canal",
+    description: "Presença em Airbnb, Booking.com, e outras plataformas líderes de mercado.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+    </svg>`,
+    span: "row-span-1"
+  },
+  {
+    title: "Relatórios Financeiros Detalhados",
+    description: "Dashboards completos com análise de performance, ocupação, e previsões de receita.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+    </svg>`,
+    span: "row-span-1"
+  },
+  {
+    title: "Decoração e Fotografia Premium",
+    description: "Design de interiores optimizado e fotografia profissional para destacar o seu espaço.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+    </svg>`,
+    span: "row-span-1"
+  },
+  {
+    title: "Compliance e Legalização",
+    description: "Gestão completa de licenças AL, contratos, e conformidade com regulamentos locais.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+    </svg>`,
+    span: "row-span-1"
+  },
+  {
+    title: "Gestão de Amenities",
+    description: "Stock e reposição automática de consumíveis, roupa de cama, e produtos de higiene.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>`,
+    span: "row-span-1"
+  }
+];
+---
+
+<section class="features-grid-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">Serviços Incluídos</span>
+      <h2>Tudo o Que Precisa Para Maximizar Rentabilidade</h2>
+      <p>Gestão completa end-to-end para que não tenha de se preocupar com nada</p>
+    </div>
+
+    <div class="features-grid">
+      {features.map((feature) => (
+        <article 
+          class={`feature-card ${feature.span} ${feature.featured ? 'featured' : ''}`}
+          data-track-visibility
+        >
+          <div class="card-content">
+            <div class="card-icon" set:html={feature.icon} />
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+          </div>
+
+          {feature.featured && (
+            <div class="featured-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+              </svg>
+              Mais Procurado
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features-grid-section {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #F8FCFF 0%, #fff 100%);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: rgba(92, 176, 214, 0.15);
+    color: var(--secondary);
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .section-header h2 {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .section-header p {
+    font-size: 1.15rem;
+    color: var(--text);
+    opacity: 0.8;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    grid-auto-flow: dense;
+  }
+
+  @media (min-width: 768px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Feature Card */
+  .feature-card {
+    position: relative;
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .feature-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .feature-card:hover {
+    border-color: var(--secondary);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(12, 68, 99, 0.12);
+  }
+
+  /* Row Spans */
+  .row-span-1 {
+    grid-row: span 1;
+  }
+
+  .row-span-2 {
+    grid-row: span 2;
+  }
+
+  /* Featured Card */
+  .feature-card.featured {
+    background: linear-gradient(135deg, rgba(12, 68, 99, 0.03) 0%, rgba(92, 176, 214, 0.03) 100%);
+    border-color: var(--secondary);
+  }
+
+  .feature-card.featured:hover {
+    background: linear-gradient(135deg, rgba(12, 68, 99, 0.06) 0%, rgba(92, 176, 214, 0.06) 100%);
+  }
+
+  /* Card Content */
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-grow: 1;
+  }
+
+  .card-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--blue-light);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover .card-icon {
+    background: var(--secondary);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .feature-card h3 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin: 0;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .feature-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text);
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  /* Featured Badge */
+  .featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    width: fit-content;
+    margin-top: auto;
+  }
+
+  .featured-badge svg {
+    color: #FFD700;
+  }
+
+  /* Animation on Scroll */
+  .feature-card {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  .feature-card:nth-child(1) { animation-delay: 0.1s; }
+  .feature-card:nth-child(2) { animation-delay: 0.2s; }
+  .feature-card:nth-child(3) { animation-delay: 0.3s; }
+  .feature-card:nth-child(4) { animation-delay: 0.4s; }
+  .feature-card:nth-child(5) { animation-delay: 0.5s; }
+  .feature-card:nth-child(6) { animation-delay: 0.6s; }
+  .feature-card:nth-child(7) { animation-delay: 0.7s; }
+  .feature-card:nth-child(8) { animation-delay: 0.8s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .features-grid-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+    }
+
+    .features-grid {
+      gap: 16px;
+    }
+
+    .row-span-2 {
+      grid-row: span 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .section-header p {
+      font-size: 1rem;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .feature-card {
+      padding: 24px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<script>
+  // Intersection Observer para animações ao scroll
+  if (typeof window !== 'undefined') {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-viewport');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('[data-track-visibility]').forEach(el => {
+      observer.observe(el);
+    });
+  }
+</script>
