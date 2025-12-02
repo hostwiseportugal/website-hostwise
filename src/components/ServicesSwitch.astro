@@ -1,162 +1,53 @@
 ---
 ---
 
-<section class="services-switch">
+<section class="services-section">
   <div class="container">
-    <!-- Sticky Navigation -->
-    <nav class="services-nav">
-      <div class="nav-container">
-        <div class="nav-background" id="navBackground"></div>
-        <button class="nav-tab" data-tab="local-accommodation">
+    <!-- Sticky Switch Navigation -->
+    <nav class="services-switch-nav">
+      <div class="switch-container">
+        <div class="switch-background" id="switchBackground"></div>
+        <button class="switch-btn active" data-target="alojamento-local">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
           </svg>
           Proprietário de Imóvel
         </button>
-        <button class="nav-tab active" data-tab="property-management">
-           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+        <button class="switch-btn" data-target="gestao-edificios">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
             <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
           </svg>
           Proprietário de Edifício
         </button>
-        <button class="nav-tab" data-tab="mid-term-rentals">
+        <button class="switch-btn" data-target="asset-management">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
             <path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V6H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/>
           </svg>
-          Gestor de Portfólio Hoteleiro
+          Gestor de Portfólio
         </button>
       </div>
     </nav>
 
-    <!-- Content Sections -->
+    <!-- Services Content - All Visible -->
     <div class="services-content">
-      <!-- Gestão de Edificios Multi Unit -->
-      <div class="service-section active" data-content="property-management">
-        <div class="service-layout">
-          <div class="service-text">
-            <span class="service-label">Gestão de Edíficios Multi-Unit</span>
-            <h2>Transforme o seu edifício num ativo hoteleiro de performance</h2>
-            <p>Transforme o seu ativo num aparthotel profissional com gestão hoteleira verdadeira. Gerimos edifícios inteiros (5-30 unidades) com operação end-to-end.</p>
-            <a href="/servicos/gestao-propriedades" class="link-arrow">
-              Saber mais
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-              </svg>
-            </a>
-
-            <div class="service-features">
-              <h4>Serviços incluídos:</h4>
-              <div class="features-grid">
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Marketing e comercialização
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Gestão de reservas 24/7
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Limpeza e manutenção
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Suporte ao hóspede
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Relatórios financeiros
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Otimização de preços
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="service-image">
-            <img src="/images/property-1.webp" alt="Gestão de Propriedades Host Wise" />
-            <div class="image-badge">
-              <span class="badge-number">+15%</span>
-              <span class="badge-text">Valuation Increase</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Alojamento Local -->
-      <div class="service-section" data-content="local-accommodation">
+      <!-- Service 1: Alojamento Local -->
+      <div class="service-item" id="alojamento-local">
         <div class="service-layout">
           <div class="service-text">
             <span class="service-label">Gestão de Alojamento Local</span>
-            <h2>Maximize o Rendimentos Sem Preocupações</h2>
+            <h2>Maximize o Rendimento Sem Preocupações</h2>
             <p>Maximize o potencial do seu alojamento local com uma gestão 100% dedicada. Presença nas principais plataformas e serviço de excelência.</p>
-            <a href="/servicos/alojamento-local" class="link-arrow">
+            <a href="/gestao-alojamento-local" class="btn-cta">
               Saber mais
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
                 <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
               </svg>
             </a>
-
-            <div class="service-features">
-              <h4>Serviços incluídos:</h4>
-              <div class="features-grid">
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Gestão dinâmica de preços
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Manutenção e Decoração
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Comunicação com os hóspedes 24/7
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Limpeza Profissional
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Gestão de Faturação
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Controlo de qualidade
-                </div>
-              </div>
-            </div>
           </div>
 
-          <div class="service-image">
+          <div class="service-visual">
             <img src="/images/hero.webp" alt="Alojamento Local Host Wise" />
-            <div class="image-badge">
+            <div class="visual-badge">
               <span class="badge-number">+40%</span>
               <span class="badge-text">Rentabilidade Média</span>
             </div>
@@ -164,66 +55,48 @@
         </div>
       </div>
 
-      <!-- Asset Management -->
-      <div class="service-section" data-content="mid-term-rentals">
-        <div class="service-layout">
+      <!-- Service 2: Gestão de Edifícios - INVERTIDO -->
+      <div class="service-item" id="gestao-edificios">
+        <div class="service-layout service-layout--reverse">
           <div class="service-text">
-            <span class="service-label">Gestão Hoteleira e Asset Management</span>
-            <h2>Otimização de performance e valuation para portfolios de hospitalidade</h2>
-            <p>Partnership de asset management para boutique hotels, aparthotéis, hostels, e portfolios multi-propriedade. Combinamos expertise hoteleira com rigor de gestão de ativos imobiliários.</p>
-            <a href="/servicos/arrendamentos" class="link-arrow">
+            <span class="service-label">Gestão de Edíficios Multi-Unit</span>
+            <h2>Transforme o seu edifício num ativo hoteleiro de performance</h2>
+            <p>Transforme o seu ativo num aparthotel profissional com gestão hoteleira verdadeira. Gerimos edifícios inteiros (5-30 unidades) com operação end-to-end.</p>
+            <a href="/gestao-predios-multi-unit" class="btn-cta">
               Saber mais
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
                 <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
               </svg>
             </a>
-
-            <div class="service-features">
-              <h4>Serviços incluídos:</h4>
-              <div class="features-grid">
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Seleção rigorosa de inquilinos
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Contratos e gestão legal
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Garantia de pagamentos
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Inspeções periódicas
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Resolução de conflitos
-                </div>
-                <div class="feature-item">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                  </svg>
-                  Renovação automática
-                </div>
-              </div>
+          </div>
+          <div class="service-visual">
+            <img src="/images/property-1.webp" alt="Gestão de Edifícios Host Wise" />
+            <div class="visual-badge">
+              <span class="badge-number">+15%</span>
+              <span class="badge-text">Valuation Increase</span>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="service-image">
-            <img src="/images/property-2.webp" alt="Arrendamentos Média Duração Host Wise" />
-            <div class="image-badge">
+      <!-- Service 3: Asset Management -->
+      <div class="service-item" id="asset-management">
+        <div class="service-layout">
+          <div class="service-text">
+            <span class="service-label">Gestão Hoteleira e Asset Management</span>
+            <h2>Otimização de performance e valuation para portfolios de hospitalidade</h2>
+            <p>Partnership de asset management para boutique hotels, aparthotéis, hostels, e portfolios multi-propriedade. Combinamos expertise hoteleira com rigor de gestão de ativos imobiliários.</p>
+            <a href="/gestao-hoteleira-asset-management" class="btn-cta">
+              Saber mais
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="service-visual">
+            <img src="/images/property-2.webp" alt="Asset Management Host Wise" />
+            <div class="visual-badge">
               <span class="badge-number">+15%</span>
               <span class="badge-text">Net Operating Income</span>
             </div>
@@ -235,8 +108,8 @@
 </section>
 
 <style>
-  .services-switch {
-    padding: 100px 20px;
+  .services-section {
+    padding: 80px 20px;
     background: white;
     position: relative;
   }
@@ -246,17 +119,17 @@
     margin: 0 auto;
   }
 
-  /* Sticky Navigation */
-  .services-nav {
+  /* Sticky Switch Navigation */
+  .services-switch-nav {
     position: sticky;
     top: 100px;
     z-index: 10;
-    margin-bottom: 80px;
     display: flex;
     justify-content: center;
+    margin-bottom: 80px;
   }
 
-  .nav-container {
+  .switch-container {
     position: relative;
     display: flex;
     gap: 8px;
@@ -268,7 +141,7 @@
     border: 2px solid var(--gray-light);
   }
 
-  .nav-background {
+  .switch-background {
     position: absolute;
     top: 8px;
     left: 8px;
@@ -279,7 +152,7 @@
     box-shadow: 0 2px 12px rgba(12, 68, 99, 0.2);
   }
 
-  .nav-tab {
+  .switch-btn {
     position: relative;
     z-index: 2;
     display: flex;
@@ -297,48 +170,36 @@
     white-space: nowrap;
   }
 
-  .nav-tab svg {
+  .switch-btn svg {
     transition: transform 0.3s;
   }
 
-  .nav-tab.active {
+  .switch-btn.active {
     color: white;
   }
 
-  .nav-tab.active svg {
+  .switch-btn.active svg {
     transform: scale(1.1);
   }
 
-  .nav-tab:not(.active):hover {
+  .switch-btn:not(.active):hover {
     background: var(--blue-light);
     color: var(--primary);
   }
 
-  /* Content Sections */
+  /* Services Content */
   .services-content {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
   }
 
-  .service-section {
-    display: none;
-    animation: fadeIn 0.6s ease-out;
+  /* Service Item */
+  .service-item {
+    scroll-margin-top: 200px;
   }
 
-  .service-section.active {
-    display: block;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
+  /* Service Layout */
   .service-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -346,6 +207,15 @@
     align-items: center;
   }
 
+  .service-layout--reverse {
+    direction: rtl;
+  }
+
+  .service-layout--reverse > * {
+    direction: ltr;
+  }
+
+  /* Service Text */
   .service-text {
     display: flex;
     flex-direction: column;
@@ -355,14 +225,15 @@
   .service-label {
     display: inline-block;
     width: fit-content;
-    background: rgba(92, 176, 214, 0.15);
-    color: var(--secondary);
-    padding: 6px 18px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 10px 24px;
     border-radius: 30px;
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(12, 68, 99, 0.15);
   }
 
   .service-text h2 {
@@ -377,65 +248,42 @@
     line-height: 1.7;
     color: var(--text);
     opacity: 0.9;
+    margin: 0;
   }
 
-  .link-arrow {
+  /* CTA Button - Coral/Laranja */
+  .btn-cta {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    color: var(--secondary);
+    gap: 10px;
+    width: fit-content;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+    color: white;
     font-weight: 600;
     font-size: 1.05rem;
-    transition: all 0.3s;
-    width: fit-content;
+    border-radius: 12px;
     text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.25);
   }
 
-  .link-arrow:hover {
-    gap: 12px;
-    color: var(--primary);
+  .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(255, 107, 53, 0.35);
+    gap: 14px;
   }
 
-  .link-arrow svg {
+  .btn-cta svg {
     transition: transform 0.3s;
   }
 
-  .link-arrow:hover svg {
+  .btn-cta:hover svg {
     transform: translateX(4px);
   }
 
-  /* Features */
-  .service-features {
-    margin-top: 20px;
-  }
-
-  .service-features h4 {
-    color: var(--primary);
-    font-size: 1.1rem;
-    margin-bottom: 16px;
-  }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.95rem;
-    color: var(--text);
-  }
-
-  .feature-item svg {
-    color: var(--secondary);
-    flex-shrink: 0;
-  }
-
-  /* Image */
-  .service-image {
+  /* Service Visual */
+  .service-visual {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
@@ -443,13 +291,13 @@
     aspect-ratio: 4/3;
   }
 
-  .service-image img {
+  .service-visual img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-  .image-badge {
+  .visual-badge {
     position: absolute;
     bottom: 30px;
     right: 30px;
@@ -478,81 +326,78 @@
 
   /* Responsive */
   @media (max-width: 1024px) {
-    .services-switch {
-      padding: 80px 20px;
+    .services-section {
+      padding: 60px 20px;
     }
 
-    .services-nav {
+    .services-switch-nav {
       top: 80px;
       margin-bottom: 60px;
     }
 
-    .service-layout {
+    .services-content {
+      gap: 80px;
+    }
+
+    .service-layout,
+    .service-layout--reverse {
       grid-template-columns: 1fr;
       gap: 50px;
+      direction: ltr;
     }
 
     .service-text h2 {
       font-size: 2rem;
     }
-
-    .features-grid {
-      grid-template-columns: 1fr;
-    }
   }
 
   @media (max-width: 768px) {
-    .services-switch {
-      padding: 80px 20px 60px;
+    .services-section {
+      padding: 60px 20px 40px;
     }
 
-    .services-nav {
-      top: 80px;
+    .services-switch-nav {
       margin-bottom: 40px;
     }
 
-    /* Mobile Navigation - Stack Vertical */
-    .nav-container {
+    .switch-container {
       flex-direction: column;
       width: 100%;
       max-width: 500px;
       gap: 8px;
     }
 
-    .nav-background {
-      display: none; /* Remove o background animado em mobile */
+    .switch-background {
+      display: none;
     }
 
-    .nav-tab {
+    .switch-btn {
       width: 100%;
       justify-content: flex-start;
       padding: 16px 20px;
       background: white;
       border: 2px solid var(--gray-light);
-      border-radius: 12px;
       color: var(--text);
     }
 
-    .nav-tab.active {
+    .switch-btn.active {
       background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       border-color: var(--secondary);
       color: white;
     }
 
-    .nav-tab.active svg {
+    .switch-btn.active svg {
       color: white;
     }
 
-    .nav-tab:not(.active) svg {
+    .switch-btn:not(.active) svg {
       color: var(--primary);
     }
 
-    .nav-tab:not(.active):hover {
-      background: var(--blue-light);
-      border-color: var(--secondary);
+    .services-content {
+      gap: 60px;
     }
 
-    /* Content */
     .service-layout {
       gap: 40px;
     }
@@ -565,15 +410,12 @@
       font-size: 1rem;
     }
 
-    .features-grid {
-      grid-template-columns: 1fr;
+    .btn-cta {
+      padding: 14px 28px;
+      font-size: 1rem;
     }
 
-    .feature-item {
-      font-size: 0.9rem;
-    }
-
-    .image-badge {
+    .visual-badge {
       bottom: 20px;
       right: 20px;
       padding: 16px 20px;
@@ -589,15 +431,15 @@
   }
 
   @media (max-width: 480px) {
-    .services-switch {
-      padding: 80px 16px 60px;
+    .services-section {
+      padding: 60px 16px 40px;
     }
 
-    .nav-container {
+    .switch-container {
       padding: 6px;
     }
 
-    .nav-tab {
+    .switch-btn {
       padding: 14px 16px;
       font-size: 0.9rem;
     }
@@ -605,63 +447,102 @@
     .service-text h2 {
       font-size: 1.5rem;
     }
+
+    .btn-cta {
+      width: 100%;
+      justify-content: center;
+    }
   }
 </style>
 
 <script>
   class ServicesSwitch {
-    private tabs: NodeListOf<HTMLElement>;
-    private sections: NodeListOf<HTMLElement>;
+    private buttons: NodeListOf<HTMLElement>;
     private background: HTMLElement;
+    private observer: IntersectionObserver | null = null;
 
     constructor() {
-      this.tabs = document.querySelectorAll('.nav-tab');
-      this.sections = document.querySelectorAll('.service-section');
-      this.background = document.getElementById('navBackground')!;
+      this.buttons = document.querySelectorAll('.switch-btn');
+      this.background = document.getElementById('switchBackground')!;
 
       this.init();
     }
 
     init() {
       // Set initial background position
-      const activeTab = document.querySelector('.nav-tab.active') as HTMLElement;
-      if (activeTab) {
-        this.updateBackground(activeTab);
+      const activeBtn = document.querySelector('.switch-btn.active') as HTMLElement;
+      if (activeBtn) {
+        this.updateBackground(activeBtn);
       }
 
-      // Add click handlers
-      this.tabs.forEach(tab => {
-        tab.addEventListener('click', () => this.switchTab(tab));
+      // Add click handlers for smooth scroll
+      this.buttons.forEach(btn => {
+        btn.addEventListener('click', () => this.handleClick(btn));
       });
+
+      // Intersection Observer to update active state on scroll
+      this.setupIntersectionObserver();
 
       // Update background on resize
       window.addEventListener('resize', () => {
-        const activeTab = document.querySelector('.nav-tab.active') as HTMLElement;
-        if (activeTab) {
-          this.updateBackground(activeTab);
+        const activeBtn = document.querySelector('.switch-btn.active') as HTMLElement;
+        if (activeBtn) {
+          this.updateBackground(activeBtn);
         }
       });
     }
 
-    switchTab(clickedTab: HTMLElement) {
-      const targetId = clickedTab.dataset.tab;
+    handleClick(btn: HTMLElement) {
+      const targetId = btn.dataset.target;
+      if (!targetId) return;
 
-      // Update tabs
-      this.tabs.forEach(tab => tab.classList.remove('active'));
-      clickedTab.classList.add('active');
+      const targetEl = document.getElementById(targetId);
+      if (!targetEl) return;
 
-      // Update sections
-      this.sections.forEach(section => section.classList.remove('active'));
-      const targetSection = document.querySelector(`[data-content="${targetId}"]`);
-      targetSection?.classList.add('active');
+      // Smooth scroll to target
+      targetEl.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
 
-      // Update background
-      this.updateBackground(clickedTab);
+      // Update active state
+      this.updateActiveButton(btn);
     }
 
-    updateBackground(tab: HTMLElement) {
-      const offsetLeft = tab.offsetLeft;
-      const width = tab.offsetWidth;
+    setupIntersectionObserver() {
+      const options = {
+        root: null,
+        rootMargin: '-50% 0px -50% 0px',
+        threshold: 0
+      };
+
+      this.observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const targetId = entry.target.id;
+            const correspondingBtn = document.querySelector(`[data-target="${targetId}"]`) as HTMLElement;
+            if (correspondingBtn) {
+              this.updateActiveButton(correspondingBtn);
+            }
+          }
+        });
+      }, options);
+
+      // Observe all service items
+      document.querySelectorAll('.service-item').forEach(item => {
+        this.observer?.observe(item);
+      });
+    }
+
+    updateActiveButton(btn: HTMLElement) {
+      this.buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      this.updateBackground(btn);
+    }
+
+    updateBackground(btn: HTMLElement) {
+      const offsetLeft = btn.offsetLeft;
+      const width = btn.offsetWidth;
 
       this.background.style.left = `${offsetLeft}px`;
       this.background.style.width = `${width}px`;
