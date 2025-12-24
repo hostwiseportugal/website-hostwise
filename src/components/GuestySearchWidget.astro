@@ -1,0 +1,176 @@
+---
+// components/GuestySearchWidget.astro
+---
+
+<div id="search-widget_IO312PWQ"></div>
+
+<script is:inline>
+!function(e,t,a,n,c,r){function s(t){e.console.log("[Guesty Embedded Widget]:",t)}var i,d,l,o,y,m,g,h,p,u;n&&(i=n,d=t.getElementsByTagName("head")[0],(l=t.createElement("link")).rel="stylesheet",l.type="text/css",l.href=i,l.media="all",d.appendChild(l)),o=function(){try{e[a].create(r).catch(function(e){s(e.message)})}catch(e){s(e.message)}},h=!1,y=c,m=function(){h||this.readyState&&"complete"!=this.readyState||(h=!0,o())},(g=t.createElement("script")).type="text/javascript",g.src=y,g.async="true",g.onload=g.onreadystatechange=m,p=g,(u=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,u)}(window,document,"GuestySearchBarWidget","https://s3.amazonaws.com/guesty-frontend-production/search-bar-production.css","https://s3.amazonaws.com/guesty-frontend-production/search-bar-production.js",{"siteUrl":"hostwise.guestybookings.com"});
+</script>
+
+<style is:global>
+  /* IMPORTANTE: usar !important para sobrepor o CSS do Guesty */
+  
+  /* Container principal */
+  #search-widget_IO312PWQ .guesty-root-element.guesty-widget__container {
+    display: flex !important;
+    gap: 12px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Altura consistente para todos os elementos */
+  #search-widget_IO312PWQ .selectr-selected,
+  #search-widget_IO312PWQ .__super-input,
+  #search-widget_IO312PWQ .guesty-search-submit-btn {
+    height: 56px !important;
+    line-height: 56px !important;
+    font-size: 16px !important;
+    border-radius: 12px !important;
+    border: 2px solid #e5e7eb !important;
+    transition: all 0.3s ease !important;
+  }
+
+  /* Inputs */
+  #search-widget_IO312PWQ .__super-input {
+    padding: 0 16px !important;
+    background: white !important;
+    color: #333 !important;
+  }
+
+  #search-widget_IO312PWQ .__super-input:focus {
+    border-color: #1f73b7 !important;
+    outline: none !important;
+  }
+
+  /* Selects (Destination e Guests) */
+  #search-widget_IO312PWQ .selectr-selected {
+    padding: 0 16px !important;
+    background: white !important;
+    color: #333 !important;
+  }
+
+  #search-widget_IO312PWQ .selectr-selected:hover {
+    border-color: #1f73b7 !important;
+  }
+
+  /* Placeholder text */
+  #search-widget_IO312PWQ .selectr-placeholder {
+    color: #9ca3af !important;
+  }
+
+  /* Botão Search - Azul Host Wise */
+  #search-widget_IO312PWQ .guesty-search-submit-btn {
+    background: linear-gradient(135deg, #0c4463 0%, #5cb0d6 100%) !important;
+    color: white !important;
+    padding: 0 32px !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    border: none !important;
+    cursor: pointer !important;
+    min-width: 140px !important;
+    box-shadow: 0 4px 12px rgba(12, 68, 99, 0.2) !important;
+  }
+
+  #search-widget_IO312PWQ .guesty-search-submit-btn:hover {
+    background: linear-gradient(135deg, #0a3850 0%, #4a9dc4 100%) !important;
+    box-shadow: 0 6px 16px rgba(12, 68, 99, 0.3) !important;
+    transform: translateY(-1px) !important;
+  }
+
+  /* Dropdown options */
+  #search-widget_IO312PWQ .selectr-options-container {
+    border-radius: 12px !important;
+    border: 2px solid #e5e7eb !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+    margin-top: 8px !important;
+  }
+
+  /* DATEPICKER CUSTOMIZATION */
+  
+  /* Cor principal */
+  :root {
+    --hw-blue: #1f73b7;
+    --hw-blue-light: #5cb0d6;
+  }
+
+  /* Dias normais */
+  .lightpick__day {
+    color: #333 !important;
+    border-radius: 8px !important;
+  }
+
+  /* Hoje */
+  .lightpick__day.is-today {
+    border: 2px solid var(--hw-blue) !important;
+    color: var(--hw-blue) !important;
+    font-weight: 600 !important;
+  }
+
+  /* Dia selecionado (check-in, check-out) */
+  .lightpick__day.is-start-date,
+  .lightpick__day.is-end-date {
+    background: linear-gradient(135deg, #0c4463 0%, #5cb0d6 100%) !important;
+    color: white !important;
+    font-weight: 600 !important;
+  }
+
+  /* Range selecionado */
+  .lightpick__day.is-in-range {
+    background-color: rgba(31, 115, 183, 0.15) !important;
+    color: #333 !important;
+  }
+
+  /* Hover */
+  .lightpick__day:hover {
+    background-color: var(--hw-blue) !important;
+    color: white !important;
+  }
+
+  /* Botões navegação (prev/next) */
+  .lightpick__previous-action,
+  .lightpick__next-action {
+    color: var(--hw-blue) !important;
+    font-weight: 600 !important;
+  }
+
+  .lightpick__previous-action:hover,
+  .lightpick__next-action:hover {
+    background-color: rgba(31, 115, 183, 0.1) !important;
+  }
+
+  /* Dropdown mês & ano */
+  .lightpick__select {
+    color: var(--hw-blue) !important;
+    font-weight: 600 !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 6px !important;
+    padding: 4px 8px !important;
+  }
+
+  /* Container do datepicker */
+  .lightpick {
+    border-radius: 16px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
+    border: 2px solid #e5e7eb !important;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    #search-widget_IO312PWQ .guesty-root-element.guesty-widget__container {
+      flex-direction: column !important;
+      gap: 12px !important;
+    }
+
+    #search-widget_IO312PWQ .guesty-widget__item {
+      width: 100% !important;
+    }
+
+    #search-widget_IO312PWQ .guesty-search-submit-btn {
+      width: 100% !important;
+    }
+  }
+</style>

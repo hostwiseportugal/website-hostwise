@@ -1,0 +1,258 @@
+---
+const benefits = [
+  {
+    icon: "passive-income",
+    title: "Rendimento Passivo e Tranquilo",
+    description: "Gerir uma propriedade pode ser exigente, mas com a gestão de alojamento local da Host Wise, os proprietários podem desfrutar de um rendimento passivo e tranquilo sem preocupações. Com a nossa equipa especializada, garantimos que o seu imóvel funciona de forma eficiente, sem que precise de se envolver no dia a dia da operação. Assim, pode relaxar e usufruir dos rendimentos do seu imóvel, enquanto nós cuidamos de todos os detalhes."
+  },
+  {
+    icon: "profitability",
+    title: "Maximização da Rentabilidade",
+    description: "O seu alojamento local tem um enorme potencial de rentabilidade, mas sem a estratégia certa pode perder oportunidades. Ajustamos os preços de forma inteligente, aumentamos a taxa de ocupação e posicionamos o seu alojamento nos melhores canais para atrair mais reservas. Além disso, otimizamos cada detalhe – desde a apresentação do imóvel até à experiência do hóspede – para que consiga mais lucro com cada estadia."
+  },
+  {
+    icon: "integrated",
+    title: "Gestão 100% Integrada",
+    description: "A gestão de alojamento local exige atenção a múltiplos detalhes, desde a comunicação com hóspedes até à limpeza e manutenção. Na Host Wise, oferecemos uma gestão 100% integrada, cuidando de todos os aspetos operacionais para que não tenha preocupações. Gerimos os anúncios do seu imóvel nas principais plataformas, garantimos um atendimento eficiente aos hóspedes e tratamos de toda a logística de check-ins, limpezas e reparações."
+  }
+];
+---
+
+<section class="benefits-cards-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Porquê Escolher a Gestão da Host Wise?</h2>
+    </div>
+
+    <div class="cards-grid">
+      {benefits.map((benefit, index) => (
+        <div class="benefit-card" data-index={index}>
+          <div class="card-icon">
+            {benefit.icon === 'passive-income' && (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z"/>
+              </svg>
+            )}
+            {benefit.icon === 'profitability' && (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/>
+              </svg>
+            )}
+            {benefit.icon === 'integrated' && (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+              </svg>
+            )}
+          </div>
+
+          <h3>{benefit.title}</h3>
+          <p>{benefit.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefits-cards-section {
+    padding: 100px 20px;
+    background: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background pattern */
+  .benefits-cards-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(92, 176, 214, 0.08) 1px, transparent 0);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    margin: 0;
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Cards Grid */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  @media (min-width: 768px) {
+    .cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+  }
+
+  /* Benefit Card */
+  .benefit-card {
+    background: white;
+    border-radius: 16px;
+    padding: 40px 32px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(12, 68, 99, 0.08);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+
+  .benefit-card[data-index="0"] {
+    animation-delay: 0.1s;
+  }
+
+  .benefit-card[data-index="1"] {
+    animation-delay: 0.2s;
+  }
+
+  .benefit-card[data-index="2"] {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes slideInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(12, 68, 99, 0.15);
+  }
+
+  /* Card Icon */
+  .card-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 28px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .benefit-card:hover .card-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  /* Card Title */
+  .benefit-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  /* Card Description */
+  .benefit-card p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+    margin: 0;
+    text-align: left;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .benefits-cards-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+    }
+
+    .section-header {
+      margin-bottom: 50px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .benefits-cards-section {
+      padding: 60px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .section-header {
+      margin-bottom: 40px;
+    }
+
+    .benefit-card {
+      padding: 32px 24px;
+    }
+
+    .benefit-card h3 {
+      font-size: 1.25rem;
+    }
+
+    .benefit-card p {
+      font-size: 0.95rem;
+    }
+
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 24px;
+    }
+
+    .card-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .benefit-card {
+      padding: 28px 20px;
+    }
+  }
+</style>

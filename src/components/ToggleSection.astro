@@ -1,111 +1,174 @@
 ---
+interface Benefit {
+  label?: string;
+}
+
+interface WPImage {
+  url?: string;
+  alt?: string;
+  source_url?: string;
+}
+
+interface ToggleSectionProps {
+  ownerTitle?: string;
+  ownerDescription?: string;
+  ownerBenefits?: Benefit[];
+  ownerImage?: WPImage | string;
+  ownerCtaLabel?: string;
+  ownerCtaUrl?: string;
+
+  guestTitle?: string;
+  guestDescription?: string;
+  guestBenefits?: Benefit[];
+  guestImage?: WPImage | string;
+  guestCtaLabel?: string;
+  guestCtaUrl?: string;
+}
+
+// Normaliza imagem vinda do ACF (string, objeto ou undefined)
+function normalizeImage(
+  img: WPImage | string | undefined,
+  fallbackUrl: string,
+  fallbackAlt: string
+) {
+  if (!img) {
+    return { url: fallbackUrl, alt: fallbackAlt };
+  }
+
+  if (typeof img === 'string') {
+    return {
+      url: img || fallbackUrl,
+      alt: fallbackAlt,
+    };
+  }
+
+  return {
+    url: img.url || img.source_url || fallbackUrl,
+    alt: img.alt || fallbackAlt,
+  };
+}
+
+const {
+  ownerTitle = 'Para Proprietários e Investidores',
+  ownerDescription = 'Gestão profissional end-to-end: operação diária, otimização de receitas, e estratégia de valorização. Do apartamento individual ao edifício completo — oferecemos o modelo de gestão adequado à escala do seu investimento.',
+  ownerBenefits = [],
+  ownerImage,
+  ownerCtaLabel = 'Saber Mais',
+  ownerCtaUrl = '#contacto',
+
+  guestTitle = 'Para Hóspedes',
+  guestDescription = 'Reserve diretamente connosco e aproveite as melhores tarifas numa plataforma segura e confiável.',
+  guestBenefits = [],
+  guestImage,
+  guestCtaLabel = 'Ver Alojamentos',
+  guestCtaUrl = 'https://hostwisebooking.pt',
+} = Astro.props as ToggleSectionProps;
+
+const defaultOwnerBenefits: Benefit[] = ownerBenefits.length
+  ? ownerBenefits
+  : [
+      { label: 'Gestão de Alojamento Local (AL)' },
+      { label: 'Gestão de Prédios Inteiros Convertidos em AL' },
+      { label: 'Asset Management de Hospitalidade' },
+    ];
+
+const defaultGuestBenefits: Benefit[] = guestBenefits.length
+  ? guestBenefits
+  : [
+      { label: 'Melhores preços garantidos sem taxas de plataforma' },
+      { label: 'Alojamentos selecionados e verificados pela nossa equipa' },
+      { label: 'Reservas seguras e suporte dedicado 24/7' },
+      { label: 'Check-in simplificado e experiência premium' },
+    ];
+
+const ownerImg = normalizeImage(
+  ownerImage,
+  '/images/property-1.webp',
+  'Gestão de propriedades Host Wise'
+);
+
+const guestImg = normalizeImage(
+  guestImage,
+  '/images/property-2.webp',
+  'Reservas diretas Host Wise'
+);
 ---
 
 <section class="toggle-section">
   <div class="toggle-container">
+
+    <!-- CARD PROPRIETÁRIOS -->
     <div class="toggle-card" data-section="owners" data-expanded="true">
       <div class="card-content">
         <div class="card-header">
-          <h3>Para Proprietários e Investidores</h3>
-          <p>Gestão profissional end-to-end: operação diária, otimização de receitas, e estratégia de valorização. Do apartamento individual ao edifício completo — oferecemos o modelo de gestão adequado à escala do seu 
-investimento.</p>
+          <h3>{ownerTitle}</h3>
+          <p>{ownerDescription}</p>
         </div>
 
         <ul class="benefits-list">
-          <li>
-            <div class="icon-check">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-            </div>
-            <span>Gestão de Alojamento Local (AL)</span>
-          </li>
-          <li>
-            <div class="icon-check">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-            </div>
-            <span>Gestão de Prédios Inteiros Convertidos em AL</span>
-          </li>
-          <li>
-            <div class="icon-check">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-            </div>
-            <span>Asset Management de Hospitalidade </span>
-          </li>
+          {defaultOwnerBenefits.map((item) => (
+            <li>
+              <div class="icon-check">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                </svg>
+              </div>
+              <span>{item.label}</span>
+            </li>
+          ))}
         </ul>
 
         <div class="card-image">
-          <img src="/images/property-1.webp" alt="Gestão de propriedades Host Wise" />
+          <img src={ownerImg.url} alt={ownerImg.alt} loading="lazy" />
         </div>
 
         <div class="card-cta">
-          <a href="#contacto" class="btn-primary">Saber Mais</a>
+          <a href={ownerCtaUrl} class="btn-primary">
+            {ownerCtaLabel}
+          </a>
         </div>
       </div>
     </div>
 
+    <!-- CARD HÓSPEDES -->
     <div class="toggle-card" data-section="guests" data-expanded="false">
       <div class="card-content">
         <div class="card-header">
-          <h3>Para Hóspedes</h3>
-          <p>Reserve diretamente connosco e aproveite as melhores tarifas numa plataforma segura e confiável.</p>
+          <h3>{guestTitle}</h3>
+          <p>{guestDescription}</p>
         </div>
 
         <ul class="benefits-list">
-          <li>
-            <div class="icon-check">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-            </div>
-            <span>Melhores preços garantidos sem taxas de plataforma</span>
-          </li>
-          <li>
-            <div class="icon-check">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-            </div>
-            <span>Alojamentos selecionados e verificados pela nossa equipa</span>
-          </li>
-          <li>
-            <div class="icon-check">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-            </div>
-            <span>Reservas seguras e suporte dedicado 24/7</span>
-          </li>
-          <li>
-            <div class="icon-check">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-            </div>
-            <span>Check-in simplificado e experiência premium</span>
-          </li>
+          {defaultGuestBenefits.map((item) => (
+            <li>
+              <div class="icon-check">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                </svg>
+              </div>
+              <span>{item.label}</span>
+            </li>
+          ))}
         </ul>
 
         <div class="card-image">
-          <img src="/images/property-2.webp" alt="Reservas diretas Host Wise" />
+          <img src={guestImg.url} alt={guestImg.alt} loading="lazy" />
         </div>
 
         <div class="card-cta">
-          <a href="https://hostwisebooking.pt/" target="_blank" rel="noopener noreferrer" class="btn-primary">
-            Ver Alojamentos
+          <a href={guestCtaUrl} target="_blank" rel="noopener noreferrer" class="btn-primary">
+            {guestCtaLabel}
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/>
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z" />
             </svg>
           </a>
         </div>
       </div>
     </div>
+
   </div>
 </section>
+
 
 <style>
   .toggle-section {

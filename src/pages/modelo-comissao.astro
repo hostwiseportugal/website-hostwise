@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSectionV2 from '../components/HeroSectionV2.astro';
+import IntroSection from '../components/IntroSection.astro';
+import BenefitsGrid from '../components/BenefitsGrid.astro';
+import CommissionModelExplained from '../components/CommissionModelExplained.astro';
+import PricingSection from '../components/PricingSection.astro';
+import ModelsComparison from '../components/ModelsComparison.astro';
+import OwnerTestimonials from '../components/OwnerTestimonials.astro';
+import FAQSection from '../components/FAQSection.astro';
+
+const benefits = [
+  {
+    title: "Potencial de Rendimento Ilimitado",
+    description: "Diferente do modelo de rentabilidade garantida, aqui o céu é o limite. Quanto mais reservas e melhor a performance do seu alojamento, mais recebe. Ideal para proprietários que querem maximizar lucros e beneficiar diretamente do sucesso do imóvel.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "Transparência Total nos Valores",
+    description: "Recebe relatórios detalhados mensalmente com todas as reservas, valores brutos, comissão aplicada e rendimento líquido. Pode acompanhar tudo em tempo real e perceber exatamente de onde vem cada euro que recebe.",
+    color: "rgba(12, 68, 99, 1)"
+  },
+  {
+    title: "Gestão Profissional Incluída",
+    description: "Cuidamos de tudo: otimização de preços dinâmicos, marketing nas principais plataformas, comunicação com hóspedes, limpezas, manutenção e muito mais. Você relaxa enquanto nós trabalhamos para maximizar as suas reservas.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "Flexibilidade de Mercado",
+    description: "Aproveite os picos de procura turística. Épocas altas, eventos especiais e períodos festivos geram mais reservas e valores mais elevados — e você beneficia diretamente disso com rendimentos superiores.",
+    color: "rgba(12, 68, 99, 1)"
+  },
+  {
+    title: "Otimização Contínua",
+    description: "A nossa equipa trabalha constantemente para melhorar a performance do seu alojamento: ajuste de preços, melhorias no espaço, feedback dos hóspedes e estratégias de marketing. Tudo para garantir que recebe o máximo possível.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "Sem Limites de Crescimento",
+    description: "Ao contrário de uma renda fixa, com o modelo de comissão pode beneficiar de tendências positivas do mercado, aumento da procura na sua zona e melhorias no seu imóvel. O seu rendimento cresce conforme o potencial do alojamento.",
+    color: "rgba(12, 68, 99, 1)"
+  }
+];
+---
+
+<Layout title="Modelo de Comissão - Host Wise">
+  <!-- Hero Section V2 - SaaS Style -->
+  <HeroSectionV2 />
+
+  <!-- Intro Section -->
+  <IntroSection />
+
+  <!-- Benefits Grid -->
+  <BenefitsGrid
+    benefits={benefits}
+    badgeText="Vantagens do Modelo"
+    heading="Porquê escolher o Modelo de Comissão?"
+    subheading="O modelo de comissão foi desenhado para proprietários que querem maximizar o potencial do seu alojamento. Receba uma percentagem do rendimento bruto e beneficie diretamente do sucesso das suas reservas."
+  />
+
+  <!-- Commission Model Explained with Animation -->
+  <CommissionModelExplained />
+
+  <!-- Pricing Section -->
+  <PricingSection />
+
+  <!-- Models Comparison -->
+  <ModelsComparison />
+
+  <!-- Owner Testimonials -->
+  <OwnerTestimonials />
+
+  <!-- FAQ Section -->
+  <FAQSection />
+</Layout>

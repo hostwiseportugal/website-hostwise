@@ -1,0 +1,182 @@
+---
+// Partners Marquee Component
+// Displays partner logos in an infinite scrolling animation
+---
+
+<section class="partners-marquee">
+  <div class="container">
+    <h2 class="partners-title">Os Nossos Parceiros de Negócios</h2>
+
+    <div class="marquee-wrapper">
+      <div class="marquee-content">
+        <!-- First set of logos -->
+        <div class="marquee-item">
+          <img src="/images/partners/farfetch-logo.svg" alt="Farfetch" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/natixis-logo.webp" alt="Natixis" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/atlantida-wta-logo.webp" alt="Atlântida WTA" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/apartool-logo.svg" alt="Apartool" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/revolut-logo.svg" alt="Revolut" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/devexperts-logo.svg" alt="DevExperts" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/exclusive-worldwide-logo.svg" alt="Exclusive Worldwide" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/plateform-logo.svg" alt="Plateform" />
+        </div>
+
+        <!-- Duplicate set for seamless loop -->
+        <div class="marquee-item">
+          <img src="/images/partners/farfetch-logo.svg" alt="Farfetch" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/natixis-logo.webp" alt="Natixis" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/atlantida-wta-logo.webp" alt="Atlântida WTA" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/apartool-logo.svg" alt="Apartool" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/revolut-logo.svg" alt="Revolut" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/devexperts-logo.svg" alt="DevExperts" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/exclusive-worldwide-logo.svg" alt="Exclusive Worldwide" />
+        </div>
+        <div class="marquee-item">
+          <img src="/images/partners/plateform-logo.svg" alt="Plateform" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .partners-marquee {
+    padding: 80px 0;
+    background: var(--gray-light);
+    overflow: hidden;
+  }
+
+  .partners-title {
+    font-size: 2.5rem;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .marquee-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .marquee-content {
+    display: flex;
+    gap: 80px;
+    animation: marquee 40s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-item {
+    flex-shrink: 0;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .marquee-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .marquee-item img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: filter 0.3s, opacity 0.3s;
+  }
+
+  .marquee-item:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Pause animation on hover */
+  .marquee-wrapper:hover .marquee-content {
+    animation-play-state: paused;
+  }
+
+  /* Responsive */
+  @media (max-width: 968px) {
+    .partners-title {
+      font-size: 2rem;
+      margin-bottom: 40px;
+    }
+
+    .marquee-content {
+      gap: 40px;
+      animation: marquee 30s linear infinite;
+    }
+
+    .marquee-item {
+      width: 150px;
+      height: 80px;
+      padding: 16px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .partners-marquee {
+      padding: 60px 0;
+    }
+
+    .partners-title {
+      font-size: 1.75rem;
+    }
+
+    .marquee-content {
+      gap: 24px;
+      animation: marquee 25s linear infinite;
+    }
+
+    .marquee-item {
+      width: 120px;
+      height: 70px;
+    }
+  }
+</style>

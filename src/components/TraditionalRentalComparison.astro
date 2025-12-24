@@ -1,0 +1,453 @@
+---
+const risks = [
+  {
+    title: "Inquilinos que não pagam a tempo (ou não pagam de todo)",
+    icon: "money",
+    color: "rgba(239, 68, 68, 1)" // red
+  },
+  {
+    title: "Dificuldades legais em caso de incumprimento",
+    icon: "legal",
+    color: "rgba(245, 158, 11, 1)" // orange
+  },
+  {
+    title: "Manutenção a seu cargo",
+    icon: "tools",
+    color: "rgba(239, 68, 68, 1)" // red
+  }
+];
+
+const advantages = [
+  "Estabilidade de rendimento, como no arrendamento tradicional",
+  "Segurança contratual, mas com mais flexibilidade",
+  "Gestão profissional do imóvel, sem que tenha de se envolver",
+  "Valorização do património, com manutenção e renovação incluídas",
+  "E tudo isto, sem riscos com inquilinos ou burocracias jurídicas"
+];
+---
+
+<section class="traditional-comparison">
+  <div class="container">
+    <div class="comparison-intro">
+      <h2>Uma Alternativa Mais Segura ao Arrendamento Tradicional</h2>
+      <p class="intro-text">
+        Arrendar uma casa a longo prazo pode parecer a escolha mais simples — mas será a mais vantajosa?
+      </p>
+      <p class="warning-text">
+        A verdade é que o arrendamento tradicional está longe de ser livre de riscos:
+      </p>
+    </div>
+
+    <div class="risks-grid">
+      {risks.map((risk, index) => (
+        <div class="risk-card" data-index={index} style={`--risk-color: ${risk.color}`}>
+          <div class="risk-icon">
+            {risk.icon === 'money' && (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+              </svg>
+            )}
+            {risk.icon === 'legal' && (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                <path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                <path d="M12 17l1.5-4.5h-3L12 17z"/>
+              </svg>
+            )}
+            {risk.icon === 'tools' && (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+              </svg>
+            )}
+          </div>
+          <div class="risk-content">
+            <h3>{risk.title}</h3>
+          </div>
+          <div class="risk-badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            <span>Risco Eliminado</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="solution-section">
+      <div class="solution-text">
+        <p>
+          E mesmo quando corre tudo bem, há o tempo e esforço gastos a encontrar, avaliar e gerir inquilinos,
+          além dos pedidos e reparações que surgem ao longo do contrato.
+        </p>
+        <p class="solution-highlight">
+          Com o modelo de rentabilidade garantida da Host Wise, tem o melhor dos dois mundos:
+        </p>
+      </div>
+
+      <div class="advantages-list">
+        {advantages.map((advantage, index) => (
+          <div class="advantage-item" data-advantage-index={index}>
+            <div class="advantage-check">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <span>{advantage}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="solution-cta">
+        <a href="#contacto" class="btn-solution-primary">
+          Descobrir Como Funciona
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .traditional-comparison {
+    padding: 100px 20px;
+    background: white;
+    position: relative;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .comparison-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+  }
+
+  .comparison-intro h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .intro-text {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+    margin-bottom: 16px;
+  }
+
+  .warning-text {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0;
+  }
+
+  /* Risks Grid */
+  .risks-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  @media (min-width: 768px) {
+    .risks-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+  }
+
+  .risk-card {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(239, 68, 68, 0.02) 100%);
+    border: 2px solid rgba(239, 68, 68, 0.15);
+    border-radius: 20px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s forwards;
+  }
+
+  .risk-card[data-index="0"] { animation-delay: 0.1s; }
+  .risk-card[data-index="1"] { animation-delay: 0.2s; }
+  .risk-card[data-index="2"] { animation-delay: 0.3s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .risk-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(239, 68, 68, 0.15);
+    border-color: var(--risk-color);
+  }
+
+  .risk-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--risk-color);
+    transition: all 0.3s;
+  }
+
+  .risk-card:hover .risk-icon {
+    background: linear-gradient(135deg, var(--risk-color) 0%, rgba(239, 68, 68, 0.8) 100%);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .risk-content h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .risk-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%);
+    color: rgb(34, 197, 94);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1.5px solid rgba(34, 197, 94, 0.2);
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s;
+  }
+
+  .risk-card:hover .risk-badge {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Solution Section */
+  .solution-section {
+    background: linear-gradient(135deg, var(--blue-light) 0%, rgba(92, 176, 214, 0.05) 100%);
+    border-radius: 24px;
+    padding: 48px;
+    border: 2px solid rgba(92, 176, 214, 0.15);
+  }
+
+  .solution-text {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px;
+  }
+
+  .solution-text p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+    margin-bottom: 20px;
+  }
+
+  .solution-highlight {
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+    opacity: 1 !important;
+  }
+
+  /* Advantages List */
+  .advantages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto 40px;
+  }
+
+  .advantage-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: white;
+    padding: 20px 24px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(12, 68, 99, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInLeft 0.5s forwards;
+  }
+
+  .advantage-item[data-advantage-index="0"] { animation-delay: 0.1s; }
+  .advantage-item[data-advantage-index="1"] { animation-delay: 0.2s; }
+  .advantage-item[data-advantage-index="2"] { animation-delay: 0.3s; }
+  .advantage-item[data-advantage-index="3"] { animation-delay: 0.4s; }
+  .advantage-item[data-advantage-index="4"] { animation-delay: 0.5s; }
+
+  @keyframes slideInLeft {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .advantage-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 20px rgba(12, 68, 99, 0.12);
+  }
+
+  .advantage-check {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgb(34, 197, 94) 0%, rgb(22, 163, 74) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .advantage-item span {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  /* Solution CTA */
+  .solution-cta {
+    text-align: center;
+  }
+
+  .btn-solution-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.25);
+  }
+
+  .btn-solution-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(12, 68, 99, 0.35);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .traditional-comparison {
+      padding: 80px 20px;
+    }
+
+    .comparison-intro h2 {
+      font-size: 2.5rem;
+    }
+
+    .solution-section {
+      padding: 40px 32px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .comparison-intro h2 {
+      font-size: 2rem;
+    }
+
+    .intro-text {
+      font-size: 1.1rem;
+    }
+
+    .warning-text {
+      font-size: 1.05rem;
+    }
+
+    .solution-section {
+      padding: 32px 24px;
+    }
+
+    .solution-text p {
+      font-size: 1.05rem;
+    }
+
+    .solution-highlight {
+      font-size: 1.15rem !important;
+    }
+
+    .advantage-item span {
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .comparison-intro h2 {
+      font-size: 1.75rem;
+    }
+
+    .intro-text {
+      font-size: 1rem;
+    }
+
+    .risk-icon {
+      width: 64px;
+      height: 64px;
+    }
+
+    .risk-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .risk-content h3 {
+      font-size: 1rem;
+    }
+
+    .solution-section {
+      padding: 24px 20px;
+    }
+
+    .advantage-check {
+      width: 28px;
+      height: 28px;
+    }
+
+    .advantage-check svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .btn-solution-primary {
+      width: 100%;
+      justify-content: center;
+      font-size: 1rem;
+      padding: 16px 28px;
+    }
+  }
+</style>

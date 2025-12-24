@@ -1,0 +1,855 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const culturePillars = [
+  {
+    title: "Empowerment",
+    description: [
+      "Na Host Wise, acreditamos que o sucesso vem da autonomia e da capacidade de inovar. Aqui, tens espaço para criar, testar novas abordagens e implementar soluções que fazem a diferença.",
+      "Valorizamos a iniciativa e encorajamos ideias que desafiam o convencional. Se procuras um ambiente onde as tuas sugestões são ouvidas e onde tens liberdade para executar, este é o lugar certo para ti."
+    ],
+    icon: "/images/values-culture/empowerment.svg",
+    image: "/images/values-culture/team-building-host-wise-burro-ville.webp",
+    imageAlt: "Team Building da Host Wise no Burro Ville"
+  },
+  {
+    title: "Progressão de Carreira",
+    description: [
+      "O teu crescimento é uma prioridade para nós. Na Host Wise, definimos planos de carreira estruturados, com bónus mensais variáveis e aumentos anuais que podem chegar a 15%.",
+      "Além disso, investimos na tua formação contínua, garantindo que evoluis profissionalmente e te manténs atualizado com as melhores práticas do setor. Aqui, cada passo que dás na tua jornada é reconhecido e recompensado."
+    ],
+    icon: "/images/values-culture/crescimento-desenvolvimento.svg",
+    image: "/images/values-culture/team-building-host-wise-porto.webp",
+    imageAlt: "Team Building da Host Wise no Porto"
+  },
+  {
+    title: "Foco na Performance",
+    description: [
+      "O que importa não é o número de horas que passas a trabalhar, mas sim o impacto do que entregas. Na Host Wise, valorizamos a produtividade e os resultados, dando-te flexibilidade para gerir o teu tempo da melhor forma.",
+      "Trabalhamos com objetivos claros e metas desafiadoras, permitindo-te focar no que realmente importa: fazer a diferença e alcançar a excelência."
+    ],
+    icon: "/images/values-culture/foco-performance-escuro.svg",
+    image: "/images/values-culture/team-building-host-wise-porto-2.webp",
+    imageAlt: "Colaboradores da Host Wise num Team Building no Porto"
+  }
+];
+
+const benefits = [
+  {
+    category: "Trabalho Flexível",
+    items: [
+      { title: "Trabalho Remoto e Híbrido", description: "Flexibilidade para escolher onde trabalhas" },
+      { title: "Horários Flexíveis", description: "Gere o teu tempo da forma mais produtiva" }
+    ],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+    </svg>`
+  },
+  {
+    category: "Saúde e Bem-Estar",
+    items: [
+      { title: "Seguro de Saúde", description: "Cobertura de saúde completa" },
+      { title: "Personal Training Gratuito", description: "Sessões de treino online ou presenciais" }
+    ],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1 16h2v-2h-2v2zm0-4h2V7h-2v7z"/>
+    </svg>`
+  },
+  {
+    category: "Recompensas Financeiras",
+    items: [
+      { title: "Bónus Anuais", description: "Partilha nos resultados da empresa" },
+      { title: "Desconto de 20%", description: "Em todos os alojamentos Host Wise" }
+    ],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+    </svg>`
+  },
+  {
+    category: "Equipa e Comunidade",
+    items: [
+      { title: "Team Building Regular", description: "Atividades de equipa frequentes" },
+      { title: "Eventos Sociais", description: "Jantares, celebrações e momentos de convívio" }
+    ],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+    </svg>`
+  }
+];
+
+const teamPhotos = [
+  { src: "/images/property-1.webp", alt: "Jantar de Natal 2023" },
+  { src: "/images/property-2.webp", alt: "Team Building Burro Ville" },
+  { src: "/images/property-3.webp", alt: "Team Building Porto" },
+  { src: "/images/hero.webp", alt: "Equipa de Limpeza" }
+];
+---
+
+<Layout title="Trabalhar na Host Wise | A Nossa Cultura e Benefícios">
+  <!-- Hero Section -->
+  <section class="work-hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span>A Nossa Cultura</span>
+      </div>
+      <h1 class="hero-title">Como é trabalhar para a Host Wise?</h1>
+      <p class="hero-description">
+        Somos mais do que uma empresa de gestão de propriedades. Somos uma equipa dinâmica e apaixonada,
+        focada em criar experiências memoráveis para hóspedes, proprietários e colaboradores.
+      </p>
+    </div>
+  </section>
+
+  <!-- Culture Pillars Section -->
+  <section class="culture-section">
+    <div class="section-header-culture">
+      <h2>Os Nossos Valores e Cultura</h2>
+      <p>Três pilares que definem como trabalhamos</p>
+    </div>
+
+    <div class="culture-container">
+      {culturePillars.map((pillar, index) => (
+        <div class="culture-row" data-index={index}>
+          <div class="culture-content-sticky">
+            <div class="culture-text-wrapper">
+              <div class="culture-icon-wrapper">
+                <img src={pillar.icon} alt={`${pillar.title} Icon`} class="culture-icon-svg" />
+              </div>
+              <h3 class="culture-title">{pillar.title}</h3>
+              <div class="culture-description">
+                {pillar.description.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+            <div class="culture-image-wrapper">
+              <img src={pillar.image} alt={pillar.imageAlt} class="culture-image" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Benefits Package Section -->
+  <section class="benefits-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Pacote de Benefícios</h2>
+        <p>Cuidamos de quem faz parte da nossa família</p>
+      </div>
+
+      <div class="benefits-grid">
+        {benefits.map((benefit, index) => (
+          <div class="benefit-category-card" data-index={index}>
+            <div class="category-header">
+              <div class="category-icon" set:html={benefit.icon} />
+              <h3>{benefit.category}</h3>
+            </div>
+            <ul class="benefit-list">
+              {benefit.items.map((item) => (
+                <li>
+                  <div class="benefit-item">
+                    <h4>{item.title}</h4>
+                    <p>{item.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Photos Section -->
+  <section class="team-photos-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>A Nossa Equipa em Ação</h2>
+        <p>Momentos que definem a nossa cultura</p>
+      </div>
+
+      <div class="photos-grid">
+        {teamPhotos.map((photo, index) => (
+          <div class="photo-card" data-index={index}>
+            <div class="photo-wrapper">
+              <img src={photo.src} alt={photo.alt} />
+              <div class="photo-overlay">
+                <p>{photo.alt}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Pronto para Fazer Parte da Equipa?</h2>
+        <p>
+          Descobre as oportunidades disponíveis e junta-te a uma equipa onde o teu talento é valorizado
+          e o teu crescimento é prioridade.
+        </p>
+        <div class="cta-buttons">
+          <a href="/vagas-emprego" class="btn-primary-cta">
+            Explora as Oportunidades
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+          <a href="/careers" class="btn-secondary-cta">
+            Voltar a Carreiras
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .work-hero {
+    padding: 180px 20px 100px;
+    background: linear-gradient(135deg, #F8FCFF 0%, #E5F4FE 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .work-hero::before {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    left: -150px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(92, 176, 214, 0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+    animation: fadeInDown 0.6s ease-out;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-title {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1.1;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-description {
+    font-size: 1.3rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out 0.4s backwards;
+  }
+
+  /* Culture Section */
+  .culture-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .section-header-culture {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 80px;
+    padding: 0 20px;
+  }
+
+  .section-header-culture h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .section-header-culture p {
+    font-size: 1.2rem;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .culture-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .culture-row {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    padding: 0 40px;
+  }
+
+  .culture-row[data-index="0"] .culture-content-sticky {
+    top: 50px;
+  }
+
+  .culture-row[data-index="1"] .culture-content-sticky {
+    top: 100px;
+  }
+
+  .culture-row[data-index="2"] .culture-content-sticky {
+    top: 150px;
+  }
+
+  .culture-content-sticky {
+    position: sticky;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    background: linear-gradient(135deg, var(--blue-light) 0%, rgba(92, 176, 214, 0.05) 100%);
+    border: 2px solid var(--gray-light);
+    border-radius: 24px;
+    padding: 60px 50px;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(12, 68, 99, 0.1);
+    transition: all 0.4s ease;
+  }
+
+  .culture-content-sticky:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 16px 48px rgba(12, 68, 99, 0.15);
+  }
+
+  .culture-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .culture-icon-wrapper {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .culture-icon-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .culture-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .culture-description {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .culture-description p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text);
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .culture-image-wrapper {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .culture-content-sticky:hover .culture-image-wrapper {
+    transform: scale(1.02);
+  }
+
+  .culture-image {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Benefits Section */
+  .benefits-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, #F8FCFF 0%, #fff 100%);
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+  }
+
+  .section-header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .benefit-category-card {
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 20px;
+    padding: 40px 32px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+
+  .benefit-category-card[data-index="0"] { animation-delay: 0.1s; }
+  .benefit-category-card[data-index="1"] { animation-delay: 0.2s; }
+  .benefit-category-card[data-index="2"] { animation-delay: 0.3s; }
+  .benefit-category-card[data-index="3"] { animation-delay: 0.4s; }
+
+  @keyframes slideInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .benefit-category-card:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 12px 40px rgba(12, 68, 99, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--gray-light);
+  }
+
+  .category-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .category-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+  }
+
+  .benefit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .benefit-item {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .benefit-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    background: var(--secondary);
+    border-radius: 50%;
+  }
+
+  .benefit-item h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+
+  .benefit-item p {
+    font-size: 1rem;
+    color: var(--text);
+    opacity: 0.85;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Team Photos Section */
+  .team-photos-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .photos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .photo-card {
+    opacity: 0;
+    transform: scale(0.95);
+    animation: zoomIn 0.6s ease-out forwards;
+  }
+
+  .photo-card[data-index="0"] { animation-delay: 0.1s; }
+  .photo-card[data-index="1"] { animation-delay: 0.2s; }
+  .photo-card[data-index="2"] { animation-delay: 0.3s; }
+  .photo-card[data-index="3"] { animation-delay: 0.4s; }
+
+  @keyframes zoomIn {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .photo-wrapper {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .photo-wrapper:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(12, 68, 99, 0.2);
+  }
+
+  .photo-wrapper img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .photo-wrapper:hover img {
+    transform: scale(1.05);
+  }
+
+  .photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(12, 68, 99, 0.95) 0%, transparent 100%);
+    padding: 24px 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .photo-wrapper:hover .photo-overlay {
+    transform: translateY(0);
+  }
+
+  .photo-overlay p {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+  }
+
+  .cta-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  .cta-content p {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    opacity: 0.95;
+    margin-bottom: 40px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 40px;
+    background: white;
+    color: var(--primary);
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-primary-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-secondary-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 20px 40px;
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary-cta:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .work-hero {
+      padding: 160px 20px 80px;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+    }
+
+    .section-header h2,
+    .section-header-culture h2,
+    .cta-content h2 {
+      font-size: 2.5rem;
+    }
+
+    .culture-row {
+      min-height: auto;
+      padding: 0 20px;
+      margin-bottom: 40px;
+    }
+
+    .culture-content-sticky {
+      position: relative;
+      top: 0 !important;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 50px 40px;
+    }
+
+    .culture-image {
+      height: 400px;
+    }
+
+    .benefits-grid,
+    .photos-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .work-hero {
+      padding: 140px 20px 60px;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-description {
+      font-size: 1.15rem;
+    }
+
+    .culture-section,
+    .benefits-section,
+    .team-photos-section,
+    .cta-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2,
+    .section-header-culture h2 {
+      font-size: 2rem;
+    }
+
+    .cta-content h2 {
+      font-size: 2.25rem;
+    }
+
+    .culture-row {
+      margin-bottom: 30px;
+    }
+
+    .culture-content-sticky {
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .culture-icon-wrapper {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+    }
+
+    .culture-title {
+      font-size: 2rem;
+    }
+
+    .culture-description p {
+      font-size: 1.05rem;
+    }
+
+    .culture-image {
+      height: 350px;
+    }
+
+    .benefit-category-card {
+      padding: 32px 24px;
+    }
+
+    .photo-wrapper img {
+      height: 280px;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+
+    .btn-primary-cta,
+    .btn-secondary-cta {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .section-header h2,
+    .section-header-culture h2 {
+      font-size: 1.75rem;
+    }
+
+    .cta-content h2 {
+      font-size: 1.85rem;
+    }
+
+    .culture-content-sticky {
+      padding: 32px 24px;
+    }
+
+    .culture-title {
+      font-size: 1.65rem;
+    }
+
+    .culture-description p {
+      font-size: 1rem;
+    }
+
+    .culture-image {
+      height: 280px;
+    }
+
+    .photo-wrapper img {
+      height: 240px;
+    }
+  }
+</style>

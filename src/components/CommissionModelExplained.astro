@@ -1,0 +1,710 @@
+---
+// Commission Model Explained Component with Animation
+---
+
+<section class="commission-explained-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">Como Funciona</span>
+      <h2>Modelo de Comissão Simples e Transparente</h2>
+      <p>
+        Com o modelo de comissão, recebe uma percentagem variável do rendimento bruto gerado pelo seu alojamento.
+        Quanto melhor a performance, mais recebe. Transparência total, mês após mês.
+      </p>
+    </div>
+
+    <div class="explanation-content">
+      <div class="explanation-text">
+        <h3>Como calculamos o seu rendimento?</h3>
+        <div class="explanation-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h4>Rendimento Bruto do Alojamento</h4>
+              <p>Soma total de todas as reservas do mês (antes de despesas e comissões)</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h4>Aplicação da Comissão Host Wise</h4>
+              <p>Retiramos a nossa comissão de gestão sobre o valor bruto</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h4>Recebe o Restante</h4>
+              <p>O valor líquido é transferido para si, mês após mês</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="benefits-list">
+          <h4>Vantagens deste modelo:</h4>
+          <ul>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              Potencial de rendimento ilimitado
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              Transparência total nos valores
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              Gestão profissional para maximizar reservas
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="animation-wrapper">
+        <div class="revenue-calculator">
+          <div class="calculator-header">
+            <h4>Simulação Mensal</h4>
+            <p>Veja como funciona na prática</p>
+          </div>
+
+          <div class="month-selector">
+            <button class="month-btn active" data-month="1">Jan</button>
+            <button class="month-btn" data-month="2">Fev</button>
+            <button class="month-btn" data-month="3">Mar</button>
+            <button class="month-btn" data-month="4">Abr</button>
+            <button class="month-btn" data-month="5">Mai</button>
+            <button class="month-btn" data-month="6">Jun</button>
+          </div>
+
+          <div class="revenue-breakdown">
+            <div class="revenue-item gross">
+              <div class="revenue-label">
+                <span class="revenue-icon gross-icon">€</span>
+                <span>Rendimento Bruto</span>
+              </div>
+              <div class="revenue-value" id="grossRevenue">€2,500</div>
+            </div>
+
+            <div class="calculation-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+              </svg>
+            </div>
+
+            <div class="revenue-item commission">
+              <div class="revenue-label">
+                <span class="revenue-icon commission-icon">%</span>
+                <span>Comissão Host Wise <span class="commission-rate">(20%)</span></span>
+              </div>
+              <div class="revenue-value negative" id="commission">-€500</div>
+            </div>
+
+            <div class="calculation-arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+              </svg>
+            </div>
+
+            <div class="revenue-item net">
+              <div class="revenue-label">
+                <span class="revenue-icon net-icon">✓</span>
+                <span>Recebe</span>
+              </div>
+              <div class="revenue-value highlight" id="netRevenue">€2,000</div>
+            </div>
+          </div>
+
+          <div class="visual-bar">
+            <div class="bar-segment owner" id="ownerBar">
+              <span class="bar-label">Seu Rendimento</span>
+              <span class="bar-percentage" id="ownerPercentage">80%</span>
+            </div>
+            <div class="bar-segment commission-seg" id="commissionBar">
+              <span class="bar-label">Comissão</span>
+              <span class="bar-percentage">20%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="commission-cta">
+      <h3>Pronto para Começar com o Modelo de Comissão?</h3>
+      <p>Receba uma proposta personalizada e descubra o potencial do seu imóvel.</p>
+      <a href="/contacto" class="commission-cta-btn">
+        Receber Proposta Gratuita
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .commission-explained-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, #F8FCFF 0%, #fff 100%);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 80px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: rgba(92, 176, 214, 0.15);
+    color: var(--secondary);
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .section-header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: var(--text);
+    opacity: 0.85;
+    line-height: 1.7;
+  }
+
+  .explanation-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .explanation-text h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 32px;
+  }
+
+  .explanation-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .step-content h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+
+  .step-content p {
+    font-size: 1rem;
+    color: var(--text);
+    opacity: 0.85;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .benefits-list h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .benefits-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+
+  .benefits-list svg {
+    color: var(--secondary);
+    flex-shrink: 0;
+  }
+
+  /* Animation Wrapper */
+  .animation-wrapper {
+    position: sticky;
+    top: 100px;
+  }
+
+  .revenue-calculator {
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(12, 68, 99, 0.1);
+  }
+
+  .calculator-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .calculator-header h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+
+  .calculator-header p {
+    font-size: 1rem;
+    color: var(--text);
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .month-selector {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .month-btn {
+    padding: 10px 16px;
+    background: var(--gray-light);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .month-btn:hover {
+    border-color: var(--secondary);
+    background: white;
+  }
+
+  .month-btn.active {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-color: transparent;
+  }
+
+  .revenue-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .revenue-item {
+    background: var(--blue-light);
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .revenue-item.gross {
+    background: linear-gradient(135deg, rgba(92, 176, 214, 0.15) 0%, rgba(92, 176, 214, 0.05) 100%);
+  }
+
+  .revenue-item.commission {
+    background: linear-gradient(135deg, rgba(255, 99, 71, 0.1) 0%, rgba(255, 99, 71, 0.05) 100%);
+  }
+
+  .revenue-item.net {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.15) 0%, rgba(46, 204, 113, 0.05) 100%);
+    border: 2px solid rgba(46, 204, 113, 0.3);
+  }
+
+  .revenue-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .revenue-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .gross-icon {
+    background: var(--secondary);
+    color: white;
+  }
+
+  .commission-icon {
+    background: #ff6347;
+    color: white;
+  }
+
+  .net-icon {
+    background: #2ecc71;
+    color: white;
+  }
+
+  .commission-rate {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    font-weight: 500;
+  }
+
+  .revenue-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    transition: all 0.4s ease;
+  }
+
+  .revenue-value.negative {
+    color: #ff6347;
+  }
+
+  .revenue-value.highlight {
+    color: #2ecc71;
+    font-size: 1.75rem;
+  }
+
+  .calculation-arrow {
+    text-align: center;
+    color: var(--secondary);
+    opacity: 0.5;
+    margin: -8px 0;
+  }
+
+  /* Visual Bar */
+  .visual-bar {
+    display: flex;
+    height: 60px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .bar-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .bar-segment.owner {
+    background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+    width: 80%;
+  }
+
+  .bar-segment.commission-seg {
+    background: linear-gradient(135deg, #ff6347 0%, #e74c3c 100%);
+    width: 20%;
+  }
+
+  .bar-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .bar-percentage {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: white;
+  }
+
+  /* Commission CTA */
+  .commission-cta {
+    text-align: center;
+    margin-top: 80px;
+    padding: 48px 40px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 24px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .commission-cta h3 {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .commission-cta p {
+    font-size: 1.1rem;
+    color: white;
+    opacity: 0.95;
+    margin-bottom: 28px;
+  }
+
+  .commission-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 36px;
+    background: white;
+    color: var(--primary);
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .commission-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    gap: 16px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .commission-explained-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+    }
+
+    .explanation-content {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+
+    .animation-wrapper {
+      position: relative;
+      top: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .explanation-text h3 {
+      font-size: 1.65rem;
+    }
+
+    .revenue-calculator {
+      padding: 32px 24px;
+    }
+
+    .calculator-header h4 {
+      font-size: 1.25rem;
+    }
+
+    .revenue-value {
+      font-size: 1.25rem;
+    }
+
+    .revenue-value.highlight {
+      font-size: 1.5rem;
+    }
+
+    .visual-bar {
+      height: 50px;
+    }
+
+    .bar-label {
+      font-size: 0.7rem;
+    }
+
+    .bar-percentage {
+      font-size: 0.95rem;
+    }
+
+    .commission-cta {
+      margin-top: 60px;
+      padding: 40px 28px;
+    }
+
+    .commission-cta h3 {
+      font-size: 1.65rem;
+    }
+
+    .commission-cta p {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .month-selector {
+      gap: 6px;
+    }
+
+    .month-btn {
+      padding: 8px 12px;
+      font-size: 0.85rem;
+    }
+
+    .revenue-item {
+      padding: 16px;
+    }
+
+    .revenue-label {
+      font-size: 0.9rem;
+    }
+
+    .revenue-icon {
+      width: 28px;
+      height: 28px;
+      font-size: 1rem;
+    }
+
+    .visual-bar {
+      flex-direction: column;
+      height: auto;
+    }
+
+    .bar-segment {
+      padding: 12px;
+    }
+
+    .commission-cta h3 {
+      font-size: 1.5rem;
+    }
+
+    .commission-cta p {
+      font-size: 0.95rem;
+    }
+
+    .commission-cta-btn {
+      font-size: 1rem;
+      padding: 14px 28px;
+    }
+  }
+</style>
+
+<script>
+  // Monthly revenue data (simulated varying performance)
+  const monthlyData = [
+    { month: 1, gross: 2500, commission: 500 },   // Jan
+    { month: 2, gross: 2800, commission: 560 },   // Fev
+    { month: 3, gross: 3200, commission: 640 },   // Mar
+    { month: 4, gross: 2900, commission: 580 },   // Abr
+    { month: 5, gross: 3500, commission: 700 },   // Mai
+    { month: 6, gross: 4200, commission: 840 },   // Jun
+  ];
+
+  const COMMISSION_RATE = 0.20; // 20%
+
+  function updateRevenue(monthIndex: number) {
+    const data = monthlyData[monthIndex - 1];
+    const net = data.gross - data.commission;
+
+    const grossEl = document.getElementById('grossRevenue');
+    const commissionEl = document.getElementById('commission');
+    const netEl = document.getElementById('netRevenue');
+    const ownerBar = document.getElementById('ownerBar');
+    const ownerPercentage = document.getElementById('ownerPercentage');
+
+    if (grossEl && commissionEl && netEl && ownerBar && ownerPercentage) {
+      // Animate values
+      grossEl.textContent = `€${data.gross.toLocaleString()}`;
+      commissionEl.textContent = `-€${data.commission.toLocaleString()}`;
+      netEl.textContent = `€${net.toLocaleString()}`;
+
+      // Update bar
+      const ownerPercent = ((net / data.gross) * 100).toFixed(0);
+      ownerBar.style.width = `${ownerPercent}%`;
+      ownerPercentage.textContent = `${ownerPercent}%`;
+    }
+  }
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    const monthButtons = document.querySelectorAll('.month-btn');
+
+    monthButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active from all
+        monthButtons.forEach(b => b.classList.remove('active'));
+
+        // Add active to clicked
+        btn.classList.add('active');
+
+        // Update revenue
+        const monthIndex = parseInt(btn.getAttribute('data-month') || '1');
+        updateRevenue(monthIndex);
+      });
+    });
+
+    // Initial load
+    updateRevenue(1);
+  });
+</script>

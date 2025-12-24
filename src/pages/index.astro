@@ -2,31 +2,69 @@
 import Layout from '../layouts/Layout.astro';
 import HeroToggle from '../components/HeroToggle.astro';
 import ToggleSection from '../components/ToggleSection.astro';
-import IntroSection from '../components/IntroSection.astro';
+import IntroSectionWStats from '../components/IntroSectionWStats.astro';
 import ServicesSwitch from '../components/ServicesSwitch.astro';
-import GoogleReviews from '../components/GoogleReviews.astro';
+import AnimatedStats from '../components/AnimatedStats.astro';
 import ModelsIntro from '../components/ModelsIntro.astro';
-import GuaranteedRentSection from '../components/GuaranteedRentSection.astro';
-import PricingSection from '../components/PricingSection.astro';
-import RegionsCarousel from '../components/RegionsCarousel.astro';
+import BlogSection from '../components/BlogSection.astro';
 import FAQSection from '../components/FAQSection.astro';
 import OwnerTestimonials from '../components/OwnerTestimonials.astro';
 import WiseGroupSection from '../components/WiseGroupSection.astro';
-import FeaturesGrid from '../components/FeaturesGrid.astro';
+import PartnersMarquee from '../components/PartnersMarquee.astro';
 import { getPosts } from '../lib/wordpress'; 
 
 const posts = await getPosts();
+
+const apiBase = import.meta.env.WORDPRESS_API_URL;
+const HOME_PAGE_ID = 59; 
+const res = await fetch(`${apiBase}/pages/${HOME_PAGE_ID}?lang=pt&_embed`);
+const page = await res.json();
+const acf = page.acf || {};
 ---
 
-<Layout title="Gestão de Alojamentos Locais">
-  <HeroToggle />
+<Layout title="HostWise - Gestão de Alojamentos Locais e Asset Management">
+  <HeroToggle
+    tabOwnerLabel={acf.hero_tab_owner_label}
+    tabGuestLabel={acf.hero_tab_guest_label}
+    images={acf.hero_images}
+    ownerBadge={acf.hero_owner_badge}
+    ownerTitle={acf.hero_owner_title}
+    ownerText={acf.hero_owner_text}
+    ownerCtaLabel={acf.hero_owner_cta_label}
+    ownerCtaUrl={acf.hero_owner_cta_url}
+    ownerSwitchLabel={acf.hero_owner_switch_label}
+    guestBadge={acf.hero_guest_badge}
+    guestTitle={acf.hero_guest_title}
+    guestText={acf.hero_guest_text}
+    guestSwitchLabel={acf.hero_guest_switch_label}
+  />
 
 
   <!-- Toggle Section - Proprietários vs Hóspedes -->
-  <ToggleSection />
+  <ToggleSection
+  ownerTitle={acf.toggle_owner_title}
+  ownerDescription={acf.toggle_owner_description}
+  ownerBenefits={acf.toggle_owner_benefits}
+  ownerImage={acf.toggle_owner_image}
+  ownerCtaLabel={acf.toggle_owner_cta_label}
+  ownerCtaUrl={acf.toggle_owner_cta_url}
+
+  guestTitle={acf.toggle_guest_title}
+  guestDescription={acf.toggle_guest_description}
+  guestBenefits={acf.toggle_guest_benefits}
+  guestImage={acf.toggle_guest_image}
+  guestCtaLabel={acf.toggle_guest_cta_label}
+  guestCtaUrl={acf.toggle_guest_cta_url}
+/>
   
   <!-- Intro Section -->
-<IntroSection />
+<IntroSectionWStats
+  title={acf.intro_title}
+  paragraphs={acf.intro_paragraphs}
+  ctaLabel={acf.intro_cta_label}
+  ctaUrl={acf.intro_cta_url}
+  stats={acf.intro_stats}
+/>
 
   
 
@@ -34,89 +72,26 @@ const posts = await getPosts();
 <ServicesSwitch />
 
 <!-- Stats Section -->
-  <section class="section stats-section">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number" data-target="600">0</div>
-          <div class="stat-label">Propriedades Geridas</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" data-target="95">0</div>
-          <div class="stat-label">Taxa de Ocupação Média (%)</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" data-target="4.8">0</div>
-          <div class="stat-label">Avaliação Média</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" data-target="24">0</div>
-          <div class="stat-label">Suporte (horas/dia)</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
+ <AnimatedStats />
+  
 
   <!-- Models Intro -->
 <ModelsIntro />
   
 
   <!-- Parceiros -->
-  <section class="section partners">
-    <div class="container">
-      <div class="section-header">
-        <h2>Parceiros de Confiança</h2>
-        <p>Trabalhamos com as melhores plataformas e marcas do mercado</p>
-      </div>
-      
-      <div class="partners-grid">
-        <div class="partner-logo">Farfetch</div>
-        <div class="partner-logo">Natixis</div>
-        <div class="partner-logo">Atlântida WTA</div>
-        <div class="partner-logo">Apartool</div>
-        <div class="partner-logo">Digin</div>
-        <div class="partner-logo">Revolut</div>
-      </div>
-    </div>
-  </section>
+  <PartnersMarquee />
 
-   Blog
-  <section id="blog" class="section blog">
-    <div class="container">
-      <div class="section-header">
-        <h2>Últimos do Blog</h2>
-        <p>Dicas, tendências e novidades do mercado de alojamentos locais</p>
-      </div>
 
-      <div class="blog-grid">
-        {posts.slice(0, 3).map((post: any) => (
-          <article class="blog-card">
-            {post.featuredImage && (
-              <div class="blog-image">
-                <img src={post.featuredImage.node.sourceUrl} alt={post.featuredImage.node.altText || post.title} />
-              </div>
-            )}
-            <div class="blog-content">
-              <h3>{post.title}</h3>
-              <div set:html={post.excerpt} />
-              <a href={`/blog/${post.slug}`} class="read-more">Ler artigo <i class="fas fa-arrow-right"></i></a>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div class="blog-cta">
-        <a href="/blog" class="btn-secondary">Ver Todos os Artigos</a>
-      </div>
-    </div>
-  </section>
+    <!-- Blog Section -->
+<BlogSection />
 
 <OwnerTestimonials />
 
   <!-- FAQ Section -->
 <FAQSection />
   
+<WiseGroupSection />
 </Layout>
 
 <style>
@@ -535,29 +510,6 @@ const posts = await getPosts();
     font-size: 1.5rem;
     color: var(--primary);
     margin-bottom: 16px;
-  }
-
-  /* Partners */
-  .partners {
-    background: var(--gray-light);
-  }
-
-  .partners-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 32px;
-    align-items: center;
-  }
-
-  .partner-logo {
-    background: white;
-    padding: 32px;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.2rem;
-    color: var(--text);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   /* Blog */

@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSectionV2 from '../components/HeroSectionV2.astro';
+import IntroSection from '../components/IntroSection.astro';
+import BenefitsGrid from '../components/BenefitsGrid.astro';
+import GuaranteedRentSectionExplained from '../components/GuaranteedRentSectionExplained.astro';
+import TraditionalRentalComparison from '../components/TraditionalRentalComparison.astro';
+import ModelsComparison from '../components/ModelsComparison.astro';
+import ModelsIntro from '../components/ModelsIntro.astro';
+import OwnerTestimonials from '../components/OwnerTestimonials.astro';
+import FAQSection from '../components/FAQSection.astro';
+
+const benefits = [
+  {
+    title: "Renda Mensal Fixa, Sem Surpresas",
+    description: "Esqueça os altos e baixos típicos do alojamento local. Com este modelo, recebe todos os meses o mesmo valor, independentemente de quantas reservas o imóvel teve. Isso significa segurança financeira, ideal para quem quer planear a médio e longo prazo.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "Rentabilidade sem Risco",
+    description: "Não importa se há menos turistas, se o mercado está instável ou se surgem imprevistos — o seu rendimento está garantido. É a solução ideal para quem quer usufruir dos benefícios do alojamento local sem os riscos associados.",
+    color: "rgba(12, 68, 99, 1)"
+  },
+  {
+    title: "Manutenção Incluída",
+    description: "Cuidamos da sua propriedade como se fosse nossa. Realizamos manutenções preventivas, pequenos reparos e asseguramos que tudo esteja impecável para os hóspedes. Isto não só protege o seu investimento como contribui para a valorização do imóvel.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "Sem Preocupações com Contas Mensais",
+    description: "A gestão e o pagamento de utilities (água, luz, internet, etc.) ficam do nosso lado. Isso significa menos burocracia e menos preocupações para si.",
+    color: "rgba(12, 68, 99, 1)"
+  },
+  {
+    title: "Verificação e Seleção dos Hóspedes/Inquilinos",
+    description: "A Host Wise gere totalmente o perfil de hóspedes, garantindo qualidade e bom comportamento, com base em regras claras e processos de triagem.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "Renovação do Inventário Incluída",
+    description: "Durante o contrato, substituímos e atualizamos o inventário (roupas de cama, utensílios, eletrodomésticos, etc.) conforme necessário — e no final, deixamos tudo consigo.",
+    color: "rgba(12, 68, 99, 1)"
+  }
+];
+---
+
+<Layout title="Rentabilidade Garantida - Host Wise">
+  <!-- Hero Section V2 - SaaS Style -->
+  <HeroSectionV2 />
+
+  <!-- Intro Section -->
+  <IntroSection />
+
+  <!-- Benefits Grid -->
+  <BenefitsGrid
+    benefits={benefits}
+    badgeText="Vantagens do Modelo"
+    heading="Porquê escolher o Modelo de Rentabilidade Garantida?"
+    subheading="O modelo de Rentabilidade Garantida foi desenhado para proprietários que valorizam segurança e previsibilidade. Receba uma renda fixa mensal e aproveite todos os benefícios do alojamento local sem riscos nem preocupações."
+  />
+
+
+  <!-- Guaranteed Rent Explained -->
+  <TraditionalRentalComparison />
+  
+  <!-- Guaranteed Rent Explained -->
+  <GuaranteedRentSectionExplained />
+
+  <!-- Models Comparison -->
+  <ModelsComparison />
+
+  <!-- Owner Testimonials -->
+  <OwnerTestimonials />
+
+  <!-- FAQ Section -->
+  <FAQSection />
+</Layout>

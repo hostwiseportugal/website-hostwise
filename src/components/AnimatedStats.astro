@@ -1,0 +1,328 @@
+---
+const stats = [
+  {
+    number: 600,
+    suffix: "+",
+    label: "Propriedades Geridas",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>`
+  },
+  {
+    number: 95,
+    suffix: "%",
+    label: "Taxa de Ocupação Média",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+      <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+    </svg>`
+  },
+  {
+    number: 4.8,
+    suffix: "/5",
+    label: "Avaliação Média dos Hóspedes",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+    </svg>`
+  },
+  {
+    number: 24,
+    suffix: "/7",
+    label: "Suporte ao Proprietário",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+    </svg>`
+  }
+];
+---
+
+<section class="animated-stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      {stats.map((stat, index) => (
+        <div
+          class="stat-card"
+          data-stat-index={index}
+          style={`animation-delay: ${index * 0.1}s`}
+        >
+          <div class="stat-icon" set:html={stat.icon} />
+          <div class="stat-content">
+            <div class="stat-number-wrapper">
+              <span
+                class="stat-number"
+                data-target={stat.number}
+                data-suffix={stat.suffix}
+              >
+                0
+              </span>
+              <span class="stat-suffix">{stat.suffix}</span>
+            </div>
+            <p class="stat-label">{stat.label}</p>
+          </div>
+          <div class="stat-decoration"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .animated-stats-section {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, #0A75AF 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .animated-stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(92, 176, 214, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(92, 176, 214, 0.2) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 32px;
+  }
+
+  .stat-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .stat-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  }
+
+  .stat-card:hover .stat-decoration {
+    transform: scale(1.2) rotate(45deg);
+    opacity: 0.3;
+  }
+
+  .stat-decoration {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    opacity: 0.2;
+  }
+
+  .stat-icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover .stat-icon {
+    background: white;
+    color: var(--primary);
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .stat-number-wrapper {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .stat-number {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-suffix {
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .animated-stats-section {
+      padding: 80px 20px;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+    }
+
+    .stat-suffix {
+      font-size: 1.75rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .animated-stats-section {
+      padding: 60px 20px;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      padding: 32px 24px;
+    }
+
+    .stat-icon {
+      width: 56px;
+      height: 56px;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+    }
+
+    .stat-suffix {
+      font-size: 1.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+<script>
+  class AnimatedStatsCounter {
+    private observer: IntersectionObserver;
+    private hasAnimated: boolean = false;
+
+    constructor() {
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !this.hasAnimated) {
+              this.hasAnimated = true;
+              this.animateStats();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      this.init();
+    }
+
+    init() {
+      const statsSection = document.querySelector('.animated-stats-section');
+      if (statsSection) {
+        this.observer.observe(statsSection);
+      }
+    }
+
+    animateStats() {
+      const statNumbers = document.querySelectorAll('.stat-number');
+
+      statNumbers.forEach((stat) => {
+        const element = stat as HTMLElement;
+        const target = parseFloat(element.dataset.target || '0');
+        const suffix = element.dataset.suffix || '';
+        const duration = 2000; // 2 seconds
+        const steps = 60;
+        const increment = target / steps;
+        const stepDuration = duration / steps;
+
+        let current = 0;
+        const isDecimal = target % 1 !== 0;
+
+        const timer = setInterval(() => {
+          current += increment;
+
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+
+          if (isDecimal) {
+            element.textContent = current.toFixed(1);
+          } else {
+            element.textContent = Math.floor(current).toString();
+          }
+        }, stepDuration);
+      });
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+      new AnimatedStatsCounter();
+    });
+  }
+</script>

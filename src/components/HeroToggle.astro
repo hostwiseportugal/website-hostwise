@@ -1,4 +1,59 @@
 ---
+import GuestySearchWidget from '../components/GuestySearchWidget.astro';
+
+interface HeroImage {
+  image?: { url?: string; alt?: string };
+  alt?: string;
+}
+
+interface HeroToggleProps {
+  tabOwnerLabel?: string;
+  tabGuestLabel?: string;
+  images?: HeroImage[];
+
+  ownerBadge?: string;
+  ownerTitle?: string;
+  ownerText?: string;
+  ownerCtaLabel?: string;
+  ownerCtaUrl?: string;
+  ownerSwitchLabel?: string;
+
+  guestBadge?: string;
+  guestTitle?: string;
+  guestText?: string;
+  guestSwitchLabel?: string;
+}
+
+const {
+  tabOwnerLabel = 'Sou Proprietário',
+  tabGuestLabel = 'Sou Hóspede',
+  images = [],
+
+  ownerBadge = 'Gestão de Alojamento Local e Asset Management de Hospitalidade',
+  ownerTitle = 'Do Apartamento ao Portfolio. Gestão que Maximiza Rentabilidade.',
+  ownerText = 'Gestão profissional que combina standards hoteleiros, tecnologia avançada, e conhecimento profundo do mercado português. Para proprietários individuais, edifícios completos, e portfolios institucionais.',
+  ownerCtaLabel = 'Quero Receber uma Proposta',
+  ownerCtaUrl = '#contacto',
+  ownerSwitchLabel = 'Sou hóspede →',
+
+  guestBadge = 'Reserve Diretamente com a HostWise',
+  guestTitle = 'Book. Stay. Repeat.',
+  guestText = 'Alojamentos Locais espalhados por Portugal aos melhores preços. Reserve Já!',
+  guestSwitchLabel = 'Sou proprietário →',
+} = Astro.props as HeroToggleProps;
+
+// fallback de imagens se ainda não tiveres nada no ACF
+const heroImages: { url: string; alt: string }[] =
+  images.length > 0
+    ? images.map((item, index) => ({
+        url: item.image?.url || '',
+        alt: item.alt || item.image?.alt || `Hero image ${index + 1}`,
+      })).filter(img => img.url)
+    : [
+        { url: '/images/property-1.webp', alt: 'Apartamento moderno' },
+        { url: '/images/hero.webp', alt: 'Sala ampla com vista' },
+        { url: '/images/property-2.webp', alt: 'Espaço de refeições' },
+      ];
 ---
 
 <section class="hero-new">
@@ -6,60 +61,71 @@
     <!-- Tabs -->
     <div class="toggle-tabs">
       <button class="toggle-tab active" data-tab="owners">
-        Sou Proprietário
+        {tabOwnerLabel}
       </button>
       <button class="toggle-tab" data-tab="guests">
-        Sou Hóspede
+        {tabGuestLabel}
       </button>
     </div>
 
     <div class="hero-grid">
       <!-- Imagens -->
       <div class="hero-images">
-        <div class="image-item"><img src="/images/property-1.webp" alt="" /></div>
-        <div class="image-item"><img src="/images/hero.webp" alt="" /></div>
-        <div class="image-item"><img src="/images/property-2.webp" alt="" /></div>
+        {heroImages.map((img, index) => (
+          <div class="image-item">
+            <img src={img.url} alt={img.alt} loading={index === 0 ? 'eager' : 'lazy'} />
+          </div>
+        ))}
       </div>
 
       <!-- Conteúdo -->
       <div class="hero-main">
         <!-- TAB PROPRIETÁRIOS -->
         <div class="tab-content active" data-content="owners">
-          <h1>Gestão de Alojamento Local e Asset Management de Hospitalidade</h1>
-          <h2>Do Apartamento ao Portfolio. Gestão que Maximiza Rentabilidade.</h2>
-          <p>Gestão profissional que combina standards hoteleiros, tecnologia avançada, e conhecimento profundo do mercado português. Para proprietários individuais, edifícios completos, e portfolios institucionais.</p>
-          
+          {ownerBadge && <h1>{ownerBadge}</h1>}
+
+          {ownerTitle && <h2>{ownerTitle}</h2>}
+
+          {ownerText && <p>{ownerText}</p>}
+
           <div class="cta-buttons">
-            <a href="#contacto" class="btn-primary-hero">Quero Receber uma Proposta</a>
-            <button class="link-switch" data-switch="guests">Sou hóspede →</button>
+            {ownerCtaLabel && (
+              <a href={ownerCtaUrl} class="btn-primary-hero">
+                {ownerCtaLabel}
+              </a>
+            )}
+
+            {ownerSwitchLabel && (
+              <button class="link-switch" data-switch="guests">
+                {ownerSwitchLabel}
+              </button>
+            )}
           </div>
         </div>
 
         <!-- TAB HÓSPEDES -->
         <div class="tab-content" data-content="guests">
-          <span class="label">Reserve Diretamente com a HostWise</span>
-          <div class="title-large">Book. Stay. Repeat.</div>
-          <p>Alojamentos Locais espalhados por Portugal aos melhores preços. Reserve Já!</p>
-          
+          {guestBadge && <span class="label">{guestBadge}</span>}
+
+          {guestTitle && <div class="title-large">{guestTitle}</div>}
+
+          {guestText && <p>{guestText}</p>}
+
           <div class="booking-form">
-            <div class="form-row">
-              <input type="text" placeholder="Destination" />
-            </div>
-            <div class="form-row two-col">
-              <input type="text" placeholder="Check in" />
-              <input type="text" placeholder="Check out" />
-            </div>
-            <div class="form-row">
-              <input type="text" placeholder="Guests" />
-            </div>
-            <a href="https://hostwisebooking.pt/" target="_blank" class="btn-primary-hero">Procurar Alojamentos</a>
-            <button class="link-switch" data-switch="owners">Sou proprietário →</button>
+            <GuestySearchWidget />
+
+            {guestSwitchLabel && (
+              <button class="link-switch" data-switch="owners">
+                {guestSwitchLabel}
+              </button>
+            )}
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 <style>
   .hero-new {
@@ -435,6 +501,7 @@
       height: 180px;
     }
   }
+
 </style>
 
 <script>

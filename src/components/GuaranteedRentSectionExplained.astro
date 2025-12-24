@@ -28,7 +28,7 @@
         </div>
         <div class="amount-display">
           <span class="currency">€</span>
-          <span class="amount">1.200</span>
+          <span class="amount" id="animatedAmount">1.200</span>
           <span class="period">/mês</span>
         </div>
         <div class="payment-info">
@@ -424,6 +424,7 @@
     font-size: 5rem;
     font-weight: 700;
     line-height: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
   .period {
@@ -888,3 +889,60 @@
     }
   }
 </style>
+
+<script>
+  class AmountAnimator {
+    private amounts: string[] = ['800', '1.200', '1.500', '2.000', '2.500'];
+    private currentIndex: number = 0;
+    private intervalId: number | null = null;
+    private element: HTMLElement | null = null;
+
+    constructor() {
+      this.element = document.getElementById('animatedAmount');
+      if (this.element) {
+        this.startAnimation();
+      }
+    }
+
+    startAnimation() {
+      if (!this.element) return;
+
+      this.intervalId = window.setInterval(() => {
+        this.currentIndex = (this.currentIndex + 1) % this.amounts.length;
+        if (this.element) {
+          this.element.style.opacity = '0';
+          this.element.style.transform = 'translateY(-10px)';
+
+          setTimeout(() => {
+            if (this.element) {
+              this.element.textContent = this.amounts[this.currentIndex];
+              this.element.style.opacity = '1';
+              this.element.style.transform = 'translateY(0)';
+            }
+          }, 300);
+        }
+      }, 3000);
+    }
+
+    destroy() {
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+      }
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    let animator: AmountAnimator | null = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      animator = new AmountAnimator();
+    });
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+      if (animator) {
+        animator.destroy();
+      }
+    });
+  }
+</script>
