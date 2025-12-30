@@ -1,82 +1,147 @@
 ---
-const testimonials = [
-  {
-    name: "João Silva",
-    location: "Porto",
-    property: "Apartamento T2 na Ribeira",
-    rating: 5,
-    comment: "Desde que comecei a trabalhar com a Host Wise, os meus rendimentos aumentaram 40%. A equipa é extremamente profissional e cuida de tudo, desde a limpeza até à comunicação com os hóspedes. Não podia estar mais satisfeito!"
-  },
-  {
-    name: "Maria Santos",
-    location: "Lisboa",
-    property: "Moradia V3 em Cascais",
-    rating: 5,
-    comment: "Tinha receio de colocar a minha casa em alojamento local, mas a Host Wise simplificou tudo. Recebo o meu pagamento todos os meses sem stress e a casa está sempre impecável. Recomendo a 100%!"
-  },
-  {
-    name: "Carlos Ferreira",
-    location: "Algarve",
-    property: "Apartamento T1 na Praia da Rocha",
-    rating: 5,
-    comment: "Após 2 anos com a Host Wise, posso dizer que foi a melhor decisão. A ocupação é consistente, os hóspedes são bem selecionados, e eu não tenho de me preocupar com nada. É lucro passivo verdadeiro!"
-  }
-];
+interface Testimonial {
+  name?: string;
+  location?: string;
+  property?: string;
+  rating?: number;
+  comment?: string;
+}
+
+interface OwnerTestimonialsProps {
+  badgeLabel?: string;
+  title?: string;
+  subtitle?: string;
+  ctaTitle?: string;
+  ctaSubtitle?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
+  testimonials?: Testimonial[];
+}
+
+const {
+  badgeLabel = 'Testemunhos',
+  title = 'O Que Dizem os Nossos Proprietários',
+  subtitle = 'Centenas de proprietários confiam na Host Wise para maximizar os seus rendimentos',
+  ctaTitle = 'Pronto para Maximizar os Seus Rendimentos?',
+  ctaSubtitle = 'Receba uma proposta personalizada para o seu imóvel em menos de 24 horas.',
+  ctaLabel = 'Receber Proposta Gratuita',
+  ctaUrl = '/contacto',
+  testimonials = [],
+} = Astro.props as OwnerTestimonialsProps;
+
+// Fallback se ainda não houver dados no ACF
+const defaultTestimonials: Testimonial[] = testimonials.length
+  ? testimonials
+  : [
+      {
+        name: 'João Silva',
+        location: 'Porto',
+        property: 'Apartamento T2 na Ribeira',
+        rating: 5,
+        comment:
+          'Desde que comecei a trabalhar com a Host Wise, os meus rendimentos aumentaram 40%. A equipa é extremamente profissional e cuida de tudo, desde a limpeza até à comunicação com os hóspedes. Não podia estar mais satisfeito!',
+      },
+      {
+        name: 'Maria Santos',
+        location: 'Lisboa',
+        property: 'Moradia V3 em Cascais',
+        rating: 5,
+        comment:
+          'Tinha receio de colocar a minha casa em alojamento local, mas a Host Wise simplificou tudo. Recebo o meu pagamento todos os meses sem stress e a casa está sempre impecável. Recomendo a 100%!',
+      },
+      {
+        name: 'Carlos Ferreira',
+        location: 'Algarve',
+        property: 'Apartamento T1 na Praia da Rocha',
+        rating: 5,
+        comment:
+          'Após 2 anos com a Host Wise, posso dizer que foi a melhor decisão. A ocupação é consistente, os hóspedes são bem selecionados, e eu não tenho de me preocupar com nada. É lucro passivo verdadeiro!',
+      },
+    ];
 ---
 
 <section class="testimonials-section">
   <div class="container">
+    <!-- Header -->
     <div class="section-header">
-      <span class="section-badge">Testemunhos</span>
-      <h2>O Que Dizem os Nossos Proprietários</h2>
-      <p>Centenas de proprietários confiam na Host Wise para maximizar os seus rendimentos</p>
+      <span class="section-badge">{badgeLabel}</span>
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
     </div>
 
+    <!-- Cards -->
     <div class="testimonials-grid">
-      {testimonials.map((testimonial) => (
+      {defaultTestimonials.map((testimonial, idx) => (
         <div class="testimonial-card">
           <div class="card-header">
             <div class="owner-info">
               <div class="owner-avatar">
                 <div class="avatar-placeholder">
-                  {testimonial.name.charAt(0)}
+                  {(testimonial.name || '?').charAt(0)}
                 </div>
               </div>
               <div class="owner-details">
-                <h4>{testimonial.name}</h4>
-                <p class="location">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                  </svg>
-                  {testimonial.location}
-                </p>
+                <p class="owner-name">{testimonial.name}</p>
+                {testimonial.location && (
+                  <p class="location">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      width="14"
+                      height="14"
+                    >
+                      <path
+                        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                      />
+                    </svg>
+                    {testimonial.location}
+                  </p>
+                )}
               </div>
             </div>
+
             <div class="rating">
-              {Array.from({ length: testimonial.rating }).map(() => (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+              {Array.from({ length: testimonial.rating || 0 }).map((_, i) => (
+                <svg
+                  key={`${idx}-star-${i}`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  width="18"
+                  height="18"
+                >
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                 </svg>
               ))}
             </div>
           </div>
 
-          <p class="property-type">{testimonial.property}</p>
-          <p class="comment">"{testimonial.comment}"</p>
+          {testimonial.property && (
+            <p class="property-type">{testimonial.property}</p>
+          )}
+
+          {testimonial.comment && (
+            <p class="comment">"{testimonial.comment}"</p>
+          )}
         </div>
       ))}
     </div>
 
     <!-- CTA Section -->
     <div class="cta-section">
-      <h3>Pronto para Maximizar os Seus Rendimentos?</h3>
-      <p>Receba uma proposta personalizada para o seu imóvel em menos de 24 horas.</p>
-      <a href="/contacto" class="btn-primary">
-        Receber Proposta Gratuita
-      </a>
+      <h3>{ctaTitle}</h3>
+      <p>{ctaSubtitle}</p>
+
+      {ctaLabel && (
+        <a href={ctaUrl} class="btn-primary">
+          {ctaLabel}
+        </a>
+      )}
     </div>
   </div>
 </section>
+
 
 <style>
   .testimonials-section {
@@ -170,10 +235,11 @@ const testimonials = [
     font-size: 1.5rem;
   }
 
-  .owner-details h4 {
+  .owner-details .owner-name {
     font-size: 1.1rem;
     color: var(--primary);
     margin: 0 0 4px 0;
+    font-weight: 600;
   }
 
   .location {

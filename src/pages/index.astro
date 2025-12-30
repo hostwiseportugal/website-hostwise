@@ -11,15 +11,76 @@ import FAQSection from '../components/FAQSection.astro';
 import OwnerTestimonials from '../components/OwnerTestimonials.astro';
 import WiseGroupSection from '../components/WiseGroupSection.astro';
 import PartnersMarquee from '../components/PartnersMarquee.astro';
-import { getPosts } from '../lib/wordpress'; 
 
-const posts = await getPosts();
 
 const apiBase = import.meta.env.WORDPRESS_API_URL;
+
+// 1) Home (ACF)
 const HOME_PAGE_ID = 59; 
 const res = await fetch(`${apiBase}/pages/${HOME_PAGE_ID}?lang=pt&_embed`);
 const page = await res.json();
 const acf = page.acf || {};
+
+// 2) Posts do blog (só 3 para a home)
+const postsRes = await fetch(
+  `${apiBase}/posts?lang=pt&_embed&per_page=3`
+);
+const posts = await postsRes.json();
+
+// 3) Helper para decodificar HTML entities (mesmo que usaste em /blog)
+function decodeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(code))
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+// 4) Normalizar para o formato que o BlogSection espera
+const blogPosts = posts.map((post) => {
+  const rawExcerpt =
+    typeof post.excerpt === 'string'
+      ? post.excerpt
+      : post.excerpt?.rendered || '';
+
+  const excerptText = rawExcerpt
+    .replace(/<[^>]+>/g, '') // tira tags HTML
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return {
+    slug: post.slug,
+    title: decodeHtml(post.title.rendered),
+    excerpt: excerptText,
+    image:
+      post._embedded?.['wp:featuredmedia']?.[0]?.source_url ??
+      '/images/property-1.webp',
+    // mais tarde podemos mapear categorias; por agora fica vazio
+    categories: [] as string[],
+  };
+});
+
+const testimonialsData = (acf.owner_testimonials || []).map((t: any) => ({
+  name: t.owner_testimonial_name,
+  location: t.owner_testimonial_location,
+  property: t.owner_testimonial_property,
+  rating: Number(t.owner_testimonial_rating) || 0,
+  comment: t.owner_testimonial_comment,
+}));
+
+const faqCategoriesData =
+  (acf.faq_categories || []).map((cat: any) => ({
+    id: cat.faq_category_id,
+    label: cat.faq_category_label,
+    questions: (cat.faq_items || []).map((item: any) => ({
+      question: item.faq_question,
+      answer: item.faq_answer,
+    })),
+  })) || [];
+
 ---
 
 <Layout title="HostWise - Gestão de Alojamentos Locais e Asset Management">
@@ -55,43 +116,87 @@ const acf = page.acf || {};
   guestImage={acf.toggle_guest_image}
   guestCtaLabel={acf.toggle_guest_cta_label}
   guestCtaUrl={acf.toggle_guest_cta_url}
-/>
+  />
   
   <!-- Intro Section -->
-<IntroSectionWStats
+  <IntroSectionWStats
   title={acf.intro_title}
   paragraphs={acf.intro_paragraphs}
   ctaLabel={acf.intro_cta_label}
   ctaUrl={acf.intro_cta_url}
   stats={acf.intro_stats}
-/>
+  />
 
   
 
   <!-- Services Switch Section -->
-<ServicesSwitch />
+  <ServicesSwitch services={acf.services_switch_items} />
 
-<!-- Stats Section -->
- <AnimatedStats />
+  <!-- Stats Section -->
+ <AnimatedStats stats={acf.animated_stats} />
   
 
   <!-- Models Intro -->
-<ModelsIntro />
+  <ModelsIntro
+  title={acf.models_intro_title}
+  paragraphs={acf.models_intro_paragraphs}
+  models={acf.models_intro_cards}
+  ctaTitle={acf.models_cta_title}
+  ctaText={acf.models_cta_text}
+  ctaButtonLabel={acf.models_cta_button_label}
+  ctaButtonUrl={acf.models_cta_button_url}
+  />
   
 
   <!-- Parceiros -->
-  <PartnersMarquee />
+  <PartnersMarquee
+  title={acf.partners_title}
+  partners={acf.partners_list}
+  />
 
 
-    <!-- Blog Section -->
-<BlogSection />
+  <!-- Blog Section -->
+  <BlogSection
+  posts={blogPosts}
+  limit={3}
+  badgeLabel={acf.blog_badge_label}
+  title={acf.blog_title}
+  subtitle={acf.blog_subtitle}
+  ctaLabel={acf.blog_cta_label}
+  ctaUrl={acf.blog_cta_url}
+  />
 
-<OwnerTestimonials />
+  <OwnerTestimonials
+  badgeLabel={acf.owner_testimonials_badge_label}
+  title={acf.owner_testimonials_title}
+  subtitle={acf.owner_testimonials_subtitle}
+  ctaTitle={acf.owner_testimonials_cta_title}
+  ctaSubtitle={acf.owner_testimonials_cta_subtitle}
+  ctaLabel={acf.owner_testimonials_cta_label}
+  ctaUrl={acf.owner_testimonials_cta_url}
+  testimonials={testimonialsData}
+  />
+
 
   <!-- FAQ Section -->
-<FAQSection />
+  <FAQSection
+  badgeLabel={acf.faq_badge_label}
+  title={acf.faq_title}
+  subtitle={acf.faq_subtitle}
+  categories={faqCategoriesData}
+  showCta={acf.faq_show_cta}
+  ctaTitle={acf.faq_cta_title}
+  ctaSubtitle={acf.faq_cta_subtitle}
+  ctaLabel={acf.faq_cta_label}
+  ctaUrl={acf.faq_cta_url}
+/>
   
-<WiseGroupSection />
+  <WiseGroupSection
+    badge={acf.wise_group_badge}
+    title={acf.wise_group_title}
+    intro={acf.wise_group_intro}
+    companies={acf.wise_group_companies}
+  />
 </Layout>
 
 <style>

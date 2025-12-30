@@ -1,86 +1,88 @@
 ---
-const ownerFeatures = [
-  {
-    title: "Gestão de Reservas 24/7",
-    description: "Resposta a inquéritos, gestão de check-ins/check-outs, e suporte ao hóspede em múltiplas línguas. A nossa equipa garante comunicação rápida e profissional com os seus hóspedes a qualquer hora do dia.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-    </svg>`
-  },
-  {
-    title: "Otimização de Preços Dinâmica",
-    description: "Algoritmos avançados que ajustam preços em tempo real para maximizar ocupação e receita. Análise de mercado contínua para garantir que está sempre competitivo e a maximizar os seus rendimentos.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-      <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
-    </svg>`
-  },
-  {
-    title: "Limpeza e Manutenção Profissional",
-    description: "Equipa dedicada para garantir padrões de limpeza 5 estrelas e manutenção preventiva regular. Inspeções completas entre cada estadia e resposta rápida a qualquer problema.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-    </svg>`
-  },
-  {
-    title: "Marketing Multi-Canal",
-    description: "Presença em Airbnb, Booking.com, e outras plataformas líderes de mercado. Gestão integrada de todos os canais com sincronização automática de calendários e preços.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-      <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-    </svg>`
-  },
-  {
-    title: "Relatórios Financeiros Detalhados",
-    description: "Dashboards completos com análise de performance, ocupação, e previsões de receita. Acesso a relatórios detalhados e transparentes sobre o desempenho do seu imóvel.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-      <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-    </svg>`
-  },
-  {
-    title: "Compliance e Legalização",
-    description: "Gestão completa de licenças AL, contratos, e conformidade com regulamentos locais. Mantemos o seu alojamento sempre em conformidade com todas as exigências legais.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-    </svg>`
-  }
-];
+import { iconMap } from '../icons/iconMap';
 
-const guestFeatures = [
-  {
-    title: "Check-in Simplificado",
-    description: "Sistema de self check-in automático e sem contacto. Receba todas as informações necessárias antes da chegada para uma entrada suave e sem complicações.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-      <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
-    </svg>`
-  },
-  {
-    title: "Espaços Premium",
-    description: "Alojamentos cuidadosamente selecionados e decorados com padrões de qualidade elevados. Cada detalhe pensado para proporcionar a melhor experiência.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-    </svg>`
-  },
-  {
-    title: "Suporte 24/7",
-    description: "Equipa de apoio disponível a qualquer hora para resolver questões ou emergências. Resposta rápida em múltiplas línguas para garantir a sua tranquilidade.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-      <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
-    </svg>`
-  },
-  {
-    title: "Localização Estratégica",
-    description: "Alojamentos localizados nas melhores zonas das principais cidades portuguesas. Acesso fácil a transportes, restaurantes e pontos turísticos.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-    </svg>`
-  }
-];
+interface FeatureItem {
+  feature_icon?: string;
+  feature_title?: string;
+  feature_description?: string;
+}
+
+interface FeaturesAccordionProps {
+  section_title?: string;
+  section_subtitle?: string;
+
+  owners_title?: string;
+  owners_subtitle?: string;
+  owners_image?: string;
+  owners_features?: FeatureItem[];
+
+  guests_title?: string;
+  guests_subtitle?: string;
+  guests_image?: string;
+  guests_features?: FeatureItem[];
+
+  cta_label?: string;
+  cta_url?: string;
+}
+
+const {
+  section_title = 'Descubra Como Funcionamos',
+  section_subtitle = 'Soluções pensadas tanto para proprietários como para hóspedes.',
+
+  owners_title = 'A Tranquilidade de Saber que Está Tudo Tratado',
+  owners_subtitle = 'Gerir um alojamento local exige tempo e conhecimento. Nós tratamos de tudo.',
+  owners_image = '/images/property-1.webp',
+  owners_features = [],
+
+  guests_title = 'Acolher Bem é a Nossa Prioridade',
+  guests_subtitle = 'Cuidamos de todos os detalhes para uma estadia memorável.',
+  guests_image = '/images/hero.webp',
+  guests_features = [],
+
+  cta_label = 'Receber Proposta Gratuita',
+  cta_url = '#contacto'
+} = Astro.props as FeaturesAccordionProps;
+
+// fallbacks owners
+const defaultOwners = owners_features.length
+  ? owners_features
+  : [
+      {
+        feature_icon: 'license',
+        feature_title: 'Apoio de Obtenção de Licença AL',
+        feature_description:
+          'Ajudamos em todo o processo de licenciamento garantindo conformidade legal.'
+      },
+      {
+        feature_icon: 'adOptimization',
+        feature_title: 'Criação e Otimização de Anúncios',
+        feature_description:
+          'Criamos descrições apelativas e estratégias que aumentam reservas.'
+      }
+    ];
+
+// fallbacks guests
+const defaultGuests = guests_features.length
+  ? guests_features
+  : [
+      {
+        feature_icon: 'key',
+        feature_title: 'Self-Check-in',
+        feature_description: 'Entrada sem complicações e com autonomia total.'
+      },
+      {
+        feature_icon: 'support247',
+        feature_title: 'Suporte 24/7',
+        feature_description: 'Assistência disponível a qualquer hora.'
+      }
+    ];
 ---
 
 <section class="features-accordion-section">
   <div class="container">
     <div class="section-header">
-      <h2>Descubra Como Funcionamos</h2>
-      <p>Soluções pensadas tanto para proprietários que querem maximizar rendimentos como para hóspedes que procuram experiências únicas</p>
+      <h2>{section_title}</h2>
+      <p>{section_subtitle}</p>
     </div>
 
     <!-- Toggle Tabs -->
@@ -97,86 +99,82 @@ const guestFeatures = [
       <!-- Image Sidebar -->
       <div class="image-sidebar">
         <div class="image-wrapper sticky-image">
-          <img src="/images/property-1.webp" alt="Host Wise Services" class="feature-image owners-image" />
-          <img src="/images/hero.webp" alt="Host Wise Guests" class="feature-image guests-image" />
+          <img src={owners_image} alt="Host Wise Owners" class="feature-image owners-image" />
+          <img src={guests_image} alt="Host Wise Guests" class="feature-image guests-image" />
         </div>
+
+        {cta_label && (
+          <div class="intro-cta">
+            <a href={cta_url} class="btn-primary-large">
+              {cta_label}
+            </a>
+          </div>
+        )}
       </div>
 
       <!-- Accordion Content -->
       <div class="accordion-content">
-        <!-- Proprietários Content -->
+
+        <!-- OWNERS -->
         <div class="tab-content active" data-content="owners">
           <div class="content-intro">
-            <h3>Para Proprietários</h3>
-            <p>Gestão completa e profissional do seu alojamento local. Maximize rentabilidade sem preocupações.</p>
+            <h3>{owners_title}</h3>
+            <p>{owners_subtitle}</p>
           </div>
 
           <div class="accordion-wrapper">
-            {ownerFeatures.map((feature, index) => (
+            {defaultOwners.map((feature, index) => (
               <div class={`accordion-item ${index === 0 ? 'active' : ''}`}>
                 <button class="accordion-header">
                   <div class="header-content">
-                    <div class="feature-icon" set:html={feature.icon} />
-                    <h4>{feature.title}</h4>
+                    <div class="feature-icon"
+                      set:html={iconMap[feature.feature_icon || 'check']} />
+                    <h4>{feature.feature_title}</h4>
                   </div>
-                  <div class="accordion-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                      <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-                    </svg>
-                  </div>
+                  <div class="accordion-arrow" set:html={iconMap.chevronDown} />
                 </button>
+
                 <div class="accordion-body">
-                  <p>{feature.description}</p>
+                  <p>{feature.feature_description}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <!-- Hóspedes Content -->
+        <!-- GUESTS -->
         <div class="tab-content" data-content="guests">
           <div class="content-intro">
-            <h3>Para Hóspedes</h3>
-            <p>Experiências únicas em alojamentos premium. Conforto, qualidade e suporte garantidos.</p>
+            <h3>{guests_title}</h3>
+            <p>{guests_subtitle}</p>
           </div>
 
           <div class="accordion-wrapper">
-            {guestFeatures.map((feature, index) => (
+            {defaultGuests.map((feature, index) => (
               <div class={`accordion-item ${index === 0 ? 'active' : ''}`}>
                 <button class="accordion-header">
                   <div class="header-content">
-                    <div class="feature-icon" set:html={feature.icon} />
-                    <h4>{feature.title}</h4>
+                    <div class="feature-icon"
+                      set:html={iconMap[feature.feature_icon || 'check']} />
+                    <h4>{feature.feature_title}</h4>
                   </div>
-                  <div class="accordion-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                      <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-                    </svg>
-                  </div>
+
+                  <div class="accordion-arrow" set:html={iconMap.chevronDown} />
                 </button>
+
                 <div class="accordion-body">
-                  <p>{feature.description}</p>
+                  <p>{feature.feature_description}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- CTA Section -->
-    <div class="features-cta">
-      <h3>Transforme o Seu Imóvel num Investimento de Sucesso</h3>
-      <p>Deixe a gestão connosco e comece a maximizar os seus rendimentos.</p>
-      <a href="/contacto" class="cta-btn">
-        Receber Proposta Gratuita
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
-      </a>
+      </div>
     </div>
   </div>
 </section>
+
 
 <style>
   .features-accordion-section {
@@ -260,7 +258,7 @@ const guestFeatures = [
   /* Image Sidebar */
   .image-sidebar {
   position: relative;
-  height: 100%;
+  height: auto;
   min-height: 600px;
   }
 
@@ -423,6 +421,12 @@ const guestFeatures = [
     color: var(--secondary);
     flex-shrink: 0;
     transition: all 0.3s;
+    padding: 10px;
+  }
+
+  .feature-icon svg {
+    width: 24px;
+    height: 24px;
   }
 
   .accordion-item.active .feature-icon {
@@ -449,6 +453,11 @@ const guestFeatures = [
     flex-shrink: 0;
   }
 
+  .accordion-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+
   .accordion-item.active .accordion-arrow {
     transform: rotate(180deg);
   }
@@ -472,53 +481,6 @@ const guestFeatures = [
     margin: 0;
     opacity: 0.9;
     word-wrap: break-word;
-  }
-
-  /* Features CTA */
-  .features-cta {
-    text-align: center;
-    margin-top: 80px;
-    padding: 48px 40px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    border-radius: 24px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .features-cta h3 {
-    font-size: 2rem;
-    color: white;
-    margin-bottom: 12px;
-    font-weight: 700;
-  }
-
-  .features-cta p {
-    font-size: 1.1rem;
-    color: white;
-    opacity: 0.95;
-    margin-bottom: 28px;
-  }
-
-  .cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 36px;
-    background: white;
-    color: var(--primary);
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 1.05rem;
-    text-decoration: none;
-    transition: all 0.3s;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  }
-
-  .cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-    gap: 16px;
   }
 
   /* Responsive */
@@ -599,19 +561,6 @@ const guestFeatures = [
     .accordion-body p {
       font-size: 0.95rem;
     }
-
-    .features-cta {
-      margin-top: 60px;
-      padding: 40px 28px;
-    }
-
-    .features-cta h3 {
-      font-size: 1.65rem;
-    }
-
-    .features-cta p {
-      font-size: 1rem;
-    }
   }
 
   @media (max-width: 480px) {
@@ -644,19 +593,30 @@ const guestFeatures = [
     .accordion-item.active .accordion-body {
       padding: 0 16px 16px 16px;
     }
+  }
 
-    .features-cta h3 {
-      font-size: 1.5rem;
-    }
+  .intro-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 58px;
+  }
 
-    .features-cta p {
-      font-size: 0.95rem;
-    }
+  .btn-primary-large {
+    padding: 18px 36px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.2);
+  }
 
-    .cta-btn {
-      font-size: 1rem;
-      padding: 14px 28px;
-    }
+  .btn-primary-large:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(12, 68, 99, 0.3);
   }
 </style>
 

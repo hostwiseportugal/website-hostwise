@@ -1,67 +1,160 @@
 ---
-const companies = [
-  {
-    name: "Host Wise",
-    tagline: "Gestão de Alojamento Local",
-    description: "Maximizamos os rendimentos do seu imóvel através de gestão profissional em plataformas como Airbnb e Booking.com.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-    </svg>`,
-    link: "/",
-    color: "#0C4463"
-  },
-  {
-    name: "Work Wise",
-    tagline: "Espaços de Escritório",
-    description: "Escritórios modernos e flexíveis para empresas e profissionais que procuram ambientes de trabalho premium.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
-      <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
-    </svg>`,
-    link: "https://workwise.pt",
-    color: "#0A75AF"
-  },
-  {
-    name: "Invest Wise",
-    tagline: "Consultoria Imobiliária",
-    description: "Auxiliamos investidores na identificação, compra e venda de propriedades de alto potencial de rentabilidade.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
-      <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-    </svg>`,
-    link: "https://investwise.pt",
-    color: "#5CB0D6"
+import { iconMap } from '../icons/iconMap';
+
+interface CompanyRaw {
+  name?: string;
+  company_name?: string;
+
+  tagline?: string;
+  company_tagline?: string;
+
+  description?: string;
+  company_description?: string;
+
+  link?: string;
+  company_link?: string;
+
+  color?: string;
+  company_color?: string;
+
+  icon_key?: string;
+  company_icon_key?: string;
+}
+
+interface Company {
+  name: string;
+  tagline?: string;
+  description?: string;
+  link?: string;
+  color?: string;
+  icon_key?: string;
+}
+
+interface WiseGroupProps {
+  badge?: string;
+  title?: string;
+  intro?: string;       // pode vir com HTML do ACF
+  companies?: CompanyRaw[];
+}
+
+// helper icons
+function getIcon(key: string | undefined, fallbackKey: keyof typeof iconMap) {
+  if (key && key in iconMap) {
+    return iconMap[key as keyof typeof iconMap];
   }
+  return iconMap[fallbackKey];
+}
+
+const {
+  badge = 'Wise Group',
+  title = 'Host Wise, uma marca Wise Group',
+  intro = `O Wise Group dedica-se a apresentar aos seus clientes soluções para a maximização dos seus investimentos. O nosso foco começou na gestão e valorização de propriedades, através do alojamento local. Realizamos igualmente consultoria imobiliária, auxiliando investidores institucionais a darem os primeiros passos no mercado português.`,
+  companies: companiesRaw = [],
+} = Astro.props as WiseGroupProps;
+
+// Fallback companies (igual ao teu markup original, mas com icon_key)
+const fallbackCompanies: Company[] = [
+  {
+    name: 'Host Wise',
+    tagline: 'Gestão de Propriedades',
+    description:
+      'Gerimos imóveis turísticos com rigor hoteleiro, tecnologia avançada e experiência real no mercado português.',
+    link: '/',
+    color: '#5CB0D6',
+    icon_key: 'home',
+  },
+  {
+    name: 'Work Wise',
+    tagline: 'Espaços de Escritório',
+    description:
+      'Escritórios modernos e flexíveis para empresas e profissionais que procuram ambientes de trabalho premium.',
+    link: 'https://workwise.pt',
+    color: '#5CB0D6',
+    icon_key: 'briefcase',
+  },
+  {
+    name: 'Invest Wise',
+    tagline: 'Consultoria Imobiliária',
+    description:
+      'Auxiliamos investidores na identificação, compra e venda de propriedades de alto potencial de rentabilidade.',
+    link: 'https://investwise.pt',
+    color: '#5CB0D6',
+    icon_key: 'trendingUp',
+  },
 ];
+
+// Normalizar o que vem do ACF (ou cair no fallback)
+const companies: Company[] =
+  (companiesRaw && companiesRaw.length > 0)
+    ? companiesRaw
+        .map((c: CompanyRaw) => ({
+          name: c.name ?? c.company_name ?? '',
+          tagline: c.tagline ?? c.company_tagline,
+          description: c.description ?? c.company_description,
+          link: c.link ?? c.company_link,
+          color: c.color ?? c.company_color,
+          icon_key: c.icon_key ?? c.company_icon_key,
+        }))
+        .filter((c) => c.name) // garante que só entram empresas com nome
+    : fallbackCompanies;
 ---
 
 <section class="wise-group-section">
   <div class="container">
     <div class="section-intro">
-      <span class="section-badge">Wise Group</span>
-      <h2>Host Wise, uma marca Wise Group</h2>
-      <p>O Wise Group dedica-se a apresentar aos seus clientes soluções para a maximização dos seus investimentos. O nosso foco começou na gestão e valorização de propriedades, através do alojamento local. Realizamos igualmente consultoria imobiliária, auxiliado investidores institucionais a darem os primeiros passos no mercado Português.</p>
+      {badge && <span class="section-badge">{badge}</span>}
+      {title && <h2>{title}</h2>}
+      {intro && <p set:html={intro}></p>}
     </div>
 
     <div class="companies-grid">
-      {companies.map((company) => (
-        <a href={company.link} class="company-card" style={`--company-color: ${company.color}`}>
-          <div class="card-icon" set:html={company.icon} />
-          <h3>{company.name}</h3>
-          <p class="tagline">{company.tagline}</p>
-          <p class="description">{company.description}</p>
-          <div class="card-arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-            </svg>
-          </div>
-        </a>
-      ))}
+      {companies.map((company, index) => {
+        // fallback de ícone por índice (apenas para não ficar tudo igual)
+        const fallbackKey =
+          index === 2 ? 'chartLine' : 'homeMultiple';
+
+        const icon = getIcon(company.icon_key, fallbackKey as keyof typeof iconMap);
+        const color = company.color || '#5CB0D6';
+
+        const href = company.link || '#';
+
+        return (
+          <a
+            href={href}
+            class="company-card"
+            style={`--company-color: ${color}`}
+            target={href.startsWith('http') ? '_blank' : undefined}
+            rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+          >
+            <div class="card-icon" set:html={icon} />
+            <h3>{company.name}</h3>
+            {company.tagline && <p class="tagline">{company.tagline}</p>}
+            {company.description && (
+              <p class="description">{company.description}</p>
+            )}
+
+            <div class="card-arrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="24"
+                height="24"
+              >
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+              </svg>
+            </div>
+          </a>
+        );
+      })}
     </div>
   </div>
 </section>
 
+
 <style>
   .wise-group-section {
-    padding: 100px 20px;
+    padding: 50px 20px 100px 20px;;
     background: white;
   }
 
@@ -143,28 +236,30 @@ const companies = [
   }
 
   .card-icon {
-    width: 64px;
-    height: 64px;
-    background: var(--blue-light);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    transition: all 0.3s;
-  }
+  width: 64px;
+  height: 64px;
+  background: var(--blue-light);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  transition: all 0.3s;
+  padding: 12px;
+}
 
-  .card-icon svg {
-    color: var(--company-color);
-  }
+.card-icon svg {
+  color: var(--company-color);
+  transition: color 0.3s;
+}
 
-  .company-card:hover .card-icon {
-    background: var(--company-color);
-  }
+.company-card:hover .card-icon {
+  background: var(--company-color);
+}
 
-  .company-card:hover .card-icon svg {
-    color: white;
-  }
+.company-card:hover .card-icon svg {
+  color: white;
+}
 
   .company-card h3 {
     font-size: 1.75rem;
@@ -194,6 +289,11 @@ const companies = [
     justify-content: flex-end;
     color: var(--company-color);
     transition: transform 0.3s;
+  }
+
+  .card-arrow svg {
+    width: 24px;
+    height: 24px;
   }
 
   .company-card:hover .card-arrow {

@@ -1,43 +1,78 @@
 ---
-const blogPosts = [
-  {
-    title: "Como Maximizar a Rentabilidade do Seu Alojamento Local em 2025",
-    excerpt: "Descubra estratégias comprovadas para aumentar a ocupação e otimizar preços na época alta.",
-    image: "/images/property-1.webp",
-    categories: ["Gestão", "Rentabilidade"],
-    slug: "maximizar-rentabilidade-alojamento-local-2025"
-  },
-  {
-    title: "Rentabilidade Garantida vs. Modelo de Comissão: Qual Escolher?",
-    excerpt: "Comparamos os dois modelos de gestão para ajudá-lo a tomar a melhor decisão para o seu imóvel.",
-    image: "/images/property-2.webp",
-    categories: ["Modelos", "Comparação"],
-    slug: "rentabilidade-garantida-vs-comissao"
-  },
-  {
-    title: "5 Erros Comuns na Gestão de Alojamento Local",
-    excerpt: "Evite os erros mais frequentes que podem estar a prejudicar o desempenho do seu imóvel.",
-    image: "/images/property-3.webp",
-    categories: ["Dicas", "Gestão"],
-    slug: "erros-comuns-gestao-alojamento-local"
-  }
-];
+interface BlogPost {
+  title: string;
+  excerpt: string;
+  image: string;
+  categories: string[];
+  slug: string;
+}
 
-const { limit = 3, showAll = false } = Astro.props;
-const displayPosts = showAll ? blogPosts : blogPosts.slice(0, limit);
+interface BlogSectionProps {
+  posts?: BlogPost[];
+  limit?: number;
+  showAll?: boolean;
+  badgeLabel?: string;
+  title?: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
+}
+
+const {
+  posts = [],
+  limit = 3,
+  showAll = false,
+  badgeLabel = 'Blog',
+  title = 'Insights e Dicas para Proprietários',
+  subtitle = 'Mantenha-se atualizado com as últimas tendências, estratégias e novidades do mercado de alojamento local em Portugal.',
+  ctaLabel = 'Ver Todos os Artigos',
+  ctaUrl = '/blog',
+} = Astro.props as BlogSectionProps;
+
+// fallback se ainda não houver posts vindos do WP
+const fallbackPosts: BlogPost[] =
+  posts.length > 0
+    ? posts
+    : [
+        {
+          title: 'Como Maximizar a Rentabilidade do Seu Alojamento Local em 2025',
+          excerpt:
+            'Descubra estratégias comprovadas para aumentar a ocupação e otimizar preços na época alta.',
+          image: '/images/property-1.webp',
+          categories: ['Gestão', 'Rentabilidade'],
+          slug: 'maximizar-rentabilidade-alojamento-local-2025',
+        },
+        {
+          title: 'Rentabilidade Garantida vs. Modelo de Comissão: Qual Escolher?',
+          excerpt:
+            'Comparamos os dois modelos de gestão para ajudá-lo a tomar a melhor decisão para o seu imóvel.',
+          image: '/images/property-2.webp',
+          categories: ['Modelos', 'Comparação'],
+          slug: 'rentabilidade-garantida-vs-comissao',
+        },
+        {
+          title: '5 Erros Comuns na Gestão de Alojamento Local',
+          excerpt:
+            'Evite os erros mais frequentes que podem estar a prejudicar o desempenho do seu imóvel.',
+          image: '/images/property-3.webp',
+          categories: ['Dicas', 'Gestão'],
+          slug: 'erros-comuns-gestao-alojamento-local',
+        },
+      ];
+
+const displayPosts = showAll
+  ? fallbackPosts
+  : fallbackPosts.slice(0, limit);
 ---
 
 <section class="blog-section">
   <div class="container">
     <div class="blog-header">
       <div class="blog-badge">
-        <span>Blog</span>
+        <span>{badgeLabel}</span>
       </div>
-      <h2>Insights e Dicas para Proprietários</h2>
-      <p>
-        Mantenha-se atualizado com as últimas tendências, estratégias e novidades
-        do mercado de alojamento local em Portugal.
-      </p>
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
     </div>
 
     <div class="blog-grid">
@@ -45,25 +80,27 @@ const displayPosts = showAll ? blogPosts : blogPosts.slice(0, limit);
         <article class="blog-card" data-index={index}>
           <div class="blog-card-inner">
             <div class="blog-image-wrapper">
-              <img src={post.image} alt={post.title} />
+              <img src={post.image} alt={post.title} loading={index === 0 ? 'eager' : 'lazy'} />
               <div class="blog-gradient"></div>
 
-              <a href={`/blog/${post.slug}`} class="blog-arrow-btn" aria-label="Ler artigo">
+              <a href={`/blog/${post.slug}`} class="blog-arrow-btn" aria-label={`Ler artigo: ${post.title}`}>
                 <svg class="arrow-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
                 <svg class="arrow-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </a>
             </div>
 
             <div class="blog-content">
-              <div class="blog-categories">
-                {post.categories.map((category) => (
-                  <span class="blog-category">{category}</span>
-                ))}
-              </div>
+              {post.categories && post.categories.length > 0 && (
+                <div class="blog-categories">
+                  {post.categories.map((category) => (
+                    <span class="blog-category">{category}</span>
+                  ))}
+                </div>
+              )}
 
               <a href={`/blog/${post.slug}`} class="blog-link">
                 <h3>{post.title}</h3>
@@ -76,18 +113,19 @@ const displayPosts = showAll ? blogPosts : blogPosts.slice(0, limit);
       ))}
     </div>
 
-    {!showAll && (
+    {!showAll && ctaLabel && (
       <div class="blog-cta">
-        <a href="/blog" class="btn-blog-all">
-          Ver Todos os Artigos
+        <a href={ctaUrl} class="btn-blog-all">
+          {ctaLabel}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </a>
       </div>
     )}
   </div>
 </section>
+
 
 <style>
   .blog-section {

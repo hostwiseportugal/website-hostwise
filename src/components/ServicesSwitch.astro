@@ -1,111 +1,180 @@
 ---
+interface WPImage {
+  url?: string;
+  alt?: string;
+  source_url?: string;
+}
+
+interface ServiceItem {
+  key?: string;
+  switch_label?: string; // texto do botão de navegação
+  label?: string;        // etiqueta em cima do H2
+  title?: string;
+  description?: string;
+  cta_label?: string;
+  cta_url?: string;
+  badge_number?: string;
+  badge_text?: string;
+  image?: WPImage | string;
+}
+
+interface ServicesSwitchProps {
+  services?: ServiceItem[];
+}
+
+// normalize image
+function normalizeImage(
+  img: WPImage | string | undefined,
+  fallbackUrl: string,
+  fallbackAlt: string
+) {
+  if (!img) return { url: fallbackUrl, alt: fallbackAlt };
+
+  if (typeof img === 'string') {
+    return { url: img || fallbackUrl, alt: fallbackAlt };
+  }
+
+  return {
+    url: img.url || img.source_url || fallbackUrl,
+    alt: img.alt || fallbackAlt,
+  };
+}
+
+const { services = [] } = Astro.props as ServicesSwitchProps;
+
+// FALLBACK SERVICES
+const defaultServices: ServiceItem[] = services.length
+  ? services
+  : [
+      {
+        key: 'alojamento-local',
+        switch_label: 'Proprietário de Imóvel',
+        label: 'Gestão de Alojamento Local',
+        title: 'Maximize o Rendimento Sem Preocupações',
+        description:
+          'Maximize o potencial do seu alojamento local com uma gestão 100% dedicada. Presença nas principais plataformas e serviço de excelência.',
+        cta_label: 'Saber Mais',
+        cta_url: '/gestao-alojamento-local',
+        badge_number: '+40%',
+        badge_text: 'Rentabilidade Média',
+        image: '/images/hero.webp',
+      },
+      {
+        key: 'gestao-edificios',
+        switch_label: 'Proprietário de Edifício',
+        label: 'Gestão de Edifícios Multi-Unit',
+        title: 'Transforme o seu edifício num ativo hoteleiro de performance',
+        description:
+          'Transforme o seu ativo num aparthotel profissional com gestão hoteleira verdadeira. Gerimos edifícios inteiros (5-30 unidades) com operação end-to-end.',
+        cta_label: 'Saber Mais',
+        cta_url: '/gestao-predios-multi-unit',
+        badge_number: '+15%',
+        badge_text: 'Valuation Increase',
+        image: '/images/property-1.webp',
+      },
+      {
+        key: 'asset-management',
+        switch_label: 'Gestor de Portfólio',
+        label: 'Gestão Hoteleira e Asset Management',
+        title:
+          'Otimização de performance e valuation para portfolios de hospitalidade',
+        description:
+          'Partnership de asset management para boutique hotels, aparthotéis, hostels, e portfolios multi-propriedade. Combinamos expertise hoteleira com rigor de gestão de ativos imobiliários.',
+        cta_label: 'Saber Mais',
+        cta_url: '/gestao-hoteleira-asset-management',
+        badge_number: '+15%',
+        badge_text: 'Net Operating Income',
+        image: '/images/property-2.webp',
+      },
+    ];
 ---
 
 <section class="services-section">
   <div class="container">
-    <!-- Sticky Switch Navigation -->
+
+    <!-- NAV -->
     <nav class="services-switch-nav">
       <div class="switch-container">
         <div class="switch-background" id="switchBackground"></div>
-        <button class="switch-btn active" data-target="alojamento-local">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-          </svg>
-          Proprietário de Imóvel
-        </button>
-        <button class="switch-btn" data-target="gestao-edificios">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-            <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
-          </svg>
-          Proprietário de Edifício
-        </button>
-        <button class="switch-btn" data-target="asset-management">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-            <path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V6H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/>
-          </svg>
-          Gestor de Portfólio
-        </button>
+
+        {defaultServices.map((service, index) => (
+          <button
+            class={`switch-btn ${index === 0 ? 'active' : ''}`}
+            data-target={service.key}
+          >
+            {service.key === 'alojamento-local' && (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+              </svg>
+            )}
+
+            {service.key === 'gestao-edificios' && (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z" />
+              </svg>
+            )}
+
+            {service.key === 'asset-management' && (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                <path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V6H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z" />
+              </svg>
+            )}
+
+            <span>{service.switch_label || service.label}</span>
+          </button>
+        ))}
       </div>
     </nav>
 
-    <!-- Services Content - All Visible -->
+    <!-- CONTENT -->
     <div class="services-content">
-      <!-- Service 1: Alojamento Local -->
-      <div class="service-item" id="alojamento-local">
-        <div class="service-layout">
-          <div class="service-text">
-            <span class="service-label">Gestão de Alojamento Local</span>
-            <h2>Maximize o Rendimento Sem Preocupações</h2>
-            <p>Maximize o potencial do seu alojamento local com uma gestão 100% dedicada. Presença nas principais plataformas e serviço de excelência.</p>
-            <a href="/gestao-alojamento-local" class="btn-cta">
-              Saber mais
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-              </svg>
-            </a>
-          </div>
+      {defaultServices.map((service) => {
+        const img = normalizeImage(
+          service.image,
+          '/images/property-1.webp',
+          service.title || 'Host Wise Service'
+        );
 
-          <div class="service-visual">
-            <img src="/images/hero.webp" alt="Alojamento Local Host Wise" />
-            <div class="visual-badge">
-              <span class="badge-number">+40%</span>
-              <span class="badge-text">Rentabilidade Média</span>
+        return (
+          <div class="service-item" id={service.key}>
+            <div class={`service-layout ${service.key === 'gestao-edificios' ? 'service-layout--reverse' : ''}`}>
+              <div class="service-text">
+                <h2 class="service-label">{service.label}</h2>
+
+                <h3>{service.title}</h3>
+
+                <p>{service.description}</p>
+
+                {service.cta_label && (
+                  <a href={service.cta_url} class="btn-cta">
+                    {service.cta_label}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+
+              <div class="service-visual">
+                <img src={img.url} alt={img.alt} loading="lazy" />
+
+                {(service.badge_number || service.badge_text) && (
+                  <div class="visual-badge">
+                    <span class="badge-number">{service.badge_number}</span>
+                    <span class="badge-text">{service.badge_text}</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Service 2: Gestão de Edifícios - INVERTIDO -->
-      <div class="service-item" id="gestao-edificios">
-        <div class="service-layout service-layout--reverse">
-          <div class="service-text">
-            <span class="service-label">Gestão de Edíficios Multi-Unit</span>
-            <h2>Transforme o seu edifício num ativo hoteleiro de performance</h2>
-            <p>Transforme o seu ativo num aparthotel profissional com gestão hoteleira verdadeira. Gerimos edifícios inteiros (5-30 unidades) com operação end-to-end.</p>
-            <a href="/gestao-predios-multi-unit" class="btn-cta">
-              Saber mais
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-              </svg>
-            </a>
-          </div>
-          <div class="service-visual">
-            <img src="/images/property-1.webp" alt="Gestão de Edifícios Host Wise" />
-            <div class="visual-badge">
-              <span class="badge-number">+15%</span>
-              <span class="badge-text">Valuation Increase</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Service 3: Asset Management -->
-      <div class="service-item" id="asset-management">
-        <div class="service-layout">
-          <div class="service-text">
-            <span class="service-label">Gestão Hoteleira e Asset Management</span>
-            <h2>Otimização de performance e valuation para portfolios de hospitalidade</h2>
-            <p>Partnership de asset management para boutique hotels, aparthotéis, hostels, e portfolios multi-propriedade. Combinamos expertise hoteleira com rigor de gestão de ativos imobiliários.</p>
-            <a href="/gestao-hoteleira-asset-management" class="btn-cta">
-              Saber mais
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-              </svg>
-            </a>
-          </div>
-
-          <div class="service-visual">
-            <img src="/images/property-2.webp" alt="Asset Management Host Wise" />
-            <div class="visual-badge">
-              <span class="badge-number">+15%</span>
-              <span class="badge-text">Net Operating Income</span>
-            </div>
-          </div>
-        </div>
-      </div>
+        );
+      })}
     </div>
+
   </div>
 </section>
+
+
 
 <style>
   .services-section {
@@ -236,7 +305,7 @@
     box-shadow: 0 4px 12px rgba(12, 68, 99, 0.15);
   }
 
-  .service-text h2 {
+  .service-text h3 {
     font-size: 2.5rem;
     color: var(--primary);
     line-height: 1.2;
@@ -348,7 +417,7 @@
       direction: ltr;
     }
 
-    .service-text h2 {
+    .service-text h3 {
       font-size: 2rem;
     }
   }
@@ -404,7 +473,7 @@
       gap: 40px;
     }
 
-    .service-text h2 {
+    .service-text h3 {
       font-size: 1.75rem;
     }
 
@@ -446,7 +515,7 @@
       font-size: 0.9rem;
     }
 
-    .service-text h2 {
+    .service-text h3 {
       font-size: 1.5rem;
     }
 

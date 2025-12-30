@@ -7,21 +7,22 @@ const currentYear = new Date().getFullYear();
     <div class="footer-content">
       <div class="footer-column">
         <img src="/images/logo-white.svg" alt="Host Wise" class="footer-logo" />
-        <p>Gestão profissional de alojamentos locais em Portugal.</p>
+        <p>Gestão profissional de propriedades e alojamento local em Portugal.</p>
         <div class="social-links">
           <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
           <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
           <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
         </div>
       </div>
 
       <div class="footer-column">
         <h4>Serviços</h4>
         <ul>
-          <li><a href="#servicos">Gestão Completa</a></li>
-          <li><a href="#servicos">Marketing Digital</a></li>
-          <li><a href="#servicos">Limpeza & Manutenção</a></li>
-          <li><a href="#servicos">Check-in/Check-out</a></li>
+          <li><a href="/gestao-alojamento-local">Gestão de Alojamento Local</a></li>
+          <li><a href="/gestao-edificios">Gestão de Edifícios</a></li>
+          <li><a href="/gestao-hoteis">Gestão de Hóteis</a></li>
         </ul>
       </div>
 
@@ -36,16 +37,27 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <div class="footer-column">
-        <h4>Contacto</h4>
+        <h4>A Empresa</h4>
         <ul>
-          <li><a href="mailto:info@hostwise.pt">info@hostwise.pt</a></li>
-          <li><a href="tel:+351123456789">+351 123 456 789</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#contacto">Falar Connosco</a></li>
+          <li><a href="/sobre-hostwise">Sobre a Host Wise</a></li>
+          <li><a href="/carreiras">Carreiras na Host Wise</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contacto">Contacte-nos</a></li>
         </ul>
       </div>
-    </div>
 
+      
+    </div>
+    <div class="newsletter-column">
+        <h4>Newsletter</h4>
+        <p>Receba as nossas últimas notícias e ofertas exclusivas.</p>
+        <a href="/newsletter" class="newsletter-btn">
+          Subscrever Newsletter
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+        </a>
+      </div>
     <div class="footer-bottom">
       <p>&copy; {currentYear} Host Wise. Todos os direitos reservados.</p>
       <div class="footer-links">
@@ -68,6 +80,7 @@ const currentYear = new Date().getFullYear();
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 40px;
     margin-bottom: 40px;
+    justify-items: center;
   }
 
   .footer-logo {
@@ -121,6 +134,52 @@ const currentYear = new Date().getFullYear();
 
   .social-links a:hover {
     background: rgba(255, 255, 255, 0.2);
+  }
+
+  .newsletter-column {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 30px;
+  }
+
+  .newsletter-column h4 {
+    margin-bottom: 12px;
+  }
+
+  .newsletter-column p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .newsletter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: white;
+    color: var(--primary);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+
+  .newsletter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    gap: 12px;
+  }
+
+  .newsletter-btn svg {
+    transition: transform 0.3s;
+  }
+
+  .newsletter-btn:hover svg {
+    transform: translateX(4px);
   }
 
   .footer-bottom {

@@ -1,72 +1,170 @@
 ---
-// Hero Section V2 - SaaS-style centered layout
+import { iconMap } from '../icons/iconMap';
+
+interface WPImage {
+  url?: string;
+  alt?: string;
+  source_url?: string;
+}
+
+// Normalizado para uso interno
+interface HeroFeature {
+  label: string;
+}
+
+interface HeroStat {
+  label: string;
+  value: string;
+  icon_key?: string;
+}
+
+interface HeroSectionV2Props {
+  badge_text?: string;
+  badge_icon_key?: string;
+  heading?: string;
+  description?: string;
+
+  // Estes vêm diretamente do ACF (raw)
+  features?: any[]; // ex: [{ feature_label: '...' }]
+  stats?: any[];    // ex: [{ stat_label, stat_value, stat_icon_key }]
+
+  primary_cta_label?: string;
+  primary_cta_url?: string;
+  secondary_cta_label?: string;
+  secondary_cta_url?: string;
+  image?: WPImage | string;
+}
+
+// helper imagem com fallback
+function normalizeImage(
+  img: WPImage | string | undefined,
+  fallbackUrl: string,
+  fallbackAlt: string
+) {
+  if (!img) return { url: fallbackUrl, alt: fallbackAlt };
+
+  if (typeof img === 'string') {
+    return { url: img || fallbackUrl, alt: fallbackAlt };
+  }
+
+  return {
+    url: img.url || img.source_url || fallbackUrl,
+    alt: img.alt || fallbackAlt,
+  };
+}
+
+// helper icons
+function getIcon(key: string | undefined, fallbackKey: keyof typeof iconMap) {
+  if (key && key in iconMap) {
+    return iconMap[key as keyof typeof iconMap];
+  }
+  return iconMap[fallbackKey];
+}
+
+const {
+  badge_text = 'Rentabilidade Garantida',
+  badge_icon_key,
+  heading = 'Receba uma Renda Fixa Todos os Meses, Sem Surpresas',
+  description = `Esqueça a incerteza do alojamento local. Com o modelo de Rentabilidade Garantida,
+recebe o mesmo valor todos os meses, independentemente da ocupação. Segurança financeira
+para planear o seu futuro com tranquilidade.`,
+  features: featuresRaw = [],
+  stats: statsRaw = [],
+  primary_cta_label = 'Receber Proposta Gratuita',
+  primary_cta_url = '#contacto',
+  secondary_cta_label = 'Saber Mais',
+  secondary_cta_url = '#beneficios',
+  image,
+} = Astro.props as HeroSectionV2Props;
+
+// ⚙️ Normalizar FEATURES
+const fallbackFeatures: HeroFeature[] = [
+  { label: 'Renda Mensal Fixa' },
+  { label: '100% de Ocupação Garantida' },
+  { label: 'Manutenção Incluída' },
+];
+
+const features: HeroFeature[] =
+  (featuresRaw || []).length > 0
+    ? (featuresRaw || [])
+        .map((f: any) => ({
+          // aceita tanto f.label como f.feature_label (ACF)
+          label: f.label ?? f.feature_label ?? '',
+        }))
+        .filter((f: HeroFeature) => f.label)
+    : fallbackFeatures;
+
+// ⚙️ Normalizar STATS
+const fallbackStats: HeroStat[] = [
+  { label: 'Renda Mensal', value: '€1.200 - €2.500', icon_key: 'dollar' },
+  { label: 'Garantia', value: '100%', icon_key: 'shield' },
+];
+
+const stats: HeroStat[] =
+  (statsRaw || []).length > 0
+    ? (statsRaw || [])
+        .map((s: any) => ({
+          // aceita tanto s.label/s.value como s.stat_label/s.stat_value (ACF)
+          label: s.label ?? s.stat_label ?? '',
+          value: s.value ?? s.stat_value ?? '',
+          icon_key: s.icon_key ?? s.stat_icon_key,
+        }))
+        .filter((s: HeroStat) => s.label && s.value)
+    : fallbackStats;
+
+const heroImage = normalizeImage(
+  image,
+  '/images/property-1.webp',
+  'Propriedade em Alojamento Local'
+);
+
+const badgeIcon = getIcon(badge_icon_key, 'shield');
 ---
 
 <section class="hero-v2">
   <div class="hero-v2-container">
     <div class="hero-v2-content">
       <!-- Badge -->
-      <div class="hero-v2-badge">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-          <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-        </svg>
-        Rentabilidade Garantida
-      </div>
+      <h1 class="hero-v2-badge">
+        <div class="badge-icon" set:html={badgeIcon} />
+        {badge_text}
+      </h1>
 
       <!-- Heading -->
-      <h1 class="hero-v2-heading">
-        Receba uma Renda Fixa Todos os Meses, Sem Surpresas
-      </h1>
+      <h2 class="hero-v2-heading">
+        {heading}
+      </h2>
 
       <!-- Description -->
       <p class="hero-v2-description">
-        Esqueça a incerteza do alojamento local. Com o modelo de Rentabilidade Garantida,
-        recebe o mesmo valor todos os meses, independentemente da ocupação. Segurança financeira
-        para planear o seu futuro com tranquilidade.
+        {description}
       </p>
 
       <!-- Feature Points -->
       <div class="hero-v2-features">
-        <div class="hero-v2-feature">
-          <div class="feature-v2-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-            </svg>
+        {features.map((feature) => (
+          <div class="hero-v2-feature">
+            <div class="feature-v2-icon" set:html={iconMap.check} />
+            <span>{feature.label}</span>
           </div>
-          <span>Renda Mensal Fixa</span>
-        </div>
-        <div class="hero-v2-feature">
-          <div class="feature-v2-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-            </svg>
-          </div>
-          <span>100% de Ocupação Garantida</span>
-        </div>
-        <div class="hero-v2-feature">
-          <div class="feature-v2-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-            </svg>
-          </div>
-          <span>Manutenção Incluída</span>
-        </div>
+        ))}
       </div>
 
       <!-- CTAs -->
       <div class="hero-v2-cta-group">
-        <a href="#contacto" class="btn-v2-primary">
-          Receber Proposta Gratuita
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
-        <a href="#beneficios" class="btn-v2-secondary">
-          Saber Mais
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-          </svg>
-        </a>
+        {primary_cta_label && (
+          <a href={primary_cta_url} class="btn-v2-primary">
+            {primary_cta_label}
+            <div class="btn-icon" set:html={iconMap.arrowRight} />
+          </a>
+        )}
+
+        {secondary_cta_label && (
+          <a href={secondary_cta_url} class="btn-v2-secondary">
+            {secondary_cta_label}
+            <div class="btn-icon" set:html={iconMap.arrowDown} />
+          </a>
+        )}
       </div>
     </div>
 
@@ -74,48 +172,52 @@
     <div class="hero-v2-visual">
       <div class="hero-v2-image-wrapper">
         <img
-          src="/images/property-1.webp"
-          alt="Propriedade em Alojamento Local"
+          src={heroImage.url}
+          alt={heroImage.alt}
           class="hero-v2-image"
+          loading="lazy"
         />
 
-        <!-- Stats Overlay Cards -->
-        <div class="hero-v2-stats">
-          <div class="stat-v2-card stat-v2-left">
-            <div class="stat-v2-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z"/>
-              </svg>
-            </div>
-            <div class="stat-v2-content">
-              <div class="stat-v2-label">Renda Mensal</div>
-              <div class="stat-v2-value">€1.200 - €2.500</div>
-            </div>
-          </div>
-
-          <div class="stat-v2-card stat-v2-right">
-            <div class="stat-v2-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-              </svg>
-            </div>
-            <div class="stat-v2-content">
-              <div class="stat-v2-label">Garantia</div>
-              <div class="stat-v2-value">100%</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Decorative Elements -->
         <div class="hero-v2-gradient"></div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="hero-v2-stats">
+        {stats[0] && (
+          <div class="stat-v2-card stat-v2-left">
+            <div
+              class="stat-v2-icon"
+              set:html={getIcon(stats[0].icon_key, 'dollar')}
+            />
+            <div class="stat-v2-content">
+              <div class="stat-v2-label">{stats[0].label}</div>
+              <div class="stat-v2-value">{stats[0].value}</div>
+            </div>
+          </div>
+        )}
+
+        {stats[1] && (
+          <div class="stat-v2-card stat-v2-right">
+            <div
+              class="stat-v2-icon"
+              set:html={getIcon(stats[1].icon_key, 'shield')}
+            />
+            <div class="stat-v2-content">
+              <div class="stat-v2-label">{stats[1].label}</div>
+              <div class="stat-v2-value">{stats[1].value}</div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   </div>
 </section>
 
+
+
 <style>
   .hero-v2 {
-    padding: 180px 20px 120px;
+    padding: 130px 20px 80px;
     background: linear-gradient(180deg, #F8FCFF 0%, #fff 100%);
     position: relative;
     overflow: hidden;
@@ -186,8 +288,18 @@
     }
   }
 
-  .hero-v2-badge svg {
+  .hero-v2-badge .badge-icon {
     flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-v2-badge .badge-icon svg {
+    width: 16px;
+    height: 16px;
   }
 
   /* Heading */
@@ -244,6 +356,12 @@
     justify-content: center;
     color: white;
     flex-shrink: 0;
+    padding: 9px;
+  }
+
+  .feature-v2-icon svg {
+    width: 20px;
+    height: 20px;
   }
 
   .hero-v2-feature span {
@@ -298,6 +416,19 @@
     box-shadow: 0 4px 16px rgba(12, 68, 99, 0.15);
   }
 
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+  }
+
+  .btn-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
   /* Visual Section */
   .hero-v2-visual {
     max-width: 1000px;
@@ -345,26 +476,22 @@
 
   /* Stats Cards */
   .hero-v2-stats {
-    position: absolute;
-    bottom: 24px;
-    left: 24px;
-    right: 24px;
     display: flex;
     gap: 16px;
-    z-index: 10;
+    margin-top: 32px;
+    max-width: 1000px;
   }
 
   .stat-v2-card {
     flex: 1;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: white;
     border-radius: 16px;
-    padding: 20px;
+    padding: 24px;
     display: flex;
     gap: 16px;
     align-items: center;
-    box-shadow: 0 8px 32px rgba(12, 68, 99, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(12, 68, 99, 0.12);
+    border: 2px solid var(--gray-light);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     animation: slideInUp 0.6s ease-out forwards;
@@ -404,6 +531,12 @@
     justify-content: center;
     color: white;
     flex-shrink: 0;
+    padding: 10px;
+  }
+
+  .stat-v2-icon svg {
+    width: 24px;
+    height: 24px;
   }
 
   .stat-v2-content {
@@ -509,14 +642,8 @@
       height: 36px;
     }
 
-    .hero-v2-stats {
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
-    }
-
     .stat-v2-card {
-      padding: 16px;
+      padding: 20px;
     }
 
     .stat-v2-icon {

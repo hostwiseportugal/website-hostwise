@@ -1,65 +1,89 @@
 ---
-// Partners Marquee Component
-// Displays partner logos in an infinite scrolling animation
+interface WPImage {
+  url?: string;
+  source_url?: string;
+  alt?: string;
+}
+
+interface PartnerItem {
+  logo_image?: WPImage | string;
+  logo_alt?: string;
+  logo_url?: string;
+}
+
+interface PartnersProps {
+  title?: string;
+  partners?: PartnerItem[];
+}
+
+function normalizeImage(
+  img: WPImage | string | undefined,
+  fallback: string,
+  alt: string
+) {
+  if (!img) return { url: fallback, alt };
+
+  if (typeof img === 'string') {
+    return { url: img, alt };
+  }
+
+  return {
+    url: img.url || img.source_url || fallback,
+    alt: img.alt || alt,
+  };
+}
+
+const {
+  title = 'Os Nossos Parceiros de Negócios',
+  partners = [],
+} = Astro.props as PartnersProps;
+
+// FALLBACK logos caso não venham do ACF
+const defaultPartners: PartnerItem[] =
+  partners.length
+    ? partners
+    : [
+        { logo_image: '/images/partners/farfetch-logo.svg', logo_alt: 'Farfetch' },
+        { logo_image: '/images/partners/natixis-logo.webp', logo_alt: 'Natixis' },
+        { logo_image: '/images/partners/atlantida-wta-logo.webp', logo_alt: 'Atlântida WTA' },
+        { logo_image: '/images/partners/apartool-logo.svg', logo_alt: 'Apartool' },
+        { logo_image: '/images/partners/revolut-logo.svg', logo_alt: 'Revolut' },
+        { logo_image: '/images/partners/devexperts-logo.svg', logo_alt: 'DevExperts' },
+        { logo_image: '/images/partners/exclusive-worldwide-logo.svg', logo_alt: 'Exclusive Worldwide' },
+        { logo_image: '/images/partners/plateform-logo.svg', logo_alt: 'Plateform' },
+      ];
+
+// duplicar para marquee infinito
+const marqueePartners = [...defaultPartners, ...defaultPartners];
 ---
 
 <section class="partners-marquee">
   <div class="container">
-    <h2 class="partners-title">Os Nossos Parceiros de Negócios</h2>
+    <h2 class="partners-title">{title}</h2>
 
     <div class="marquee-wrapper">
       <div class="marquee-content">
-        <!-- First set of logos -->
-        <div class="marquee-item">
-          <img src="/images/partners/farfetch-logo.svg" alt="Farfetch" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/natixis-logo.webp" alt="Natixis" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/atlantida-wta-logo.webp" alt="Atlântida WTA" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/apartool-logo.svg" alt="Apartool" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/revolut-logo.svg" alt="Revolut" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/devexperts-logo.svg" alt="DevExperts" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/exclusive-worldwide-logo.svg" alt="Exclusive Worldwide" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/plateform-logo.svg" alt="Plateform" />
-        </div>
 
-        <!-- Duplicate set for seamless loop -->
-        <div class="marquee-item">
-          <img src="/images/partners/farfetch-logo.svg" alt="Farfetch" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/natixis-logo.webp" alt="Natixis" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/atlantida-wta-logo.webp" alt="Atlântida WTA" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/apartool-logo.svg" alt="Apartool" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/revolut-logo.svg" alt="Revolut" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/devexperts-logo.svg" alt="DevExperts" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/exclusive-worldwide-logo.svg" alt="Exclusive Worldwide" />
-        </div>
-        <div class="marquee-item">
-          <img src="/images/partners/plateform-logo.svg" alt="Plateform" />
-        </div>
+        {marqueePartners.map((partner) => {
+          const img = normalizeImage(
+            partner.logo_image,
+            '/images/partners/fallback-partner.svg',
+            partner.logo_alt || 'Partner logo'
+          );
+
+          const WrapperTag = partner.logo_url ? 'a' : 'div';
+
+          return (
+            <div class="marquee-item">
+              <WrapperTag
+                {...(partner.logo_url ? { href: partner.logo_url, target: '_blank', rel: 'noopener noreferrer' } : {})}
+              >
+                <img src={img.url} alt={img.alt} loading="lazy" />
+              </WrapperTag>
+            </div>
+          );
+        })}
+
       </div>
     </div>
   </div>
@@ -88,7 +112,7 @@
   .marquee-content {
     display: flex;
     gap: 80px;
-    animation: marquee 40s linear infinite;
+    animation: marquee 20s linear infinite;
     will-change: transform;
   }
 
@@ -150,7 +174,7 @@
 
     .marquee-content {
       gap: 40px;
-      animation: marquee 30s linear infinite;
+      animation: marquee 20s linear infinite;
     }
 
     .marquee-item {
@@ -171,7 +195,7 @@
 
     .marquee-content {
       gap: 24px;
-      animation: marquee 25s linear infinite;
+      animation: marquee 20s linear infinite;
     }
 
     .marquee-item {

@@ -42,11 +42,35 @@ const benefits = [
     color: "rgba(12, 68, 99, 1)"
   }
 ];
+
+const apiBase = import.meta.env.WORDPRESS_API_URL;
+const PAGE_ID = 190; // id da página rentabilidade garantida
+const res = await fetch(`${apiBase}/pages/${PAGE_ID}?lang=pt&_embed`);
+const page = await res.json();
+const acf = page.acf || {};
+
+const heroStats = (acf.hero_v2_stats || []).map((s: any) => ({
+  label: s.stat_label,
+  value: s.stat_value,
+  icon_key: s.stat_icon_key,
+}));
 ---
 
 <Layout title="Rentabilidade Garantida - Host Wise">
   <!-- Hero Section V2 - SaaS Style -->
-  <HeroSectionV2 />
+ <HeroSectionV2
+    badge_text={acf.hero_v2_badge_text}
+    badge_icon_key={acf.hero_v2_badge_icon}
+    heading={acf.hero_v2_heading}
+    description={acf.hero_v2_description}
+    features={acf.hero_v2_features}
+    primary_cta_label={acf.hero_v2_primary_cta_label}
+    primary_cta_url={acf.hero_v2_primary_cta_url}
+    secondary_cta_label={acf.hero_v2_secondary_cta_label}
+    secondary_cta_url={acf.hero_v2_secondary_cta_url}
+    image={acf.hero_v2_image}
+    stats={acf.hero_v2_stats}
+  />
 
   <!-- Intro Section -->
   <IntroSection />

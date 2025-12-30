@@ -1,50 +1,53 @@
 ---
-const stats = [
-  {
-    number: 600,
-    suffix: "+",
-    label: "Propriedades Geridas",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-    </svg>`
-  },
-  {
-    number: 95,
-    suffix: "%",
-    label: "Taxa de Ocupação Média",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
-      <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-    </svg>`
-  },
-  {
-    number: 4.8,
-    suffix: "/5",
-    label: "Avaliação Média dos Hóspedes",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
-      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-    </svg>`
-  },
-  {
-    number: 24,
-    suffix: "/7",
-    label: "Suporte ao Proprietário",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-    </svg>`
-  }
-];
+import { iconMap } from '../icons/iconMap';
+
+interface StatItem {
+  number?: number | string;
+  suffix?: string;
+  label?: string;
+  icon_key?: string;
+}
+
+interface AnimatedStatsProps {
+  stats?: StatItem[];
+}
+
+const { stats = [] } = Astro.props as AnimatedStatsProps;
+
+// fallback se ainda não houver nada no ACF
+const defaultStats: StatItem[] = stats.length
+  ? stats
+  : [
+      { number: 600, suffix: '+', label: 'Propriedades Geridas', icon_key: 'homeMultiple' },
+      { number: 95, suffix: '%', label: 'Taxa de Ocupação Média', icon_key: 'chartLine' },
+      { number: 4.8, suffix: '/5', label: 'Avaliação Média dos Hóspedes', icon_key: 'star' },
+      { number: 24, suffix: '/7', label: 'Suporte ao Proprietário', icon_key: 'checkCircle' },
+    ];
+
+// garantir que temos sempre um SVG para cada stat
+const iconMapAny = iconMap as Record<string, string>;
+
+const resolvedStats = defaultStats.map((stat) => {
+  const iconSvg = stat.icon_key ? iconMapAny[stat.icon_key] : undefined;
+
+  return {
+    ...stat,
+    iconSvg: iconSvg || iconMapAny['homeMultiple'] || '', // fallback de ícone
+  };
+});
 ---
 
 <section class="animated-stats-section">
   <div class="container">
     <div class="stats-grid">
-      {stats.map((stat, index) => (
+      {resolvedStats.map((stat, index) => (
         <div
           class="stat-card"
           data-stat-index={index}
           style={`animation-delay: ${index * 0.1}s`}
         >
-          <div class="stat-icon" set:html={stat.icon} />
+          <div class="stat-icon" set:html={stat.iconSvg} />
+
           <div class="stat-content">
             <div class="stat-number-wrapper">
               <span
@@ -54,16 +57,20 @@ const stats = [
               >
                 0
               </span>
-              <span class="stat-suffix">{stat.suffix}</span>
+              <span class="stat-suffix">
+                {stat.suffix}
+              </span>
             </div>
             <p class="stat-label">{stat.label}</p>
           </div>
+
           <div class="stat-decoration"></div>
         </div>
       ))}
     </div>
   </div>
 </section>
+
 
 <style>
   .animated-stats-section {
@@ -159,6 +166,7 @@ const stats = [
     justify-content: center;
     color: white;
     transition: all 0.3s ease;
+    padding: 10px;
   }
 
   .stat-card:hover .stat-icon {
@@ -267,7 +275,7 @@ const stats = [
     constructor() {
       this.observer = new IntersectionObserver(
         (entries) => {
-          entries.forEach(entry => {
+          entries.forEach((entry) => {
             if (entry.isIntersecting && !this.hasAnimated) {
               this.hasAnimated = true;
               this.animateStats();
@@ -288,13 +296,15 @@ const stats = [
     }
 
     animateStats() {
-      const statNumbers = document.querySelectorAll('.stat-number');
+      const statsSection = document.querySelector('.animated-stats-section');
+      if (!statsSection) return;
+
+      const statNumbers = statsSection.querySelectorAll('.stat-number');
 
       statNumbers.forEach((stat) => {
         const element = stat as HTMLElement;
         const target = parseFloat(element.dataset.target || '0');
-        const suffix = element.dataset.suffix || '';
-        const duration = 2000; // 2 seconds
+        const duration = 2000; // 2 segundos
         const steps = 60;
         const increment = target / steps;
         const stepDuration = duration / steps;
@@ -326,3 +336,4 @@ const stats = [
     });
   }
 </script>
+

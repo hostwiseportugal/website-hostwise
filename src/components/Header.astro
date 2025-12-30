@@ -1,4 +1,6 @@
 ---
+import { iconMap } from '../icons/iconMap';
+
 const menuItems = [
   { name: 'Início', href: '/' },
   { name: 'Serviços', href: '#servicos' },
@@ -22,46 +24,32 @@ const menuItems = [
       <!-- Serviços com Mega Menu -->
       <div class="nav-item has-mega">
         <button class="nav-link">
-          Os Nossos Serviços
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-          </svg>
+          Serviços
+          <div class="nav-icon" set:html={iconMap.chevronDown} />
         </button>
         
         <div class="mega-menu">
           <div class="mega-menu-content">
             <a href="/gestao-alojamento-local" class="mega-item">
-              <div class="mega-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                  <path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V6H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/>
-                </svg>
-              </div>
+              <div class="mega-icon" set:html={iconMap.home} />
               <div class="mega-text">
                 <div class="mega-title">Gestão de Alojamento Local</div>
-                <p>Maximização de receitas em Airbnb e Booking.com</p>
+                <p>Maximize o Rendimento do Seu Alojamento Local, Sem Preocupações</p>
               </div>
             </a>
-            
+
             <a href="/gestao-propriedades" class="mega-item">
-              <div class="mega-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                  <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
-                </svg>
-              </div>
+              <div class="mega-icon" set:html={iconMap.building} />
               <div class="mega-text">
-                <div class="mega-title">Gestão de Edifícios Multi-Unit</div>
+                <div class="mega-title">Gestão de Edifícios e Serviced Apartments</div>
                 <p>Transforme o seu edifício num ativo hoteleiro de performance</p>
               </div>
             </a>
-            
+
             <a href="/media-duracao" class="mega-item">
-              <div class="mega-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                </svg>
-              </div>
+              <div class="mega-icon" set:html={iconMap.hotel} />
               <div class="mega-text">
-                <div class="mega-title">Gestão Hoteleira e Asset Management</div>
+                <div class="mega-title">Gestão de Hóteis</div>
                 <p>Otimização de performance e valuation para portfolios de hospitalidade</p>
               </div>
             </a>
@@ -72,32 +60,22 @@ const menuItems = [
       <!-- Modelos com Mega Menu -->
       <div class="nav-item has-mega">
         <button class="nav-link">
-          Os Nossos Modelos
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-          </svg>
+          Modelos de Gestão
+          <div class="nav-icon" set:html={iconMap.chevronDown} />
         </button>
-        
+
         <div class="mega-menu">
           <div class="mega-menu-content">
             <a href="/rentabilidade-garantida" class="mega-item">
-              <div class="mega-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-                </svg>
-              </div>
+              <div class="mega-icon" set:html={iconMap.shield} />
               <div class="mega-text">
                 <div class="mega-title">Rentabilidade Garantida</div>
                 <p>Receba um valor fixo mensal, sem preocupações</p>
               </div>
             </a>
-            
-            <a href="/modelo-comissao" class="mega-item">
-              <div class="mega-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                  <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
-                </svg>
-              </div>
+
+            <a href="/comissao" class="mega-item">
+              <div class="mega-icon" set:html={iconMap.chartLine} />
               <div class="mega-text">
                 <div class="mega-title">Modelo de Comissão</div>
                 <p>Pague apenas por resultados: 9-19% da receita</p>
@@ -108,7 +86,6 @@ const menuItems = [
       </div>
 
       <!-- Links Simples -->
-      <a href="/blog" class="nav-link">Blog</a>
       <a href="/referrals" class="nav-link">Referrals</a>
     </nav>
 
@@ -148,9 +125,7 @@ const menuItems = [
       <div class="mobile-section">
         <button class="mobile-section-title">
           Os Nossos Serviços
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-          </svg>
+          <div class="mobile-icon" set:html={iconMap.chevronDown} />
         </button>
         <div class="mobile-submenu">
           <a href="/alojamento-local">Gestão de Alojamento Local</a>
@@ -163,9 +138,7 @@ const menuItems = [
       <div class="mobile-section">
         <button class="mobile-section-title">
           Os Nossos Modelos
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-          </svg>
+          <div class="mobile-icon" set:html={iconMap.chevronDown} />
         </button>
         <div class="mobile-submenu">
           <a href="/rentabilidade-garantida">Rentabilidade Garantida</a>
@@ -255,11 +228,21 @@ const menuItems = [
     color: var(--secondary);
   }
 
-  .nav-link svg {
+  .nav-link .nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+  }
+
+  .nav-link .nav-icon svg {
+    width: 16px;
+    height: 16px;
     transition: transform 0.3s;
   }
 
-  .has-mega:hover .nav-link svg {
+  .has-mega:hover .nav-link .nav-icon svg {
     transform: rotate(180deg);
   }
 
@@ -315,6 +298,12 @@ const menuItems = [
     align-items: center;
     justify-content: center;
     color: var(--secondary);
+    padding: 12px;
+  }
+
+  .mega-icon svg {
+    width: 24px;
+    height: 24px;
   }
 
   .mega-item:hover .mega-icon {
@@ -456,12 +445,8 @@ const menuItems = [
   .mobile-menu-btn span {
     width: 24px;
     height: 2px;
-    background: white;
-    transition: all 0.3s;
-  }
-
-  .header.scrolled .mobile-menu-btn span {
     background: var(--primary);
+    transition: all 0.3s;
   }
 
   .mobile-menu-btn.active span:nth-child(1) {
@@ -480,7 +465,7 @@ const menuItems = [
   .mobile-menu {
     display: none;
     position: fixed;
-    top: 73px;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
@@ -488,6 +473,8 @@ const menuItems = [
     overflow-y: auto;
     transform: translateX(100%);
     transition: transform 0.3s;
+    padding-top: 73px;
+    z-index: 999;
   }
 
   .mobile-menu.active {
@@ -517,11 +504,21 @@ const menuItems = [
     cursor: pointer;
   }
 
-  .mobile-section-title svg {
+  .mobile-section-title .mobile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+  }
+
+  .mobile-section-title .mobile-icon svg {
+    width: 20px;
+    height: 20px;
     transition: transform 0.3s;
   }
 
-  .mobile-section.active .mobile-section-title svg {
+  .mobile-section.active .mobile-section-title .mobile-icon svg {
     transform: rotate(180deg);
   }
 

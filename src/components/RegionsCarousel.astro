@@ -391,8 +391,14 @@ const regions = [
 
     updateCarousel() {
       const slideWidth = this.slides[0].offsetWidth + 24; // width + gap
-      const offset = -this.currentIndex * slideWidth;
-      
+      const containerWidth = this.track.parentElement?.offsetWidth || 0;
+      const totalWidth = this.slides.length * slideWidth;
+      const maxOffset = Math.min(0, -(totalWidth - containerWidth));
+
+      let offset = -this.currentIndex * slideWidth;
+      // Clamp offset to prevent blank space
+      offset = Math.max(maxOffset, Math.min(0, offset));
+
       this.track.style.transform = `translateX(${offset}px)`;
       this.currentTranslate = offset;
       this.prevTranslate = offset;

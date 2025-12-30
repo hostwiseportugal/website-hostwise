@@ -1,57 +1,101 @@
 ---
-const benefits = [
-  {
-    icon: "passive-income",
-    title: "Rendimento Passivo e Tranquilo",
-    description: "Gerir uma propriedade pode ser exigente, mas com a gestão de alojamento local da Host Wise, os proprietários podem desfrutar de um rendimento passivo e tranquilo sem preocupações. Com a nossa equipa especializada, garantimos que o seu imóvel funciona de forma eficiente, sem que precise de se envolver no dia a dia da operação. Assim, pode relaxar e usufruir dos rendimentos do seu imóvel, enquanto nós cuidamos de todos os detalhes."
-  },
-  {
-    icon: "profitability",
-    title: "Maximização da Rentabilidade",
-    description: "O seu alojamento local tem um enorme potencial de rentabilidade, mas sem a estratégia certa pode perder oportunidades. Ajustamos os preços de forma inteligente, aumentamos a taxa de ocupação e posicionamos o seu alojamento nos melhores canais para atrair mais reservas. Além disso, otimizamos cada detalhe – desde a apresentação do imóvel até à experiência do hóspede – para que consiga mais lucro com cada estadia."
-  },
-  {
-    icon: "integrated",
-    title: "Gestão 100% Integrada",
-    description: "A gestão de alojamento local exige atenção a múltiplos detalhes, desde a comunicação com hóspedes até à limpeza e manutenção. Na Host Wise, oferecemos uma gestão 100% integrada, cuidando de todos os aspetos operacionais para que não tenha preocupações. Gerimos os anúncios do seu imóvel nas principais plataformas, garantimos um atendimento eficiente aos hóspedes e tratamos de toda a logística de check-ins, limpezas e reparações."
+import { iconMap } from '../icons/iconMap';
+
+interface BenefitRaw {
+  benefit_icon_key?: string;
+  benefit_title?: string;
+  benefit_description?: string;
+}
+
+interface Benefit {
+  icon_key?: string;
+  title?: string;
+  description?: string;
+}
+
+interface Props {
+  title?: string;
+  benefits?: BenefitRaw[];
+}
+
+// pegar ícone do mapa com fallback
+function getIcon(key: string | undefined, fallback: keyof typeof iconMap) {
+  if (key && iconMap[key]) {
+    return iconMap[key as keyof typeof iconMap];
   }
+  return iconMap[fallback];
+}
+
+const {
+  title = 'Porquê Escolher a Gestão da Host Wise?',
+  benefits: rawBenefits = [],
+} = Astro.props as Props;
+
+// FALLBACK se ACF estiver vazio
+const fallbackBenefits: Benefit[] = [
+  {
+    icon_key: 'passiveIncome',
+    title: 'Rendimento Passivo e Tranquilo',
+    description:
+      'Gerir uma propriedade pode ser exigente, mas com a gestão de alojamento local da Host Wise, os proprietários podem desfrutar de um rendimento passivo sem preocupações.',
+  },
+  {
+    icon_key: 'rentability',
+    title: 'Maximização da Rentabilidade',
+    description:
+      'Ajustamos preços de forma inteligente, aumentamos a taxa de ocupação e posicionamos o seu alojamento para obter mais reservas e lucro.',
+  },
+  {
+    icon_key: 'integratedManagement',
+    title: 'Gestão 100% Integrada',
+    description:
+      'Cuidamos de comunicação com hóspedes, limpeza, manutenção, anúncios em plataformas e operação diária, para que não tenha preocupações.',
+  },
 ];
+
+const benefits: Benefit[] =
+  rawBenefits.length
+    ? rawBenefits.map((b) => ({
+        icon_key: b.benefit_icon_key,
+        title: b.benefit_title,
+        description: b.benefit_description,
+      }))
+    : fallbackBenefits;
 ---
 
 <section class="benefits-cards-section">
   <div class="container">
     <div class="section-header">
-      <h2>Porquê Escolher a Gestão da Host Wise?</h2>
+      <h2>{title}</h2>
     </div>
 
     <div class="cards-grid">
-      {benefits.map((benefit, index) => (
-        <div class="benefit-card" data-index={index}>
-          <div class="card-icon">
-            {benefit.icon === 'passive-income' && (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z"/>
-              </svg>
-            )}
-            {benefit.icon === 'profitability' && (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/>
-              </svg>
-            )}
-            {benefit.icon === 'integrated' && (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-              </svg>
+      {benefits.map((benefit, index) => {
+        const icon = getIcon(
+          benefit.icon_key,
+          index === 1
+            ? 'chartLine'
+            : index === 2
+            ? 'grid'
+            : 'dollar'
+        );
+
+        return (
+          <div class="benefit-card" data-index={index}>
+            <div class="card-icon" set:html={icon} />
+
+            <h3>{benefit.title}</h3>
+
+            {benefit.description && (
+              <p set:html={benefit.description}></p>
             )}
           </div>
-
-          <h3>{benefit.title}</h3>
-          <p>{benefit.description}</p>
-        </div>
-      ))}
+        );
+      })}
     </div>
   </div>
 </section>
+
 
 <style>
   .benefits-cards-section {
@@ -169,6 +213,12 @@ const benefits = [
     justify-content: center;
     color: white;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 15px;
+  }
+
+  .card-icon svg {
+    width: 28px;
+    height: 28px;
   }
 
   .benefit-card:hover .card-icon {

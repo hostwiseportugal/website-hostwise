@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import IntroSection from '../components/IntroSection.astro';
+import HeroSectionV2 from '../components/HeroSectionV2.astro';
+import IntroSectionWStats from '../components/IntroSectionWStats.astro';
 import ManagementBenefitsCards from '../components/ManagementBenefitsCards.astro';
 import AnimatedStats from '../components/AnimatedStats.astro';
 import FeaturesAccordion from '../components/FeaturesAccordion.astro';
@@ -11,98 +12,94 @@ import PricingSection from '../components/PricingSection.astro';
 import RegionsCarousel from '../components/RegionsCarousel.astro';
 import OwnerTestimonials from '../components/OwnerTestimonials.astro';
 import FAQSection from '../components/FAQSection.astro';
+
+const apiBase = import.meta.env.WORDPRESS_API_URL;
+const PAGE_ID = 192;
+const res = await fetch(`${apiBase}/pages/${PAGE_ID}?lang=pt&_embed`);
+const page = await res.json();
+const acf = page.acf || {};
+
+const testimonialsData = (acf.owner_testimonials || []).map((t: any) => ({
+  name: t.owner_testimonial_name,
+  location: t.owner_testimonial_location,
+  property: t.owner_testimonial_property,
+  rating: Number(t.owner_testimonial_rating) || 0,
+  comment: t.owner_testimonial_comment,
+}));
+
+const faqCategoriesData =
+  (acf.faq_categories || []).map((cat: any) => ({
+    id: cat.faq_category_id,
+    label: cat.faq_category_label,
+    questions: (cat.faq_items || []).map((item: any) => ({
+      question: item.faq_question,
+      answer: item.faq_answer,
+    })),
+  })) || [];
 ---
 
 <Layout title="Gestão de Alojamento Local - Host Wise">
   <!-- Hero Section -->
-  <section class="hero-alojamento">
-    <div class="hero-container">
-      <div class="hero-content">
-        <div class="hero-text">
-          <span class="hero-label">Gestão de Alojamento Local</span>
-          <h1>Maximize o Rendimento do Seu Imóvel Sem Preocupações</h1>
-          <p>
-            Transforme o seu apartamento num negócio de alojamento local rentável com gestão 100% profissional.
-            Ocupamos, gerimos e otimizamos - você apenas recebe os rendimentos.
-          </p>
-
-          <div class="hero-buttons">
-            <a href="#contacto" class="btn-primary-hero">
-              Receber Proposta Gratuita
-            </a>
-            <a href="#modelos" class="btn-secondary-hero">
-              Ver Modelos de Rentabilidade
-            </a>
-          </div>
-
-          <div class="hero-trust-badges">
-            <div class="trust-item">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-              <span>Sem custos iniciais</span>
-            </div>
-            <div class="trust-item">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-              <span>Contratos flexíveis</span>
-            </div>
-            <div class="trust-item">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-              <span>Pagamentos garantidos</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-image">
-        <img src="/images/hero.webp" alt="Gestão de Alojamento Local" />
-
-        <div class="hero-stats-float">
-          <div class="float-card">
-            <div class="float-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
-              </svg>
-            </div>
-            <div class="float-content">
-              <span class="float-number">+40%</span>
-              <span class="float-label">Rentabilidade Média</span>
-            </div>
-          </div>
-
-          <div class="float-card float-card-secondary">
-            <div class="float-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-              </svg>
-            </div>
-            <div class="float-content">
-              <span class="float-number">4.8/5</span>
-              <span class="float-label">Avaliação Média</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HeroSectionV2
+    badge_text={acf.hero_v2_badge_text}
+    badge_icon_key={acf.hero_v2_badge_icon}
+    heading={acf.hero_v2_heading}
+    description={acf.hero_v2_description}
+    features={acf.hero_v2_features}
+    primary_cta_label={acf.hero_v2_primary_cta_label}
+    primary_cta_url={acf.hero_v2_primary_cta_url}
+    secondary_cta_label={acf.hero_v2_secondary_cta_label}
+    secondary_cta_url={acf.hero_v2_secondary_cta_url}
+    image={acf.hero_v2_image}
+    stats={acf.hero_v2_stats}
+  />
 
   <!-- Intro Section -->
-  <IntroSection />
+  <IntroSectionWStats
+  title={acf.intro_title}
+  paragraphs={acf.intro_paragraphs}
+  ctaLabel={acf.intro_cta_label}
+  ctaUrl={acf.intro_cta_url}
+  stats={acf.intro_stats}
+  />
 
-<ManagementBenefitsCards />
+  <ManagementBenefitsCards
+  title={acf.benefits_title}
+  benefits={acf.benefits_list}
+  />
+
 
   <!-- Animated Stats -->
-  <AnimatedStats />
+  <AnimatedStats stats={acf.animated_stats} />
 
   <!-- Features Accordion -->
-  <FeaturesAccordion />
+  <FeaturesAccordion
+  section_title={acf.section_title}
+  section_subtitle={acf.section_subtitle}
+  
+  owners_title={acf.owners_title}
+  owners_subtitle={acf.owners_subtitle}
+  owners_image={acf.owners_image?.url}
+  owners_features={acf.owners_features}
+  
+  guests_title={acf.guests_title}
+  guests_subtitle={acf.guests_subtitle}
+  guests_image={acf.guests_image?.url}
+  guests_features={acf.guests_features}
+  
+  cta_label={acf.cta_label}
+  cta_url={acf.cta_url}
+  />
+
 
   <!-- Platforms Marquee -->
-  <PlatformsMarquee />
+  <PlatformsMarquee
+  section_badge={acf.section_badge}
+  section_title={acf.section_title}
+  section_subtitle={acf.section_subtitle}
+  platforms={acf.platforms}
+  />
+
 
   <!-- Models Intro -->
   <div id="modelos">
@@ -119,10 +116,29 @@ import FAQSection from '../components/FAQSection.astro';
   <RegionsCarousel />
 
   <!-- Owner Testimonials -->
-  <OwnerTestimonials />
+  <OwnerTestimonials
+  badgeLabel={acf.owner_testimonials_badge_label}
+  title={acf.owner_testimonials_title}
+  subtitle={acf.owner_testimonials_subtitle}
+  ctaTitle={acf.owner_testimonials_cta_title}
+  ctaSubtitle={acf.owner_testimonials_cta_subtitle}
+  ctaLabel={acf.owner_testimonials_cta_label}
+  ctaUrl={acf.owner_testimonials_cta_url}
+  testimonials={testimonialsData}
+  />
 
   <!-- FAQ Section -->
-  <FAQSection />
+  <FAQSection
+  badgeLabel={acf.faq_badge_label}
+  title={acf.faq_title}
+  subtitle={acf.faq_subtitle}
+  categories={faqCategoriesData}
+  showCta={acf.faq_show_cta}
+  ctaTitle={acf.faq_cta_title}
+  ctaSubtitle={acf.faq_cta_subtitle}
+  ctaLabel={acf.faq_cta_label}
+  ctaUrl={acf.faq_cta_url}
+/>
 </Layout>
 
 <style>

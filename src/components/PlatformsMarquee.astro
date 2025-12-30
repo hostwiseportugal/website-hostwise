@@ -1,78 +1,87 @@
 ---
-const platforms = [
-  { name: "Flatio", logo: "/images/platform-logos/flatio-logo.svg" },
-  { name: "Expedia", logo: "/images/platform-logos/expedia-logo.svg" },
-  { name: "Vrbo", logo: "/images/platform-logos/vrbo-logo.svg" },
-  { name: "Homes & Villas by Marriott", logo: "/images/platform-logos/marriott-homes-villas-logo.svg" },
-  { name: "Airbnb", logo: "/images/platform-logos/airbnb-logo.svg" },
-  { name: "Uniplaces", logo: "/images/platform-logos/uniplaces-logo.svg" },
-  { name: "Booking.com", logo: "/images/platform-logos/booking-com-logo.svg" },
-  { name: "Spotahome", logo: "/images/platform-logos/sportahome-logo.svg" },
-  { name: "Idealista", logo: "/images/platform-logos/idealista-logo.svg" },
-  { name: "Host Wise Direct", logo: "/images/platform-logos/hostwise-logo.svg" },
-  { name: "Inlife", logo: "/images/platform-logos/inlife-logo.svg" },
-  { name: "Housing Anywhere", logo: "/images/platform-logos/housing-anywhere-logo.svg" }
-];
+interface PlatformItem {
+  name?: string;
+  logo?: string;
+}
+
+interface PlatformsMarqueeProps {
+  platforms_badge?: string;
+  platforms_title?: string;
+  platforms_subtitle?: string;
+  platforms?: PlatformItem[];
+}
+
+const {
+  platforms_badge = 'Presença Multi-Plataforma',
+  platforms_title = 'Os Seus Anúncios nas Maiores Plataformas de Reserva',
+  platforms_subtitle = 'Maximizamos a visibilidade do seu alojamento com presença nas principais plataformas globais de reserva. Gestão sincronizada de calendários, preços e disponibilidade em tempo real.',
+  platforms = []
+} = Astro.props as PlatformsMarqueeProps;
 ---
 
 <section class="platforms-marquee-section">
   <div class="container">
     <div class="platforms-wrapper">
+
       <div class="platforms-header">
-        <span class="section-badge">Presença Multi-Plataforma</span>
-        <h2>Os Seus Anúncios nas Maiores Plataformas de Reserva</h2>
-        <p>
-          Maximizamos a visibilidade do seu alojamento com presença nas principais plataformas globais de reserva.
-          Gestão sincronizada de calendários, preços e disponibilidade em tempo real.
-        </p>
+        <span class="section-badge">
+          {platforms_badge}
+        </span>
+
+        <h2>{platforms_title}</h2>
+
+        <p>{platforms_subtitle}</p>
       </div>
 
       <div class="marquee-container">
-        <!-- First Row - Left to Right -->
+        <!-- First Row -->
         <div class="marquee-row">
           <div class="marquee-track" data-direction="normal">
-            {platforms.map((platform) => (
+            {platforms.map((p) => (
               <div class="platform-card">
                 <div class="platform-logo">
-                  <img src={platform.logo} alt={platform.name} />
+                  <img src={p.logo} alt={p.name} />
                 </div>
               </div>
             ))}
-            {/* Duplicate for seamless loop */}
-            {platforms.map((platform) => (
+
+            {platforms.map((p) => (
               <div class="platform-card">
                 <div class="platform-logo">
-                  <img src={platform.logo} alt={platform.name} />
+                  <img src={p.logo} alt={p.name} />
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <!-- Second Row - Right to Left -->
+        <!-- Second Row -->
         <div class="marquee-row">
           <div class="marquee-track marquee-reverse" data-direction="reverse">
-            {platforms.map((platform) => (
+            {platforms.map((p) => (
               <div class="platform-card">
                 <div class="platform-logo">
-                  <img src={platform.logo} alt={platform.name} />
+                  <img src={p.logo} alt={p.name} />
                 </div>
               </div>
             ))}
-            {/* Duplicate for seamless loop */}
-            {platforms.map((platform) => (
+
+            {platforms.map((p) => (
               <div class="platform-card">
                 <div class="platform-logo">
-                  <img src={platform.logo} alt={platform.name} />
+                  <img src={p.logo} alt={p.name} />
                 </div>
               </div>
             ))}
           </div>
         </div>
+
       </div>
     </div>
   </div>
 </section>
+
+
 
 <style>
   .platforms-marquee-section {

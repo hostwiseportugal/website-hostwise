@@ -1,47 +1,102 @@
 ---
+interface Stat {
+  prefix?: string;
+  number?: number | string;
+  suffix?: string;
+  label?: string;
+}
+
+interface IntroWithStatsProps {
+  title?: string;
+  paragraphs?: { paragraph?: string }[];
+  ctaLabel?: string;
+  ctaUrl?: string;
+  stats?: Stat[];
+}
+
+const {
+  title = 'Soluções Personalizadas para Cada Tipo de Ativo e Investidor',
+
+  paragraphs = [],
+
+  ctaLabel = 'Receber Proposta Gratuita',
+  ctaUrl = '#contacto',
+
+  stats = [],
+} = Astro.props as IntroWithStatsProps;
+
+// fallback texto
+const defaultParagraphs =
+  paragraphs?.length
+    ? paragraphs
+    : [
+        {
+          paragraph:
+            'Quer tenha um apartamento, um edifício inteiro, ou um portfolio de ativos hoteleiros, oferecemos gestão profissional que maximiza rentabilidade e valorização. Três serviços distintos para três tipos de ativo – cada um com a operação, tecnologia e reporting adequados aos seus objetivos. À medida que o seu portfolio cresce, escalamos consigo.',
+        },
+        {
+          paragraph:
+            'Junte-se a mais de 600 proprietários que confiam na Host Wise para gerar rendimentos passivos de forma profissional e transparente.',
+        },
+      ];
+
+// fallback stats
+const defaultStats: Stat[] = stats?.length
+  ? stats
+  : [
+      { prefix: '+', number: 625, label: 'Propriedades Geridas' },
+      { number: 80, suffix: '%', label: 'Taxa de Ocupação Média' },
+      { number: 40, suffix: '%', label: 'Aumento Médio de Rentabilidade' },
+    ];
 ---
 
-<section class="intro-section">
+<section class="intro-section" id="intro-section">
   <div class="container">
     <div class="intro-content">
-      <h2 class="intro-title">
-        Soluções Personalizadas para Cada Tipo de Ativo e Investidor
-      </h2>
-      
+
+      <h2 class="intro-title">{title}</h2>
+
       <div class="intro-text">
-        <p>
-          Quer tenha um apartamento, um edifício inteiro, ou um portfolio de ativos hoteleiros, oferecemos gestão profissional que maximiza rentabilidade e valorização. Três serviços distintos para três tipos de ativo – cada um com a operação, tecnologia e reporting adequados aos seus objetivos. À medida que o seu portfolio cresce, escalamos consigo.
-        </p>
-        <p>
-          Junte-se a mais de <strong>600 proprietários</strong> que confiam na Host Wise para gerar rendimentos passivos de forma profissional e transparente.
-        </p>
+        {defaultParagraphs.map((p) => (
+          <p set:html={p.paragraph}></p>
+        ))}
       </div>
 
-      <div class="intro-cta">
-        <a href="#contacto" class="btn-primary-large">
-          Receber Proposta Gratuita
-        </a>
+      {ctaLabel && (
+        <div class="intro-cta">
+          <a href={ctaUrl} class="btn-primary-large">
+            {ctaLabel}
+          </a>
+        </div>
+      )}
+
+      <div class="intro-stats">
+        {defaultStats.map((stat, i) => (
+          <>
+            <div class="stat-item">
+              <span
+                class="stat-number"
+                data-target={stat.number}
+                data-prefix={stat.prefix}
+                data-suffix={stat.suffix}
+              >
+                {`${stat.prefix || ''}${stat.number || 0}${stat.suffix || ''}`}
+              </span>
+
+              <span class="stat-label">
+                {stat.label || '—'}
+              </span>
+            </div>
+
+            {i < defaultStats.length - 1 && <div class="stat-divider"></div>}
+          </>
+        ))}
       </div>
 
-       <div class="intro-stats">
-        <div class="stat-item">
-          <span class="stat-number" data-target="625" data-prefix="+">+0</span>
-          <span class="stat-label">Propriedades Geridas</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="80" data-suffix="%">0%</span>
-          <span class="stat-label">Taxa de Ocupação Média</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat-item">
-          <span class="stat-number" data-target="40" data-suffix="%">0★</span>
-          <span class="stat-label">Aumento Médio de Rentabilidade</span>
-        </div>
-      </div> 
     </div>
   </div>
 </section>
+
 
 <style>
   .intro-section {
@@ -256,7 +311,7 @@
     constructor() {
       this.observer = new IntersectionObserver(
         (entries) => {
-          entries.forEach(entry => {
+          entries.forEach((entry) => {
             if (entry.isIntersecting && !this.hasAnimated) {
               this.hasAnimated = true;
               this.animateStats();
@@ -277,33 +332,38 @@
     }
 
     animateStats() {
-      const statNumbers = document.querySelectorAll('.stat-number');
-      
+      const statsSection = document.querySelector('.intro-stats');
+      if (!statsSection) return;
+
+      const statNumbers = statsSection.querySelectorAll('.stat-number');
+
       statNumbers.forEach((stat) => {
         const element = stat as HTMLElement;
         const target = parseFloat(element.dataset.target || '0');
+        const prefix = element.dataset.prefix || '';
         const suffix = element.dataset.suffix || '';
-        const duration = 2000; // 2 seconds
+        const duration = 2000; // 2 segundos
         const steps = 60;
         const increment = target / steps;
         const stepDuration = duration / steps;
-        
+
         let current = 0;
         const isDecimal = target % 1 !== 0;
 
         const timer = setInterval(() => {
           current += increment;
-          
+
           if (current >= target) {
             current = target;
             clearInterval(timer);
           }
 
-          if (isDecimal) {
-            element.textContent = current.toFixed(1) + suffix;
-          } else {
-            element.textContent = Math.floor(current) + suffix;
-          }
+          const value = isDecimal
+            ? current.toFixed(1)
+            : Math.floor(current).toString();
+
+          // aplica prefixo + número + sufixo
+          element.textContent = `${prefix}${value}${suffix}`;
         }, stepDuration);
       });
     }

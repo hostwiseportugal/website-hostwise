@@ -465,9 +465,18 @@ const midTermPlans = [
       max-width: 300px;
     }
 
+    .tabs-background {
+      display: none;
+    }
+
     .tab-button {
       justify-content: center;
       width: 100%;
+      background: transparent;
+    }
+
+    .tab-button.active {
+      background: var(--primary);
     }
 
     .pricing-card {

@@ -1,135 +1,193 @@
 ---
+import { iconMap } from '../icons/iconMap';
+
+// Cada parágrafo do texto de introdução
+interface Paragraph {
+  paragraph?: string;
+}
+
+interface Benefit {
+  text?: string;
+}
+
+interface ModelCard {
+  key?: string;
+  badge_label?: string;
+  title?: string;
+  subtitle?: string;
+  description?: string; // HTML permitido
+  benefits?: Benefit[];
+  cta_label?: string;
+  cta_url?: string;
+}
+
+interface ModelsIntroProps {
+  title?: string;
+  paragraphs?: Paragraph[];
+  models?: ModelCard[];
+  ctaTitle?: string;
+  ctaText?: string;
+  ctaButtonLabel?: string;
+  ctaButtonUrl?: string;
+}
+
+const {
+  title = 'Dois Modelos de Rentabilidade. Você Escolhe.',
+
+  // vem do ACF como array de { paragraph: string }
+  paragraphs = [],
+
+  // vem do ACF como repeater de cards
+  models = [],
+
+  ctaTitle = 'Ainda não tem a certeza qual o modelo ideal?',
+  ctaText = 'Fale connosco e receba uma análise personalizada para o seu imóvel.',
+  ctaButtonLabel = 'Receber Proposta Gratuita',
+  ctaButtonUrl = '/contacto',
+} = Astro.props as ModelsIntroProps;
+
+// Fallback dos parágrafos
+const defaultParagraphs: Paragraph[] =
+  paragraphs.length
+    ? paragraphs
+    : [
+        {
+          paragraph:
+            'Na Host Wise, oferecemos <strong>dois modelos distintos</strong> para maximizar os rendimentos do seu imóvel. Cada um foi pensado para diferentes perfis de proprietários e objetivos de investimento.',
+        },
+        {
+          paragraph:
+            'Prefere <strong>flexibilidade total</strong> com comissões apenas sobre o que gera? Ou prefere a <strong>segurança de um rendimento fixo garantido</strong> todos os meses, independentemente da ocupação?',
+        },
+        {
+          paragraph:
+            'Não há escolha errada – há apenas a escolha certa <strong>para si</strong>. Compare os modelos abaixo e descubra qual se adapta melhor ao seu perfil.',
+        },
+      ];
+
+// Fallback dos modelos
+const defaultModels: ModelCard[] =
+  models.length
+    ? models
+    : [
+        {
+          key: 'guaranteed',
+          badge_label: 'Mais Popular',
+          title: 'Rentabilidade Garantida',
+          subtitle: 'Risco Zero',
+          description:
+            'Receba um <strong>valor fixo garantido todos os meses</strong>, independentemente da ocupação. Previsibilidade total e zero preocupações.',
+          benefits: [
+            { text: 'Rendimento fixo mensal garantido' },
+            { text: 'Zero risco de vacância' },
+            { text: 'Previsibilidade total' },
+            { text: 'Contratos de longo prazo' },
+          ],
+          cta_label: 'Ver Detalhes do Modelo',
+          cta_url: '#rentabilidade-garantida',
+        },
+        {
+          key: 'commission',
+          title: 'Modelo de Comissão',
+          subtitle: 'Performance-Based',
+          description:
+            'Pague apenas uma <strong>percentagem sobre a receita gerada</strong>. Quanto mais o seu imóvel faturar, mais ganha – e nós ganhamos junto consigo.',
+          benefits: [
+            { text: 'Sem custos fixos mensais' },
+            { text: 'Comissões apenas sobre receita' },
+            { text: 'Total transparência nos ganhos' },
+            { text: 'Potencial ilimitado de receita' },
+          ],
+          cta_label: 'Ver Detalhes do Modelo',
+          cta_url: '#modelo-comissao',
+        },
+      ];
 ---
 
 <section class="models-intro">
   <div class="container">
     <div class="models-intro-content">
       <h2 class="models-intro-title">
-        Dois Modelos de Rentabilidade. Você Escolhe.
+        {title}
       </h2>
       
       <div class="models-intro-text">
-        <p>
-          Na Host Wise, oferecemos <strong>dois modelos distintos</strong> para maximizar os rendimentos do seu imóvel. Cada um foi pensado para diferentes perfis de proprietários e objetivos de investimento.
-        </p>
-        <p>
-          Prefere <strong>flexibilidade total</strong> com comissões apenas sobre o que gera? Ou prefere a <strong>segurança de um rendimento fixo garantido</strong> todos os meses, independentemente da ocupação?
-        </p>
-        <p>
-          Não há escolha errada - há apenas a escolha certa <strong>para si</strong>. Compare os modelos abaixo e descubra qual se adapta melhor ao seu perfil.
-        </p>
+        {defaultParagraphs.map((p) => (
+          <p set:html={p.paragraph}></p>
+        ))}
       </div>
 
       <div class="models-cards">
-        
+        {defaultModels.map((model) => (
+          <div
+            class={`model-card ${
+              model.key === 'guaranteed'
+                ? 'guaranteed'
+                : model.key === 'commission'
+                ? 'commission'
+                : ''
+            }`}
+          >
+            {model.badge_label && (
+              <div class="card-badge">{model.badge_label}</div>
+            )}
 
-        <div class="model-card guaranteed">
-          <div class="card-badge">Mais Popular</div>
-          <div class="card-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="40" height="40">
-              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-            </svg>
+            <div class="card-icon">
+              {model.key === 'guaranteed' && (
+                <div set:html={iconMap.shieldAlt} />
+              )}
+
+              {model.key === 'commission' && (
+                <div set:html={iconMap.chartLine} />
+              )}
+            </div>
+
+            {model.title && <h3>{model.title}</h3>}
+
+            {model.subtitle && (
+              <p class="model-subtitle">{model.subtitle}</p>
+            )}
+
+            {model.description && (
+              <p class="model-description" set:html={model.description}></p>
+            )}
+
+            {model.benefits && model.benefits.length > 0 && (
+              <ul class="model-benefits">
+                {model.benefits.map((b) => (
+                  <li>
+                    <div class="benefit-icon" set:html={iconMap.check} />
+                    {b.text}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {model.cta_label && (
+              <a href={model.cta_url} class="model-cta">
+                {model.cta_label}
+                <div class="cta-icon" set:html={iconMap.chevronDown} />
+              </a>
+            )}
           </div>
-          <h3>Rentabilidade Garantida</h3>
-          <p class="model-subtitle">Risco Zero</p>
-          <p class="model-description">
-            Receba um <strong>valor fixo garantido todos os meses</strong>, independentemente da ocupação. Previsibilidade total e zero preocupações.
-          </p>
-          <ul class="model-benefits">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-              Rendimento fixo mensal garantido
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-              Zero risco de vacância
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-              Previsibilidade total
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-              Contratos de longo prazo
-            </li>
-          </ul>
-          <a href="#rentabilidade-garantida" class="model-cta">
-            Ver Detalhes do Modelo
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-            </svg>
-          </a>
-        </div>
-
-        <div class="model-card commission">
-          <div class="card-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="40" height="40">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
-          </div>
-          <h3>Modelo de Comissão</h3>
-          <p class="model-subtitle">Performance-Based</p>
-          <p class="model-description">
-            Pague apenas uma <strong>percentagem sobre a receita gerada</strong>. Quanto mais o seu imóvel faturar, mais ganha - e nós ganhamos junto consigo.
-          </p>
-          <ul class="model-benefits">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-              Sem custos fixos mensais
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-              Comissões apenas sobre receita
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-              Total transparência nos ganhos
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-              </svg>
-              Potencial ilimitado de receita
-            </li>
-          </ul>
-          <a href="#modelo-comissao" class="model-cta">
-            Ver Detalhes do Modelo
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-            </svg>
-          </a>
-        </div>
-
+        ))}
       </div>
 
-      <!-- CTA Section -->
       <div class="models-cta">
-        <h3>Ainda não tem a certeza qual o modelo ideal?</h3>
-        <p>Fale connosco e receba uma análise personalizada para o seu imóvel.</p>
-        <a href="/contacto" class="cta-button">
-          Receber Proposta Gratuita
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
+        <p class="cta-title">{ctaTitle}</p>
+        <p>{ctaText}</p>
+
+        {ctaButtonLabel && (
+          <a href={ctaButtonUrl} class="cta-button">
+            {ctaButtonLabel}
+            <div class="button-icon" set:html={iconMap.arrowRight} />
+          </a>
+        )}
       </div>
     </div>
   </div>
 </section>
+
 
 <style>
   .models-intro {
@@ -256,6 +314,19 @@
     transition: transform 0.3s;
   }
 
+  .card-icon div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  .card-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+
   .model-card:hover .card-icon {
     transform: scale(1.1) rotate(5deg);
   }
@@ -307,9 +378,19 @@
     text-align: left;
   }
 
-  .model-benefits svg {
-    color: var(--secondary);
+  .benefit-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    color: var(--secondary);
+    width: 20px;
+    height: 20px;
+  }
+
+  .benefit-icon svg {
+    width: 20px;
+    height: 20px;
   }
 
   .model-cta {
@@ -332,11 +413,21 @@
     gap: 12px;
   }
 
-  .model-cta svg {
+  .cta-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.3s;
+    width: 20px;
+    height: 20px;
   }
 
-  .model-cta:hover svg {
+  .cta-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .model-cta:hover .cta-icon {
     transform: translateY(4px);
   }
 
@@ -347,12 +438,11 @@
     padding: 48px 40px;
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     border-radius: 24px;
-    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .models-cta h3 {
+  .models-cta .cta-title {
     font-size: 2rem;
     color: white;
     margin-bottom: 12px;
@@ -385,6 +475,19 @@
     transform: translateY(-2px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
     gap: 16px;
+  }
+
+  .button-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+  }
+
+  .button-icon svg {
+    width: 20px;
+    height: 20px;
   }
 
   /* Responsive */
@@ -433,7 +536,7 @@
       padding: 40px 28px;
     }
 
-    .models-cta h3 {
+    .models-cta .cta-title {
       font-size: 1.65rem;
     }
 
@@ -454,7 +557,7 @@
       padding: 5px 12px;
     }
 
-    .models-cta h3 {
+    .models-cta .cta-title {
       font-size: 1.5rem;
     }
 

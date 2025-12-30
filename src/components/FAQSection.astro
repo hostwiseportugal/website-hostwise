@@ -1,26 +1,78 @@
 ---
-const faqCategories = [
+interface FAQItem {
+  question?: string;
+  answer?: string;
+}
+
+interface FAQCategory {
+  id?: string;
+  label?: string;
+  questions?: FAQItem[];
+}
+
+interface FaqSectionProps {
+  badgeLabel?: string;
+  title?: string;
+  subtitle?: string;
+  categories?: FAQCategory[];
+
+  // CTA opcional (caso queiras voltar a usar)
+  showCta?: boolean;
+  ctaTitle?: string;
+  ctaSubtitle?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
+}
+
+// helper para gerar um id se vier só o label
+function slugify(str: string) {
+  return (str || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+}
+
+const {
+  badgeLabel = 'FAQ',
+  title = 'Tem Perguntas? Temos Respostas.',
+  subtitle = 'Tudo o que precisa de saber sobre a gestão do seu imóvel com a Host Wise.',
+  categories = [],
+  showCta = false,
+  ctaTitle = 'Ainda tem dúvidas?',
+  ctaSubtitle = 'A nossa equipa está disponível para esclarecer todas as suas questões.',
+  ctaLabel = 'Falar Connosco',
+  ctaUrl = '/contacto',
+} = Astro.props as FaqSectionProps;
+
+// Fallback com o que já tinhas hardcoded
+const fallbackCategories: FAQCategory[] = [
   {
     id: 'servicos',
     label: 'Serviços',
     questions: [
       {
         question: 'Que serviços incluem na gestão completa?',
-        answer: 'A gestão completa inclui: criação e otimização de anúncios, presença nas principais plataformas (Airbnb, Booking), gestão de reservas 24/7, limpeza profissional, manutenção da propriedade, comunicação com hóspedes, check-in/out automatizado, fotografia profissional, gestão de avaliações, e relatórios financeiros mensais.'
+        answer:
+          'A gestão completa inclui: criação e otimização de anúncios, presença nas principais plataformas (Airbnb, Booking), gestão de reservas 24/7, limpeza profissional, manutenção da propriedade, comunicação com hóspedes, check-in/out automatizado, fotografia profissional, gestão de avaliações, e relatórios financeiros mensais.',
       },
       {
         question: 'Qual a diferença entre os modelos de comissão e rentabilidade garantida?',
-        answer: 'No modelo de comissão, pagamos uma percentagem sobre a receita gerada (9-19% conforme o serviço). No modelo de rentabilidade garantida, recebe um valor fixo mensal independentemente da ocupação, garantindo previsibilidade total e zero risco de vacância.'
+        answer:
+          'No modelo de comissão, pagamos uma percentagem sobre a receita gerada (9-19% conforme o serviço). No modelo de rentabilidade garantida, recebe um valor fixo mensal independentemente da ocupação, garantindo previsibilidade total e zero risco de vacância.',
       },
       {
         question: 'Gerem propriedades em que zonas?',
-        answer: 'Atualmente gerimos propriedades no Porto, Lisboa, Braga, Cascais e principais cidades portuguesas. Se o seu imóvel está noutra localização, contacte-nos para avaliarmos a viabilidade.'
+        answer:
+          'Atualmente gerimos propriedades no Porto, Lisboa, Braga, Cascais e principais cidades portuguesas. Se o seu imóvel está noutra localização, contacte-nos para avaliarmos a viabilidade.',
       },
       {
         question: 'Fazem a manutenção do imóvel?',
-        answer: 'Sim! Incluímos suporte de manutenção preventiva e corretiva, inspeções regulares de qualidade, e coordenação de reparações necessárias. Mantemos o seu imóvel sempre em perfeitas condições.'
-      }
-    ]
+        answer:
+          'Sim! Incluímos suporte de manutenção preventiva e corretiva, inspeções regulares de qualidade, e coordenação de reparações necessárias. Mantemos o seu imóvel sempre em perfeitas condições.',
+      },
+    ],
   },
   {
     id: 'comissoes',
@@ -28,21 +80,25 @@ const faqCategories = [
     questions: [
       {
         question: 'Quando recebo os pagamentos?',
-        answer: 'Os pagamentos são efetuados mensalmente, até ao dia 15 do mês seguinte. Recebe um relatório detalhado com todas as receitas, despesas e a sua parte líquida.'
+        answer:
+          'Os pagamentos são efetuados mensalmente, até ao dia 15 do mês seguinte. Recebe um relatório detalhado com todas as receitas, despesas e a sua parte líquida.',
       },
       {
         question: 'Que comissões cobram?',
-        answer: 'As comissões variam entre 9% (gestão de preços) e 19% (serviço completo) sobre a receita bruta gerada. O valor exato depende do perfil do imóvel, localização e serviços contratados.'
+        answer:
+          'As comissões variam entre 9% (gestão de preços) e 19% (serviço completo) sobre a receita bruta gerada. O valor exato depende do perfil do imóvel, localização e serviços contratados.',
       },
       {
         question: 'Há custos escondidos ou taxas adicionais?',
-        answer: 'Não! A nossa comissão cobre todos os serviços incluídos no pacote. As únicas despesas extra são custos diretos como electricidade, água, gás e condomínio (se aplicável), que são deduzidos da receita antes do pagamento.'
+        answer:
+          'Não! A nossa comissão cobre todos os serviços incluídos no pacote. As únicas despesas extra são custos diretos como electricidade, água, gás e condomínio (se aplicável), que são deduzidos da receita antes do pagamento.',
       },
       {
         question: 'Como funciona a rentabilidade garantida?',
-        answer: 'Avaliamos o seu imóvel e oferecemos um valor fixo mensal garantido. Assinamos um contrato de arrendamento (3-5 anos) onde nos comprometemos a pagar esse valor todos os meses, independentemente da ocupação. Todas as despesas operacionais ficam por nossa conta.'
-      }
-    ]
+        answer:
+          'Avaliamos o seu imóvel e oferecemos um valor fixo mensal garantido. Assinamos um contrato de arrendamento (3-5 anos) onde nos comprometemos a pagar esse valor todos os meses, independentemente da ocupação. Todas as despesas operacionais ficam por nossa conta.',
+      },
+    ],
   },
   {
     id: 'inicio',
@@ -50,21 +106,25 @@ const faqCategories = [
     questions: [
       {
         question: 'Quanto tempo demora até começar a receber hóspedes?',
-        answer: 'Normalmente entre 7 a 14 dias. Fazemos a avaliação do imóvel, fotografia profissional, criação dos anúncios, e otimização nas plataformas. As primeiras reservas costumam aparecer logo na primeira semana.'
+        answer:
+          'Normalmente entre 7 a 14 dias. Fazemos a avaliação do imóvel, fotografia profissional, criação dos anúncios, e otimização nas plataformas. As primeiras reservas costumam aparecer logo na primeira semana.',
       },
       {
         question: 'Preciso de licença de Alojamento Local?',
-        answer: 'Sim, é obrigatório por lei. Se ainda não tiver, podemos ajudá-lo em todo o processo de licenciamento junto da Câmara Municipal e Turismo de Portugal.'
+        answer:
+          'Sim, é obrigatório por lei. Se ainda não tiver, podemos ajudá-lo em todo o processo de licenciamento junto da Câmara Municipal e Turismo de Portugal.',
       },
       {
         question: 'O que preciso para começar?',
-        answer: 'Precisa de: imóvel mobilado e equipado, documentos de propriedade, NIFs, contrato de fornecimento de utilidades, e fotos/plantas do espaço. Nós tratamos do resto!'
+        answer:
+          'Precisa de: imóvel mobilado e equipado, documentos de propriedade, NIFs, contrato de fornecimento de utilidades, e fotos/plantas do espaço. Nós tratamos do resto!',
       },
       {
         question: 'Há um período mínimo de contrato?',
-        answer: 'Para o modelo de comissão, recomendamos um mínimo de 6 meses para otimizar resultados, mas não há lock-in obrigatório. Para rentabilidade garantida, o contrato é tipicamente de 3-5 anos.'
-      }
-    ]
+        answer:
+          'Para o modelo de comissão, recomendamos um mínimo de 6 meses para otimizar resultados, mas não há lock-in obrigatório. Para rentabilidade garantida, o contrato é tipicamente de 3-5 anos.',
+      },
+    ],
   },
   {
     id: 'operacional',
@@ -72,87 +132,114 @@ const faqCategories = [
     questions: [
       {
         question: 'Quem comunica com os hóspedes?',
-        answer: 'Nós! A nossa equipa gere toda a comunicação 24/7: antes, durante e depois da estadia. Respondemos a dúvidas, gerimos check-ins/outs, e resolvemos qualquer problema que surja.'
+        answer:
+          'Nós! A nossa equipa gere toda a comunicação 24/7: antes, durante e depois da estadia. Respondemos a dúvidas, gerimos check-ins/outs, e resolvemos qualquer problema que surja.',
       },
       {
         question: 'Como funciona a limpeza?',
-        answer: 'Temos equipas de limpeza profissional certificadas que fazem a limpeza completa entre estadias, com standards de hotelaria 5 estrelas. Fazemos também inspeções de qualidade regulares.'
+        answer:
+          'Temos equipas de limpeza profissional certificadas que fazem a limpeza completa entre estadias, com standards de hotelaria 5 estrelas. Fazemos também inspeções de qualidade regulares.',
       },
       {
         question: 'Posso usar o meu imóvel ocasionalmente?',
-        answer: 'Sim! No modelo de comissão, pode bloquear datas para uso pessoal através do nosso portal. No modelo de rentabilidade garantida, como assinamos um contrato de arrendamento, o uso pessoal não é possível.'
+        answer:
+          'Sim! No modelo de comissão, pode bloquear datas para uso pessoal através do nosso portal. No modelo de rentabilidade garantida, como assinamos um contrato de arrendamento, o uso pessoal não é possível.',
       },
       {
         question: 'E se houver danos causados por hóspedes?',
-        answer: 'Todos os hóspedes são verificados e têm seguro. Em caso de danos, gerimos todo o processo de reclamação e reembolso. Temos também cobertura adicional para proteção do proprietário.'
-      }
-    ]
-  }
+        answer:
+          'Todos os hóspedes são verificados e têm seguro. Em caso de danos, gerimos todo o processo de reclamação e reembolso. Temos também cobertura adicional para proteção do proprietário.',
+      },
+    ],
+  },
 ];
+
+const safeCategories: FAQCategory[] =
+  categories.length > 0 ? categories : fallbackCategories;
 ---
 
 <section class="faq-section">
   <div class="container">
     <div class="faq-header">
-      <span class="section-badge">FAQ</span>
-      <h2>Tem Perguntas? Temos Respostas.</h2>
-      <p>Tudo o que precisa de saber sobre a gestão do seu imóvel com a Host Wise.</p>
+      <span class="section-badge">{badgeLabel}</span>
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
     </div>
 
     <div class="faq-wrapper">
       <!-- Categories Sidebar -->
       <div class="faq-categories">
-        {faqCategories.map((category, index) => (
-          <button 
-            class={`category-btn ${index === 0 ? 'active' : ''}`}
-            data-category={category.id}
-          >
-            {category.label}
-          </button>
-        ))}
+        {safeCategories.map((category, index) => {
+          const id = category.id || slugify(category.label || '');
+          return (
+            <button
+              class={`category-btn ${index === 0 ? 'active' : ''}`}
+              data-category={id}
+            >
+              {category.label}
+            </button>
+          );
+        })}
       </div>
 
       <!-- Questions Container -->
       <div class="faq-content">
-        {faqCategories.map((category, categoryIndex) => (
-          <div 
-            class={`category-questions ${categoryIndex === 0 ? 'active' : ''}`}
-            data-content={category.id}
-          >
-            {category.questions.map((faq, faqIndex) => (
-              <div class="faq-item" data-faq-index={`${categoryIndex}-${faqIndex}`}>
-                <button class="faq-question">
-                  <span>{faq.question}</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" class="faq-icon">
-                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-                  </svg>
-                </button>
-                <div class="faq-answer">
-                  <p>{faq.answer}</p>
+        {safeCategories.map((category, categoryIndex) => {
+          const id = category.id || slugify(category.label || '');
+          return (
+            <div
+              class={`category-questions ${categoryIndex === 0 ? 'active' : ''}`}
+              data-content={id}
+            >
+              {(category.questions || []).map((faq, faqIndex) => (
+                <div
+                  class="faq-item"
+                  data-faq-index={`${categoryIndex}-${faqIndex}`}
+                >
+                  <button class="faq-question">
+                    <span>{faq.question}</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      width="20"
+                      height="20"
+                      class="faq-icon"
+                    >
+                      <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                    </svg>
+                  </button>
+                  <div class="faq-answer">
+                    <p set:html={faq.answer}></p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        ))}
+              ))}
+            </div>
+          );
+        })}
       </div>
     </div>
 
-    <!-- CTA -->
-    <div class="faq-cta">
-      <div class="cta-content">
-        <h3>Ainda tem dúvidas?</h3>
-        <p>A nossa equipa está disponível para esclarecer todas as suas questões.</p>
-        <a href="/contacto" class="btn-primary">
-          Falar Connosco
-        </a>
+    {showCta && (
+      <div class="faq-cta">
+        <div class="cta-content">
+          <h3>{ctaTitle}</h3>
+          <p>{ctaSubtitle}</p>
+          {ctaLabel && (
+            <a href={ctaUrl} class="btn-primary">
+              {ctaLabel}
+            </a>
+          )}
+        </div>
       </div>
-    </div>
+    )}
   </div>
 </section>
 
+
 <style>
   .faq-section {
-    padding: 100px 20px;
+    padding: 50px 20px;
     background: white;
   }
 
