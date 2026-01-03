@@ -5,28 +5,32 @@ const regions = [
     tag: 'Cidade Invicta',
     title: 'História, cultura e alta procura turística',
     description: 'A segunda maior cidade de Portugal atrai milhões de visitantes todos os anos. Com a nossa gestão especializada, garanta ocupação máxima no seu alojamento.',
-    image: '/images/regions/porto.webp'
+    image: '/images/regions/porto.webp',
+    url: '/gestao-alojamento-local/porto'
   },
   {
     name: 'Algarve',
     tag: 'Sol & Praia',
     title: 'O destino de férias mais procurado de Portugal',
     description: 'Praias paradisíacas, clima excecional e golfe de classe mundial. O Algarve oferece retorno sobre investimento incomparável durante todo o ano.',
-    image: '/images/regions/algarve.webp'
+    image: '/images/regions/algarve.webp',
+    url: '/gestao-alojamento-local/algarve'
   },
   {
     name: 'Douro',
     tag: 'Património Mundial',
     title: 'Turismo premium em paisagens únicas',
     description: 'Vinhedos em socalcos, quintas históricas e experiências enogastronómicas. O Douro atrai turistas de luxo dispostos a pagar preços premium.',
-    image: '/images/regions/douro.webp'
+    image: '/images/regions/douro.webp',
+    url: '/gestao-alojamento-local/douro'
   },
   {
     name: 'Madeira',
     tag: 'Pérola do Atlântico',
     title: 'Procura constante durante todo o ano',
     description: 'Clima subtropical, paisagens deslumbrantes e eventos internacionais. A Madeira oferece uma das taxas de ocupação mais estáveis de Portugal.',
-    image: '/images/regions/madeira.webp'
+    image: '/images/regions/madeira.webp',
+    url: '/gestao-alojamento-local/madeira'
   }
 ];
 ---
@@ -41,7 +45,7 @@ const regions = [
     <div class="carousel-wrapper">
       <div class="carousel-track" id="carouselTrack">
         {regions.map((region, index) => (
-          <div class="carousel-slide" data-index={index}>
+          <a href={region.url} class="carousel-slide" data-index={index}>
             <div class="slide-image">
               <img src={region.image} alt={`Gestão de alojamento local no ${region.name}`} />
               <div class="slide-overlay"></div>
@@ -52,7 +56,7 @@ const regions = [
               <h4>{region.title}</h4>
               <p>{region.description}</p>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -133,13 +137,17 @@ const regions = [
     border-radius: 24px;
     overflow: hidden;
     position: relative;
-    cursor: grab;
+    cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    display: block;
+    text-decoration: none;
+    color: inherit;
   }
 
-  .carousel-slide:active {
+  .carousel-slide.dragging {
     cursor: grabbing;
+    pointer-events: none;
   }
 
   .carousel-slide:hover {
@@ -416,33 +424,43 @@ const regions = [
     dragStart(e: MouseEvent | TouchEvent) {
       this.isDragging = true;
       this.startX = this.getPositionX(e);
-      this.track.style.cursor = 'grabbing';
+      this.slides.forEach(slide => slide.classList.add('dragging'));
     }
 
     drag(e: MouseEvent | TouchEvent) {
       if (!this.isDragging) return;
-      
+
       const currentPosition = this.getPositionX(e);
       const diff = currentPosition - this.startX;
+
+      // Se mexeu mais de 5px, previne o clique
+      if (Math.abs(diff) > 5) {
+        e.preventDefault();
+      }
+
       this.currentTranslate = this.prevTranslate + diff;
-      
       this.track.style.transform = `translateX(${this.currentTranslate}px)`;
     }
 
-    dragEnd() {
+    dragEnd(e: MouseEvent | TouchEvent) {
       if (!this.isDragging) return;
-      
+
       this.isDragging = false;
-      this.track.style.cursor = 'grab';
+      this.slides.forEach(slide => slide.classList.remove('dragging'));
 
       const movedBy = this.currentTranslate - this.prevTranslate;
-      
-      if (movedBy < -100 && this.currentIndex < this.slides.length - 1) {
-        this.currentIndex++;
-      }
-      
-      if (movedBy > 100 && this.currentIndex > 0) {
-        this.currentIndex--;
+
+      // Se mexeu muito, previne o clique e navega no carrossel
+      if (Math.abs(movedBy) > 10) {
+        e.preventDefault();
+
+        if (movedBy < -100 && this.currentIndex < this.slides.length - 1) {
+          this.currentIndex++;
+        }
+
+        if (movedBy > 100 && this.currentIndex > 0) {
+          this.currentIndex--;
+        }
       }
 
       this.updateCarousel();

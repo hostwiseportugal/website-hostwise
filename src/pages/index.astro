@@ -8,7 +8,6 @@ import AnimatedStats from '../components/AnimatedStats.astro';
 import ModelsIntro from '../components/ModelsIntro.astro';
 import BlogSection from '../components/BlogSection.astro';
 import FAQSection from '../components/FAQSection.astro';
-import OwnerTestimonials from '../components/OwnerTestimonials.astro';
 import WiseGroupSection from '../components/WiseGroupSection.astro';
 import PartnersMarquee from '../components/PartnersMarquee.astro';
 
@@ -62,14 +61,6 @@ const blogPosts = posts.map((post) => {
     categories: [] as string[],
   };
 });
-
-const testimonialsData = (acf.owner_testimonials || []).map((t: any) => ({
-  name: t.owner_testimonial_name,
-  location: t.owner_testimonial_location,
-  property: t.owner_testimonial_property,
-  rating: Number(t.owner_testimonial_rating) || 0,
-  comment: t.owner_testimonial_comment,
-}));
 
 const faqCategoriesData =
   (acf.faq_categories || []).map((cat: any) => ({
@@ -164,17 +155,6 @@ const faqCategoriesData =
   subtitle={acf.blog_subtitle}
   ctaLabel={acf.blog_cta_label}
   ctaUrl={acf.blog_cta_url}
-  />
-
-  <OwnerTestimonials
-  badgeLabel={acf.owner_testimonials_badge_label}
-  title={acf.owner_testimonials_title}
-  subtitle={acf.owner_testimonials_subtitle}
-  ctaTitle={acf.owner_testimonials_cta_title}
-  ctaSubtitle={acf.owner_testimonials_cta_subtitle}
-  ctaLabel={acf.owner_testimonials_cta_label}
-  ctaUrl={acf.owner_testimonials_cta_url}
-  testimonials={testimonialsData}
   />
 
 

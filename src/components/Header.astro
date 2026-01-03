@@ -1,15 +1,6 @@
 ---
 import { iconMap } from '../icons/iconMap';
 
-const menuItems = [
-  { name: 'Início', href: '/' },
-  { name: 'Serviços', href: '#servicos' },
-  { name: 'Modelos', href: '#modelos' },
-  { name: 'Regiões', href: '#regioes' },
-  { name: 'Blog', href: '#blog' },
-  { name: 'Contacto', href: '#contacto' }
-];
-
 ---
 
 <header class="header">
@@ -38,7 +29,7 @@ const menuItems = [
               </div>
             </a>
 
-            <a href="/gestao-propriedades" class="mega-item">
+            <a href="/gestao-edificios" class="mega-item">
               <div class="mega-icon" set:html={iconMap.building} />
               <div class="mega-text">
                 <div class="mega-title">Gestão de Edifícios e Serviced Apartments</div>
@@ -46,7 +37,7 @@ const menuItems = [
               </div>
             </a>
 
-            <a href="/media-duracao" class="mega-item">
+            <a href="/gestao-hoteis" class="mega-item">
               <div class="mega-icon" set:html={iconMap.hotel} />
               <div class="mega-text">
                 <div class="mega-title">Gestão de Hóteis</div>
@@ -128,9 +119,9 @@ const menuItems = [
           <div class="mobile-icon" set:html={iconMap.chevronDown} />
         </button>
         <div class="mobile-submenu">
-          <a href="/alojamento-local">Gestão de Alojamento Local</a>
-          <a href="/gestao-propriedades">Gestão de Edifícios Multi-Unit</a>
-          <a href="/media-duracao">Gestão Hoteleira e Asset Management</a>
+          <a href="/gestao-alojamento-local">Gestão de Alojamento Local</a>
+          <a href="/gestao-edificios">Gestão de Edifícios / Serviced Apartments</a>
+          <a href="/gestao-hoteis">Gestão de Hóteis</a>
         </div>
       </div>
 
@@ -142,11 +133,9 @@ const menuItems = [
         </button>
         <div class="mobile-submenu">
           <a href="/rentabilidade-garantida">Rentabilidade Garantida</a>
-          <a href="/modelo-comissao">Modelo de Comissão</a>
+          <a href="/comissao">Modelo de Comissão</a>
         </div>
       </div>
-
-      <a href="/blog" class="mobile-link">Blog</a>
       <a href="/referrals" class="mobile-link">Referrals</a>
 
       <!-- CTAs Mobile -->
@@ -465,20 +454,20 @@ const menuItems = [
   .mobile-menu {
     display: none;
     position: fixed;
-    top: 0;
+    top: 65px;
     left: 0;
     right: 0;
     bottom: 0;
+    height: 100vh;
+    height: 100dvh;
     background: white;
     overflow-y: auto;
     transform: translateX(100%);
     transition: transform 0.3s;
-    padding-top: 73px;
-    z-index: 999;
   }
 
   .mobile-menu.active {
-    transform: translateX(0);
+    transform: translateX(0) !important;
   }
 
   .mobile-menu-content {
@@ -592,6 +581,7 @@ const menuItems = [
     .mobile-menu {
       display: block;
     }
+
   }
 
   @media (max-width: 768px) {

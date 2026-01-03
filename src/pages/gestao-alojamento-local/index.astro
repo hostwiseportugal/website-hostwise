@@ -1,17 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import HeroSectionV2 from '../components/HeroSectionV2.astro';
-import IntroSectionWStats from '../components/IntroSectionWStats.astro';
-import ManagementBenefitsCards from '../components/ManagementBenefitsCards.astro';
-import AnimatedStats from '../components/AnimatedStats.astro';
-import FeaturesAccordion from '../components/FeaturesAccordion.astro';
-import PlatformsMarquee from '../components/PlatformsMarquee.astro';
-import ModelsIntro from '../components/ModelsIntro.astro';
-import GuaranteedRentSection from '../components/GuaranteedRentSection.astro';
-import PricingSection from '../components/PricingSection.astro';
-import RegionsCarousel from '../components/RegionsCarousel.astro';
-import OwnerTestimonials from '../components/OwnerTestimonials.astro';
-import FAQSection from '../components/FAQSection.astro';
+import Layout from '../../layouts/Layout.astro';
+import HeroSectionV2 from '../../components/HeroSectionV2.astro';
+import IntroSectionWStats from '../../components/IntroSectionWStats.astro';
+import ManagementBenefitsCards from '../../components/ManagementBenefitsCards.astro';
+import AnimatedStats from '../../components/AnimatedStats.astro';
+import FeaturesAccordion from '../../components/FeaturesAccordion.astro';
+import PlatformsMarquee from '../../components/PlatformsMarquee.astro';
+import ModelsIntro from '../../components/ModelsIntro.astro';
+import GuaranteedRentSection from '../../components/GuaranteedRentSection.astro';
+import PricingSection from '../../components/PricingSection.astro';
+import RegionsCarousel from '../../components/RegionsCarousel.astro';
+import OwnerTestimonials from '../../components/OwnerTestimonials.astro';
+import FAQSection from '../../components/FAQSection.astro';
 
 const apiBase = import.meta.env.WORDPRESS_API_URL;
 const PAGE_ID = 192;
@@ -102,9 +102,15 @@ const faqCategoriesData =
 
 
   <!-- Models Intro -->
-  <div id="modelos">
-    <ModelsIntro />
-  </div>
+  <ModelsIntro
+  title={acf.models_intro_title}
+  paragraphs={acf.models_intro_paragraphs}
+  models={acf.models_intro_cards}
+  ctaTitle={acf.models_cta_title}
+  ctaText={acf.models_cta_text}
+  ctaButtonLabel={acf.models_cta_button_label}
+  ctaButtonUrl={acf.models_cta_button_url}
+  />
 
   <!-- Guaranteed Rent Section -->
   <GuaranteedRentSection />

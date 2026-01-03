@@ -105,11 +105,16 @@ const missionPillars = [
   <!-- Vision Section -->
   <section class="vision-section">
     <div class="container">
-      <div class="vision-content">
-        <h2>A Nossa Visão</h2>
-        <p>
-          A nossa visão para o futuro é simples: ser a maior empresa de gestão de alojamento local e gestão de propriedades de Portugal, com os melhores recursos humanos e tecnológicos para lhe oferecer o melhor serviço com os mais altos padrões de profissionalismo, integridade e sustentabilidade.
-        </p>
+      <div class="vision-grid">
+        <div class="vision-image">
+          <img src="/images/property-1.webp" alt="Visão Host Wise" />
+        </div>
+        <div class="vision-content">
+          <h2>A Nossa Visão</h2>
+          <p>
+            A nossa visão para o futuro é simples: ser a maior empresa de gestão de alojamento local e gestão de propriedades de Portugal, com os melhores recursos humanos e tecnológicos para lhe oferecer o melhor serviço com os mais altos padrões de profissionalismo, integridade e sustentabilidade.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -117,19 +122,26 @@ const missionPillars = [
   <!-- Mission Section -->
   <section class="mission-section">
     <div class="container">
-      <div class="mission-header">
-        <h2>A Nossa Missão</h2>
-        <p>A missão da Host Wise assenta em três pilares:</p>
-      </div>
-
-      <div class="mission-grid">
-        {missionPillars.map((pillar, index) => (
-          <div class="mission-card" data-index={index}>
-            <div class="mission-icon" set:html={pillar.icon} />
-            <h3>{pillar.title}</h3>
-            <p>{pillar.description}</p>
+      <div class="mission-layout">
+        <div class="mission-header-with-image">
+          <div class="mission-header">
+            <h2>A Nossa Missão</h2>
+            <p>A missão da Host Wise assenta em três pilares:</p>
           </div>
-        ))}
+          <div class="mission-image">
+            <img src="/images/property-2.webp" alt="Missão Host Wise" />
+          </div>
+        </div>
+
+        <div class="mission-grid">
+          {missionPillars.map((pillar, index) => (
+            <div class="mission-card" data-index={index}>
+              <div class="mission-icon" set:html={pillar.icon} />
+              <h3>{pillar.title}</h3>
+              <p>{pillar.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -375,10 +387,33 @@ const missionPillars = [
     background: linear-gradient(135deg, var(--blue-light) 0%, rgba(92, 176, 214, 0.05) 100%);
   }
 
+  .vision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .vision-image {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(12, 68, 99, 0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .vision-image:hover {
+    transform: translateY(-8px);
+  }
+
+  .vision-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   .vision-content {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
+    max-width: 600px;
   }
 
   .vision-content h2 {
@@ -401,10 +436,21 @@ const missionPillars = [
     background: white;
   }
 
+  .mission-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  .mission-header-with-image {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
   .mission-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 60px;
+    text-align: left;
   }
 
   .mission-header h2 {
@@ -418,6 +464,24 @@ const missionPillars = [
     font-size: 1.2rem;
     color: var(--text);
     opacity: 0.85;
+  }
+
+  .mission-image {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(12, 68, 99, 0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .mission-image:hover {
+    transform: translateY(-8px);
+  }
+
+  .mission-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .mission-grid {
@@ -492,7 +556,7 @@ const missionPillars = [
   /* Team Carousel Section */
   .team-carousel-section {
     padding: 100px 20px;
-    background: linear-gradient(180deg, #F8FCFF 0%, #fff 100%);
+    background: linear-gradient(180deg, white 0%, var(--blue-light) 50%, white 100%);
     overflow: hidden;
   }
 
@@ -649,6 +713,16 @@ const missionPillars = [
 
     .stats-grid {
       grid-template-columns: repeat(3, 1fr);
+    }
+
+    .vision-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .mission-header-with-image {
+      grid-template-columns: 1fr;
+      gap: 40px;
     }
 
     .mission-grid {

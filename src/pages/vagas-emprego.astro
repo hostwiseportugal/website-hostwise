@@ -1,82 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-// Job categories for filtering
-const jobCategories = [
-  "Todos",
-  "Financeiro",
-  "Gestão de Preços Hostels",
-  "Implementação e Manutenção IT",
-  "Marketing",
-  "Operações e Limpeza",
-  "Pessoas e Organização",
-  "Sales",
-  "Suporte ao Cliente"
-];
-
-// Sample job listings - in production this would come from Recruitee API or similar
-const jobListings = [
-  {
-    id: 1,
-    title: "Revenue Manager",
-    location: "Porto, Portugal",
-    type: "Full-Time",
-    category: "Gestão de Preços Hostels",
-    department: "Revenue",
-    description: "Gerir estratégias de pricing e maximizar a rentabilidade dos nossos alojamentos.",
-    slug: "revenue-manager-porto"
-  },
-  {
-    id: 2,
-    title: "Marketing Digital Specialist",
-    location: "Lisboa, Portugal",
-    type: "Full-Time",
-    category: "Marketing",
-    department: "Marketing",
-    description: "Desenvolver e executar campanhas de marketing digital para aumentar a visibilidade da marca.",
-    slug: "marketing-digital-specialist"
-  },
-  {
-    id: 3,
-    title: "Customer Support Agent",
-    location: "Remoto",
-    type: "Full-Time",
-    category: "Suporte ao Cliente",
-    department: "Customer Support",
-    description: "Fornecer suporte excecional aos nossos hóspedes e proprietários.",
-    slug: "customer-support-agent"
-  },
-  {
-    id: 4,
-    title: "Sales Development Representative",
-    location: "Porto, Portugal",
-    type: "Full-Time",
-    category: "Sales",
-    department: "Sales",
-    description: "Identificar e desenvolver novas oportunidades de negócio para expandir o nosso portfólio.",
-    slug: "sales-development-representative"
-  },
-  {
-    id: 5,
-    title: "IT Support Specialist",
-    location: "Porto, Portugal",
-    type: "Full-Time",
-    category: "Implementação e Manutenção IT",
-    department: "IT",
-    description: "Garantir o funcionamento dos sistemas tecnológicos e suportar a equipa nas suas necessidades IT.",
-    slug: "it-support-specialist"
-  },
-  {
-    id: 6,
-    title: "Operations Coordinator",
-    location: "Lisboa, Portugal",
-    type: "Full-Time",
-    category: "Operações e Limpeza",
-    department: "Operations",
-    description: "Coordenar as operações diárias dos alojamentos e garantir a excelência na experiência do hóspede.",
-    slug: "operations-coordinator"
-  }
-];
 ---
 
 <Layout title="Vagas de Emprego - Host Wise | Oportunidades de Carreira">
@@ -96,72 +19,47 @@ const jobListings = [
     </div>
   </section>
 
-  <!-- Filters & Jobs Section -->
+  <!-- Recruitee Jobs Widget Section -->
   <section class="jobs-section">
     <div class="container">
-      <!-- Category Filters -->
-      <div class="filters-wrapper">
-        <h3 class="filters-title">Filtrar por Departamento</h3>
-        <div class="filters-container" id="categoryFilters">
-          {jobCategories.map((category) => (
-            <button
-              class={`filter-btn ${category === 'Todos' ? 'active' : ''}`}
-              data-category={category}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <!-- Job Listings -->
-      <div class="jobs-grid" id="jobsGrid">
-        {jobListings.map((job, index) => (
-          <div
-            class="job-card"
-            data-category={job.category}
-            data-index={index}
-          >
-            <div class="job-header">
-              <span class="job-category">{job.department}</span>
-              <span class="job-type">{job.type}</span>
-            </div>
-
-            <h3 class="job-title">{job.title}</h3>
-            <p class="job-description">{job.description}</p>
-
-            <div class="job-meta">
-              <div class="job-location">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
-                <span>{job.location}</span>
-              </div>
-            </div>
-
-            <div class="job-footer">
-              <a href={`#job-${job.slug}`} class="btn-view-job">
-                Saber Mais
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="18" height="18">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <!-- Empty State -->
-      <div class="empty-state" id="emptyState" style="display: none;">
-        <div class="empty-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="64" height="64">
-            <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
-          </svg>
-        </div>
-        <h3>Não há vagas disponíveis nesta categoria</h3>
-        <p>Experimenta selecionar outro departamento ou visualiza todas as oportunidades.</p>
-        <button class="btn-reset-filters" id="resetFilters">Ver Todas as Oportunidades</button>
-      </div>
+      <div id="recruitee-careers"></div>
+      <script type="text/javascript" is:inline>
+        var rtscript = document.createElement('script');
+        rtscript.type = 'text/javascript';
+        rtscript.onload = function() {
+          var widget = new RTWidget({
+            "companies": [
+              87270
+            ],
+            "detailsMode": "popup",
+            "language": "en",
+            "departmentsFilter": [],
+            "tagsFilter": [],
+            "themeVars": {
+              "primary": "#0c4463",
+              "secondary": "#232323",
+              "text": "#232323",
+              "textDark": "#121317",
+              "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, \"Lucida Grande\", sans-serif;",
+              "baseFontSize": "16px"
+            },
+            "flags": {
+              "showLocation": true,
+              "showCountry": false,
+              "showCity": true,
+              "showState": false,
+              "showLocationName": false,
+              "showWorkModel": true,
+              "groupByLocation": false,
+              "groupByState": false,
+              "groupByDepartment": true,
+              "groupByCompany": false
+            }
+          })
+        };
+        rtscript.src = 'https://jobs-widget.recruiteecdn.com/widget.js';
+        document.body.appendChild(rtscript);
+      </script>
     </div>
   </section>
 
@@ -260,220 +158,11 @@ const jobListings = [
     background: white;
   }
 
-  /* Filters */
-  .filters-wrapper {
-    margin-bottom: 60px;
-  }
-
-  .filters-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 24px;
-  }
-
-  .filters-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .filter-btn {
-    padding: 12px 24px;
-    background: var(--gray-light);
-    color: var(--text);
-    border: 2px solid transparent;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .filter-btn:hover {
-    border-color: var(--secondary);
-    background: white;
-  }
-
-  .filter-btn.active {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: white;
-    border-color: transparent;
-  }
-
-  /* Jobs Grid */
-  .jobs-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
-  }
-
-  .job-card {
-    background: white;
-    border: 2px solid var(--gray-light);
-    border-radius: 20px;
-    padding: 32px 28px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: slideInUp 0.5s ease-out forwards;
-  }
-
-  .job-card[data-index="0"] { animation-delay: 0.1s; }
-  .job-card[data-index="1"] { animation-delay: 0.15s; }
-  .job-card[data-index="2"] { animation-delay: 0.2s; }
-  .job-card[data-index="3"] { animation-delay: 0.25s; }
-  .job-card[data-index="4"] { animation-delay: 0.3s; }
-  .job-card[data-index="5"] { animation-delay: 0.35s; }
-
-  @keyframes slideInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .job-card:hover {
-    border-color: var(--secondary);
-    transform: translateY(-6px);
-    box-shadow: 0 12px 40px rgba(12, 68, 99, 0.15);
-  }
-
-  .job-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .job-category {
-    padding: 6px 14px;
-    background: var(--blue-light);
-    color: var(--primary);
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-  }
-
-  .job-type {
-    padding: 6px 14px;
-    background: var(--gray-light);
-    color: var(--text);
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
-
-  .job-title {
-    font-size: 1.65rem;
-    font-weight: 800;
-    color: var(--primary);
-    margin-bottom: 12px;
-    line-height: 1.3;
-  }
-
-  .job-description {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--text);
-    opacity: 0.85;
-    margin-bottom: 20px;
-  }
-
-  .job-meta {
-    margin-bottom: 24px;
-    padding-bottom: 24px;
-    border-bottom: 2px solid var(--gray-light);
-  }
-
-  .job-location {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--text);
-    opacity: 0.8;
-    font-size: 0.95rem;
-    font-weight: 600;
-  }
-
-  .job-location svg {
-    color: var(--secondary);
-  }
-
-  .job-footer {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .btn-view-job {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: white;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .btn-view-job:hover {
-    transform: translateX(4px);
-    box-shadow: 0 6px 20px rgba(12, 68, 99, 0.25);
-  }
-
-  /* Empty State */
-  .empty-state {
-    text-align: center;
-    padding: 80px 20px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .empty-icon {
-    color: var(--secondary);
-    opacity: 0.3;
-    margin-bottom: 24px;
-  }
-
-  .empty-state h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 12px;
-  }
-
-  .empty-state p {
-    font-size: 1.1rem;
-    color: var(--text);
-    opacity: 0.85;
-    margin-bottom: 32px;
-    line-height: 1.7;
-  }
-
-  .btn-reset-filters {
-    padding: 14px 32px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.05rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .btn-reset-filters:hover {
-    background: var(--secondary);
-    transform: translateY(-2px);
-  }
 
   /* Bottom CTA Section */
   .bottom-cta-section {
     padding: 100px 20px;
-    background: linear-gradient(135deg, var(--blue-light) 0%, rgba(92, 176, 214, 0.05) 100%);
+    background: white;
   }
 
   .cta-box {
@@ -532,10 +221,6 @@ const jobListings = [
     .hero-title {
       font-size: 3rem;
     }
-
-    .jobs-grid {
-      grid-template-columns: 1fr;
-    }
   }
 
   @media (max-width: 768px) {
@@ -554,23 +239,6 @@ const jobListings = [
     .jobs-section,
     .bottom-cta-section {
       padding: 80px 20px;
-    }
-
-    .filters-container {
-      gap: 8px;
-    }
-
-    .filter-btn {
-      padding: 10px 18px;
-      font-size: 0.9rem;
-    }
-
-    .job-card {
-      padding: 28px 24px;
-    }
-
-    .job-title {
-      font-size: 1.4rem;
     }
 
     .cta-box {
@@ -592,19 +260,6 @@ const jobListings = [
       font-size: 2rem;
     }
 
-    .filters-title {
-      font-size: 1.15rem;
-    }
-
-    .job-header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .job-title {
-      font-size: 1.25rem;
-    }
-
     .cta-box h2 {
       font-size: 1.75rem;
     }
@@ -614,63 +269,3 @@ const jobListings = [
     }
   }
 </style>
-
-<script>
-  // Filter functionality
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const jobCards = document.querySelectorAll('.job-card');
-  const emptyState = document.getElementById('emptyState');
-  const jobsGrid = document.getElementById('jobsGrid');
-  const resetButton = document.getElementById('resetFilters');
-
-  function filterJobs(category: string) {
-    let visibleCount = 0;
-
-    jobCards.forEach(card => {
-      const jobCategory = card.getAttribute('data-category');
-
-      if (category === 'Todos' || jobCategory === category) {
-        card.style.display = 'block';
-        visibleCount++;
-      } else {
-        card.style.display = 'none';
-      }
-    });
-
-    // Show/hide empty state
-    if (visibleCount === 0) {
-      jobsGrid!.style.display = 'none';
-      emptyState!.style.display = 'block';
-    } else {
-      jobsGrid!.style.display = 'grid';
-      emptyState!.style.display = 'none';
-    }
-  }
-
-  filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Remove active class from all buttons
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-
-      // Add active class to clicked button
-      button.classList.add('active');
-
-      // Filter jobs
-      const category = button.getAttribute('data-category');
-      if (category) {
-        filterJobs(category);
-      }
-    });
-  });
-
-  // Reset filters button
-  if (resetButton) {
-    resetButton.addEventListener('click', () => {
-      // Find and click the "Todos" button
-      const todosButton = document.querySelector('.filter-btn[data-category="Todos"]') as HTMLElement;
-      if (todosButton) {
-        todosButton.click();
-      }
-    });
-  }
-</script>

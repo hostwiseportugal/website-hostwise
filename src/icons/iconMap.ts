@@ -53,6 +53,8 @@ import amenities from './amenities.svg?raw';
 import euro from './euro.svg?raw';
 import gavel from './gavel.svg?raw';
 import hotel from './hotel.svg?raw';
+import lightbulb from './lightbulb.svg?raw';
+import gift from './gift.svg?raw';
 
 export const iconMap: Record<string, string> = {
   check,
@@ -105,7 +107,9 @@ export const iconMap: Record<string, string> = {
   amenities,
   euro,
   gavel,
-  hotel
+  hotel,
+  lightbulb,
+  gift
 };
 
 // Helper function to get icon by name
