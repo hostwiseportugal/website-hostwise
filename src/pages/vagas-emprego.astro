@@ -1,5 +1,62 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { iconMap } from '../icons/iconMap';
+
+const apiBase = import.meta.env.WORDPRESS_API_URL;
+
+// Fetch job openings from WordPress
+let jobs: any[] = [];
+try {
+  const res = await fetch(`${apiBase}/job_openings?lang=pt&_embed&per_page=100`);
+  if (res.ok) {
+    jobs = await res.json();
+  }
+} catch (error) {
+  console.error('Error fetching jobs:', error);
+}
+
+function decodeHtml(str: string) {
+  if (!str) return '';
+  return str
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(code))
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+// Transform jobs data
+const jobsData = jobs.map((job: any) => {
+  const workModelRaw = job.acf?.job_work_model || 'Presencial';
+  return {
+    slug: job.slug,
+    title: decodeHtml(job.title.rendered),
+    department: job.acf?.job_department || 'Geral',
+    workModels: Array.isArray(workModelRaw) ? workModelRaw : [workModelRaw],
+    location: job.acf?.job_location || 'Portugal',
+  };
+});
+
+// Group jobs by department
+const jobsByDepartment = jobsData.reduce((acc: Record<string, typeof jobsData>, job) => {
+  const dept = job.department;
+  if (!acc[dept]) {
+    acc[dept] = [];
+  }
+  acc[dept].push(job);
+  return acc;
+}, {});
+
+// Sort departments alphabetically
+const sortedDepartments = Object.keys(jobsByDepartment).sort();
+
+// Work model badge classes
+const workModelClasses: Record<string, string> = {
+  'Remoto': 'badge-remoto',
+  'Híbrido': 'badge-hibrido',
+  'Presencial': 'badge-presencial',
+};
 ---
 
 <Layout title="Vagas de Emprego - Host Wise | Oportunidades de Carreira">
@@ -19,47 +76,59 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
-  <!-- Recruitee Jobs Widget Section -->
+  <!-- Jobs Listing Section -->
   <section class="jobs-section">
     <div class="container">
-      <div id="recruitee-careers"></div>
-      <script type="text/javascript" is:inline>
-        var rtscript = document.createElement('script');
-        rtscript.type = 'text/javascript';
-        rtscript.onload = function() {
-          var widget = new RTWidget({
-            "companies": [
-              87270
-            ],
-            "detailsMode": "popup",
-            "language": "en",
-            "departmentsFilter": [],
-            "tagsFilter": [],
-            "themeVars": {
-              "primary": "#0c4463",
-              "secondary": "#232323",
-              "text": "#232323",
-              "textDark": "#121317",
-              "fontFamily": "\"Helvetica Neue\", Helvetica, Arial, \"Lucida Grande\", sans-serif;",
-              "baseFontSize": "16px"
-            },
-            "flags": {
-              "showLocation": true,
-              "showCountry": false,
-              "showCity": true,
-              "showState": false,
-              "showLocationName": false,
-              "showWorkModel": true,
-              "groupByLocation": false,
-              "groupByState": false,
-              "groupByDepartment": true,
-              "groupByCompany": false
-            }
-          })
-        };
-        rtscript.src = 'https://jobs-widget.recruiteecdn.com/widget.js';
-        document.body.appendChild(rtscript);
-      </script>
+      {jobsData.length > 0 ? (
+        <div class="jobs-listing">
+          {sortedDepartments.map((department) => (
+            <div class="department-group">
+              <div class="department-header">
+                <div class="department-icon" set:html={iconMap.briefcase} />
+                <h2 class="department-title">{department}</h2>
+                <span class="department-count">{jobsByDepartment[department].length} {jobsByDepartment[department].length === 1 ? 'vaga' : 'vagas'}</span>
+              </div>
+
+              <div class="jobs-grid">
+                {jobsByDepartment[department].map((job) => (
+                  <a href={`/vagas-emprego/${job.slug}`} class="job-card">
+                    <div class="job-card-content">
+                      <h3 class="job-title">{job.title}</h3>
+                      <div class="job-meta">
+                        <div class="work-model-badges">
+                          {job.workModels.map((model: string) => (
+                            <span class={`work-model-badge ${workModelClasses[model] || 'badge-presencial'}`}>
+                              {model}
+                            </span>
+                          ))}
+                        </div>
+                        <span class="job-location">
+                          <span class="location-icon" set:html={iconMap.location} />
+                          {job.location}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="job-card-arrow" set:html={iconMap.chevronRight} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <div class="empty-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="64" height="64">
+              <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+            </svg>
+          </div>
+          <h2 class="empty-title">De momento não temos vagas disponíveis</h2>
+          <p class="empty-description">
+            Estamos sempre à procura de talento excepcional. Envia-nos o teu CV espontâneo
+            e entraremos em contacto quando surgirem novas oportunidades.
+          </p>
+        </div>
+      )}
     </div>
   </section>
 
@@ -158,6 +227,206 @@ import Layout from '../layouts/Layout.astro';
     background: white;
   }
 
+  .jobs-listing {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  /* Department Group */
+  .department-group {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .department-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--blue-light);
+  }
+
+  .department-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--secondary);
+  }
+
+  .department-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .department-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+  }
+
+  .department-count {
+    margin-left: auto;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    opacity: 0.6;
+    background: var(--blue-light);
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  /* Jobs Grid */
+  .jobs-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Job Card */
+  .job-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .job-card:hover {
+    border-color: var(--secondary);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(12, 68, 99, 0.12);
+  }
+
+  .job-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .job-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+    transition: color 0.3s;
+  }
+
+  .job-card:hover .job-title {
+    color: var(--secondary);
+  }
+
+  .job-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* Work Model Badges */
+  .work-model-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .work-model-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .badge-remoto {
+    background: #E8F5E9;
+    color: #2E7D32;
+  }
+
+  .badge-hibrido {
+    background: #FFF3E0;
+    color: #E65100;
+  }
+
+  .badge-presencial {
+    background: #E3F2FD;
+    color: #1565C0;
+  }
+
+  /* Location */
+  .job-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+    color: var(--text);
+    opacity: 0.7;
+  }
+
+  .location-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--secondary);
+  }
+
+  .location-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Card Arrow */
+  .job-card-arrow {
+    width: 24px;
+    height: 24px;
+    color: var(--secondary);
+    opacity: 0.5;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+
+  .job-card-arrow :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .job-card:hover .job-card-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .empty-icon {
+    color: var(--secondary);
+    opacity: 0.3;
+    margin-bottom: 24px;
+  }
+
+  .empty-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .empty-description {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.7;
+    max-width: 600px;
+    margin: 0 auto;
+  }
 
   /* Bottom CTA Section */
   .bottom-cta-section {
@@ -241,6 +510,32 @@ import Layout from '../layouts/Layout.astro';
       padding: 80px 20px;
     }
 
+    .jobs-listing {
+      gap: 48px;
+    }
+
+    .department-header {
+      flex-wrap: wrap;
+    }
+
+    .department-count {
+      margin-left: 0;
+      margin-top: 8px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .job-card {
+      padding: 20px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .job-card-arrow {
+      align-self: flex-end;
+    }
+
     .cta-box {
       padding: 50px 30px;
     }
@@ -258,6 +553,24 @@ import Layout from '../layouts/Layout.astro';
   @media (max-width: 480px) {
     .hero-title {
       font-size: 2rem;
+    }
+
+    .department-title {
+      font-size: 1.25rem;
+    }
+
+    .job-title {
+      font-size: 1.1rem;
+    }
+
+    .job-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .empty-title {
+      font-size: 1.5rem;
     }
 
     .cta-box h2 {

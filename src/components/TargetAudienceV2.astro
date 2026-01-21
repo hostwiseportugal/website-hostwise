@@ -1,0 +1,244 @@
+---
+import { iconMap } from '../icons/iconMap';
+
+interface TargetItem {
+  text: string;
+}
+
+interface Props {
+  title?: string;
+  developedForTitle?: string;
+  developedFor?: TargetItem[];
+  idealForTitle?: string;
+  idealFor?: TargetItem[];
+}
+
+const {
+  title = 'Para quem é este serviço?',
+  developedForTitle = 'Este serviço foi desenvolvido para:',
+  developedFor = [
+    { text: 'Investidores imobiliários e fundos de investimento' },
+    { text: 'Promotores imobiliários' },
+    { text: 'Proprietários de edifícios turísticos' },
+    { text: 'Family offices e investidores institucionais' },
+  ],
+  idealForTitle = 'É indicado para quem procura:',
+  idealFor = [
+    { text: 'Uma operação profissional e escalável' },
+    { text: 'Controlo operacional e financeiro' },
+    { text: 'Maximização de rentabilidade' },
+    { text: 'Valorização do ativo a médio e longo prazo' },
+  ],
+} = Astro.props;
+---
+
+<section class="target-audience-v2-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>{title}</h2>
+    </div>
+
+    <div class="content-grid">
+      <div class="content-column">
+        <h3>{developedForTitle}</h3>
+        <ul class="target-list">
+          {developedFor.map((item, index) => (
+            <li style={`--delay: ${index * 0.1}s`}>
+              <span class="list-icon" set:html={iconMap.users} />
+              <span>{item.text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="content-column">
+        <h3>{idealForTitle}</h3>
+        <ul class="target-list ideal">
+          {idealFor.map((item, index) => (
+            <li style={`--delay: ${(index + developedFor.length) * 0.1}s`}>
+              <span class="list-icon" set:html={iconMap.check} />
+              <span>{item.text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .target-audience-v2-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .divider {
+    width: 1px;
+    background: linear-gradient(180deg, transparent 0%, var(--secondary) 20%, var(--secondary) 80%, transparent 100%);
+    align-self: stretch;
+    opacity: 0.3;
+  }
+
+  .content-column h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--blue-light);
+  }
+
+  .target-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .target-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--blue-light);
+    border-radius: 12px;
+    border: 1px solid rgba(92, 176, 214, 0.1);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease-out backwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .target-list li:hover {
+    transform: translateX(6px);
+    border-color: rgba(92, 176, 214, 0.3);
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.08);
+  }
+
+  .list-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: var(--secondary);
+    margin-top: 1px;
+  }
+
+  .target-list.ideal .list-icon {
+    color: #2E7D32;
+  }
+
+  .list-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .target-list li span:last-child {
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .content-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--secondary) 20%, var(--secondary) 80%, transparent 100%);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .target-audience-v2-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .content-column h3 {
+      font-size: 1.15rem;
+    }
+
+    .target-list li {
+      padding: 14px 16px;
+    }
+
+    .target-list li span:last-child {
+      font-size: 1rem;
+    }
+
+    .list-icon {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .content-column h3 {
+      font-size: 1.05rem;
+    }
+
+    .target-list li {
+      padding: 12px 14px;
+      gap: 12px;
+    }
+
+    .target-list li span:last-child {
+      font-size: 0.95rem;
+    }
+
+    .list-icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+</style>

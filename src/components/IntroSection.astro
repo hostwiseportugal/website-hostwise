@@ -1,30 +1,54 @@
 ---
+interface IntroSectionProps {
+  intro_title?: string;
+  intro_text?: string;
+  intro_cta_label?: string;
+  intro_cta_url?: string;
+}
+
+const {
+  intro_title = 'Soluções Personalizadas para Cada Tipo de Ativo e Investidor',
+
+  intro_text = `
+    <p>
+      Quer tenha um apartamento, um edifício inteiro, ou um portfolio de ativos hoteleiros,
+      oferecemos gestão profissional que maximiza rentabilidade e valorização.
+    </p>
+    <p>
+      Junte-se a mais de <strong>600 proprietários</strong> que confiam na Host Wise para gerar
+      rendimentos passivos de forma profissional e transparente.
+    </p>
+  `,
+
+  intro_cta_label = 'Receber Proposta Gratuita',
+  intro_cta_url = '#contacto',
+} = Astro.props as IntroSectionProps;
 ---
 
 <section class="intro-section" id="intro-section">
   <div class="container">
     <div class="intro-content">
-      <h2 class="intro-title">
-        Soluções Personalizadas para Cada Tipo de Ativo e Investidor
-      </h2>
-      
-      <div class="intro-text">
-        <p>
-          Quer tenha um apartamento, um edifício inteiro, ou um portfolio de ativos hoteleiros, oferecemos gestão profissional que maximiza rentabilidade e valorização. Três serviços distintos para três tipos de ativo – cada um com a operação, tecnologia e reporting adequados aos seus objetivos. À medida que o seu portfolio cresce, escalamos consigo.
-        </p>
-        <p>
-          Junte-se a mais de <strong>600 proprietários</strong> que confiam na Host Wise para gerar rendimentos passivos de forma profissional e transparente.
-        </p>
-      </div>
 
-      <div class="intro-cta">
-        <a href="#contacto" class="btn-primary-large">
-          Receber Proposta Gratuita
-        </a>
-      </div>
+      {intro_title && (
+        <h2 class="intro-title">{intro_title}</h2>
+      )}
+
+      {intro_text && (
+        <div class="intro-text" set:html={intro_text} />
+      )}
+
+      {intro_cta_label && intro_cta_url && (
+        <div class="intro-cta">
+          <a href={intro_cta_url} class="btn-primary-large">
+            {intro_cta_label}
+          </a>
+        </div>
+      )}
+
     </div>
   </div>
 </section>
+
 
 <style>
   .intro-section {

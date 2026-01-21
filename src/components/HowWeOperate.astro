@@ -1,0 +1,376 @@
+---
+interface OperationItem {
+  text: string;
+}
+
+interface OperationStep {
+  number: string;
+  title: string;
+  items: OperationItem[];
+  image?: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  steps?: OperationStep[];
+}
+
+const {
+  title = 'Como operamos',
+  subtitle,
+  steps = [
+    {
+      number: '01',
+      title: 'Estratégia Personalizada',
+      image: '/images/apartamento-predio-capitao-pombeiro.webp',
+      items: [
+        { text: 'Cada ativo é analisado individualmente, considerando tipologia, localização, público-alvo e objetivos financeiros.' },
+        { text: 'Definimos uma estratégia de gestão alinhada com as metas do proprietário e as características do mercado.' },
+        { text: 'A estratégia é revista regularmente para garantir adaptação às mudanças do mercado.' },
+      ],
+    },
+    {
+      number: '02',
+      title: 'Tecnologia e AI In-House',
+      image: '/images/apartamento-predio-alvaro-casteloes.webp',
+      items: [
+        { text: 'Desenvolvemos soluções próprias de automação e inteligência artificial para otimizar processos, melhorar a experiência do hóspede e apoiar decisões estratégicas.' },
+        { text: 'A tecnologia permite uma gestão mais eficiente, reduzindo custos operacionais e aumentando a rentabilidade.' },
+      ],
+    },
+    {
+      number: '03',
+      title: 'Execução Ágil e Orientada a Resultados',
+      image: '/images/sala-apartamento-predio-general-silveira-3.webp',
+      items: [
+        { text: 'Estrutura leve, pouca burocracia e foco total na performance operacional e financeira.' },
+        { text: 'Capacidade de adaptação rápida a novas oportunidades ou desafios do mercado.' },
+      ],
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="how-we-operate-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>{title}</h2>
+      {subtitle && <p>{subtitle}</p>}
+    </div>
+
+    <div class="steps-grid">
+      {steps.map((step, index) => (
+        <div class="step-card" data-index={index} style={`--delay: ${index * 0.15}s`}>
+          <button class="step-trigger" aria-expanded="false">
+            {step.image && (
+              <div class="step-image">
+                <img src={step.image} alt={step.title} loading="lazy" />
+              </div>
+            )}
+            <div class="step-header">
+              <div class="step-header-content">
+                <span class="step-number">{step.number}</span>
+                <h3>{step.title}</h3>
+              </div>
+              <div class="step-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 5v14M5 12h14"/>
+                </svg>
+              </div>
+            </div>
+          </button>
+          <div class="step-content">
+            <ul class="step-items">
+              {step.items.map((item) => (
+                <li>
+                  <span class="item-bullet"></span>
+                  <span>{item.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how-we-operate-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .section-header p {
+    font-size: 1.15rem;
+    color: var(--text);
+    line-height: 1.7;
+    opacity: 0.85;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .step-card {
+    background: var(--blue-light);
+    border-radius: 20px;
+    border: 2px solid rgba(92, 176, 214, 0.15);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease-out backwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .step-card:hover {
+    border-color: rgba(92, 176, 214, 0.4);
+    box-shadow: 0 8px 32px rgba(12, 68, 99, 0.1);
+  }
+
+  .step-card.active {
+    border-color: var(--secondary);
+    box-shadow: 0 16px 48px rgba(12, 68, 99, 0.15);
+  }
+
+  .step-trigger {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    position: relative;
+  }
+
+  .step-image {
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+  }
+
+  .step-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .step-card:hover .step-image img {
+    transform: scale(1.05);
+  }
+
+  .step-header {
+    padding: 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .step-header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .step-number {
+    display: inline-block;
+    width: fit-content;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: white;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  .step-header h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.3;
+    margin: 0;
+    transition: color 0.3s;
+  }
+
+  .step-card:hover .step-header h3 {
+    color: var(--secondary);
+  }
+
+  .step-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--secondary);
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(12, 68, 99, 0.1);
+  }
+
+  .step-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .step-card.active .step-icon {
+    transform: rotate(45deg);
+    background: var(--secondary);
+    color: white;
+  }
+
+  .step-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .step-card.active .step-content {
+    max-height: 400px;
+  }
+
+  .step-items {
+    list-style: none;
+    padding: 0 24px 24px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid rgba(92, 176, 214, 0.2);
+    padding-top: 20px;
+  }
+
+  .step-items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .item-bullet {
+    width: 8px;
+    height: 8px;
+    background: var(--secondary);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .steps-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .how-we-operate-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .step-header {
+      padding: 20px;
+    }
+
+    .step-header-content {
+      gap: 8px;
+    }
+
+    .step-header h3 {
+      font-size: 1.15rem;
+    }
+
+    .step-items {
+      padding: 0 20px 20px;
+    }
+
+    .step-items li {
+      font-size: 0.9rem;
+    }
+
+    .step-icon {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+  }
+</style>
+
+<script>
+  const stepCards = document.querySelectorAll('.step-card');
+
+  stepCards.forEach((card) => {
+    const trigger = card.querySelector('.step-trigger');
+
+    trigger?.addEventListener('click', () => {
+      const isActive = card.classList.contains('active');
+
+      // Close all cards
+      stepCards.forEach((otherCard) => {
+        otherCard.classList.remove('active');
+        const otherTrigger = otherCard.querySelector('.step-trigger');
+        otherTrigger?.setAttribute('aria-expanded', 'false');
+      });
+
+      // Toggle current card
+      if (!isActive) {
+        card.classList.add('active');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

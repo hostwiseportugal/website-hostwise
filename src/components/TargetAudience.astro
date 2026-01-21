@@ -1,0 +1,190 @@
+---
+import { iconMap } from '../icons/iconMap';
+
+interface TargetItem {
+  text: string;
+}
+
+interface Props {
+  title?: string;
+  targets?: TargetItem[];
+  conclusion?: string;
+}
+
+const {
+  title = 'Para quem é este serviço',
+  targets = [
+    { text: 'Investidores imobiliários e fundos de investimento' },
+    { text: 'Proprietários de um ou vários edifícios' },
+    { text: 'Promotores imobiliários' },
+    { text: 'Operadores de serviced apartments e aparthotéis' },
+    { text: 'Proprietários que procuram uma operação profissional, escalável e orientada para resultados' },
+  ],
+  conclusion = 'Se procura um parceiro capaz de operar o ativo como um todo, com foco em eficiência, rentabilidade e valorização do imóvel, este serviço é para si.',
+} = Astro.props;
+---
+
+<section class="target-audience-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>{title}</h2>
+      <p class="subtitle">Este serviço foi desenhado para:</p>
+    </div>
+
+    <div class="targets-grid">
+      {targets.map((target, index) => (
+        <div class="target-card" style={`--delay: ${index * 0.1}s`}>
+          <div class="target-icon" set:html={iconMap.check} />
+          <p>{target.text}</p>
+        </div>
+      ))}
+    </div>
+
+    {conclusion && (
+      <div class="conclusion-box">
+        <p>{conclusion}</p>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .target-audience-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  .targets-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .target-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px 28px;
+    background: var(--blue-light);
+    border-radius: 16px;
+    border: 2px solid rgba(92, 176, 214, 0.15);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease-out backwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .target-card:hover {
+    transform: translateX(8px);
+    border-color: var(--secondary);
+    box-shadow: 0 8px 24px rgba(12, 68, 99, 0.1);
+  }
+
+  .target-icon {
+    width: 28px;
+    height: 28px;
+    color: #2E7D32;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .target-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .target-card p {
+    font-size: 1.1rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .conclusion-box {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .conclusion-box p {
+    font-size: 1.2rem;
+    color: white;
+    line-height: 1.7;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .target-audience-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .target-card {
+      padding: 20px;
+    }
+
+    .target-card p {
+      font-size: 1rem;
+    }
+
+    .conclusion-box {
+      padding: 32px 24px;
+    }
+
+    .conclusion-box p {
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+    }
+  }
+</style>

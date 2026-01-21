@@ -1,0 +1,192 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSectionV2 from '../components/HeroSectionV2.astro';
+import IntroSection from '../components/IntroSection.astro';
+import TargetAudience from '../components/TargetAudience.astro';
+import ServicesAccordion from '../components/ServicesAccordion.astro';
+import HowWeOperate from '../components/HowWeOperate.astro';
+import CaseStudy from '../components/CaseStudy.astro';
+import ModelsIntro from '../components/ModelsIntro.astro';
+import FAQSection from '../components/FAQSection.astro';
+---
+
+<Layout title="Gestão de Hotéis, Boutique Hotels e Aparthotéis - Host Wise">
+  <!-- Hero Section -->
+  <HeroSectionV2
+    badge_text="Gestão de Hotéis, Boutique Hotels e Aparthotéis"
+    badge_icon_key="hotel"
+    heading="Gestão hoteleira focada em rentabilidade, eficiência e controlo operacional"
+    description="Apoiamos hotéis, boutique hotéis e aparthotéis com uma gestão profissional, flexível e tecnológica, focada em maximizar resultados, otimizar operações e valorizar o ativo no longo prazo."
+    features={[
+      { label: 'Gestão Operacional' },
+      { label: 'Revenue Management' },
+      { label: 'Tecnologia Própria' },
+    ]}
+    stats={[
+      { label: 'Anos de Experiência', value: '9+', icon_key: 'calendar' },
+      { label: 'Propriedades', value: '625+', icon_key: 'home' },
+    ]}
+    primary_cta_label="Receber Proposta"
+    primary_cta_url="#contacto"
+    secondary_cta_label="Saber Mais"
+    secondary_cta_url="#intro-section"
+    image="/images/property-1.webp"
+  />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="Placeholder - Título da Intro Section"
+    intro_text={`
+      <p>
+        Placeholder - Descrição da intro section. Este texto será substituído pelo conteúdo final.
+      </p>
+      <p>
+        Placeholder - Segunda parte da descrição com mais detalhes sobre o serviço de gestão hoteleira.
+      </p>
+    `}
+    intro_cta_label="Quero Receber uma Proposta"
+    intro_cta_url="#contacto"
+  />
+
+  <!-- Target Audience -->
+  <TargetAudience
+    title="Para quem é este serviço"
+    targets={[
+      { text: 'Investidores e fundos com ativos hoteleiros' },
+      { text: 'Proprietários de hotéis, boutique hotéis e aparthotéis' },
+      { text: 'Operadores que procuram otimizar resultados e processos' },
+      { text: 'Projetos hoteleiros em fase de reposicionamento' },
+      { text: 'Ativos híbridos (hotelaria + short stay / média duração)' },
+    ]}
+    conclusion="Se procura um parceiro que combine gestão operacional, estratégia de revenue e execução ágil, este serviço é para si."
+  />
+
+  <!-- Services Accordion -->
+  <ServicesAccordion
+    title="O que fazemos"
+    description="A Host Wise atua como parceiro de gestão hoteleira, adaptando-se à realidade e maturidade de cada operação."
+    image="/images/property-1.webp"
+    services={[
+      {
+        title: 'Gestão operacional day-to-day',
+        items: [
+          { text: 'Coordenação integral da operação diária' },
+          { text: 'Gestão de check-ins e check-outs' },
+          { text: 'Definição de processos operacionais eficientes' },
+          { text: 'Foco na experiência do hóspede e na consistência do serviço' },
+        ],
+      },
+      {
+        title: 'Revenue management e pricing dinâmico',
+        items: [
+          { text: 'Estratégia de preços baseada em dados reais' },
+          { text: 'Ajuste contínuo à procura, sazonalidade e eventos' },
+          { text: 'Otimização da ocupação e da receita por unidade' },
+          { text: 'Integração de estadias de média duração como complemento estratégico' },
+        ],
+      },
+      {
+        title: 'Distribuição e canais de venda',
+        items: [
+          { text: 'Gestão e otimização de OTAs' },
+          { text: 'Estratégia de distribuição alinhada com os objetivos do ativo' },
+          { text: 'Redução de dependência excessiva de intermediários' },
+          { text: 'Maximização da receita líquida' },
+        ],
+      },
+      {
+        title: 'Gestão de equipas',
+        items: [
+          { text: 'Coordenação de equipas operacionais' },
+          { text: 'Definição de rotinas e standards' },
+          { text: 'Otimização de recursos humanos e custos operacionais' },
+        ],
+      },
+      {
+        title: 'Manutenção e conservação do ativo',
+        items: [
+          { text: 'Manutenção preventiva e corretiva' },
+          { text: 'Acompanhamento contínuo do estado do imóvel' },
+          { text: 'Preservação e valorização do ativo ao longo do tempo' },
+        ],
+      },
+    ]}
+  />
+
+  <!-- How We Operate -->
+  <HowWeOperate
+    title="Como operamos"
+    subtitle="A nossa abordagem assenta em quatro princípios fundamentais:"
+    steps={[
+      {
+        number: '01',
+        title: 'Análise estratégica do ativo',
+        image: '/images/property-1.webp',
+        items: [
+          { text: 'Tipo de unidade e posicionamento' },
+          { text: 'Localização e mercado' },
+          { text: 'Perfil do hóspede' },
+          { text: 'Objetivos financeiros do proprietário' },
+        ],
+      },
+      {
+        number: '02',
+        title: 'Flexibilidade operacional',
+        image: '/images/property-2.webp',
+        items: [
+          { text: 'Modelos de gestão adaptados a cada realidade' },
+          { text: 'Capacidade de integrar equipas existentes ou assumir a gestão total' },
+          { text: 'Estrutura leve, sem burocracia excessiva' },
+        ],
+      },
+      {
+        number: '03',
+        title: 'Tecnologia e AI in-house',
+        image: '/images/property-3.webp',
+        items: [
+          { text: 'Sistemas próprios e soluções de inteligência artificial desenvolvidas internamente' },
+          { text: 'Automação de processos operacionais' },
+          { text: 'Suporte ao cliente 24/7 com apoio de AI' },
+          { text: 'Decisões orientadas por dados e performance' },
+        ],
+      },
+      {
+        number: '04',
+        title: 'Execução focada em resultados',
+        image: '/images/property-1.webp',
+        items: [
+          { text: 'Menos camadas de decisão' },
+          { text: 'Maior velocidade de execução' },
+          { text: 'Foco constante na rentabilidade e eficiência' },
+        ],
+      },
+    ]}
+  />
+
+  <!-- Case Study -->
+  <CaseStudy
+    title="Caso de Estudo"
+    description="Placeholder - Descrição do caso de estudo para hotéis."
+    propertyName="Hotel Placeholder"
+    propertyLocation="Porto, Portugal"
+    stats={[
+      { label: 'Quartos', value: '48' },
+      { label: 'Receita Anual', value: '€720K' },
+      { label: 'Preço Médio', value: '€95' },
+      { label: 'Ocupação', value: '82%' },
+      { label: 'Rentabilidade', value: '14.2%' },
+    ]}
+    images={[
+      '/images/property-1.webp',
+      '/images/property-2.webp',
+      '/images/property-3.webp',
+    ]}
+  />
+
+  <!-- Models Intro -->
+  <ModelsIntro />
+
+  <!-- FAQ Section -->
+  <FAQSection />
+
+</Layout>

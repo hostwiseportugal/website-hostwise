@@ -1,0 +1,265 @@
+---
+import { iconMap } from '../icons/iconMap';
+
+interface Model {
+  title: string;
+  description: string;
+  iconKey: string;
+  highlight?: boolean;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  models?: Model[];
+  footnote?: string;
+}
+
+const {
+  title = 'Modelos de parceria',
+  subtitle = 'Trabalhamos com diferentes modelos, ajustados ao perfil de risco e aos objetivos do proprietário:',
+  models = [
+    {
+      title: 'Modelo de comissão',
+      description: 'Remuneração indexada à performance',
+      iconKey: 'chart',
+    },
+    {
+      title: 'Renda fixa',
+      description: 'Estabilidade e previsibilidade de receitas',
+      iconKey: 'shield',
+    },
+    {
+      title: 'Modelo híbrido',
+      description: 'Renda fixa + partilha de receitas',
+      iconKey: 'star',
+      highlight: true,
+    },
+  ],
+  footnote = 'Todos os modelos podem ser aplicados tanto a edifícios já em operação como a projetos em fase de desenvolvimento.',
+} = Astro.props;
+
+// Icon mapping
+const getIcon = (key: string) => {
+  const icons: Record<string, string> = {
+    chart: iconMap.chart || iconMap.stats || `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/></svg>`,
+    shield: iconMap.shield || `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>`,
+    star: iconMap.star || `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`,
+  };
+  return icons[key] || icons.shield;
+};
+---
+
+<section class="partnership-models-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
+    </div>
+
+    <div class="models-grid">
+      {models.map((model, index) => (
+        <div class={`model-card ${model.highlight ? 'highlighted' : ''}`} style={`--delay: ${index * 0.1}s`}>
+          {model.highlight && <span class="highlight-badge">Recomendado</span>}
+          <div class="model-icon" set:html={getIcon(model.iconKey)} />
+          <h3>{model.title}</h3>
+          <p>{model.description}</p>
+        </div>
+      ))}
+    </div>
+
+    {footnote && (
+      <p class="footnote">{footnote}</p>
+    )}
+  </div>
+</section>
+
+<style>
+  .partnership-models-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, #F8FCFF 0%, white 100%);
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .section-header p {
+    font-size: 1.15rem;
+    color: var(--text);
+    line-height: 1.7;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .models-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-bottom: 40px;
+  }
+
+  .model-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 32px;
+    border: 2px solid var(--gray-light);
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    animation: fadeInUp 0.6s ease-out backwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .model-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(12, 68, 99, 0.15);
+    border-color: var(--secondary);
+  }
+
+  .model-card.highlighted {
+    border-color: var(--secondary);
+    background: linear-gradient(180deg, white 0%, var(--blue-light) 100%);
+    box-shadow: 0 8px 32px rgba(92, 176, 214, 0.2);
+  }
+
+  .model-card.highlighted:hover {
+    box-shadow: 0 20px 60px rgba(92, 176, 214, 0.3);
+  }
+
+  .highlight-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .model-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 16px;
+  }
+
+  .model-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .model-card h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .model-card p {
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.6;
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .footnote {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text);
+    opacity: 0.7;
+    font-style: italic;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray-light);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .models-grid {
+      grid-template-columns: 1fr;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .model-card {
+      padding: 36px 28px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .partnership-models-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .section-header p {
+      font-size: 1.05rem;
+    }
+
+    .model-icon {
+      width: 56px;
+      height: 56px;
+    }
+
+    .model-card h3 {
+      font-size: 1.2rem;
+    }
+
+    .model-card p {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .footnote {
+      font-size: 0.95rem;
+    }
+  }
+</style>

@@ -1,0 +1,342 @@
+---
+interface ComparisonItem {
+  title: string;
+  description: string;
+  limitation: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  comparisons?: ComparisonItem[];
+  conclusion?: string;
+}
+
+const {
+  title = 'Em que difere a gestão de empreendimentos turísticos?',
+  subtitle = 'A gestão de empreendimentos turísticos não deve ser confundida com outros modelos de gestão imobiliária ou turística:',
+  comparisons = [
+    {
+      title: 'Administração de condomínios',
+      description: 'Foca-se na gestão de partes comuns, manutenção básica e relação entre condóminos.',
+      limitation: 'Não envolve exploração turística, revenue management ou operação comercial.',
+    },
+    {
+      title: 'Gestão de alojamento local disperso',
+      description: 'Adequada para apartamentos individuais ou pequenas carteiras.',
+      limitation: 'Não responde às exigências operacionais e estratégicas de edifícios de escala.',
+    },
+    {
+      title: 'Gestão hoteleira tradicional',
+      description: 'Centrada em unidades com receção permanente, serviços de hotelaria e estruturas pesadas.',
+      limitation: 'Nem sempre é a solução mais eficiente para ativos flexíveis ou híbridos.',
+    },
+  ],
+  conclusion = 'A gestão de empreendimentos turísticos posiciona-se entre estes modelos, oferecendo uma operação profissional, escalável e tecnologicamente orientada para ativos turísticos de grande dimensão.',
+} = Astro.props;
+---
+
+<section class="management-comparison-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
+    </div>
+
+    <div class="comparison-grid">
+      {comparisons.map((item, index) => (
+        <div class="comparison-card" style={`--delay: ${index * 0.15}s`}>
+          <div class="card-header">
+            <span class="card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+            </span>
+            <h3>{item.title}</h3>
+          </div>
+          <div class="card-content">
+            <p class="description">{item.description}</p>
+            <p class="limitation">
+              <span class="limitation-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </span>
+              {item.limitation}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="conclusion-box">
+      <div class="conclusion-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <p>{conclusion}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .management-comparison-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .section-header p {
+    font-size: 1.15rem;
+    color: var(--text);
+    line-height: 1.7;
+    opacity: 0.85;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .comparison-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    border: 2px solid rgba(92, 176, 214, 0.15);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease-out backwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .comparison-card:hover {
+    border-color: rgba(220, 53, 69, 0.3);
+    box-shadow: 0 12px 40px rgba(12, 68, 99, 0.1);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(220, 53, 69, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #dc3545;
+    padding: 8px;
+  }
+
+  .card-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .card-header h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.4;
+    margin: 0;
+    padding-top: 6px;
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  .limitation {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: #dc3545;
+    line-height: 1.6;
+    margin: 0;
+    padding: 14px 16px;
+    background: rgba(220, 53, 69, 0.06);
+    border-radius: 12px;
+    border-left: 3px solid #dc3545;
+  }
+
+  .limitation-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .limitation-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .conclusion-box {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 20px;
+    padding: 40px 48px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .conclusion-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: white;
+    padding: 10px;
+  }
+
+  .conclusion-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .conclusion-box p {
+    font-size: 1.15rem;
+    color: white;
+    line-height: 1.7;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .comparison-grid {
+      grid-template-columns: 1fr;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .management-comparison-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .section-header p {
+      font-size: 1.05rem;
+    }
+
+    .comparison-card {
+      padding: 24px;
+    }
+
+    .card-header h3 {
+      font-size: 1.1rem;
+    }
+
+    .conclusion-box {
+      flex-direction: column;
+      padding: 32px 28px;
+      text-align: center;
+      align-items: center;
+    }
+
+    .conclusion-box p {
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .comparison-card {
+      padding: 20px;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    .card-header h3 {
+      font-size: 1.05rem;
+    }
+
+    .description {
+      font-size: 0.95rem;
+    }
+
+    .limitation {
+      font-size: 0.9rem;
+      padding: 12px 14px;
+    }
+
+    .conclusion-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .conclusion-box p {
+      font-size: 1rem;
+    }
+  }
+</style>

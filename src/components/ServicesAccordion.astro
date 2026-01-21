@@ -1,0 +1,397 @@
+---
+import { iconMap } from '../icons/iconMap';
+
+interface SubService {
+  text: string;
+}
+
+interface Service {
+  title: string;
+  items: SubService[];
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  services?: Service[];
+  image?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
+}
+
+const {
+  title = 'O que fazemos',
+  description = 'Na gestão de prédios inteiros e serviced apartments, a Host Wise assume uma abordagem end-to-end, adaptável à realidade de cada projeto.',
+  image = '/images/quarto-apartamento-predio-rua-fabrica-3.webp',
+  ctaLabel = 'Receber uma proposta',
+  ctaUrl = '#contacto',
+  services = [
+    {
+      title: 'Operação Integral do Edifício',
+      items: [
+        { text: 'Gestão centralizada do ativo, total ou parcial' },
+        { text: 'Definição de processos operacionais eficientes' },
+        { text: 'Coordenação de check-ins e check-outs, com forte aposta em self check-in' },
+        { text: 'Presença física sempre que o modelo operacional o justifique' },
+      ],
+    },
+    {
+      title: 'Revenue Management e Pricing Dinâmico',
+      items: [
+        { text: 'Estratégias de preços baseadas em dados' },
+        { text: 'Ajuste contínuo à procura, sazonalidade e eventos' },
+        { text: 'Integração de estadias de média duração para mitigar períodos de menor procura' },
+      ],
+    },
+    {
+      title: 'Distribuição e Canais de Venda',
+      items: [
+        { text: 'Gestão e otimização de OTAs' },
+        { text: 'Estratégia de distribuição equilibrada' },
+        { text: 'Maximização da ocupação e da receita líquida' },
+      ],
+    },
+    {
+      title: 'Licenciamento e Conformidade',
+      items: [
+        { text: 'Apoio em processos de licenciamento' },
+        { text: 'Acompanhamento da conformidade legal e operacional' },
+      ],
+    },
+    {
+      title: 'Manutenção e Conservação do Ativo',
+      items: [
+        { text: 'Manutenção preventiva e corretiva' },
+        { text: 'Preservação do edifício e dos equipamentos' },
+        { text: 'Gestão do ativo com visão de longo prazo' },
+      ],
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="services-accordion-section">
+  <div class="container">
+    {image && (
+      <div class="section-image">
+        <img src={image} alt={title} loading="lazy" />
+      </div>
+    )}
+
+    <div class="section-header">
+      <h2>{title}</h2>
+      <p>{description}</p>
+    </div>
+
+    <div class="accordion-list">
+      {services.map((service, index) => (
+        <div class="accordion-item" data-index={index}>
+          <button class="accordion-trigger" aria-expanded="false">
+            <div class="accordion-title">
+              <span class="accordion-number">{String(index + 1).padStart(2, '0')}</span>
+              <span>{service.title}</span>
+            </div>
+            <div class="accordion-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+            </div>
+          </button>
+          <div class="accordion-content">
+            <ul class="service-items">
+              {service.items.map((item) => (
+                <li>
+                  <span class="item-icon" set:html={iconMap.check} />
+                  <span>{item.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="cta-wrapper">
+      <a href={ctaUrl} class="btn-cta">{ctaLabel}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-accordion-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, white 0%, var(--blue-light) 50%, white 100%);
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-image {
+    margin-bottom: 48px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(12, 68, 99, 0.15);
+  }
+
+  .section-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-header h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .section-header p {
+    font-size: 1.15rem;
+    color: var(--text);
+    line-height: 1.7;
+    opacity: 0.85;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cta-wrapper {
+    margin-top: 48px;
+    text-align: center;
+  }
+
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 36px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(12, 68, 99, 0.25);
+  }
+
+  .btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(12, 68, 99, 0.35);
+  }
+
+  .accordion-item {
+    background: white;
+    border-radius: 16px;
+    border: 2px solid var(--gray-light);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .accordion-item:hover {
+    border-color: rgba(92, 176, 214, 0.3);
+  }
+
+  .accordion-item.active {
+    border-color: var(--secondary);
+    box-shadow: 0 8px 32px rgba(12, 68, 99, 0.12);
+  }
+
+  .accordion-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.3s;
+  }
+
+  .accordion-trigger:hover {
+    background: rgba(92, 176, 214, 0.05);
+  }
+
+  .accordion-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .accordion-number {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--secondary);
+    background: var(--blue-light);
+    padding: 6px 12px;
+    border-radius: 8px;
+  }
+
+  .accordion-title span:last-child {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .accordion-icon {
+    width: 28px;
+    height: 28px;
+    color: var(--secondary);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .accordion-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .accordion-item.active .accordion-icon {
+    transform: rotate(45deg);
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .accordion-item.active .accordion-content {
+    max-height: 500px;
+  }
+
+  .service-items {
+    list-style: none;
+    padding: 0 28px 28px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid var(--gray-light);
+    padding-top: 20px;
+  }
+
+  .service-items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .item-icon {
+    width: 22px;
+    height: 22px;
+    color: #2E7D32;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .item-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .services-accordion-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .section-header p {
+      font-size: 1.05rem;
+    }
+
+    .accordion-trigger {
+      padding: 20px;
+    }
+
+    .accordion-title {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .accordion-title span:last-child {
+      font-size: 1.05rem;
+    }
+
+    .service-items {
+      padding: 0 20px 20px;
+    }
+
+    .service-items li {
+      font-size: 0.95rem;
+    }
+
+    .cta-wrapper {
+      margin-top: 40px;
+    }
+
+    .btn-cta {
+      width: 100%;
+      padding: 16px 28px;
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+  }
+</style>
+
+<script>
+  const accordionItems = document.querySelectorAll('.accordion-item');
+
+  accordionItems.forEach((item) => {
+    const trigger = item.querySelector('.accordion-trigger');
+
+    trigger?.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+
+      // Close all items
+      accordionItems.forEach((otherItem) => {
+        otherItem.classList.remove('active');
+        const otherTrigger = otherItem.querySelector('.accordion-trigger');
+        otherTrigger?.setAttribute('aria-expanded', 'false');
+      });
+
+      // Toggle current item
+      if (!isActive) {
+        item.classList.add('active');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // Open first item by default
+  if (accordionItems.length > 0) {
+    accordionItems[0].classList.add('active');
+    accordionItems[0].querySelector('.accordion-trigger')?.setAttribute('aria-expanded', 'true');
+  }
+</script>

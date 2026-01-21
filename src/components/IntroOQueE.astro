@@ -1,0 +1,266 @@
+---
+interface ServiceType {
+  title: string;
+  image: string;
+}
+
+interface Props {
+  title?: string;
+  description?: string;
+  subtitle?: string;
+  serviceTypes?: ServiceType[];
+}
+
+const {
+  title = 'O que é a Gestão de Empreendimentos Turísticos?',
+  description = 'A gestão de empreendimentos turísticos destina-se a ativos imobiliários de escala que não se enquadram na hotelaria tradicional, mas que exigem uma operação profissional, centralizada e orientada para performance.',
+  subtitle = 'Este serviço aplica-se a:',
+  serviceTypes = [
+    {
+      title: 'Prédios inteiros para exploração turística',
+      image: '/images/predio-largo-repubica-brasil-guimaraes-fachada-exterior-2.webp',
+    },
+    {
+      title: 'Edifícios turísticos',
+      image: '/images/predio-castelo-paiva-exterior.webp',
+    },
+    {
+      title: 'Serviced apartments',
+      image: '/images/sala-cozinha-apartamento-predio-santa-catarina.webp',
+    },
+    {
+      title: 'Aparthotéis sem operação hoteleira clássica',
+      image: '/images/casas-palacio-exterior.webp',
+    },
+    {
+      title: 'Projetos híbridos de curta e média duração',
+      image: '/images/sala-apartamento-predio-rua-fabrica-2.webp',
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="intro-o-que-e-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>{title}</h2>
+      <p class="description">{description}</p>
+      {subtitle && <p class="subtitle">{subtitle}</p>}
+    </div>
+
+    <div class="service-types-grid">
+      {serviceTypes.map((service, index) => (
+        <div class="service-type-card" style={`--delay: ${index * 0.1}s`}>
+          <div class="card-image">
+            <img src={service.image} alt={service.title} loading="lazy" />
+          </div>
+          <div class="card-content">
+            <h3>{service.title}</h3>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro-o-que-e-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, #F8FCFF 0%, white 100%);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-header h2 {
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    max-width: 800px;
+    margin-bottom: 24px;
+  }
+
+  .description {
+    font-size: 1.2rem;
+    color: var(--text);
+    line-height: 1.8;
+    opacity: 0.85;
+    margin-bottom: 32px;
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin: 0;
+  }
+
+  .service-types-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .service-type-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid rgba(92, 176, 214, 0.15);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease-out backwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .service-type-card:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 12px 40px rgba(12, 68, 99, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .card-image {
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .service-type-card:hover .card-image img {
+    transform: scale(1.05);
+  }
+
+  .card-content {
+    padding: 24px;
+  }
+
+  .card-content h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.4;
+    margin: 0;
+    transition: color 0.3s;
+  }
+
+  .service-type-card:hover .card-content h3 {
+    color: var(--secondary);
+  }
+
+  /* Grid layout for 5 items - 3 on top, 2 centered on bottom */
+  .service-types-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+  }
+
+  .service-type-card:nth-child(1),
+  .service-type-card:nth-child(2),
+  .service-type-card:nth-child(3) {
+    grid-column: span 2;
+  }
+
+  .service-type-card:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .service-type-card:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .service-types-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .service-type-card:nth-child(1),
+    .service-type-card:nth-child(2),
+    .service-type-card:nth-child(3),
+    .service-type-card:nth-child(4),
+    .service-type-card:nth-child(5) {
+      grid-column: span 1;
+    }
+
+    .service-type-card:nth-child(5) {
+      grid-column: 1 / span 2;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .intro-o-que-e-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .description {
+      font-size: 1.1rem;
+    }
+
+    .subtitle {
+      font-size: 1.05rem;
+    }
+
+    .service-types-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .service-type-card:nth-child(5) {
+      grid-column: span 1;
+      max-width: none;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card-content h3 {
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .description {
+      font-size: 1rem;
+    }
+  }
+</style>

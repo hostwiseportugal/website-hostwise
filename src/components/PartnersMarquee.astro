@@ -112,7 +112,7 @@ const marqueePartners = [...defaultPartners, ...defaultPartners];
   .marquee-content {
     display: flex;
     gap: 80px;
-    animation: marquee 20s linear infinite;
+    animation: marquee 10s linear infinite;
     will-change: transform;
   }
 
@@ -153,10 +153,10 @@ const marqueePartners = [...defaultPartners, ...defaultPartners];
 
   @keyframes marquee {
     0% {
-      transform: translateX(0);
+      transform: translateX(5%);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translateX(-70%);
     }
   }
 

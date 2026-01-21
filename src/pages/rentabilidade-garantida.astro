@@ -73,14 +73,18 @@ const heroStats = (acf.hero_v2_stats || []).map((s: any) => ({
   />
 
   <!-- Intro Section -->
-  <IntroSection />
+  <IntroSection
+  intro_title={acf.intro_title}
+  intro_text={acf.intro_text}
+  intro_cta_label={acf.intro_cta_label}
+  intro_cta_url={acf.intro_cta_url}
+  />
 
   <!-- Benefits Grid -->
   <BenefitsGrid
     benefits={benefits}
     badgeText="Vantagens do Modelo"
     heading="Porquê escolher o Modelo de Rentabilidade Garantida?"
-    subheading="O modelo de Rentabilidade Garantida foi desenhado para proprietários que valorizam segurança e previsibilidade. Receba uma renda fixa mensal e aproveite todos os benefícios do alojamento local sem riscos nem preocupações."
   />
 
 

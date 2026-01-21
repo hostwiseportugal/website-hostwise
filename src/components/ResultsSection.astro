@@ -1,0 +1,197 @@
+---
+import { iconMap } from '../icons/iconMap';
+
+interface Result {
+  text: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  results?: Result[];
+}
+
+const {
+  title = 'Resultados que vão além da operação',
+  subtitle = 'Uma gestão eficiente não se reflete apenas nos resultados mensais. A nossa abordagem contribui para:',
+  results = [
+    { text: 'Maior longevidade do ativo' },
+    { text: 'Melhor posicionamento no mercado' },
+    { text: 'Valorização do imóvel a médio e longo prazo' },
+  ],
+} = Astro.props;
+---
+
+<section class="results-section">
+  <div class="container">
+    <div class="results-card">
+      <div class="section-header">
+        <h2>{title}</h2>
+        <p>{subtitle}</p>
+      </div>
+
+      <div class="results-grid">
+        {results.map((result, index) => (
+          <div class="result-item" style={`--delay: ${index * 0.15}s`}>
+            <div class="result-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <p>{result.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .results-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .results-card {
+    background: var(--blue-light);
+    border-radius: 24px;
+    padding: 60px;
+    border: 2px solid rgba(92, 176, 214, 0.2);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .section-header p {
+    font-size: 1.15rem;
+    color: var(--text);
+    line-height: 1.7;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .result-item {
+    text-align: center;
+    padding: 32px 24px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.08);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease-out backwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .result-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(12, 68, 99, 0.15);
+  }
+
+  .result-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 14px;
+  }
+
+  .result-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .result-item p {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .results-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .results-section {
+      padding: 80px 20px;
+    }
+
+    .results-card {
+      padding: 40px 28px;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .section-header p {
+      font-size: 1.05rem;
+    }
+
+    .result-item {
+      padding: 28px 20px;
+    }
+
+    .result-item p {
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .results-card {
+      padding: 32px 20px;
+    }
+
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .result-icon {
+      width: 48px;
+      height: 48px;
+    }
+  }
+</style>

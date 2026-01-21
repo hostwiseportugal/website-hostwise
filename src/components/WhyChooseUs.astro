@@ -1,0 +1,190 @@
+---
+import { iconMap } from '../icons/iconMap';
+
+interface Reason {
+  text: string;
+}
+
+interface Props {
+  title?: string;
+  reasons?: Reason[];
+}
+
+const {
+  title = 'Porquê escolher a Host Wise',
+  reasons = [
+    { text: '9 anos de experiência em alojamento e hospitalidade' },
+    { text: '625+ propriedades sob gestão' },
+    { text: 'Equipa especializada e multidisciplinar' },
+    { text: 'Portfólio diversificado de ativos' },
+    { text: 'Forte foco em rentabilidade e valorização do imóvel' },
+    { text: 'Base tecnológica sólida e soluções de AI próprias' },
+    { text: 'Capacidade de operar desde um único edifício até operações de maior escala' },
+    { text: 'Menos burocracia, mais execução' },
+  ],
+} = Astro.props;
+---
+
+<section class="why-choose-us-section">
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="header-column">
+        <h2>{title}</h2>
+        <div class="accent-line"></div>
+      </div>
+
+      <div class="reasons-column">
+        <ul class="reasons-list">
+          {reasons.map((reason, index) => (
+            <li style={`--delay: ${index * 0.08}s`}>
+              <span class="reason-icon" set:html={iconMap.check} />
+              <span>{reason.text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-choose-us-section {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .header-column h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .accent-line {
+    width: 80px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+  }
+
+  .reasons-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .reasons-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    animation: fadeInRight 0.5s ease-out backwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .reasons-list li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(8px);
+  }
+
+  .reason-icon {
+    width: 24px;
+    height: 24px;
+    color: #90EE90;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .reason-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .reasons-list li span:last-child {
+    font-size: 1.1rem;
+    color: white;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .content-wrapper {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .header-column {
+      text-align: center;
+    }
+
+    .accent-line {
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .why-choose-us-section {
+      padding: 80px 20px;
+    }
+
+    .header-column h2 {
+      font-size: 2rem;
+    }
+
+    .reasons-list li {
+      padding: 16px 20px;
+    }
+
+    .reasons-list li span:last-child {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-column h2 {
+      font-size: 1.75rem;
+    }
+
+    .reasons-list li {
+      padding: 14px 16px;
+    }
+
+    .reasons-list li span:last-child {
+      font-size: 0.95rem;
+    }
+  }
+</style>

@@ -1,0 +1,152 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
+}
+
+const {
+  title = 'Pronto para rentabilizar o seu edifício de forma profissional?',
+  description = 'Fale connosco e descubra como a Host Wise pode operar o seu ativo de forma eficiente, transparente e orientada para resultados.',
+  ctaLabel = 'Quero receber uma proposta',
+  ctaUrl = '#contacto',
+} = Astro.props;
+---
+
+<section class="final-cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-content">
+        <h2>{title}</h2>
+        <p>{description}</p>
+        <a href={ctaUrl} class="btn-cta">
+          <span>👉</span>
+          {ctaLabel}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, white 0%, #F8FCFF 100%);
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .cta-card {
+    background: white;
+    border-radius: 28px;
+    padding: 70px 60px;
+    text-align: center;
+    box-shadow: 0 16px 64px rgba(12, 68, 99, 0.12);
+    border: 2px solid var(--gray-light);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  }
+
+  .cta-content h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.25;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-content p {
+    font-size: 1.2rem;
+    color: var(--text);
+    line-height: 1.7;
+    opacity: 0.85;
+    margin-bottom: 36px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 40px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 14px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 28px rgba(12, 68, 99, 0.3);
+  }
+
+  .btn-cta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(12, 68, 99, 0.4);
+  }
+
+  .btn-cta span {
+    font-size: 1.3rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .final-cta-section {
+      padding: 80px 20px;
+    }
+
+    .cta-card {
+      padding: 50px 32px;
+    }
+
+    .cta-content h2 {
+      font-size: 2rem;
+    }
+
+    .cta-content p {
+      font-size: 1.1rem;
+    }
+
+    .btn-cta {
+      width: 100%;
+      justify-content: center;
+      padding: 18px 32px;
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cta-card {
+      padding: 40px 24px;
+    }
+
+    .cta-content h2 {
+      font-size: 1.75rem;
+    }
+
+    .cta-content p {
+      font-size: 1rem;
+    }
+
+    .btn-cta {
+      font-size: 1rem;
+      padding: 16px 28px;
+    }
+  }
+</style>

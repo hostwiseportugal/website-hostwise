@@ -614,12 +614,12 @@ const missionPillars = [
   .team-marquee-track {
     display: flex;
     gap: 20px;
-    animation: scrollTeamLeft 60s linear infinite;
+    animation: scrollTeamLeft 30s linear infinite;
     will-change: transform;
   }
 
   .team-marquee-reverse {
-    animation: scrollTeamRight 60s linear infinite;
+    animation: scrollTeamRight 45s linear infinite;
   }
 
   @keyframes scrollTeamLeft {
@@ -627,13 +627,13 @@ const missionPillars = [
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translateX(-90%);
     }
   }
 
   @keyframes scrollTeamRight {
     0% {
-      transform: translateX(-50%);
+      transform: translateX(-180%);
     }
     100% {
       transform: translateX(0);

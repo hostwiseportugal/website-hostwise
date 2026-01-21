@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroSectionV2 from '../components/HeroSectionV2.astro';
+import IntroOQueE from '../components/IntroOQueE.astro';
+import IntroSection from '../components/IntroSection.astro';
+import TargetAudienceV2 from '../components/TargetAudienceV2.astro';
+import ServicesAccordion from '../components/ServicesAccordion.astro';
+import HowWeOperate from '../components/HowWeOperate.astro';
+import CaseStudy from '../components/CaseStudy.astro';
+import ModelsIntro from '../components/ModelsIntro.astro';
+import ManagementComparison from '../components/ManagementComparison.astro';
+import FAQSection from '../components/FAQSection.astro';
+---
+
+<Layout title="Gestão de Prédios Inteiros e Serviced Apartments - Host Wise">
+  <!-- Hero Section -->
+  <HeroSectionV2
+    badge_text="Gestão de Empreendimentos Turísticos"
+    badge_icon_key="building"
+    heading="Transforme o seu Edifício num Ativo Turístico de Alta Performance"
+    description="A Host Wise gere empreendimentos turísticos e edifícios inteiros destinados à exploração turística, combinando operação profissional, tecnologia e estratégia de rentabilidade para maximizar resultados e valor do ativo no longo prazo."
+    features={[
+      { label: 'Gestão End-to-End' },
+      { label: 'Tecnologia e AI Própria' },
+      { label: 'Modelos Flexíveis' },
+    ]}
+    stats={[
+      { label: 'Anos de Experiência', value: '9', icon_key: 'calendar' },
+      { label: 'Empreendimentos Turísticos', value: '42+', icon_key: 'home' },
+    ]}
+    primary_cta_label="Receber Proposta"
+    primary_cta_url="#contacto"
+    secondary_cta_label="Saber Mais"
+    secondary_cta_url="#intro-section"
+    image="/images/sala-apartamento-predio-general-silveira.webp"
+  />
+
+  <!-- Intro O Que É -->
+  <IntroOQueE />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="O novo modelo de exploração de ativos turísticos"
+    intro_text={`
+      <p>
+        O crescimento de modelos de exploração turística fora da hotelaria tradicional — como edifícios inteiros, serviced apartments e projetos híbridos — exige uma abordagem de gestão diferente da administração predial clássica ou da gestão hoteleira convencional.
+      </p>
+      <p>
+        Estes ativos combinam escala imobiliária com lógica de hospitalidade, o que implica controlo operacional rigoroso, estratégia de revenue dinâmica, distribuição eficiente e uma forte base tecnológica. A sua complexidade não reside apenas na operação diária, mas na necessidade de alinhar rentabilidade, experiência do hóspede e preservação do ativo no longo prazo.
+      </p>
+      <p>
+        A gestão de empreendimentos turísticos surge, assim, como uma solução especializada para investidores e proprietários que pretendem explorar edifícios turísticos de forma profissional, estruturada e orientada para performance.
+      </p>
+    `}
+    intro_cta_label="Quero Receber uma Proposta"
+    intro_cta_url="#contacto"
+  />
+
+  <!-- Target Audience -->
+  <TargetAudienceV2 />
+
+  <!-- Services Accordion -->
+  <ServicesAccordion />
+
+  <!-- How We Operate -->
+  <HowWeOperate />
+
+  <!-- Case Study -->
+  <CaseStudy />
+
+  <!-- Models Intro -->
+  <ModelsIntro />
+
+  <!-- Management Comparison -->
+  <ManagementComparison />
+
+  <!-- FAQ Section -->
+  <FAQSection
+    title="Perguntas Frequentes"
+    subtitle="Esclareça as suas dúvidas sobre a gestão de empreendimentos turísticos."
+    categories={[
+      {
+        id: 'servico',
+        label: 'Sobre o Serviço',
+        questions: [
+          {
+            question: 'Placeholder - Pergunta 1 sobre o serviço?',
+            answer: 'Placeholder - Resposta à pergunta 1 sobre o serviço.',
+          },
+          {
+            question: 'Placeholder - Pergunta 2 sobre o serviço?',
+            answer: 'Placeholder - Resposta à pergunta 2 sobre o serviço.',
+          },
+          {
+            question: 'Placeholder - Pergunta 3 sobre o serviço?',
+            answer: 'Placeholder - Resposta à pergunta 3 sobre o serviço.',
+          },
+        ],
+      },
+      {
+        id: 'pagamentos-precos',
+        label: 'Pagamentos e Preços',
+        questions: [
+          {
+            question: 'Quanto custa o serviço da Host Wise?',
+            answer: '<p> O custo do serviço da Host Wise varia dependendo do modelo de gestão escolhido (rentabilidade garantida ou comissão), da localização e das especificidades do imóvel.</p><br> <p>Oferecemos um modelo transparente e sem custos escondidos, adaptando a nossa proposta às necessidades de cada proprietário.</p>',
+          },
+          {
+            question: 'Placeholder - Pergunta 2 sobre operação?',
+            answer: 'Placeholder - Resposta à pergunta 2 sobre operação.',
+          },
+          {
+            question: 'Placeholder - Pergunta 3 sobre operação?',
+            answer: 'Placeholder - Resposta à pergunta 3 sobre operação.',
+          },
+        ],
+      },
+      {
+        id: 'comercial',
+        label: 'Comercial',
+        questions: [
+          {
+            question: 'Placeholder - Pergunta 1 comercial?',
+            answer: 'Placeholder - Resposta à pergunta 1 comercial.',
+          },
+          {
+            question: 'Placeholder - Pergunta 2 comercial?',
+            answer: 'Placeholder - Resposta à pergunta 2 comercial.',
+          },
+          {
+            question: 'Placeholder - Pergunta 3 comercial?',
+            answer: 'Placeholder - Resposta à pergunta 3 comercial.',
+          },
+        ],
+      },
+      {
+        id: 'tecnologia',
+        label: 'Tecnologia',
+        questions: [
+          {
+            question: 'Placeholder - Pergunta 1 sobre tecnologia?',
+            answer: 'Placeholder - Resposta à pergunta 1 sobre tecnologia.',
+          },
+          {
+            question: 'Placeholder - Pergunta 2 sobre tecnologia?',
+            answer: 'Placeholder - Resposta à pergunta 2 sobre tecnologia.',
+          },
+        ],
+      },
+    ]}
+  />
+
+</Layout>

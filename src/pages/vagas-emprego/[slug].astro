@@ -1,0 +1,926 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { iconMap } from '../../icons/iconMap';
+
+// Export getStaticPaths for static generation
+export async function getStaticPaths() {
+  const apiBase = import.meta.env.WORDPRESS_API_URL;
+
+  try {
+    const res = await fetch(`${apiBase}/job_openings?lang=pt&per_page=100`);
+    if (!res.ok) return [];
+
+    const jobs = await res.json();
+
+    return jobs.map((job: any) => ({
+      params: { slug: job.slug },
+    }));
+  } catch (error) {
+    console.error('Error fetching jobs for paths:', error);
+    return [];
+  }
+}
+
+const { slug } = Astro.params;
+const apiBase = import.meta.env.WORDPRESS_API_URL;
+
+// Fetch the job
+const res = await fetch(`${apiBase}/job_openings?slug=${slug}&lang=pt&_embed`);
+const jobs = await res.json();
+
+if (!jobs || jobs.length === 0) {
+  return Astro.redirect('/vagas-emprego');
+}
+
+const job = jobs[0];
+
+function decodeHtml(str: string) {
+  if (!str) return '';
+  return str
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(code))
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+const title = decodeHtml(job.title.rendered);
+const acf = job.acf || {};
+
+const department = acf.job_department || 'Geral';
+const workModelRaw = acf.job_work_model || 'Presencial';
+const workModels = Array.isArray(workModelRaw) ? workModelRaw : [workModelRaw];
+const location = acf.job_location || 'Portugal';
+const description = acf.job_description || '';
+const requirements = acf.job_requirements || '';
+
+// Work model badge classes
+const workModelClasses: Record<string, string> = {
+  'Remoto': 'badge-remoto',
+  'Híbrido': 'badge-hibrido',
+  'Presencial': 'badge-presencial',
+};
+---
+
+<Layout title={`${title} - Vagas Host Wise`}>
+  <article class="job-page">
+    <!-- Hero Section -->
+    <section class="job-hero">
+      <div class="container">
+        <a href="/vagas-emprego" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Voltar às Vagas
+        </a>
+
+        <div class="job-header">
+          <h1 class="job-title">{title}</h1>
+
+          <div class="job-badges">
+            <span class="badge badge-department">
+              <span class="badge-icon" set:html={iconMap.briefcase} />
+              {department}
+            </span>
+            {workModels.map((model) => (
+              <span class={`badge ${workModelClasses[model] || 'badge-presencial'}`}>
+                {model}
+              </span>
+            ))}
+            <span class="badge badge-location">
+              <span class="badge-icon" set:html={iconMap.location} />
+              {location}
+            </span>
+          </div>
+
+          <a href="#candidatura" class="btn-apply">
+            Candidatar-me
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Description Section -->
+    {description && (
+      <section class="job-description-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Sobre a Função</h2>
+          </div>
+          <div class="prose" set:html={description}></div>
+        </div>
+      </section>
+    )}
+
+    <!-- Requirements Section -->
+    {requirements && (
+      <section class="job-requirements-section">
+        <div class="container">
+          <div class="requirements-card">
+            <div class="section-header">
+              <h2>Requisitos</h2>
+            </div>
+            <div class="requirements-content prose" set:html={requirements}></div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Application Form Section -->
+    <section class="job-application-section" id="candidatura">
+      <div class="container">
+        <div class="application-card">
+          <div class="application-header">
+            <h2>Candidatura</h2>
+            <p>Preenche o formulário abaixo para te candidatares a esta vaga. Entraremos em contacto assim que possível.</p>
+          </div>
+
+          <form
+            class="application-form"
+            action="YOUR_FORM_ENDPOINT"
+            method="POST"
+            enctype="multipart/form-data"
+            id="applicationForm"
+          >
+            <!-- Hidden field for job title -->
+            <input type="hidden" name="vaga" value={title} />
+
+            <!-- Personal Data Section -->
+            <div class="form-section">
+              <h3 class="form-section-title">Dados Pessoais</h3>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="name">Nome Completo <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="nome"
+                    required
+                    placeholder="O teu nome completo"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email <span class="required">*</span></label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="exemplo@email.com"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Telemóvel <span class="required">*</span></label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="telemovel"
+                    required
+                    placeholder="+351 912 345 678"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Professional Data Section -->
+            <div class="form-section">
+              <h3 class="form-section-title">Dados Profissionais</h3>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="linkedin">Link do LinkedIn</label>
+                  <input
+                    type="url"
+                    id="linkedin"
+                    name="linkedin"
+                    placeholder="https://linkedin.com/in/o-teu-perfil"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="experience">Anos de Experiência</label>
+                  <input
+                    type="number"
+                    id="experience"
+                    name="experiencia"
+                    min="0"
+                    max="50"
+                    placeholder="Ex: 5"
+                  />
+                </div>
+
+                <div class="form-group form-group-full">
+                  <label for="salary">Qual o vencimento líquido anual que tem expectativa de auferir?</label>
+                  <input
+                    type="text"
+                    id="salary"
+                    name="expectativa_salarial"
+                    placeholder="Ex: 25.000€ - 30.000€"
+                  />
+                </div>
+
+                <div class="form-group form-group-full">
+                  <label for="questions">Alguma outra questão que nos gostaria de colocar?</label>
+                  <textarea
+                    id="questions"
+                    name="outras_questoes"
+                    rows="4"
+                    placeholder="Escreve aqui qualquer questão ou informação adicional..."
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- CV Upload Section -->
+            <div class="form-section">
+              <h3 class="form-section-title">Curriculum Vitae</h3>
+
+              <div class="form-group">
+                <label for="cv">Upload do CV <span class="required">*</span></label>
+                <div class="file-upload-wrapper">
+                  <input
+                    type="file"
+                    id="cv"
+                    name="cv"
+                    required
+                    accept=".pdf,.doc,.docx"
+                    class="file-input"
+                  />
+                  <div class="file-upload-display">
+                    <div class="file-upload-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15.01l1.41 1.41L11 14.84V19h2v-4.16l1.59 1.59L16 15.01 12.01 11 8 15.01z"/>
+                      </svg>
+                    </div>
+                    <div class="file-upload-text">
+                      <span class="file-name">Clica para selecionar o teu CV</span>
+                      <span class="file-hint">PDF, DOC ou DOCX (máx. 5MB)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-actions">
+              <button type="submit" class="btn-submit">
+                <span class="btn-text">Enviar Candidatura</span>
+                <span class="btn-loading">
+                  <svg class="spinner" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="31.4 31.4" />
+                  </svg>
+                  A enviar...
+                </span>
+                <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </button>
+            </div>
+          </form>
+
+          <!-- Success Message -->
+          <div class="success-message" id="successMessage">
+            <div class="success-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <h3>Candidatura Enviada!</h3>
+            <p>Obrigado pelo teu interesse. Entraremos em contacto assim que possível.</p>
+            <a href="/vagas-emprego" class="btn-back">Ver Outras Vagas</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .job-page {
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Hero Section */
+  .job-hero {
+    padding: 160px 20px 60px;
+    background: linear-gradient(135deg, #F8FCFF 0%, #E5F4FE 100%);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: gap 0.3s;
+  }
+
+  .back-link:hover {
+    gap: 12px;
+  }
+
+  .job-header {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .job-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .job-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 24px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .badge-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .badge-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .badge-department {
+    background: var(--blue-light);
+    color: var(--primary);
+  }
+
+  .badge-location {
+    background: #F5F5F5;
+    color: var(--text);
+  }
+
+  .badge-remoto {
+    background: #E8F5E9;
+    color: #2E7D32;
+  }
+
+  .badge-hibrido {
+    background: #FFF3E0;
+    color: #E65100;
+  }
+
+  .badge-presencial {
+    background: #E3F2FD;
+    color: #1565C0;
+  }
+
+  .btn-apply {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.25);
+    width: fit-content;
+  }
+
+  .btn-apply:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(12, 68, 99, 0.35);
+  }
+
+  /* Description Section */
+  .job-description-section {
+    padding: 80px 20px;
+    background: white;
+  }
+
+  .section-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 24px;
+  }
+
+  .prose {
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 1.05rem;
+  }
+
+  .prose :global(p) {
+    margin-bottom: 16px;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: 20px;
+    padding-left: 24px;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 8px;
+  }
+
+  .prose :global(strong) {
+    color: var(--primary);
+  }
+
+  /* Normalize emoji size - for WordPress emoji images */
+  .prose :global(img.emoji),
+  .prose :global(.emoji) {
+    width: 1.2em;
+    height: 1.2em;
+    display: inline;
+    vertical-align: -0.1em;
+  }
+
+  /* Normalize emoji size - for Unicode emojis in headings */
+  .prose :global(h1),
+  .prose :global(h2),
+  .prose :global(h3),
+  .prose :global(h4) {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 24px;
+    margin-bottom: 12px;
+  }
+
+  /* Requirements Section */
+  .job-requirements-section {
+    padding: 0 20px 80px;
+    background: white;
+  }
+
+  .requirements-card {
+    background: var(--blue-light);
+    border-radius: 20px;
+    padding: 40px;
+    border: 2px solid rgba(92, 176, 214, 0.15);
+  }
+
+  .requirements-content {
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .requirements-content :global(ul),
+  .requirements-content :global(ol) {
+    padding-left: 24px;
+    margin: 0;
+  }
+
+  .requirements-content :global(li) {
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .requirements-content :global(li::marker) {
+    color: #2E7D32;
+  }
+
+  .requirements-content :global(p) {
+    margin-bottom: 16px;
+  }
+
+  .requirements-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* Application Section */
+  .job-application-section {
+    padding: 80px 20px 100px;
+    background: linear-gradient(135deg, #F8FCFF 0%, #fff 100%);
+  }
+
+  .application-card {
+    background: white;
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: 0 8px 32px rgba(12, 68, 99, 0.1);
+    border: 2px solid var(--gray-light);
+  }
+
+  .application-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .application-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .application-header p {
+    font-size: 1.1rem;
+    color: var(--text);
+    opacity: 0.7;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* Form Styles */
+  .application-form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--blue-light);
+    margin: 0;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group-full {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .required {
+    color: #E53935;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid var(--gray-light);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.3s;
+    background: white;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 4px rgba(10, 117, 175, 0.1);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--text);
+    opacity: 0.4;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  /* File Upload */
+  .file-upload-wrapper {
+    position: relative;
+  }
+
+  .file-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .file-upload-display {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    border: 2px dashed var(--gray-light);
+    border-radius: 12px;
+    background: #FAFAFA;
+    transition: all 0.3s;
+  }
+
+  .file-upload-wrapper:hover .file-upload-display,
+  .file-input:focus + .file-upload-display {
+    border-color: var(--secondary);
+    background: var(--blue-light);
+  }
+
+  .file-upload-icon {
+    color: var(--secondary);
+  }
+
+  .file-upload-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .file-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .file-hint {
+    font-size: 0.85rem;
+    color: var(--text);
+    opacity: 0.6;
+  }
+
+  .file-selected .file-name {
+    color: #2E7D32;
+  }
+
+  /* Submit Button */
+  .form-actions {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+  }
+
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 40px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 6px 20px rgba(12, 68, 99, 0.25);
+  }
+
+  .btn-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(12, 68, 99, 0.35);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .btn-loading {
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-submit.loading .btn-text,
+  .btn-submit.loading .btn-icon {
+    display: none;
+  }
+
+  .btn-submit.loading .btn-loading {
+    display: flex;
+  }
+
+  .spinner {
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Success Message */
+  .success-message {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .success-message.show {
+    display: block;
+  }
+
+  .success-message + .application-form {
+    display: none;
+  }
+
+  .success-icon {
+    color: #2E7D32;
+    margin-bottom: 20px;
+  }
+
+  .success-message h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .success-message p {
+    font-size: 1.1rem;
+    color: var(--text);
+    opacity: 0.7;
+    margin-bottom: 28px;
+  }
+
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--blue-light);
+    color: var(--primary);
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-back:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  /* Form hidden when success */
+  .application-card.submitted .application-form {
+    display: none;
+  }
+
+  .application-card.submitted .success-message {
+    display: block;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .job-hero {
+      padding: 140px 20px 50px;
+    }
+
+    .job-title {
+      font-size: 2.25rem;
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .application-card {
+      padding: 32px 24px;
+    }
+
+    .requirements-card {
+      padding: 28px;
+    }
+
+    .btn-apply,
+    .btn-submit {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .job-title {
+      font-size: 1.875rem;
+    }
+
+    .job-badges {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .application-header h2 {
+      font-size: 1.5rem;
+    }
+
+    .file-upload-display {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
+
+<script>
+  // File input display update
+  const fileInput = document.getElementById('cv') as HTMLInputElement;
+  const fileNameDisplay = document.querySelector('.file-name');
+  const fileWrapper = document.querySelector('.file-upload-wrapper');
+
+  fileInput?.addEventListener('change', () => {
+    if (fileInput.files && fileInput.files.length > 0) {
+      const fileName = fileInput.files[0].name;
+      if (fileNameDisplay) {
+        fileNameDisplay.textContent = fileName;
+        fileWrapper?.classList.add('file-selected');
+      }
+    } else {
+      if (fileNameDisplay) {
+        fileNameDisplay.textContent = 'Clica para selecionar o teu CV';
+        fileWrapper?.classList.remove('file-selected');
+      }
+    }
+  });
+
+  // Form submission handling (for demonstration - adjust based on your endpoint)
+  const form = document.getElementById('applicationForm') as HTMLFormElement;
+  const submitBtn = form?.querySelector('.btn-submit');
+  const applicationCard = document.querySelector('.application-card');
+
+  form?.addEventListener('submit', async (e) => {
+    // NOTE: Remove this preventDefault if using a standard form action
+    // This is just for demonstration of the loading state
+
+    submitBtn?.classList.add('loading');
+    (submitBtn as HTMLButtonElement).disabled = true;
+
+    // If using fetch API instead of form action, uncomment below:
+    /*
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        applicationCard?.classList.add('submitted');
+      } else {
+        alert('Ocorreu um erro ao enviar a candidatura. Por favor tenta novamente.');
+        submitBtn?.classList.remove('loading');
+        (submitBtn as HTMLButtonElement).disabled = false;
+      }
+    } catch (error) {
+      alert('Ocorreu um erro ao enviar a candidatura. Por favor tenta novamente.');
+      submitBtn?.classList.remove('loading');
+      (submitBtn as HTMLButtonElement).disabled = false;
+    }
+    */
+  });
+</script>
