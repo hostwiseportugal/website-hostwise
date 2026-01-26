@@ -1,0 +1,221 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSectionV2 from '../../components/HeroSectionV2.astro';
+import IntroSection from '../../components/IntroSection.astro';
+import ServicesAccordionText from '../../components/ServicesAccordionText.astro';
+import PlatformsMarquee from '../../components/PlatformsMarquee.astro';
+import ModelsIntro from '../../components/ModelsIntro.astro';
+import OwnerTestimonials from '../../components/OwnerTestimonials.astro';
+import FAQSection from '../../components/FAQSection.astro';
+---
+
+<Layout title="Gestão de Alojamento Local no Porto - Host Wise">
+  <!-- Hero Section -->
+  <HeroSectionV2
+    badge_text="Gestão de Alojamento Local Porto"
+    badge_icon_key="home"
+    heading="Conhecmos o Porto como Ninguém"
+    description="Placeholder - Descrição do serviço de gestão de alojamento local no Porto. A Host Wise oferece uma solução completa para proprietários que querem maximizar os seus rendimentos."
+    features={[
+      { label: 'Placeholder Feature 1' },
+      { label: 'Placeholder Feature 2' },
+      { label: 'Placeholder Feature 3' },
+    ]}
+    stats={[
+      { label: 'Placeholder Stat 1', value: '100+', icon_key: 'home' },
+      { label: 'Placeholder Stat 2', value: '9+', icon_key: 'calendar' },
+    ]}
+    primary_cta_label="Receber Proposta"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+    secondary_cta_label="Saber Mais"
+    secondary_cta_url="#intro-section"
+    image="/images/property-1.webp"
+  />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="Placeholder - Título da Introdução sobre o Porto"
+    intro_text={`
+      <p>
+        Placeholder - Parágrafo 1 sobre o mercado de alojamento local no Porto. Descrição do contexto, oportunidades e desafios.
+      </p>
+      <p>
+        Placeholder - Parágrafo 2 sobre como a Host Wise pode ajudar proprietários no Porto a maximizar os seus rendimentos.
+      </p>
+      <p>
+        Placeholder - Parágrafo 3 sobre os diferenciais do serviço na região do Porto.
+      </p>
+    `}
+    intro_cta_label="Quero Receber uma Proposta"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+  />
+
+  <!-- Services Accordion Text -->
+  <ServicesAccordionText
+    title="Os Nossos Serviços de Gestão de Alojamento Local no Porto"
+    description="Na Host Wise, cada serviço foi pensado para responder às necessidades reais do mercado portuense. Sabemos que gerir um alojamento local na Foz do Douro não é o mesmo que na Baixa ou em Matosinhos — e é por isso que adaptamos a nossa atuação a cada zona, perfil de imóvel e público-alvo."
+    image="/images/property-2.webp"
+    services={[
+      {
+        title: 'Sistemas de Self Check-in e Check-out',
+        content: '<p>Oferecemos soluções práticas e seguras de self check-in e check-out adaptadas à realidade de cada zona e que facilitam a entrada e saída dos hóspedes sem comprometer a experiência. Isto permite maior flexibilidade, especialmente para chegadas tardias ou reservas de última hora.</p>',
+      },
+      {
+        title: 'Apoio ao Hóspede 24/7',
+        content: '<p>Falamos vários idiomas e conhecemos bem os hábitos dos visitantes que escolhem o Porto. Desde recomendar um restaurante típico nas Fontaínhas até resolver um problema técnico às 23h, estamos sempre prontos para responder e garantir boas avaliações.</p>',
+      },
+      {
+        title: 'Roupa de Cama e Atoalhados',
+        content: '<p>Fornecemos roupa de cama com qualidade superior, lavados e higienizados profissionalmente. Garantimos a reposição adequada entre estadias, respeitando os padrões exigidos pelos hóspedes mais exigentes.</p>',
+      },
+      {
+        title: 'Artigos de Higiene Pessoal',
+        content: '<p>Cada alojamento é cuidadosamente preparado com amenities de qualidade, pensados para proporcionar uma experiência confortável, elegante e sem preocupações desde o primeiro momento.</p>',
+      },
+      {
+        title: 'Apoio na Obtenção de Licença AL',
+        content: '<p>Apoiamos os proprietários em todo o processo de obtenção de licença de alojamento local no Porto. Conhecemos os trâmites das câmaras municipais, as exigências por zona (incluindo áreas de contenção) e ajudamos com toda a documentação necessária.</p>',
+      },
+       {
+        title: 'Criação e Otimização de Anúncios',
+        content: '<p>A nossa equipa cria anúncios otimizados e atrativos nas principais plataformas (Airbnb, Booking, VRBO), com uma linguagem ajustada ao público que visita o Porto. Sabemos destacar um T2 moderno em Cedofeita para nómadas digitais ou um apartamento com vista para o Douro para casais em escapadinhas românticas.</p>',
+      },
+       {
+        title: 'Gestão de Preços Dinâmica',
+        content: '<p>Utilizamos ferramentas de pricing com inteligência artificial e ajustamos os preços diariamente com base na procura local, sazonalidade, eventos e comportamento do mercado. Um imóvel junto ao Coliseu pode triplicar o valor numa noite de concerto, e nós sabemos quando e como ajustar.</p>',
+      },
+       {
+        title: 'Fotografia Profissional',
+        content: '<p>Utilizamos fotógrafos especializados em alojamento local, com experiência na valorização de imóveis em zonas turísticas do Porto. Uma boa imagem pode destacar os detalhes únicos de uma casa típica em Miragaia ou de um loft renovado em Campanhã — e isso faz toda a diferença na taxa de reservas.</p>',
+      },
+       {
+        title: 'Serviços de Limpeza',
+        content: '<p>Contamos com equipas de limpeza internas e externas altamente treinadas, com atuação por zonas para maior eficiência. Cada imóvel recebe um plano de limpeza adaptado ao tipo de utilização e localização — seja uma limpeza express na Boavista ou uma limpeza profunda após estadias prolongadas no Marquês. Utilizamos checklists e controlo de qualidade rigoroso.</p>',
+      },
+       {
+        title: 'Manutenção de Propriedades',
+        content: '<p>Realizamos intervenções preventivas e corretivas com rapidez e eficiência, assegurando o bom estado do imóvel a longo prazo.</p>',
+      },
+
+       {
+        title: 'Gestão de Reclamações e Avaliações',
+        content: '<p>Respondemos a todas as avaliações com profissionalismo e estratégia, defendendo a reputação dos imóveis nas plataformas. Lidamos com reclamações de forma empática e resolutiva, mitigando impactos negativos e transformando experiências menos positivas em oportunidades de melhoria. A nossa experiência no Porto permite-nos compreender rapidamente o que está por trás de cada comentário — e agir de forma eficaz.</p>',
+      },
+    ]}
+    ctaLabel="Receber Proposta Gratuita"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ?"
+  />
+
+  <!-- Platforms Marquee -->
+  <PlatformsMarquee
+    platforms_badge="Presença Multiplataforma"
+    platforms_title="Os Seus Anúncios nas Maiores Plataformas de Reserva"
+    platforms_subtitle="Maximizamos a visibilidade do seu alojamento com presença nas principais plataformas globais de reserva. Gestão sincronizada de calendários, preços e disponibilidade em tempo real."
+    platforms={[
+      { name: 'Airbnb', logo: '/images/platform-logos/airbnb-logo.svg' },
+      { name: 'Booking.com', logo: '/images/platform-logos/booking-com-logo.svg' },
+      { name: 'Vrbo', logo: '/images/platform-logos/vrbo-logo.svg' },
+      { name: 'Expedia', logo: '/images/platform-logos/expedia-logo.svg' },
+      { name: 'Flatio', logo: '/images/platform-logos/flatio-logo.svg' },
+      { name: 'Host Wise', logo: '/images/platform-logos/hostwise-logo.svg' },
+      { name: 'Housing Anywhere', logo: '/images/platform-logos/housing-anywhere-logo.svg' },
+      { name: 'Idealista', logo: '/images/platform-logos/idealista-logo.svg' },
+      { name: 'InLife', logo: '/images/platform-logos/inlife-logo.svg' },
+      { name: 'Marriott Homes & Villas', logo: '/images/platform-logos/marriott-homes-villas-logo.svg' },
+      { name: 'Spotahome', logo: '/images/platform-logos/spotahome-logo.svg' },
+      { name: 'Uniplaces', logo: '/images/platform-logos/uniplaces-logo.svg' },
+    ]}
+  />
+
+  <!-- Models Intro -->
+  <ModelsIntro />
+
+  <!-- Owner Testimonials -->
+  <OwnerTestimonials
+    badgeLabel="Testemunhos"
+    title="Conheça os Nossos Proprietários no Porto"
+    subtitle="Com soluções personalizadas às necessidades dos nossos proprietários, garantimos a melhor experiência para que possa maximizar os seus rendimentos com total tranquilidade. Veja o que os nossos clientes dizem sobre os serviços de gestão de alojamento local no Porto da Host Wise."
+    testimonials={[
+      {
+        name: 'João M.',
+        location: 'Porto',
+        property: 'Proprietário de Alojamento Local no Porto',
+        rating: 5,
+        comment: 'Desde que entreguei a gestão do meu apartamento à Host Wise, a minha experiência como proprietário transformou-se completamente. Optei pela rentabilidade garantida e posso dizer que foi a melhor escolha que fiz. Agora tenho uma renda fixa todos os meses, sem ter de me preocupar com a manutenção ou ocupação do imóvel. A equipa da Host Wise é extremamente profissional e sempre disponível para esclarecer qualquer dúvida. Recomendo vivamente a todos os proprietários no Porto!',
+      },
+      {
+        name: 'Ana R.',
+        location: 'Porto',
+        property: 'Proprietária de Alojamento na Baixa do Porto',
+        rating: 5,
+        comment: 'Escolhi a Host Wise para gerir o meu imóvel por comissão, e estou encantada com os resultados. Eles conseguiram aumentar significativamente a ocupação do apartamento, e o rendimento que estou a obter é muito superior ao que conseguia sozinha. A equipa trata de tudo: comunicação com os hóspedes, limpeza, manutenções... É realmente um serviço completo. Se procuram uma empresa de gestão de alojamento local no Porto, recomendo a Host Wise sem hesitar!',
+      },
+      {
+        name: 'Pedro S.',
+        location: 'Matosinhos',
+        property: 'Investidor Imobiliário',
+        rating: 5,
+        comment: 'Como investidor, é essencial para mim ter uma gestão de alojamento que seja eficiente e confiável, e foi exatamente isso que encontrei com a Host Wise. Já tenho várias propriedades no Porto geridas por eles, tanto no modelo de rentabilidade garantida como por comissão, e os resultados têm sido excelentes. A equipa é proativa, atenta aos detalhes e muito competente na maximização dos rendimentos. Estou 100% satisfeito com o serviço e a tranquilidade que eles me proporcionam.',
+      },
+    ]}
+    ctaTitle="Pronto para Maximizar os Seus Rendimentos no Porto?"
+    ctaSubtitle="Receba uma proposta personalizada para o seu imóvel em 24 horas."
+    ctaLabel="Receber Proposta Gratuita"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ?"
+  />
+
+  <!-- FAQ Section -->
+  <FAQSection
+    title="Perguntas Frequentes"
+    subtitle="Placeholder - Esclareça as suas dúvidas sobre a gestão de alojamento local no Porto."
+    categories={[
+      {
+        id: 'servico',
+        label: 'Sobre o Serviço',
+        questions: [
+          {
+            question: 'Placeholder - Pergunta 1 sobre o serviço no Porto?',
+            answer: 'Placeholder - Resposta à pergunta 1 sobre o serviço.',
+          },
+          {
+            question: 'Placeholder - Pergunta 2 sobre o serviço no Porto?',
+            answer: 'Placeholder - Resposta à pergunta 2 sobre o serviço.',
+          },
+          {
+            question: 'Placeholder - Pergunta 3 sobre o serviço no Porto?',
+            answer: 'Placeholder - Resposta à pergunta 3 sobre o serviço.',
+          },
+        ],
+      },
+      {
+        id: 'precos',
+        label: 'Preços e Pagamentos',
+        questions: [
+          {
+            question: 'Placeholder - Pergunta 1 sobre preços?',
+            answer: 'Placeholder - Resposta à pergunta 1 sobre preços.',
+          },
+          {
+            question: 'Placeholder - Pergunta 2 sobre preços?',
+            answer: 'Placeholder - Resposta à pergunta 2 sobre preços.',
+          },
+        ],
+      },
+      {
+        id: 'operacao',
+        label: 'Operação',
+        questions: [
+          {
+            question: 'Placeholder - Pergunta 1 sobre operação no Porto?',
+            answer: 'Placeholder - Resposta à pergunta 1 sobre operação.',
+          },
+          {
+            question: 'Placeholder - Pergunta 2 sobre operação no Porto?',
+            answer: 'Placeholder - Resposta à pergunta 2 sobre operação.',
+          },
+        ],
+      },
+    ]}
+  />
+
+</Layout>

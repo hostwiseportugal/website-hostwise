@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HeroSectionV2 from '../components/HeroSectionV2.astro';
+import HeroSectionV3 from '../components/HeroSectionV3.astro';
 import IntroSection from '../components/IntroSection.astro';
 import BenefitsGrid from '../components/BenefitsGrid.astro';
 import GuaranteedRentSectionExplained from '../components/GuaranteedRentSectionExplained.astro';
@@ -42,42 +42,39 @@ const benefits = [
     color: "rgba(12, 68, 99, 1)"
   }
 ];
-
-const apiBase = import.meta.env.WORDPRESS_API_URL;
-const PAGE_ID = 190; // id da página rentabilidade garantida
-const res = await fetch(`${apiBase}/pages/${PAGE_ID}?lang=pt&_embed`);
-const page = await res.json();
-const acf = page.acf || {};
-
-const heroStats = (acf.hero_v2_stats || []).map((s: any) => ({
-  label: s.stat_label,
-  value: s.stat_value,
-  icon_key: s.stat_icon_key,
-}));
 ---
 
 <Layout title="Rentabilidade Garantida - Host Wise">
-  <!-- Hero Section V2 - SaaS Style -->
- <HeroSectionV2
-    badge_text={acf.hero_v2_badge_text}
-    badge_icon_key={acf.hero_v2_badge_icon}
-    heading={acf.hero_v2_heading}
-    description={acf.hero_v2_description}
-    features={acf.hero_v2_features}
-    primary_cta_label={acf.hero_v2_primary_cta_label}
-    primary_cta_url={acf.hero_v2_primary_cta_url}
-    secondary_cta_label={acf.hero_v2_secondary_cta_label}
-    secondary_cta_url={acf.hero_v2_secondary_cta_url}
-    image={acf.hero_v2_image}
-    stats={acf.hero_v2_stats}
+  <!-- Hero Section V3 -->
+  <HeroSectionV3
+    badge_text="Rentabilidade Garantida"
+    badge_icon_key="shield"
+    heading="Rendimento Mensal Fixo. Previsibilidade Total."
+    description="Este modelo foi pensado para proprietários que valorizam previsibilidade financeira, estabilidade e tranquilidade total. A Host Wise assume a operação diária do alojamento, o risco de variação de receitas e a gestão operacional, permitindo-lhe planear o seu investimento com confiança e sem incertezas."
+
+    primary_cta_label="Receber Proposta"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+    secondary_cta_label="Saber Mais"
+    secondary_cta_url="#intro-section"
+    image="/images/property-1.webp"
   />
 
   <!-- Intro Section -->
   <IntroSection
-  intro_title={acf.intro_title}
-  intro_text={acf.intro_text}
-  intro_cta_label={acf.intro_cta_label}
-  intro_cta_url={acf.intro_cta_url}
+    intro_title="Lucro Estável — Todos os Meses, Sem Surpresas."
+    intro_text={`
+      <p>
+        Gerir um imóvel pode ser imprevisível — altos e baixos na procura, reservas canceladas à última hora, despesas inesperadas. Com o modelo de rentabilidade garantida da Host Wise, transformamos essa incerteza em estabilidade: asseguramos um valor fixo mensal pelo seu imóvel, independentemente da sazonalidade ou ocupação.
+      </p>
+      <p>
+       Enquanto nós tratamos de tudo — desde a manutenção até à gestão de hóspedes — você recebe o rendimento, mês após mês.
+      </p>
+      <p>
+        Simples. Seguro. E sem dores de cabeça.
+      </p>
+    `}
+    intro_cta_label="Quero Receber uma Proposta"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
   />
 
   <!-- Benefits Grid -->
@@ -90,7 +87,7 @@ const heroStats = (acf.hero_v2_stats || []).map((s: any) => ({
 
   <!-- Guaranteed Rent Explained -->
   <TraditionalRentalComparison />
-  
+
   <!-- Guaranteed Rent Explained -->
   <GuaranteedRentSectionExplained />
 
@@ -98,8 +95,90 @@ const heroStats = (acf.hero_v2_stats || []).map((s: any) => ({
   <ModelsComparison />
 
   <!-- Owner Testimonials -->
-  <OwnerTestimonials />
+  <OwnerTestimonials
+    badgeLabel="Testemunhos"
+    title="Placeholder - O que dizem os Proprietários com Rentabilidade Garantida"
+    subtitle="Placeholder - Subtítulo sobre os testemunhos de proprietários que escolheram o modelo de rentabilidade garantida."
+    testimonials={[
+      {
+        name: 'Placeholder - Nome 1',
+        location: 'Placeholder - Localização 1',
+        property: 'Placeholder - Tipo de Imóvel 1',
+        rating: 5,
+        comment: 'Placeholder - Testemunho do primeiro proprietário sobre a experiência com o modelo de rentabilidade garantida.',
+      },
+      {
+        name: 'Placeholder - Nome 2',
+        location: 'Placeholder - Localização 2',
+        property: 'Placeholder - Tipo de Imóvel 2',
+        rating: 5,
+        comment: 'Placeholder - Testemunho do segundo proprietário sobre a experiência com o modelo de rentabilidade garantida.',
+      },
+      {
+        name: 'Placeholder - Nome 3',
+        location: 'Placeholder - Localização 3',
+        property: 'Placeholder - Tipo de Imóvel 3',
+        rating: 5,
+        comment: 'Placeholder - Testemunho do terceiro proprietário sobre a experiência com o modelo de rentabilidade garantida.',
+      },
+    ]}
+    ctaTitle="Placeholder - CTA Título"
+    ctaSubtitle="Placeholder - CTA Subtítulo"
+    ctaLabel="Receber Proposta Gratuita"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ?"
+  />
 
   <!-- FAQ Section -->
-  <FAQSection />
+  <FAQSection
+    title="Perguntas Frequentes"
+    subtitle="Placeholder - Esclareça as suas dúvidas sobre o modelo de rentabilidade garantida."
+    categories={[
+      {
+        id: 'modelo',
+        label: 'Sobre o Modelo',
+        questions: [
+          {
+            question: 'Placeholder - Como funciona o modelo de rentabilidade garantida?',
+            answer: 'Placeholder - Resposta sobre como funciona o modelo de rentabilidade garantida.',
+          },
+          {
+            question: 'Placeholder - Qual é o valor da renda garantida?',
+            answer: 'Placeholder - Resposta sobre o valor da renda garantida.',
+          },
+          {
+            question: 'Placeholder - Qual é a duração do contrato?',
+            answer: 'Placeholder - Resposta sobre a duração do contrato.',
+          },
+        ],
+      },
+      {
+        id: 'beneficios',
+        label: 'Benefícios',
+        questions: [
+          {
+            question: 'Placeholder - Quais são os benefícios deste modelo?',
+            answer: 'Placeholder - Resposta sobre os benefícios do modelo.',
+          },
+          {
+            question: 'Placeholder - A manutenção está incluída?',
+            answer: 'Placeholder - Resposta sobre a manutenção incluída.',
+          },
+        ],
+      },
+      {
+        id: 'requisitos',
+        label: 'Requisitos',
+        questions: [
+          {
+            question: 'Placeholder - Quais são os requisitos para aderir?',
+            answer: 'Placeholder - Resposta sobre os requisitos para aderir ao modelo.',
+          },
+          {
+            question: 'Placeholder - O meu imóvel é elegível?',
+            answer: 'Placeholder - Resposta sobre elegibilidade do imóvel.',
+          },
+        ],
+      },
+    ]}
+  />
 </Layout>

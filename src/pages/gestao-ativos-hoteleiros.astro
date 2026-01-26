@@ -1,8 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HeroSectionV2 from '../components/HeroSectionV2.astro';
+import HeroSectionV3 from '../components/HeroSectionV3.astro';
+import IntroOQueE from '../components/IntroOQueE.astro';
 import IntroSection from '../components/IntroSection.astro';
-import TargetAudience from '../components/TargetAudience.astro';
+import TargetAudienceV2 from '../components/TargetAudienceV2.astro';
 import ServicesAccordion from '../components/ServicesAccordion.astro';
 import HowWeOperate from '../components/HowWeOperate.astro';
 import CaseStudy from '../components/CaseStudy.astro';
@@ -10,13 +11,13 @@ import ModelsIntro from '../components/ModelsIntro.astro';
 import FAQSection from '../components/FAQSection.astro';
 ---
 
-<Layout title="Gestão de Hotéis, Boutique Hotels e Aparthotéis - Host Wise">
+<Layout title="Gestão de Ativos Hoteleiros - Host Wise">
   <!-- Hero Section -->
-  <HeroSectionV2
-    badge_text="Gestão de Hotéis, Boutique Hotels e Aparthotéis"
+  <HeroSectionV3
+    badge_text="Gestão de Ativos Hoteleiros"
     badge_icon_key="hotel"
-    heading="Gestão hoteleira focada em rentabilidade, eficiência e controlo operacional"
-    description="Apoiamos hotéis, boutique hotéis e aparthotéis com uma gestão profissional, flexível e tecnológica, focada em maximizar resultados, otimizar operações e valorizar o ativo no longo prazo."
+    heading="Otimização de Performance e Valorização para Ativos Hoteleiros"
+    description="Gerimos hotéis, boutique hotéis e hostels com uma abordagem moderna, orientada por dados, focada em eficiência operacional, rentabilidade e valorização do ativo."
     features={[
       { label: 'Gestão Operacional' },
       { label: 'Revenue Management' },
@@ -27,137 +28,105 @@ import FAQSection from '../components/FAQSection.astro';
       { label: 'Propriedades', value: '625+', icon_key: 'home' },
     ]}
     primary_cta_label="Receber Proposta"
-    primary_cta_url="#contacto"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
     secondary_cta_label="Saber Mais"
     secondary_cta_url="#intro-section"
-    image="/images/property-1.webp"
+    image="/images/quarto-alojamento-rua-fabrica-porto.webp"
+  />
+
+  <!-- Intro O Que É -->
+  <IntroOQueE
+    title="O que é a Gestão de Ativos Hoteleiros?"
+    description="A gestão de ativos hoteleiros destina-se a unidades com operação hoteleira estruturada, que exigem controlo operacional, estratégia de revenue e execução consistente."
+    subtitle="Este serviço aplica-se a:"
+    serviceTypes={[
+      { title: 'Hotéis Independentes', image: '/images/quarto-alojamento-paredes.webp' },
+      { title: 'Boutique Hotéis', image: '/images/quarto-alojamento-paredes-2.webp' },
+      { title: 'Hostels', image: '/images/quarto-porto-lounge-hostel.webp' },
+      { title: 'Guesthouses', image: '/images/guesthouse-ladeira-exterior-piscina.webp' },
+      { title: 'Projetos Hoteleiros em Reposicionamento', image: '/images/burro-ville-backyard-view-pool.webp' },
+    ]}
   />
 
   <!-- Intro Section -->
   <IntroSection
-    intro_title="Placeholder - Título da Intro Section"
+    intro_title="Uma nova Exigência na Gestão Hoteleira Independente"
     intro_text={`
       <p>
-        Placeholder - Descrição da intro section. Este texto será substituído pelo conteúdo final.
+        O mercado hoteleiro tem vindo a tornar-se progressivamente mais competitivo, pressionado por custos operacionais, dependência de intermediários e mudanças no comportamento do hóspede. Hotéis independentes, boutique hotéis e hostels enfrentam hoje desafios que exigem uma gestão mais analítica, ágil e orientada por dados.
       </p>
       <p>
-        Placeholder - Segunda parte da descrição com mais detalhes sobre o serviço de gestão hoteleira.
+        A gestão de ativos hoteleiros vai além da operação diária. Envolve decisões estratégicas sobre pricing, distribuição, estrutura de custos, posicionamento de mercado e valorização do ativo ao longo do tempo.
+      </p>
+      <p>
+        É neste contexto que a Host Wise atua como parceiro de gestão, combinando experiência operacional, tecnologia e foco em performance.
       </p>
     `}
     intro_cta_label="Quero Receber uma Proposta"
-    intro_cta_url="#contacto"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
   />
 
   <!-- Target Audience -->
-  <TargetAudience
-    title="Para quem é este serviço"
-    targets={[
-      { text: 'Investidores e fundos com ativos hoteleiros' },
-      { text: 'Proprietários de hotéis, boutique hotéis e aparthotéis' },
-      { text: 'Operadores que procuram otimizar resultados e processos' },
-      { text: 'Projetos hoteleiros em fase de reposicionamento' },
-      { text: 'Ativos híbridos (hotelaria + short stay / média duração)' },
+  <TargetAudienceV2
+    title="Para quem é este serviço?"
+    developedForTitle="Este serviço foi desenvolvido para:"
+    developedFor={[
+      { text: 'Proprietários de hotéis e hostels' },
+      { text: 'Investidores em hotelaria' },
+      { text: 'Operadores independentes' },
+      { text: 'Fundos com ativos hoteleiros em carteira' },
     ]}
-    conclusion="Se procura um parceiro que combine gestão operacional, estratégia de revenue e execução ágil, este serviço é para si."
+    idealForTitle="É indicado para quem procura:"
+    idealFor={[
+      { text: 'Melhor performance operacional' },
+      { text: 'Controlo de custos e receitas' },
+      { text: 'Estratégia de pricing profissional' },
+      { text: 'Valorização do ativo no médio e longo prazo' },
+    ]}
   />
 
   <!-- Services Accordion -->
   <ServicesAccordion
     title="O que fazemos"
     description="A Host Wise atua como parceiro de gestão hoteleira, adaptando-se à realidade e maturidade de cada operação."
-    image="/images/property-1.webp"
+    image="/images/quarto-alojamento-rua-fabrica-porto-2.webp"
     services={[
       {
-        title: 'Gestão operacional day-to-day',
+        title: 'Gestão Operacional Day-to-Day',
         items: [
-          { text: 'Coordenação integral da operação diária' },
-          { text: 'Gestão de check-ins e check-outs' },
-          { text: 'Definição de processos operacionais eficientes' },
-          { text: 'Foco na experiência do hóspede e na consistência do serviço' },
+          { text: 'Coordenação da operação diária' },
+          { text: 'Definição e otimização de processos' },
+          { text: 'Foco na consistência da experiência do hóspede' },
         ],
       },
       {
-        title: 'Revenue management e pricing dinâmico',
+        title: 'Revenue Management e Pricing',
         items: [
-          { text: 'Estratégia de preços baseada em dados reais' },
-          { text: 'Ajuste contínuo à procura, sazonalidade e eventos' },
-          { text: 'Otimização da ocupação e da receita por unidade' },
-          { text: 'Integração de estadias de média duração como complemento estratégico' },
+          { text: 'Estratégias de pricing dinâmico' },
+          { text: 'Otimização de ocupação e RevPAR' },
+          { text: 'Análise contínua de performance' },
         ],
       },
       {
         title: 'Distribuição e canais de venda',
         items: [
-          { text: 'Gestão e otimização de OTAs' },
-          { text: 'Estratégia de distribuição alinhada com os objetivos do ativo' },
-          { text: 'Redução de dependência excessiva de intermediários' },
-          { text: 'Maximização da receita líquida' },
+          { text: 'Gestão de OTAs e canais diretos' },
+          { text: 'Redução de dependência de intermediários' },
+          { text: 'Estratégia alinhada com o posicionamento do hotel' },
         ],
       },
       {
         title: 'Gestão de equipas',
         items: [
-          { text: 'Coordenação de equipas operacionais' },
-          { text: 'Definição de rotinas e standards' },
-          { text: 'Otimização de recursos humanos e custos operacionais' },
+          { text: 'Coordenação e otimização de equipas' },
+          { text: 'Definição de standards operacionais' },
         ],
       },
       {
-        title: 'Manutenção e conservação do ativo',
+        title: 'Manutenção e preservação do ativo',
         items: [
-          { text: 'Manutenção preventiva e corretiva' },
-          { text: 'Acompanhamento contínuo do estado do imóvel' },
-          { text: 'Preservação e valorização do ativo ao longo do tempo' },
-        ],
-      },
-    ]}
-  />
-
-  <!-- How We Operate -->
-  <HowWeOperate
-    title="Como operamos"
-    subtitle="A nossa abordagem assenta em quatro princípios fundamentais:"
-    steps={[
-      {
-        number: '01',
-        title: 'Análise estratégica do ativo',
-        image: '/images/property-1.webp',
-        items: [
-          { text: 'Tipo de unidade e posicionamento' },
-          { text: 'Localização e mercado' },
-          { text: 'Perfil do hóspede' },
-          { text: 'Objetivos financeiros do proprietário' },
-        ],
-      },
-      {
-        number: '02',
-        title: 'Flexibilidade operacional',
-        image: '/images/property-2.webp',
-        items: [
-          { text: 'Modelos de gestão adaptados a cada realidade' },
-          { text: 'Capacidade de integrar equipas existentes ou assumir a gestão total' },
-          { text: 'Estrutura leve, sem burocracia excessiva' },
-        ],
-      },
-      {
-        number: '03',
-        title: 'Tecnologia e AI in-house',
-        image: '/images/property-3.webp',
-        items: [
-          { text: 'Sistemas próprios e soluções de inteligência artificial desenvolvidas internamente' },
-          { text: 'Automação de processos operacionais' },
-          { text: 'Suporte ao cliente 24/7 com apoio de AI' },
-          { text: 'Decisões orientadas por dados e performance' },
-        ],
-      },
-      {
-        number: '04',
-        title: 'Execução focada em resultados',
-        image: '/images/property-1.webp',
-        items: [
-          { text: 'Menos camadas de decisão' },
-          { text: 'Maior velocidade de execução' },
-          { text: 'Foco constante na rentabilidade e eficiência' },
+          { text: 'Manutenção preventiva' },
+          { text: 'Preservação do imóvel e infraestruturas' },
         ],
       },
     ]}
@@ -166,20 +135,20 @@ import FAQSection from '../components/FAQSection.astro';
   <!-- Case Study -->
   <CaseStudy
     title="Caso de Estudo"
-    description="Placeholder - Descrição do caso de estudo para hotéis."
-    propertyName="Hotel Placeholder"
-    propertyLocation="Porto, Portugal"
+    description="Conheça os resultados de um dos edifícios que gerimos. Números reais que demonstram o impacto da nossa abordagem integrada na rentabilidade e eficiência operacional."
+    propertyName="Burro Ville"
+    propertyLocation="Portimão"
     stats={[
-      { label: 'Quartos', value: '48' },
+      { label: 'Casas', value: '7' },
       { label: 'Receita Anual', value: '€720K' },
       { label: 'Preço Médio', value: '€95' },
       { label: 'Ocupação', value: '82%' },
       { label: 'Rentabilidade', value: '14.2%' },
     ]}
     images={[
-      '/images/property-1.webp',
-      '/images/property-2.webp',
-      '/images/property-3.webp',
+      '/images/burro-ville-aerial-view.webp',
+      '/images/burro-ville-house-backyard-area.webp',
+      '/images/burro-ville-outside-view-with-pool.webp',
     ]}
   />
 
@@ -187,6 +156,79 @@ import FAQSection from '../components/FAQSection.astro';
   <ModelsIntro />
 
   <!-- FAQ Section -->
-  <FAQSection />
+  <FAQSection
+    title="Perguntas Frequentes"
+    subtitle="Esclareça as suas dúvidas sobre a gestão de empreendimentos turísticos."
+    categories={[
+      {
+        id: 'servico',
+        label: 'Sobre o Serviço',
+        questions: [
+          {
+            question: 'O que é a gestão de ativos hoteleiros da Host Wise?',
+            answer: 'É um serviço de gestão profissional end-to-end para ativos hoteleiros, incluindo hotéis, boutique hotéis, hostels, aparthotéis e portfólios multi-unidade. A Host Wise assume a gestão operacional, estratégica e financeira do ativo, com foco em performance, rentabilidade e valorização no médio e longo prazo.',
+          },
+          {
+            question: 'Que tipos de unidades hoteleiras a Host Wise gere?',
+            answer: 'Gerimos hotéis independentes, boutique hotéis, hostels, aparthotéis e ativos híbridos. Trabalhamos tanto com unidades únicas como com portfólios hoteleiros, adaptando o modelo de gestão à tipologia, escala e posicionamento do ativo.',
+          },
+          {
+            question: 'A Host Wise trabalha apenas com hotéis já em operação?',
+            answer: 'Não. Trabalhamos com ativos já em funcionamento e também com projetos em fase de desenvolvimento, reposicionamento, rebranding ou preparação para abertura.',
+          },
+        ],
+      },
+      {
+        id: 'modelo-financeiro-risco',
+        label: 'Modelo Financeiro e Risco',
+        questions: [
+          {
+            question: 'Quanto custa o serviço da Host Wise?',
+            answer: '<p> O custo do serviço da Host Wise varia dependendo do modelo de gestão escolhido (rentabilidade garantida ou comissão), da localização e das especificidades do imóvel.</p><br> <p>Oferecemos um modelo transparente e sem custos escondidos, adaptando a nossa proposta às necessidades de cada proprietário.</p>',
+          },
+          {
+            question: 'A Host Wise assume risco operacional na gestão hoteleira?',
+            answer: 'Dependendo do modelo contratado, a Host Wise pode assumir parte ou a totalidade do risco operacional, incluindo risco de ocupação, controlo de custos e gestão diária da operação.',
+          },
+          {
+            question: 'Como é feita a gestão de custos e despesas operacionais?',
+            answer: 'A gestão de custos é feita de forma centralizada, transparente e orientada a eficiência operacional. Todos os custos são monitorizados e reportados regularmente, com foco na otimização do NOI.',
+          },
+        ],
+      },
+      {
+        id: 'operacao-tecnologia-performance',
+        label: 'Operação, Tecnologia e Performance',
+        questions: [
+          {
+            question: 'Como é definida a estratégia de pricing e revenue management?',
+            answer: 'A estratégia de revenue é baseada em dados, análise de mercado e segmentação da procura. Utilizamos pricing dinâmico e gestão ativa de canais para maximizar ocupação, ADR e receita global ao longo do ano.',
+          },
+          {
+            question: 'A Host Wise utiliza tecnologia própria na gestão hoteleira?',
+            answer: 'Sim. Utilizamos tecnologia e soluções de automação desenvolvidas internamente para otimizar processos, apoiar decisões estratégicas e melhorar eficiência operacional, complementadas por ferramentas líderes de mercado.',
+          },
+          {
+            question: 'Como é garantida a qualidade da operação e do serviço ao hóspede?',
+            answer: 'A operação segue padrões de rigor hoteleiro, com equipas especializadas, procedimentos definidos, manutenção preventiva e suporte ao hóspede 24/7. A experiência do hóspede é tratada como um fator crítico para reputação, ocupação e rentabilidade.',
+          },
+        ],
+      },
+      {
+        id: 'licenciamento',
+        label: 'Licenciamento',
+        questions: [
+          {
+            question: 'A Host Wise assegura o cumprimento legal e regulatório do ativo hoteleiro?',
+            answer: 'Sim. Acompanhamos o enquadramento legal e regulatório aplicável à atividade hoteleira, garantindo que a operação está em conformidade com a legislação em vigor.',
+          },
+          {
+            question: 'A Host Wise acompanha processos de licenciamento e reclassificação hoteleira?',
+            answer: 'Sim. Prestamos apoio em processos de licenciamento, reclassificação e enquadramento turístico, em articulação com as entidades competentes sempre que necessário.',
+          },
+        ],
+      },
+    ]}
+  />
 
 </Layout>

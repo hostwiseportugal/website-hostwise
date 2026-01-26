@@ -1,0 +1,589 @@
+---
+import { iconMap } from '../icons/iconMap';
+
+interface WPImage {
+  url?: string;
+  alt?: string;
+  source_url?: string;
+}
+
+// Normalizado para uso interno
+interface HeroFeature {
+  label: string;
+}
+
+interface HeroStat {
+  label: string;
+  value: string;
+  icon_key?: string;
+}
+
+interface HeroSectionV2Props {
+  badge_text?: string;
+  badge_icon_key?: string;
+  heading?: string;
+  description?: string;
+
+  // Estes vêm diretamente do ACF (raw)
+  features?: any[]; // ex: [{ feature_label: '...' }]
+  stats?: any[];    // ex: [{ stat_label, stat_value, stat_icon_key }]
+
+  primary_cta_label?: string;
+  primary_cta_url?: string;
+  secondary_cta_label?: string;
+  secondary_cta_url?: string;
+  image?: WPImage | string;
+}
+
+// helper imagem com fallback
+function normalizeImage(
+  img: WPImage | string | undefined,
+  fallbackUrl: string,
+  fallbackAlt: string
+) {
+  if (!img) return { url: fallbackUrl, alt: fallbackAlt };
+
+  if (typeof img === 'string') {
+    return { url: img || fallbackUrl, alt: fallbackAlt };
+  }
+
+  return {
+    url: img.url || img.source_url || fallbackUrl,
+    alt: img.alt || fallbackAlt,
+  };
+}
+
+// helper icons
+function getIcon(key: string | undefined, fallbackKey: keyof typeof iconMap) {
+  if (key && key in iconMap) {
+    return iconMap[key as keyof typeof iconMap];
+  }
+  return iconMap[fallbackKey];
+}
+
+const {
+  badge_text = 'Rentabilidade Garantida',
+  badge_icon_key,
+  heading = 'Receba uma Renda Fixa Todos os Meses, Sem Surpresas',
+  description = `Esqueça a incerteza do alojamento local. Com o modelo de Rentabilidade Garantida,
+recebe o mesmo valor todos os meses, independentemente da ocupação. Segurança financeira
+para planear o seu futuro com tranquilidade.`,
+  features: featuresRaw = [],
+  stats: statsRaw = [],
+  primary_cta_label = 'Receber Proposta Gratuita',
+  primary_cta_url = '#contacto',
+  secondary_cta_label = 'Saber Mais',
+  secondary_cta_url = '#beneficios',
+  image,
+} = Astro.props as HeroSectionV2Props;
+
+
+
+const heroImage = normalizeImage(
+  image,
+  '/images/property-1.webp',
+  'Propriedade em Alojamento Local'
+);
+
+const badgeIcon = getIcon(badge_icon_key, 'shield');
+---
+
+<section class="hero-v2">
+  <div class="hero-v2-container">
+    <div class="hero-v2-content">
+      <!-- Badge -->
+      <h1 class="hero-v2-badge">
+        <div class="badge-icon" set:html={badgeIcon} />
+        {badge_text}
+      </h1>
+
+      <!-- Heading -->
+      <h2 class="hero-v2-heading">
+        {heading}
+      </h2>
+
+      <!-- Description -->
+      <p class="hero-v2-description">
+        {description}
+      </p>
+
+
+
+      <!-- CTAs -->
+      <div class="hero-v2-cta-group">
+        {primary_cta_label && (
+          <a href={primary_cta_url} class="btn-v2-primary">
+            {primary_cta_label}
+            <div class="btn-icon" set:html={iconMap.arrowRight} />
+          </a>
+        )}
+
+        {secondary_cta_label && (
+          <a href={secondary_cta_url} class="btn-v2-secondary">
+            {secondary_cta_label}
+            <div class="btn-icon" set:html={iconMap.arrowDown} />
+          </a>
+        )}
+      </div>
+    </div>
+
+    <!-- Featured Image -->
+    <div class="hero-v2-visual">
+      <div class="hero-v2-image-wrapper">
+        <img
+          src={heroImage.url}
+          alt={heroImage.alt}
+          class="hero-v2-image"
+          loading="lazy"
+        />
+
+        <div class="hero-v2-gradient"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<style>
+  .hero-v2 {
+    padding: 130px 20px 80px;
+    background: linear-gradient(180deg, #F8FCFF 0%, #fff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background decoration */
+  .hero-v2::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1200px;
+    height: 1200px;
+    background: radial-gradient(circle, rgba(92, 176, 214, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-v2-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Content - Centered */
+  .hero-v2-content {
+    text-align: center;
+    margin-bottom: 80px;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Badge */
+  .hero-v2-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(92, 176, 214, 0.15) 0%, rgba(92, 176, 214, 0.08) 100%);
+    color: var(--secondary);
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+    border: 1px solid rgba(92, 176, 214, 0.2);
+    animation: fadeInDown 0.8s ease-out 0.2s backwards;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-v2-badge .badge-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-v2-badge .badge-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Heading */
+  .hero-v2-heading {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.15;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 0.8s ease-out 0.3s backwards;
+  }
+
+  /* Description */
+  .hero-v2-description {
+    font-size: 1.3rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 0.8s ease-out 0.4s backwards;
+  }
+
+  /* Features */
+  .hero-v2-features {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.5s backwards;
+  }
+
+  .hero-v2-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .feature-v2-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--secondary) 0%, rgba(92, 176, 214, 1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+    padding: 9px;
+  }
+
+  .feature-v2-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hero-v2-feature span {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  /* CTA Group */
+  .hero-v2-cta-group {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.6s backwards;
+  }
+
+  .btn-v2-primary,
+  .btn-v2-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-v2-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.25);
+  }
+
+  .btn-v2-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(12, 68, 99, 0.35);
+  }
+
+  .btn-v2-secondary {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(12, 68, 99, 0.1);
+  }
+
+  .btn-v2-secondary:hover {
+    background: var(--blue-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.15);
+  }
+
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+  }
+
+  .btn-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Visual Section */
+  .hero-v2-visual {
+    max-width: 1000px;
+    margin: 0 auto;
+    animation: fadeInScale 1s ease-out 0.7s backwards;
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .hero-v2-image-wrapper {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(12, 68, 99, 0.2);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hero-v2-image-wrapper:hover {
+    transform: translateY(-8px);
+  }
+
+  .hero-v2-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 16/10;
+  }
+
+  .hero-v2-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(12, 68, 99, 0.4) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Stats Cards */
+  .hero-v2-stats {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+    max-width: 1000px;
+  }
+
+  .stat-v2-card {
+    flex: 1;
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    box-shadow: 0 8px 32px rgba(12, 68, 99, 0.12);
+    border: 2px solid var(--gray-light);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+
+  .stat-v2-left {
+    animation-delay: 0.9s;
+  }
+
+  .stat-v2-right {
+    animation-delay: 1s;
+  }
+
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .stat-v2-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(12, 68, 99, 0.25);
+  }
+
+  .stat-v2-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+    padding: 10px;
+  }
+
+  .stat-v2-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .stat-v2-content {
+    flex: 1;
+  }
+
+  .stat-v2-label {
+    font-size: 0.85rem;
+    color: var(--text);
+    opacity: 0.7;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .stat-v2-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero-v2 {
+      padding: 160px 20px 100px;
+    }
+
+    .hero-v2-heading {
+      font-size: 3rem;
+    }
+
+    .hero-v2-description {
+      font-size: 1.15rem;
+    }
+
+    .hero-v2-content {
+      margin-bottom: 60px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-v2 {
+      padding: 140px 20px 80px;
+    }
+
+    .hero-v2-heading {
+      font-size: 2.5rem;
+    }
+
+    .hero-v2-description {
+      font-size: 1.1rem;
+    }
+
+    .hero-v2-features {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-v2-cta-group {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .btn-v2-primary,
+    .btn-v2-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .hero-v2-stats {
+      flex-direction: column;
+    }
+
+    .stat-v2-card {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-v2 {
+      padding: 120px 20px 60px;
+    }
+
+    .hero-v2-heading {
+      font-size: 2rem;
+    }
+
+    .hero-v2-description {
+      font-size: 1rem;
+    }
+
+    .hero-v2-badge {
+      font-size: 0.85rem;
+      padding: 8px 20px;
+    }
+
+    .hero-v2-feature span {
+      font-size: 0.95rem;
+    }
+
+    .feature-v2-icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    .stat-v2-card {
+      padding: 20px;
+    }
+
+    .stat-v2-icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .stat-v2-value {
+      font-size: 1.2rem;
+    }
+  }
+</style>

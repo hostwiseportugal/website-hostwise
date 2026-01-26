@@ -1,13 +1,7 @@
 ---
-import { iconMap } from '../icons/iconMap';
-
-interface SubService {
-  text: string;
-}
-
 interface Service {
   title: string;
-  items: SubService[];
+  content: string; // HTML text content instead of bullet points
 }
 
 interface Props {
@@ -21,56 +15,28 @@ interface Props {
 
 const {
   title = 'O que fazemos',
-  description = 'Na gestão de prédios inteiros e serviced apartments, a Host Wise assume uma abordagem end-to-end, adaptável à realidade de cada projeto.',
-  image = '/images/quarto-apartamento-predio-rua-fabrica-3.webp',
+  description = 'Placeholder - Descrição da secção de serviços.',
+  image = '/images/property-1.webp',
   ctaLabel = 'Receber uma proposta',
-  ctaUrl = 'https://hostwise.typeform.com/to/pWgP4EuZ?',
+  ctaUrl = '#contacto',
   services = [
     {
-      title: 'Operação Integral do Edifício',
-      items: [
-        { text: 'Gestão centralizada do ativo, total ou parcial' },
-        { text: 'Definição de processos operacionais eficientes' },
-        { text: 'Coordenação de check-ins e check-outs, com forte aposta em self check-in' },
-        { text: 'Presença física sempre que o modelo operacional o justifique' },
-      ],
+      title: 'Placeholder - Serviço 1',
+      content: '<p>Placeholder - Descrição detalhada do serviço 1. Este texto pode conter múltiplos parágrafos e formatação HTML.</p>',
     },
     {
-      title: 'Revenue Management e Pricing Dinâmico',
-      items: [
-        { text: 'Estratégias de preços baseadas em dados' },
-        { text: 'Ajuste contínuo à procura, sazonalidade e eventos' },
-        { text: 'Integração de estadias de média duração para mitigar períodos de menor procura' },
-      ],
+      title: 'Placeholder - Serviço 2',
+      content: '<p>Placeholder - Descrição detalhada do serviço 2. Este texto pode conter múltiplos parágrafos e formatação HTML.</p>',
     },
     {
-      title: 'Distribuição e Canais de Venda',
-      items: [
-        { text: 'Gestão e otimização de OTAs' },
-        { text: 'Estratégia de distribuição equilibrada' },
-        { text: 'Maximização da ocupação e da receita líquida' },
-      ],
-    },
-    {
-      title: 'Licenciamento e Conformidade',
-      items: [
-        { text: 'Apoio em processos de licenciamento' },
-        { text: 'Acompanhamento da conformidade legal e operacional' },
-      ],
-    },
-    {
-      title: 'Manutenção e Conservação do Ativo',
-      items: [
-        { text: 'Manutenção preventiva e corretiva' },
-        { text: 'Preservação do edifício e dos equipamentos' },
-        { text: 'Gestão do ativo com visão de longo prazo' },
-      ],
+      title: 'Placeholder - Serviço 3',
+      content: '<p>Placeholder - Descrição detalhada do serviço 3. Este texto pode conter múltiplos parágrafos e formatação HTML.</p>',
     },
   ],
 } = Astro.props;
 ---
 
-<section class="services-accordion-section">
+<section class="services-accordion-text-section">
   <div class="container">
     {image && (
       <div class="section-image">
@@ -98,14 +64,7 @@ const {
             </div>
           </button>
           <div class="accordion-content">
-            <ul class="service-items">
-              {service.items.map((item) => (
-                <li>
-                  <span class="item-icon" set:html={iconMap.check} />
-                  <span>{item.text}</span>
-                </li>
-              ))}
-            </ul>
+            <div class="service-text" set:html={service.content} />
           </div>
         </div>
       ))}
@@ -118,7 +77,7 @@ const {
 </section>
 
 <style>
-  .services-accordion-section {
+  .services-accordion-text-section {
     padding: 100px 20px;
     background: linear-gradient(180deg, white 0%, var(--blue-light) 50%, white 100%);
   }
@@ -275,45 +234,34 @@ const {
   }
 
   .accordion-item.active .accordion-content {
-    max-height: 500px;
+    max-height: 800px;
   }
 
-  .service-items {
-    list-style: none;
+  .service-text {
     padding: 0 28px 28px;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
     border-top: 1px solid var(--gray-light);
     padding-top: 20px;
   }
 
-  .service-items li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
+  .service-text :global(p) {
     font-size: 1.05rem;
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.7;
+    margin: 0 0 16px 0;
   }
 
-  .item-icon {
-    width: 22px;
-    height: 22px;
-    color: #2E7D32;
-    flex-shrink: 0;
-    margin-top: 2px;
+  .service-text :global(p:last-child) {
+    margin-bottom: 0;
   }
 
-  .item-icon :global(svg) {
-    width: 100%;
-    height: 100%;
+  .service-text :global(strong) {
+    color: var(--primary);
+    font-weight: 600;
   }
 
   /* Responsive */
   @media (max-width: 768px) {
-    .services-accordion-section {
+    .services-accordion-text-section {
       padding: 80px 20px;
     }
 
@@ -339,11 +287,11 @@ const {
       font-size: 1.05rem;
     }
 
-    .service-items {
+    .service-text {
       padding: 0 20px 20px;
     }
 
-    .service-items li {
+    .service-text :global(p) {
       font-size: 0.95rem;
     }
 
@@ -366,7 +314,7 @@ const {
 </style>
 
 <script>
-  const accordionItems = document.querySelectorAll('.accordion-item');
+  const accordionItems = document.querySelectorAll('.services-accordion-text-section .accordion-item');
 
   accordionItems.forEach((item) => {
     const trigger = item.querySelector('.accordion-trigger');
@@ -374,7 +322,7 @@ const {
     trigger?.addEventListener('click', () => {
       const isActive = item.classList.contains('active');
 
-      // Close all items
+      // Close all items in this section
       accordionItems.forEach((otherItem) => {
         otherItem.classList.remove('active');
         const otherTrigger = otherItem.querySelector('.accordion-trigger');

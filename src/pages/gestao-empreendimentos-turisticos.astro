@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HeroSectionV2 from '../components/HeroSectionV2.astro';
+import HeroSectionV3 from '../components/HeroSectionV3.astro';
 import IntroOQueE from '../components/IntroOQueE.astro';
 import IntroSection from '../components/IntroSection.astro';
 import TargetAudienceV2 from '../components/TargetAudienceV2.astro';
@@ -14,14 +14,13 @@ import FAQSection from '../components/FAQSection.astro';
 
 <Layout title="Gestão de Prédios Inteiros e Serviced Apartments - Host Wise">
   <!-- Hero Section -->
-  <HeroSectionV2
+  <HeroSectionV3
     badge_text="Gestão de Empreendimentos Turísticos"
     badge_icon_key="building"
     heading="Transforme o seu Edifício num Ativo Turístico de Alta Performance"
     description="A Host Wise gere empreendimentos turísticos e edifícios inteiros destinados à exploração turística, combinando operação profissional, tecnologia e estratégia de rentabilidade para maximizar resultados e valor do ativo no longo prazo."
     features={[
-      { label: 'Gestão End-to-End' },
-      { label: 'Tecnologia e AI Própria' },
+      { label: 'Gestão Completa' },
       { label: 'Modelos Flexíveis' },
     ]}
     stats={[
@@ -29,7 +28,7 @@ import FAQSection from '../components/FAQSection.astro';
       { label: 'Empreendimentos Turísticos', value: '42+', icon_key: 'home' },
     ]}
     primary_cta_label="Receber Proposta"
-    primary_cta_url="#contacto"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
     secondary_cta_label="Saber Mais"
     secondary_cta_url="#intro-section"
     image="/images/sala-apartamento-predio-general-silveira.webp"
@@ -53,7 +52,7 @@ import FAQSection from '../components/FAQSection.astro';
       </p>
     `}
     intro_cta_label="Quero Receber uma Proposta"
-    intro_cta_url="#contacto"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
   />
 
   <!-- Target Audience -->
@@ -84,66 +83,70 @@ import FAQSection from '../components/FAQSection.astro';
         label: 'Sobre o Serviço',
         questions: [
           {
-            question: 'Placeholder - Pergunta 1 sobre o serviço?',
-            answer: 'Placeholder - Resposta à pergunta 1 sobre o serviço.',
+            question: 'O que é a gestão de empreendimentos turísticos da Host Wise?',
+            answer: 'É um serviço de gestão profissional end-to-end para edifícios e ativos turísticos, como prédios inteiros, serviced apartments e aparthotéis. A Host Wise assume a operação diária, estratégia de pricing, distribuição, manutenção e atendimento ao hóspede, com foco em performance financeira e valorização do ativo.',
           },
           {
-            question: 'Placeholder - Pergunta 2 sobre o serviço?',
-            answer: 'Placeholder - Resposta à pergunta 2 sobre o serviço.',
+            question: 'Que tipos de ativos a Host Wise gere neste modelo?',
+            answer: 'Gerimos empreendimentos turísticos como edifícios inteiros, blocos de apartamentos em exploração turística, serviced apartments, aparthotéis e projetos híbridos. Adaptamos o modelo de gestão à tipologia, escala e objetivos do investidor.',
           },
           {
-            question: 'Placeholder - Pergunta 3 sobre o serviço?',
-            answer: 'Placeholder - Resposta à pergunta 3 sobre o serviço.',
+            question: 'A Host Wise gere edifícios inteiros ou apenas frações?',
+            answer: 'Ambos. A gestão pode abranger o edifício na totalidade ou apenas parte das unidades, conforme a estrutura do ativo e os objetivos do proprietário.',
+          },
+          {
+            question: 'Este serviço aplica-se a projetos em desenvolvimento?',
+            answer: 'Sim. Trabalhamos com promotores desde a fase de conceção do projeto até à operação plena do ativo.',
           },
         ],
       },
       {
-        id: 'pagamentos-precos',
-        label: 'Pagamentos e Preços',
+        id: 'modelo-financeiro-risco',
+        label: 'Modelo Financeiro e Risco',
         questions: [
           {
             question: 'Quanto custa o serviço da Host Wise?',
             answer: '<p> O custo do serviço da Host Wise varia dependendo do modelo de gestão escolhido (rentabilidade garantida ou comissão), da localização e das especificidades do imóvel.</p><br> <p>Oferecemos um modelo transparente e sem custos escondidos, adaptando a nossa proposta às necessidades de cada proprietário.</p>',
           },
           {
-            question: 'Placeholder - Pergunta 2 sobre operação?',
-            answer: 'Placeholder - Resposta à pergunta 2 sobre operação.',
+            question: 'A Host Wise assume risco operacional?',
+            answer: 'Sim. Dependendo do modelo contratado, a Host Wise pode assumir parcial ou totalmente o risco operacional, incluindo risco de ocupação, gestão de custos e operação diária do empreendimento.',
           },
           {
-            question: 'Placeholder - Pergunta 3 sobre operação?',
-            answer: 'Placeholder - Resposta à pergunta 3 sobre operação.',
-          },
-        ],
-      },
-      {
-        id: 'comercial',
-        label: 'Comercial',
-        questions: [
-          {
-            question: 'Placeholder - Pergunta 1 comercial?',
-            answer: 'Placeholder - Resposta à pergunta 1 comercial.',
-          },
-          {
-            question: 'Placeholder - Pergunta 2 comercial?',
-            answer: 'Placeholder - Resposta à pergunta 2 comercial.',
-          },
-          {
-            question: 'Placeholder - Pergunta 3 comercial?',
-            answer: 'Placeholder - Resposta à pergunta 3 comercial.',
+            question: 'Os custos operacionais estão incluídos na gestão?',
+            answer: 'Os custos operacionais são definidos de forma transparente no início da parceria. Em alguns modelos, determinadas despesas podem estar incluídas; noutros, são geridas e reportadas de forma centralizada e detalhada.',
           },
         ],
       },
       {
-        id: 'tecnologia',
-        label: 'Tecnologia',
+        id: 'operacao-tecnologia-performance',
+        label: 'Operação, Tecnologia e Performance',
         questions: [
           {
-            question: 'Placeholder - Pergunta 1 sobre tecnologia?',
-            answer: 'Placeholder - Resposta à pergunta 1 sobre tecnologia.',
+            question: 'Como é feita a gestão de pricing e receitas?',
+            answer: 'Utilizamos dados de mercado e ferramentas de pricing dinâmico para ajustar tarifas em tempo real, maximizando ocupação e receita ao longo do ano, incluindo estratégias para épocas de menor procura.',
           },
           {
-            question: 'Placeholder - Pergunta 2 sobre tecnologia?',
-            answer: 'Placeholder - Resposta à pergunta 2 sobre tecnologia.',
+            question: 'A operação é totalmente digital?',
+            answer: 'A operação combina tecnologia, automação e equipas no terreno. Sempre que possível, utilizamos processos digitais e self check-in, mas avaliamos caso a caso a necessidade de presença física para garantir a melhor experiência e eficiência operacional.',
+          },
+          {
+            question: 'Como é garantida a qualidade da operação e da experiência do hóspede?',
+            answer: 'Seguimos padrões de operação com rigor hoteleiro, equipas especializadas, manutenção preventiva e suporte ao hóspede 24/7. A experiência do hóspede é tratada como um fator-chave para performance e reputação do ativo.',
+          },
+        ],
+      },
+      {
+        id: 'licenciamento',
+        label: 'Licenciamento',
+        questions: [
+          {
+            question: 'A Host Wise trata do licenciamento do empreendimento?',
+            answer: 'Sim. Prestamos apoio no processo de licenciamento turístico e acompanhamento regulatório, garantindo que o empreendimento opera em conformidade com a legislação em vigor.',
+          },
+          {
+            question: 'A Host Wise acompanha mudanças na legislação do alojamento turístico?',
+            answer: 'Sim. Monitorizamos ativamente o enquadramento legal e ajustamos a estratégia de operação sempre que necessário para proteger o investimento e garantir continuidade da exploração.',
           },
         ],
       },

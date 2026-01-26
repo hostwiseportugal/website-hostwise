@@ -32,7 +32,7 @@ interface ModelsIntroProps {
 }
 
 const {
-  title = 'Dois Modelos de Rentabilidade. Você Escolhe.',
+  title = 'Dois Modelos de Rentabilidade. A Escolha é Sua.',
 
   // vem do ACF como array de { paragraph: string }
   paragraphs = [],
@@ -43,7 +43,7 @@ const {
   ctaTitle = 'Ainda não tem a certeza qual o modelo ideal?',
   ctaText = 'Fale connosco e receba uma análise personalizada para o seu imóvel.',
   ctaButtonLabel = 'Receber Proposta Gratuita',
-  ctaButtonUrl = '/contacto',
+  ctaButtonUrl = 'https://hostwise.typeform.com/to/pWgP4EuZ?',
 } = Astro.props as ModelsIntroProps;
 
 // Fallback dos parágrafos
@@ -74,17 +74,17 @@ const defaultModels: ModelCard[] =
           key: 'guaranteed',
           badge_label: 'Mais Popular',
           title: 'Rentabilidade Garantida',
-          subtitle: 'Risco Zero',
+          subtitle: 'Risco de Ocupação Assumido',
           description:
             'Receba um <strong>valor fixo garantido todos os meses</strong>, independentemente da ocupação. Previsibilidade total e zero preocupações.',
           benefits: [
-            { text: 'Rendimento fixo mensal garantido' },
-            { text: 'Zero risco de vacância' },
-            { text: 'Previsibilidade total' },
+            { text: 'Zero risco de falta de ocupação' },
+            { text: 'Manutenções a nosso cargo' },
+            { text: 'Gestão integral de despesas operacionais' },
             { text: 'Contratos de longo prazo' },
           ],
           cta_label: 'Ver Detalhes do Modelo',
-          cta_url: '#rentabilidade-garantida',
+          cta_url: '/rentabilidade-garantida',
         },
         {
           key: 'commission',
@@ -99,7 +99,7 @@ const defaultModels: ModelCard[] =
             { text: 'Potencial ilimitado de receita' },
           ],
           cta_label: 'Ver Detalhes do Modelo',
-          cta_url: '#modelo-comissao',
+          cta_url: '/comissao',
         },
       ];
 ---

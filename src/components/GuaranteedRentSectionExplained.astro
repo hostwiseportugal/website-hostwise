@@ -35,11 +35,11 @@ import { iconMap } from '../icons/iconMap';
           </div>
           <div class="info-item">
             <div class="info-icon" set:html={iconMap.check} />
-            <span>Pagamento pontual garantido</span>
+            <span>Pagamento mensal previsível</span>
           </div>
           <div class="info-item">
             <div class="info-icon" set:html={iconMap.check} />
-            <span>Contratos de 3-5 anos</span>
+            <span>Contratos de 3 a 15 anos</span>
           </div>
         </div>
       </div>
@@ -48,22 +48,15 @@ import { iconMap } from '../icons/iconMap';
         <div class="stat-card">
           <div class="stat-icon green" set:html={iconMap.chartLine} />
           <div class="stat-content">
-            <span class="stat-value">100%</span>
-            <span class="stat-label">Taxa de Ocupação Garantida</span>
+            <span class="stat-value">Risco de Ocupação Assumido</span>
+            <span class="stat-label">Rendimento Independente da Ocupação</span>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon blue" set:html={iconMap.money} />
+          <div class="stat-icon orange" set:html={iconMap.euro} />
           <div class="stat-content">
-            <span class="stat-value">0€</span>
-            <span class="stat-label">Custos com Manutenção</span>
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon orange" set:html={iconMap.calendar} />
-          <div class="stat-content">
-            <span class="stat-value">12 meses</span>
-            <span class="stat-label">Rendimento Anual Previsível</span>
+            <span class="stat-value">Manutenção Incluída</span>
+            <span class="stat-label">Manutenções Preventivas ao Imóvel</span>
           </div>
         </div>
       </div>
@@ -76,8 +69,8 @@ import { iconMap } from '../icons/iconMap';
         <div class="step-card">
           <div class="step-number">1</div>
           <div class="step-content">
-            <h4>Avaliação Profissional</h4>
-            <p>Visitamos o seu imóvel e fazemos uma análise detalhada do potencial de mercado, localização e características únicas.</p>
+            <h4>Análise do Imóvel</h4>
+            <p>Analisamos o seu imóvel com base nas fotografias, planta, localização e características enviadas. Utilizamos dados de mercado e histórico operacional para avaliar o potencial e definir um valor de renda sustentável.</p>
           </div>
           <div class="step-arrow" set:html={iconMap.arrowRight} />
         </div>
@@ -85,8 +78,8 @@ import { iconMap } from '../icons/iconMap';
         <div class="step-card">
           <div class="step-number">2</div>
           <div class="step-content">
-            <h4>Proposta Transparente</h4>
-            <p>Apresentamos uma proposta clara com o valor de renda mensal garantida e duração do contrato (normalmente 3-5 anos).</p>
+            <h4>Proposta Clara e Personalizada</h4>
+            <p>Apresentamos uma proposta transparente com o valor de renda mensal fixa, condições do modelo e duração do contrato, ajustada ao perfil do imóvel.</p>
           </div>
           <div class="step-arrow" set:html={iconMap.arrowRight} />
         </div>
@@ -94,8 +87,8 @@ import { iconMap } from '../icons/iconMap';
         <div class="step-card">
           <div class="step-number">3</div>
           <div class="step-content">
-            <h4>Contrato de Arrendamento</h4>
-            <p>Assinamos um contrato de arrendamento onde nos comprometemos a pagar o valor fixo mensal, independentemente da ocupação.</p>
+            <h4>Contrato de Rentabilidade Garantida</h4>
+            <p>Todos os meses, no mesmo dia, recebe o valor acordado na sua conta. Um fluxo de caixa estável, simples e previsível.</p>
           </div>
           <div class="step-arrow" set:html={iconMap.arrowRight} />
         </div>
@@ -103,7 +96,7 @@ import { iconMap } from '../icons/iconMap';
         <div class="step-card">
           <div class="step-number">4</div>
           <div class="step-content">
-            <h4>Receba Mensalmente</h4>
+            <h4>Recebimento Mensal Previsível</h4>
             <p>Todos os meses, no mesmo dia, recebe o valor acordado na sua conta. Simples, previsível, garantido.</p>
           </div>
         </div>
@@ -122,7 +115,7 @@ import { iconMap } from '../icons/iconMap';
           <ul class="comparison-list negative">
             <li>
               <div class="list-icon" set:html={iconMap.close} />
-              Rendimento varia mensalmente
+              Rendimento variável mês a mês
             </li>
             <li>
               <div class="list-icon" set:html={iconMap.close} />
@@ -130,15 +123,15 @@ import { iconMap } from '../icons/iconMap';
             </li>
             <li>
               <div class="list-icon" set:html={iconMap.close} />
-              Despesas surpresa de manutenção
+              Custos de manutenção imprevisíveis
             </li>
             <li>
               <div class="list-icon" set:html={iconMap.close} />
-              Impossível planear financeiramente
+              Dificuldade em planear financeiramente
             </li>
             <li>
               <div class="list-icon" set:html={iconMap.close} />
-              Preocupação constante com ocupação
+              Envolvimento constante na gestão
             </li>
           </ul>
         </div>
@@ -155,15 +148,15 @@ import { iconMap } from '../icons/iconMap';
           <ul class="comparison-list positive">
             <li>
               <div class="list-icon" set:html={iconMap.check} />
-              Valor fixo todos os meses
+              Valor mensal fixo definido em contrato
             </li>
             <li>
               <div class="list-icon" set:html={iconMap.check} />
-              100% de ocupação garantida
+              Receita independente da ocupação
             </li>
             <li>
               <div class="list-icon" set:html={iconMap.check} />
-              Todas as despesas por nossa conta
+              Gestão operacional e manutenção incluídas conforme contrato
             </li>
             <li>
               <div class="list-icon" set:html={iconMap.check} />
@@ -171,7 +164,7 @@ import { iconMap } from '../icons/iconMap';
             </li>
             <li>
               <div class="list-icon" set:html={iconMap.check} />
-              Zero preocupações ou stress
+              Zero envolvimento na operação diária
             </li>
           </ul>
         </div>
