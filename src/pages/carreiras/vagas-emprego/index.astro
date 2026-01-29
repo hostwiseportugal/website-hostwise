@@ -1,6 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { iconMap } from '../icons/iconMap';
+import Layout from '../../../layouts/Layout.astro';
+import { iconMap } from '../../../icons/iconMap';
 
 const apiBase = import.meta.env.WORDPRESS_API_URL;
 
@@ -65,7 +65,7 @@ const workModelClasses: Record<string, string> = {
     <div class="container">
       <div class="hero-content">
         <div class="hero-badge">
-          <span>Oportunidades</span>
+          <span>Vagas de Emprego</span>
         </div>
         <h1 class="hero-title">Explora as Nossas Oportunidades</h1>
         <p class="hero-description">
@@ -91,7 +91,7 @@ const workModelClasses: Record<string, string> = {
 
               <div class="jobs-grid">
                 {jobsByDepartment[department].map((job) => (
-                  <a href={`/vagas-emprego/${job.slug}`} class="job-card">
+                  <a href={`/carreiras/vagas-emprego/${job.slug}`} class="job-card">
                     <div class="job-card-content">
                       <h3 class="job-title">{job.title}</h3>
                       <div class="job-meta">

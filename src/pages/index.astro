@@ -10,7 +10,7 @@ import BlogSection from '../components/BlogSection.astro';
 import FAQSection from '../components/FAQSection.astro';
 import WiseGroupSection from '../components/WiseGroupSection.astro';
 import PartnersMarquee from '../components/PartnersMarquee.astro';
-
+import { faqPageSchemaFromCategories } from "../lib/schema/faq-from-categories";
 
 const apiBase = import.meta.env.WORDPRESS_API_URL;
 
@@ -72,9 +72,16 @@ const faqCategoriesData =
     })),
   })) || [];
 
+  const schemas = [
+  // Só adiciona FAQ schema se existirem FAQs na página
+  ...(faqCategoriesData.length ? [faqPageSchemaFromCategories(faqCategoriesData)] : []),
+];
+
 ---
 
-<Layout title="HostWise - Gestão de Alojamentos Locais e Asset Management">
+<Layout title="HostWise - Gestão de Alojamentos Locais e Asset Management"
+description=''
+schemas={schemas}>
   <HeroToggle
     tabOwnerLabel={acf.hero_tab_owner_label}
     tabGuestLabel={acf.hero_tab_guest_label}

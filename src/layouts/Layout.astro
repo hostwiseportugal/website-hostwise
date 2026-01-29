@@ -1,31 +1,108 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import CookieBanner from "../components/CookieBanner.astro";
+import "../styles/global.css";
+import { organizationSchema } from "../lib/schema/organization";
 
 interface Props {
   title: string;
   description?: string;
+
+  // opcionais
+  noindex?: boolean;
+  canonical?: string; // se quiseres forçar um canonical diferente
+  ogImage?: string;   // podes passar relativo (/images/og/x.jpg) ou absoluto
+  schemas?: any[]; // vamos passar array de schemas
 }
 
-const { title, description = 'Gestão profissional de alojamentos locais em Portugal' } = Astro.props;
+const siteName = "Host Wise";
+
+const {
+  title,
+  description = "Gestão profissional de Alojamento Locais e Ativos Hoteleiros em Portugal",
+  noindex = false,
+  canonical: canonicalOverride,
+  ogImage,
+  schemas = [],
+} = Astro.props;
+
+// Canonical (self-canonical)
+const canonical = Astro.url.href;
+
+// OG image (default + aceita relativo)
+const resolvedOgImage = ogImage
+  ? (ogImage.startsWith("http") ? ogImage : new URL(ogImage, Astro.site).href)
+  : new URL("/images/og/default.webp", Astro.site).href;
+
+// Hreflang automático (PT <-> EN via /en/)
+const pathname = Astro.url.pathname; // ex: "/gestao-alojamento-local/porto" ou "/en/local-accommodation-management/porto"
+const isEn = pathname.startsWith("/en/");
+const ptPath = isEn ? pathname.replace(/^\/en/, "") : pathname;
+const enPath = isEn ? pathname : `/en${pathname}`;
+
+// URLs absolutas
+const ptUrl = new URL(ptPath, Astro.site).href;
+const enUrl = new URL(enPath, Astro.site).href;
+
+const org = organizationSchema({
+  siteUrl: Astro.site?.href ?? "https://www.hostwise.pt",
+  logoUrl: new URL("/images/host-wise-logo-quadrado.svg", Astro.site).href,
+});
+
+// Junta Organization + schemas específicos da página (Service, FAQ, etc.)
+const allSchemas = [org, ...schemas];
+
+  
 ---
 
 <!DOCTYPE html>
-<html lang="pt">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content={description} />
-  <link rel="icon" type="image/png" href="/images/icon.png" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <title>{title} | Host Wise</title>
-</head>
-<body>
-  <Header />
-  <main>
-    <slot />
-  </main>
-  <Footer />
-</body>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title} | {siteName}</title>
+    <meta name="description" content={description} />
+
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="pt-PT" href={ptUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={ptUrl} />
+
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <link rel="icon" type="image/png" href="/images/icon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    
+    <!-- Open Graph -->
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={`${title} | ${siteName}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    {resolvedOgImage && <meta property="og:image" content={resolvedOgImage} />}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | ${siteName}`} />
+    <meta name="twitter:description" content={description} />
+    {resolvedOgImage && <meta name="twitter:image" content={resolvedOgImage} />}
+    {allSchemas.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
+  </head>
+
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <CookieBanner />
+  </body>
 </html>

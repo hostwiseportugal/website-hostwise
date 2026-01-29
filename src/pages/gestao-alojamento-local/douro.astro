@@ -1,0 +1,163 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSectionV3 from '../../components/HeroSectionV3.astro';
+import IntroSection from '../../components/IntroSection.astro';
+import ServicesAccordionText from '../../components/ServicesAccordionText.astro';
+import PlatformsMarquee from '../../components/PlatformsMarquee.astro';
+import ModelsIntro from '../../components/ModelsIntro.astro';
+import OwnerTestimonials from '../../components/OwnerTestimonials.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import FeaturesGrid from '../../components/FeaturesGrid.astro';
+---
+
+<Layout title="Gestão de Alojamento Local no Porto - Host Wise">
+  <!-- Hero Section -->
+  <HeroSectionV3
+    badge_text="Gestão de Alojamento Local Douro"
+    badge_icon_key="home"
+    heading="No Douro, Cada Propriedade Conta Uma História"
+    description="No Douro, a gestão de alojamento local não é massificada — é personalizada. Gerimos propriedades turísticas com foco na autenticidade, na experiência do hóspede e numa operação profissional que protege o património e garante resultados consistentes ao longo do ano."
+    primary_cta_label="Receber Proposta"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+    secondary_cta_label="Saber Mais"
+    secondary_cta_url="#intro-section"
+    image="/images/gestao-alojamento-local-header.webp"
+  />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="Gestão Profissional para Propriedades Únicas no Douro."
+    intro_text={`
+      <p>
+        O Douro é uma das regiões mais emblemáticas de Portugal — não apenas pela sua paisagem, mas pelo tipo de experiência que oferece. Aqui, o turismo é feito de autenticidade, detalhe e ligação ao território.
+      </p>
+      <p>
+        A Host Wise aplica no Douro a sua experiência em gestão de alojamento local com uma abordagem ajustada à realidade da região: propriedades singulares, procura seletiva e necessidade de uma operação cuidada, profissional e eficiente.
+      </p>
+      <p>
+        Trabalhamos com proprietários que procuram rentabilizar os seus imóveis sem comprometer a identidade do espaço, garantindo uma gestão que respeita o património, valoriza a experiência do hóspede e assegura resultados sustentáveis ao longo do ano.
+      </p>
+      <p>
+        Num destino onde cada reserva conta, a nossa estratégia combina conhecimento local, pricing ajustado à procura real e uma operação atenta ao detalhe — para transformar propriedades únicas em ativos turísticos sólidos e bem posicionados.
+      </p>
+    `}
+    intro_cta_label="Quero Receber uma Proposta"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+  />
+
+  <!-- Features Grid -->
+  <FeaturesGrid
+  />
+
+  <!-- Platforms Marquee -->
+  <PlatformsMarquee
+    platforms_badge="Presença Multiplataforma"
+    platforms_title="Os Seus Anúncios nas Maiores Plataformas de Reserva"
+    platforms_subtitle="Maximizamos a visibilidade do seu alojamento com presença nas principais plataformas globais de reserva. Gestão sincronizada de calendários, preços e disponibilidade em tempo real."
+    platforms={[
+      { name: 'Airbnb', logo: '/images/platform-logos/airbnb-logo.svg' },
+      { name: 'Booking.com', logo: '/images/platform-logos/booking-com-logo.svg' },
+      { name: 'Vrbo', logo: '/images/platform-logos/vrbo-logo.svg' },
+      { name: 'Expedia', logo: '/images/platform-logos/expedia-logo.svg' },
+      { name: 'Flatio', logo: '/images/platform-logos/flatio-logo.svg' },
+      { name: 'Host Wise', logo: '/images/platform-logos/hostwise-logo.svg' },
+      { name: 'Housing Anywhere', logo: '/images/platform-logos/housing-anywhere-logo.svg' },
+      { name: 'Idealista', logo: '/images/platform-logos/idealista-logo.svg' },
+      { name: 'InLife', logo: '/images/platform-logos/inlife-logo.svg' },
+      { name: 'Marriott Homes & Villas', logo: '/images/platform-logos/marriott-homes-villas-logo.svg' },
+      { name: 'Spotahome', logo: '/images/platform-logos/spotahome-logo.svg' },
+      { name: 'Uniplaces', logo: '/images/platform-logos/uniplaces-logo.svg' },
+    ]}
+  />
+
+  <!-- Models Intro -->
+  <ModelsIntro />
+
+  <!-- Owner Testimonials -->
+  <OwnerTestimonials
+    badgeLabel="Testemunhos"
+    title="Conheça os Nossos Proprietários"
+    subtitle="Com soluções personalizadas às necessidades dos nossos proprietários, garantimos a melhor experiência para que possa maximizar os seus rendimentos com total tranquilidade. Veja o que os nossos clientes dizem sobre os serviços de gestão de alojamento local no Douro da Host Wise."
+    testimonials={[
+      {
+        name: 'Roberto F.',
+        location: 'Lamego',
+        property: 'Proprietário de Alojamento Local',
+        rating: 5,
+        comment: 'Decidi arrendar a minha casa de campo no Douro com a Host Wise, e optei pela rentabilidade garantida. Tem sido uma ótima experiência! Recebo um rendimento fixo todos os meses, sem me preocupar com a sazonalidade ou com as manutenções da casa. A equipa é altamente profissional e está sempre disponível para resolver qualquer questão',
+      },
+      {
+        name: 'Amélia C.',
+        location: 'Santa Marta de Penaguião',
+        property: 'Proprietária de Alojamento Local',
+        rating: 5,
+        comment: 'Escolhi a Host Wise para gerir o meu alojamento por comissão no Douro, e estou extremamente satisfeito. A ocupação tem sido constante e, durante a época das vindimas, o retorno foi ainda maior do que eu esperava. Eles tratam de tudo, desde a comunicação com os hóspedes até às limpezas e manutenções, permitindo-me relaxar e ver os lucros a crescer.',
+      },
+    ]}
+    ctaTitle="Pronto para Maximizar os Seus Rendimentos no Douro?"
+    ctaSubtitle="Receba uma proposta personalizada para o seu imóvel em 24 horas."
+    ctaLabel="Receber Proposta Gratuita"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ?"
+  />
+
+  <!-- FAQ Section -->
+  <FAQSection
+    title="Respondemos às suas Perguntas"
+    subtitle="Tudo o que precisa de saber sobre a gestão do seu imóvel com a Host Wise."
+    categories={[
+      {
+        id: 'essencial',
+        label: 'O Essencial',
+        questions: [
+          {
+            question: 'Porquê escolher a Host Wise?',
+            answer: 'A Host Wise é uma empresa de gestão de alojamento local com vasta experiência no mercado português, garantindo um serviço completo e sem complicações para os proprietários, enquanto asseguramos uma experiência de excelência para os hóspedes, com apoio permanente para garantir avaliações positivas e maior taxa de ocupação.',
+          },
+          {
+            question: 'Como é que a Host Wise vai aumentar a minha rentabilidade?',
+            answer: '<p>A nossa equipa de gestão de receitas implementa uma estratégia dinâmica baseada em dados, ajustando os preços do seu airbnb em tempo real de acordo com múltiplos fatores, como tendências de mercado, taxa de ocupação local, análise da concorrência e eventos na região.</p><br><p>Utilizamos ferramentas especializadas, como o PriceLabs, para maximizar o seu rendimento sem comprometer a taxa de ocupação. Além disso, em colaboração com a equipa de marketing, otimizamos os anúncios com descrições persuasivas, fotografias profissionais e técnicas de SEO para aumentar a visibilidade da sua propriedade e atrair mais hóspedes.</p>',
+          },
+          {
+            question: 'Porquê escolher a Host Wise e não gerir o meu imóvel por conta própria?',
+            answer: '<p>Gerir um alojamento local exige tempo, dedicação e experiência para garantir a máxima rentabilidade. Sem a estratégia certa, pode perder oportunidades de aumentar os seus lucros e otimizar a ocupação.</p><br><p>A Host Wise oferece uma gestão profissional de alojamento local e completa, libertando-o das tarefas operacionais e garantindo um serviço de excelência tanto para si como para os seus hóspedes.</p><br><p>Contamos com uma equipa de especialistas que conhece profundamente o mercado e implementamos estratégias inteligentes de pricing, marketing e operação para otimizar os seus rendimentos sem complicações.</p><br><p>Ao confiar na Host Wise, transforma o seu imóvel numa fonte de rendimento passivo, sem preocupações com reservas, check-ins, limpezas ou manutenção.</p>',
+          },
+        ],
+      },
+      {
+        id: 'pagamentos-precos',
+        label: 'Pagamentos e Preços',
+        questions: [
+          {
+            question: 'Quanto custa o serviço da Host Wise?',
+            answer: '<p>O custo do serviço da Host Wise varia dependendo do modelo de gestão escolhido (rentabilidade garantida ou comissão), da localização e das especificidades do imóvel.</p><br><p>Oferecemos um modelo transparente e sem custos escondidos, adaptando a nossa proposta às necessidades de cada proprietário.</p>',
+          },
+        ],
+      },
+      {
+        id: 'rentabilidade-garantida',
+        label: 'Rentabilidade Garantida',
+        questions: [
+          {
+            question: 'O que é o modelo de rentabilidade garantida?',
+            answer: '<p>No modelo de rentabilidade garantida, o proprietário recebe uma renda fixa mensal, independentemente da ocupação do imóvel durante um período que pode ir até 10 anos.</p><br><p>Este modelo garante-lhe estabilidade financeira durante um longo prazo e sem a preocupação de gestão de inquilinos ou pequenas manutenções.</p>',
+          },
+          {
+            question: 'Como determinam o valor da minha propriedade no modelo de rentabilidade garantida?',
+            answer: '<p>A avaliação é feita através da realização de um estudo de rentabilidade que tem por base a análise de vários fatores, incluindo a localização, o tamanho e condições da propriedade, e as tendências do mercado imobiliário atual e da localização do onde o alojamento está inserido.</p><br><p>Este estudo permite prever a receita líquida gerada para o prazo do contrato proposto.</p>',
+          },
+        ],
+      },
+      {
+        id: 'comissao',
+        label: 'Comissão',
+        questions: [
+          {
+            question: 'Posso usar a minha propriedade enquanto ela está a ser gerida pela Host Wise?',
+            answer: 'Sim, os proprietários podem reservar as suas propriedades para uso pessoal, desde que notifiquem a Host Wise com antecedência. Bloquearemos as datas no calendário de reservas para garantir que nenhuma reserva seja feita durante a sua estadia.',
+          },
+        ],
+      },
+    ]}
+  />
+
+</Layout>

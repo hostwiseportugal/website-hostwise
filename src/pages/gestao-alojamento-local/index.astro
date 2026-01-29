@@ -12,12 +12,28 @@ import PricingSection from '../../components/PricingSection.astro';
 import RegionsCarousel from '../../components/RegionsCarousel.astro';
 import OwnerTestimonials from '../../components/OwnerTestimonials.astro';
 import FAQSection from '../../components/FAQSection.astro';
+import { serviceSchema } from "../../lib/schema/service";
+import { faqPageSchema } from "../../lib/schema/faq";
 
 const apiBase = import.meta.env.WORDPRESS_API_URL;
 const PAGE_ID = 192;
 const res = await fetch(`${apiBase}/pages/${PAGE_ID}?lang=pt&_embed`);
 const page = await res.json();
 const acf = page.acf || {};
+
+const serviceName = "Gestão de Alojamento Local";
+const schemas = [
+  serviceSchema({
+    serviceName,
+    url: Astro.url.href,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Portugal", type: "Country" }],
+  }),
+  faqPageSchema([
+    // Só FAQs que estão mesmo visíveis na página
+    { question: "…", answer: "…" },
+  ]),
+];
 
 const testimonialsData = (acf.owner_testimonials || []).map((t: any) => ({
   name: t.owner_testimonial_name,
@@ -36,9 +52,13 @@ const faqCategoriesData =
       answer: item.faq_answer,
     })),
   })) || [];
+
 ---
 
-<Layout title="Gestão de Alojamento Local - Host Wise">
+<Layout title={serviceName}
+  description="..."
+  ogImage="/images/og/servico-gestao-al.jpg"
+  schemas={schemas}>
   <!-- Hero Section -->
   <HeroSectionV2
     badge_text={acf.hero_v2_badge_text}

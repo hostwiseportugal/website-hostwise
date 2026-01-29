@@ -1,6 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { iconMap } from '../../icons/iconMap';
+import Layout from '../../../layouts/Layout.astro';
+import { iconMap } from '../../../icons/iconMap';
 
 // Export getStaticPaths for static generation
 export async function getStaticPaths() {
@@ -29,7 +29,7 @@ const res = await fetch(`${apiBase}/job_openings?slug=${slug}&lang=pt&_embed`);
 const jobs = await res.json();
 
 if (!jobs || jobs.length === 0) {
-  return Astro.redirect('/vagas-emprego');
+  return Astro.redirect('/carreiras/vagas-emprego');
 }
 
 const job = jobs[0];
@@ -63,12 +63,14 @@ const workModelClasses: Record<string, string> = {
 };
 ---
 
+
 <Layout title={`${title} - Vagas Host Wise`}>
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <article class="job-page">
     <!-- Hero Section -->
     <section class="job-hero">
       <div class="container">
-        <a href="/vagas-emprego" class="back-link">
+        <a href="/carreiras/vagas-emprego" class="back-link">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
           </svg>
@@ -141,7 +143,7 @@ const workModelClasses: Record<string, string> = {
 
           <form
             class="application-form"
-            action="YOUR_FORM_ENDPOINT"
+            action="https://n8n.srv860220.hstgr.cloud/webhook-test/vagas-emprego/candidatura"
             method="POST"
             enctype="multipart/form-data"
             id="applicationForm"
@@ -250,7 +252,7 @@ const workModelClasses: Record<string, string> = {
                     id="cv"
                     name="cv"
                     required
-                    accept=".pdf,.doc,.docx"
+                    accept="application/pdf,.pdf"
                     class="file-input"
                   />
                   <div class="file-upload-display">
@@ -261,12 +263,52 @@ const workModelClasses: Record<string, string> = {
                     </div>
                     <div class="file-upload-text">
                       <span class="file-name">Clica para selecionar o teu CV</span>
-                      <span class="file-hint">PDF, DOC ou DOCX (máx. 5MB)</span>
+                      <span class="file-hint">PDF (máx. 10MB)</span>
                     </div>
                   </div>
                 </div>
+                <p class="field-error" id="cvError" aria-live="polite"></p>
+
               </div>
             </div>
+
+            <!-- Privacy / GDPR Section -->
+<div class="form-section">
+  <h3 class="form-section-title">Privacidade</h3>
+
+  <div class="form-group form-group-full">
+    <label class="checkbox">
+      <input type="checkbox" name="gdpr_consent" id="gdpr_consent" required />
+      <span>
+        Li e aceito a <a href="/politica-de-privacidade" target="_blank" rel="noopener">Política de Privacidade</a>
+        e autorizo o tratamento dos meus dados para efeitos de recrutamento. <span class="required">*</span>
+      </span>
+    </label>
+  </div>
+
+  <div class="form-group form-group-full">
+    <label for="retention_months">Retenção dos dados</label>
+    <select id="retention_months" name="retention_months">
+      <option value="6" selected>6 meses (recomendado)</option>
+      <option value="12">12 meses</option>
+      <option value="24">24 meses</option>
+    </select>
+    <small class="help-text">
+      Guardamos os teus dados apenas durante o período indicado, para efeitos de recrutamento.
+    </small>
+  </div>
+</div>
+
+<!-- Turnstile -->
+<div class="form-section">
+  <h3 class="form-section-title">Verificação</h3>
+
+  <div class="form-group form-group-full">
+    <div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}></div>
+    <small class="help-text">Isto ajuda-nos a evitar spam automático.</small>
+  </div>
+</div>
+
 
             <!-- Submit Button -->
             <div class="form-actions">
@@ -294,7 +336,7 @@ const workModelClasses: Record<string, string> = {
             </div>
             <h3>Candidatura Enviada!</h3>
             <p>Obrigado pelo teu interesse. Entraremos em contacto assim que possível.</p>
-            <a href="/vagas-emprego" class="btn-back">Ver Outras Vagas</a>
+            <a href="/carreiras/vagas-emprego" class="btn-back">Ver Outras Vagas</a>
           </div>
         </div>
       </div>
@@ -695,6 +737,56 @@ const workModelClasses: Record<string, string> = {
     color: #2E7D32;
   }
 
+select {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid var(--gray-light);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text);
+  background: white;
+  transition: all 0.3s;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 4px rgba(10, 117, 175, 0.1);
+}
+
+.help-text {
+  font-size: 0.85rem;
+  color: var(--text);
+  opacity: 0.65;
+}
+
+.checkbox {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.checkbox input {
+  margin-top: 4px;
+}
+
+.checkbox a {
+  color: var(--secondary);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.field-error {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: #E53935;
+  display: none;
+}
+.field-error.show { display: block; }
+
+
+
   /* Submit Button */
   .form-actions {
     display: flex;
@@ -865,62 +957,71 @@ const workModelClasses: Record<string, string> = {
 </style>
 
 <script>
-  // File input display update
-  const fileInput = document.getElementById('cv') as HTMLInputElement;
+  const MAX_MB = 10;
+  const MAX_BYTES = MAX_MB * 1024 * 1024;
+
+  const fileInput = document.getElementById('cv');
   const fileNameDisplay = document.querySelector('.file-name');
   const fileWrapper = document.querySelector('.file-upload-wrapper');
+  const cvError = document.getElementById('cvError');
 
-  fileInput?.addEventListener('change', () => {
-    if (fileInput.files && fileInput.files.length > 0) {
-      const fileName = fileInput.files[0].name;
-      if (fileNameDisplay) {
-        fileNameDisplay.textContent = fileName;
-        fileWrapper?.classList.add('file-selected');
+  // Normaliza o wrapper para um Element (ou null)
+  const wrapperEl = fileWrapper instanceof Element ? fileWrapper : null;
+
+  // Helper: liga/desliga o estado visual "file-selected"
+  /** @param {boolean} isSelected */
+  function setSelected(isSelected) {
+    if (!wrapperEl) return;
+    wrapperEl.classList.toggle('file-selected', isSelected);
+  }
+
+  /** @param {string} msg */
+  function showCvError(msg) {
+    if (!cvError) return;
+    cvError.textContent = msg;
+    cvError.classList.add('show');
+  }
+
+  function clearCvError() {
+    if (!cvError) return;
+    cvError.textContent = '';
+    cvError.classList.remove('show');
+  }
+
+  if (fileInput instanceof HTMLInputElement) {
+    fileInput.addEventListener('change', () => {
+      clearCvError();
+
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) {
+        if (fileNameDisplay) fileNameDisplay.textContent = 'Clica para selecionar o teu CV';
+        setSelected(false);
+        return;
       }
-    } else {
-      if (fileNameDisplay) {
-        fileNameDisplay.textContent = 'Clica para selecionar o teu CV';
-        fileWrapper?.classList.remove('file-selected');
+
+      // Size validation
+      if (file.size > MAX_BYTES) {
+        showCvError(`O ficheiro excede o limite de ${MAX_MB}MB. Por favor envia um PDF menor.`);
+        fileInput.value = '';
+        if (fileNameDisplay) fileNameDisplay.textContent = 'Clica para selecionar o teu CV';
+        setSelected(false);
+        return;
       }
-    }
-  });
 
-  // Form submission handling (for demonstration - adjust based on your endpoint)
-  const form = document.getElementById('applicationForm') as HTMLFormElement;
-  const submitBtn = form?.querySelector('.btn-submit');
-  const applicationCard = document.querySelector('.application-card');
-
-  form?.addEventListener('submit', async (e) => {
-    // NOTE: Remove this preventDefault if using a standard form action
-    // This is just for demonstration of the loading state
-
-    submitBtn?.classList.add('loading');
-    (submitBtn as HTMLButtonElement).disabled = true;
-
-    // If using fetch API instead of form action, uncomment below:
-    /*
-    e.preventDefault();
-
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: formData
-      });
-
-      if (response.ok) {
-        applicationCard?.classList.add('submitted');
-      } else {
-        alert('Ocorreu um erro ao enviar a candidatura. Por favor tenta novamente.');
-        submitBtn?.classList.remove('loading');
-        (submitBtn as HTMLButtonElement).disabled = false;
+      // Type validation (mime + fallback extension)
+      const isPdfMime = file.type === 'application/pdf';
+      const isPdfExt = file.name.toLowerCase().endsWith('.pdf');
+      if (!isPdfMime && !isPdfExt) {
+        showCvError('Formato inválido. Envia apenas ficheiro PDF.');
+        fileInput.value = '';
+        if (fileNameDisplay) fileNameDisplay.textContent = 'Clica para selecionar o teu CV';
+        setSelected(false);
+        return;
       }
-    } catch (error) {
-      alert('Ocorreu um erro ao enviar a candidatura. Por favor tenta novamente.');
-      submitBtn?.classList.remove('loading');
-      (submitBtn as HTMLButtonElement).disabled = false;
-    }
-    */
-  });
+
+      // Update UI
+      if (fileNameDisplay) fileNameDisplay.textContent = file.name;
+      setSelected(true);
+    });
+  }
 </script>

@@ -7,7 +7,7 @@ const currentYear = new Date().getFullYear();
     <div class="footer-content">
       <div class="footer-column">
         <img src="/images/logo-white.svg" alt="Host Wise" class="footer-logo" />
-        <p>Gestão profissional de propriedades e alojamento local em Portugal.</p>
+        <p>Gestão de Alojamento Local e Ativos Hoteleiros em Portugal.</p>
         <div class="social-links">
           <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
           <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -27,11 +27,12 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <div class="footer-column">
-        <h4>Regiões</h4>
+        <h4>Localizações</h4>
         <ul>
-          <li><a href="#regioes">Porto</a></li>
-          <li><a href="#regioes">Algarve</a></li>
-          <li><a href="#regioes">Douro</a></li>
+          <li><a href="/gestao-alojamento-local/porto">Porto</a></li>
+          <li><a href="/gestao-alojamento-local/algarve">Algarve</a></li>
+          <li><a href="/gestao-alojamento-local/douro">Douro</a></li>
+          <li><a href="/gestao-alojamento-local/madeira">Madeira</a></li>
         </ul>
       </div>
 
@@ -58,10 +59,15 @@ const currentYear = new Date().getFullYear();
         </a>
       </div>
     <div class="footer-bottom">
-      <p>&copy; {currentYear} Host Wise. Todos os direitos reservados.</p>
+      <div class="footer-bottom-row">
+        <p class="copyright">&copy; {currentYear} Host Wise. Todos os direitos reservados.</p>
+        <div class="footer-prr">
+          <img src="/images/PRR-financiamento.webp" alt="Financiado pelo PRR - Plano de Recuperação e Resiliência" class="prr-logo" />
+        </div>
+      </div>
       <div class="footer-links">
-        <a href="#">Política de Privacidade</a>
-        <a href="#">Termos e Condições</a>
+        <a href="/politica-de-privacidade">Política de Privacidade</a>
+        <a href="/politica-de-cookies">Política de Cookies</a>
       </div>
     </div>
   </div>
@@ -185,15 +191,26 @@ const currentYear = new Date().getFullYear();
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 20px;
     display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footer-bottom-row {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
     gap: 20px;
+  }
+
+  .footer-bottom .copyright {
+    font-size: 14px;
+    opacity: 0.9;
   }
 
   .footer-links {
     display: flex;
     gap: 20px;
+    justify-content: center;
   }
 
   .footer-links a {
@@ -201,14 +218,37 @@ const currentYear = new Date().getFullYear();
     font-size: 14px;
   }
 
+  .footer-prr {
+    display: flex;
+  }
+
+  .prr-logo {
+    height: 28px;
+    width: auto;
+    opacity: 0.95;
+  }
+
   @media (max-width: 768px) {
     .footer-content {
       justify-items: start;
     }
 
-    .footer-bottom {
+    .footer-bottom-row {
       flex-direction: column;
       text-align: center;
+      gap: 16px;
+    }
+
+    .footer-bottom-row .footer-prr {
+      order: -1;
+    }
+
+    .footer-links {
+      flex-wrap: wrap;
+    }
+
+    .prr-logo {
+      height: 40px;
     }
   }
 </style>

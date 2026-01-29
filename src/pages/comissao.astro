@@ -1,9 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HeroSectionV2 from '../components/HeroSectionV2.astro';
+import HeroSectionV3 from '../components/HeroSectionV3.astro';
 import IntroSection from '../components/IntroSection.astro';
 import BenefitsGrid from '../components/BenefitsGrid.astro';
-import CommissionModelExplained from '../components/CommissionModelExplained.astro';
+import CommissionVsTraditional from '../components/CommissionVsTraditional.astro';
+// import CommissionModelExplained from '../components/CommissionModelExplained.astro'; // Mantido para referência
 import PricingSection from '../components/PricingSection.astro';
 import ModelsComparison from '../components/ModelsComparison.astro';
 import OwnerTestimonials from '../components/OwnerTestimonials.astro';
@@ -44,11 +45,36 @@ const benefits = [
 ---
 
 <Layout title="Modelo de Comissão - Host Wise">
-  <!-- Hero Section V2 - SaaS Style -->
-  <HeroSectionV2 />
+  <!-- Hero Section V3 -->
+  <HeroSectionV3
+    badge_text="Comissão"
+    badge_icon_key="chartLine"
+    heading="Mais Reservas, Mais Rendimento. Sem Limites."
+    description="O modelo de comissão foi pensado para proprietários que querem beneficiar diretamente da performance do seu alojamento. Combinamos estratégias de middle-term e short-term para otimizar o seu rendimento durante todo o ano."
+    primary_cta_label="Receber Proposta"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+    secondary_cta_label="Saber Mais"
+    secondary_cta_url="#intro-section"
+    image="/images/quarto-alojamento-local-tristao-cunha-porto.webp"
+  />
 
   <!-- Intro Section -->
-  <IntroSection />
+  <IntroSection
+    intro_title="Um modelo para quem quer aproveitar o potencial máximo do mercado."
+    intro_text={`
+      <p>
+        O modelo de comissão da Host Wise é uma solução flexível e orientada para resultados. Em vez de um valor fixo, cobramos uma percentagem sobre os rendimentos gerados pelo seu imóvel. Isso significa que só ganhamos quando você ganha — os nossos objetivos estão completamente alinhados com os seus.
+      </p>
+      <p>
+        Este modelo é ideal para proprietários que pretendem tirar o máximo partido do seu alojamento local, mantendo a possibilidade de usar o imóvel quando quiserem. Com a nossa gestão profissional, potenciamos cada reserva através da otimização de preços, promoção em múltiplas plataformas e um serviço completo ao hóspede.
+      </p>
+      <p>
+       Se procura uma abordagem transparente, baseada em desempenho e com acompanhamento contínuo, o modelo de comissão é a escolha certa.
+      </p>
+    `}
+    intro_cta_label="Quero Receber uma Proposta"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+  />
 
   <!-- Benefits Grid -->
   <BenefitsGrid
@@ -58,8 +84,8 @@ const benefits = [
     subheading="O modelo de comissão foi desenhado para proprietários que querem maximizar o potencial do seu alojamento. Receba uma percentagem do rendimento bruto e beneficie diretamente do sucesso das suas reservas."
   />
 
-  <!-- Commission Model Explained with Animation -->
-  <CommissionModelExplained />
+  <!-- Commission vs Traditional Comparison -->
+  <CommissionVsTraditional />
 
   <!-- Pricing Section -->
   <PricingSection />
@@ -68,8 +94,67 @@ const benefits = [
   <ModelsComparison />
 
   <!-- Owner Testimonials -->
-  <OwnerTestimonials />
+  <OwnerTestimonials
+    badgeLabel="Testemunhos"
+    title="Conhece os Nossos Proprietários"
+    subtitle="Com soluções personalizadas às necessidades dos nossos proprietários, garantimos a melhor experiência para que possa maximizar os seus rendimentos com total tranquilidade."
+    testimonials={[
+      {
+        name: 'Ana R.',
+        location: 'Proprietária na Baixa do Porto',
+        rating: 5,
+        comment: 'Escolhi a Host Wise para gerir o meu imóvel por comissão, e estou encantada com os resultados. Eles conseguiram aumentar significativamente a ocupação do apartamento, e o rendimento que estou a obter é muito superior ao que conseguia sozinha. A equipa trata de tudo: comunicação com os hóspedes, limpeza, manutenções... É realmente um serviço completo. Se procuram uma empresa de gestão de alojamento local no Porto, recomendo a Host Wise sem hesitar!',
+      },
+      {
+        name: 'Miguel F.',
+        location: 'Proprietário em Vilamoura',
+        rating: 5,
+        comment: 'Ao trabalhar com a Host Wise, optei pela gestão por comissão e estou muito satisfeito com os resultados. A ocupação tem sido alta e o rendimento superou as minhas expectativas. A equipa faz um trabalho extraordinário ao cuidar da propriedade e ao garantir que os hóspedes têm uma ótima experiência. Eles gerem todos os detalhes, o que me permite relaxar e ver o meu investimento crescer.',
+      },
+    ]}
+    ctaTitle="Pronto para maximizar os seus rendimentos?"
+    ctaSubtitle="Receba uma simulação personalizada para o seu imóvel em 24 horas."
+    ctaLabel="Receber Proposta Gratuita"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ?"
+  />
 
   <!-- FAQ Section -->
-  <FAQSection />
+  <FAQSection
+    title="Perguntas Frequentes"
+    subtitle="Tudo o que precisa de saber sobre o modelo de comissão da Host Wise."
+    categories={[
+      {
+        id: 'modelo',
+        label: 'Sobre o Modelo',
+        questions: [
+          {
+            question: 'Como posso acompanhar os resultados da minha propriedade?',
+            answer: 'A Host Wise fornece relatórios regulares sobre o desempenho do seu imóvel, incluindo ocupação, receitas, e feedback dos hóspedes. Mantemo-lo atualizado sobre o sucesso do seu alojamento local de forma transparente.',
+          },
+          {
+            question: 'Posso usar a minha propriedade enquanto ela está a ser gerida pela Host Wise?',
+            answer: 'Sim, os proprietários podem reservar as suas propriedades para uso pessoal, desde que notifiquem a Host Wise com antecedência. Bloquearemos as datas no calendário de reservas para garantir que nenhuma reserva seja feita durante a sua estadia.',
+          },
+        ],
+      },
+      {
+        id: 'host-wise',
+        label: 'Sobre a Host Wise',
+        questions: [
+          {
+            question: 'Porquê escolher a Host Wise?',
+            answer: 'A Host Wise é uma empresa de gestão de alojamento local com vasta experiência no mercado português, garantindo um serviço completo e sem complicações para os proprietários, enquanto asseguramos uma experiência de excelência para os hóspedes, com apoio permanente para garantir avaliações positivas e maior taxa de ocupação.',
+          },
+          {
+            question: 'Como é que a Host Wise vai aumentar a minha rentabilidade?',
+            answer: '<p>A nossa equipa de gestão de receitas implementa uma estratégia dinâmica baseada em dados, ajustando os preços do seu airbnb em tempo real de acordo com múltiplos fatores, como tendências de mercado, taxa de ocupação local, análise da concorrência e eventos na região.</p><br><p><br><p>Utilizamos ferramentas especializadas, como o PriceLabs, para maximizar o seu rendimento sem comprometer a taxa de ocupação. Além disso, em colaboração com a equipa de marketing, otimizamos os anúncios com descrições persuasivas, fotografias profissionais e técnicas de SEO para aumentar a visibilidade da sua propriedade e atrair mais hóspedes.</p>',
+          },
+            {
+            question: 'Porquê escolher a Host Wise e não gerir o imóvel por conta própria?',
+            answer: 'Gerir um alojamento local exige tempo, dedicação e experiência para maximizar os lucros. A Host Wise oferece uma solução completa, poupando-lhe tempo e aborrecimentos, ao mesmo tempo que maximiza a rentabilidade do seu imóvel. Trabalhamos com uma equipa de especialistas locais e conhecemos profundamente o mercado, garantindo uma gestão eficiente e tranquila.',
+          },
+        ],
+      },
+    ]}
+  />
 </Layout>

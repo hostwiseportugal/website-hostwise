@@ -1,0 +1,476 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Página Não Encontrada" description="A página que procura não existe ou foi movida." noindex={true}>
+  <section class="error-page">
+    <div class="container">
+      <div class="error-content">
+        <div class="error-visual">
+          <div class="error-code">
+            <span class="digit">4</span>
+            <div class="house-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+              <div class="question-mark">?</div>
+            </div>
+            <span class="digit">4</span>
+          </div>
+        </div>
+
+        <h1>Ups! Esta página não foi encontrada.</h1>
+        <p class="error-description">
+          Não se preocupe, acontece aos melhores!
+        </p>
+
+        <div class="error-suggestions">
+          <p>Aqui estão algumas sugestões:</p>
+          <ul>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              Verifique se o endereço está correto
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              Volte à página inicial e navegue a partir daí
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              Entre em contacto connosco se precisar de ajuda
+            </li>
+          </ul>
+        </div>
+
+        <div class="error-actions">
+          <a href="/" class="btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            Voltar à Página Inicial
+          </a>
+          <a href="/contacto" class="btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+            Contactar-nos
+          </a>
+        </div>
+
+        <div class="popular-pages">
+          <p>Páginas populares:</p>
+          <div class="pages-grid">
+            <a href="/gestao-alojamento-local/porto" class="page-link">
+              <span class="page-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+              </span>
+              Gestão AL Porto
+            </a>
+            <a href="/rentabilidade-garantida" class="page-link">
+              <span class="page-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                </svg>
+              </span>
+              Rentabilidade Garantida
+            </a>
+            <a href="/comissao" class="page-link">
+              <span class="page-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/>
+                </svg>
+              </span>
+              Modelo de Comissão
+            </a>
+            <a href="/gestao-ativos-hoteleiros" class="page-link">
+              <span class="page-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/>
+                </svg>
+              </span>
+              Gestão Hoteleira
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="background-decoration">
+      <div class="decoration-circle circle-1"></div>
+      <div class="decoration-circle circle-2"></div>
+      <div class="decoration-circle circle-3"></div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .error-page {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    background: linear-gradient(180deg, #F8FCFF 0%, #fff 50%, var(--blue-light) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .error-content {
+    text-align: center;
+  }
+
+  /* Error Visual */
+  .error-visual {
+    margin-bottom: 40px;
+  }
+
+  .error-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .digit {
+    font-size: 8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .house-icon {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .house-icon svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .question-mark {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 36px;
+    height: 36px;
+    background: #ff6b6b;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Content */
+  .error-content h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .error-description {
+    font-size: 1.15rem;
+    color: var(--text);
+    opacity: 0.85;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  /* Suggestions */
+  .error-suggestions {
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 16px;
+    padding: 24px 32px;
+    margin-bottom: 32px;
+    text-align: left;
+  }
+
+  .error-suggestions p {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .error-suggestions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .error-suggestions li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  .error-suggestions svg {
+    color: var(--secondary);
+    flex-shrink: 0;
+  }
+
+  /* Actions */
+  .error-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.25);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(12, 68, 99, 0.35);
+  }
+
+  .btn-secondary {
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--gray-light);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--secondary);
+    background: var(--blue-light);
+  }
+
+  /* Popular Pages */
+  .popular-pages {
+    border-top: 1px solid var(--gray-light);
+    padding-top: 32px;
+  }
+
+  .popular-pages > p {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+    opacity: 0.7;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .pages-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .page-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .page-link:hover {
+    border-color: var(--secondary);
+    background: var(--blue-light);
+    transform: translateY(-2px);
+  }
+
+  .page-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, rgba(92, 176, 214, 0.15) 0%, rgba(92, 176, 214, 0.05) 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary);
+    flex-shrink: 0;
+  }
+
+  /* Background Decoration */
+  .background-decoration {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .decoration-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  .circle-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(92, 176, 214, 0.15) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+  }
+
+  .circle-2 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(12, 68, 99, 0.1) 0%, transparent 70%);
+    bottom: -50px;
+    left: -50px;
+  }
+
+  .circle-3 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(92, 176, 214, 0.1) 0%, transparent 70%);
+    top: 50%;
+    left: 10%;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .error-page {
+      padding: 60px 20px;
+    }
+
+    .digit {
+      font-size: 5rem;
+    }
+
+    .house-icon {
+      width: 80px;
+      height: 80px;
+    }
+
+    .house-icon svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .question-mark {
+      width: 28px;
+      height: 28px;
+      font-size: 1rem;
+      top: -4px;
+      right: -4px;
+    }
+
+    .error-content h1 {
+      font-size: 1.75rem;
+    }
+
+    .error-description {
+      font-size: 1rem;
+    }
+
+    .error-suggestions {
+      padding: 20px 24px;
+    }
+
+    .error-actions {
+      flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .pages-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .digit {
+      font-size: 4rem;
+    }
+
+    .house-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .house-icon svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .error-content h1 {
+      font-size: 1.5rem;
+    }
+
+    .error-suggestions li {
+      font-size: 0.9rem;
+    }
+  }
+</style>

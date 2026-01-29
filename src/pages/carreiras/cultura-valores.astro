@@ -1,8 +1,30 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 
 const culturePillars = [
+{
+    title: "Liberdade Responsável",
+    description: [
+      "Na Host Wise acreditamos que a liberdade só faz sentido quando vem acompanhada de responsabilidade. Confiamos nas pessoas para gerirem o seu trabalho, o seu tempo e as suas decisões, sabendo que cada escolha tem impacto na equipa, nos clientes e no negócio.",
+      "Não trabalhamos com microgestão, mas com compromisso. Aqui tens autonomia para agir — com a expectativa clara de entregar resultados, cumprir prazos e assumir as consequências das decisões tomadas.",
+      "Liberdade, para nós, não é ausência de regras. É confiança com accountability."
+    ],
+    icon: "/images/values-culture/liberdade-responsavel.svg",
+    image: "/images/values-culture/team-building-host-wise-porto-2.webp",
+    imageAlt: "Team Building da Host Wise no Porto"
+  }, 
   {
+    title: "Ownership",
+    description: [
+      "Na Host Wise, cada pessoa age como se o negócio fosse seu. Não esperamos que alguém “cumpra tarefas” — esperamos envolvimento, pensamento crítico e sentido de responsabilidade sobre aquilo que faz.",
+      "Ownership significa não empurrar problemas para a frente, não trabalhar em silos e não dizer “isso não é comigo”. Significa identificar desafios, propor soluções e acompanhar a execução até ao fim.",
+      "Valorizamos quem assume responsabilidade, aprende com os erros e contribui ativamente para a melhoria contínua da empresa."
+    ],
+    icon: "/images/values-culture/ownership.svg",
+    image: "/images/values-culture/team-building-host-wise-porto.webp",
+    imageAlt: "Team Building da Host Wise no Porto"
+  },  
+{
     title: "Empowerment",
     description: [
       "Na Host Wise, acreditamos que o sucesso vem da autonomia e da capacidade de inovar. Aqui, tens espaço para criar, testar novas abordagens e implementar soluções que fazem a diferença.",
@@ -12,26 +34,28 @@ const culturePillars = [
     image: "/images/values-culture/team-building-host-wise-burro-ville.webp",
     imageAlt: "Team Building da Host Wise no Burro Ville"
   },
-  {
-    title: "Progressão de Carreira",
+   {
+    title: "Velocidade e Agilidade",
     description: [
-      "O teu crescimento é uma prioridade para nós. Na Host Wise, definimos planos de carreira estruturados, com bónus mensais variáveis e aumentos anuais que podem chegar a 15%.",
-      "Além disso, investimos na tua formação contínua, garantindo que evoluis profissionalmente e te manténs atualizado com as melhores práticas do setor. Aqui, cada passo que dás na tua jornada é reconhecido e recompensado."
+      "Movemo-nos rápido porque o mercado exige rapidez — mas nunca à custa da qualidade. Na Host Wise privilegiamos decisões informadas, execução eficiente e capacidade de adaptação constante.",
+      "Testamos, ajustamos e melhoramos continuamente. Preferimos avançar com uma boa solução hoje do que esperar pela solução perfeita amanhã. Aprender rápido faz parte do processo.",
+      "A agilidade não é pressa desorganizada. É foco, clareza de prioridades e capacidade de responder a desafios reais com eficácia."
     ],
-    icon: "/images/values-culture/progressao-carreira.svg",
-    image: "/images/values-culture/team-building-host-wise-porto.webp",
-    imageAlt: "Team Building da Host Wise no Porto"
+    icon: "/images/values-culture/velocity.svg",
+    image: "/images/carreiras/team-building-arouca-6.webp",
+    imageAlt: "Team Building da Host Wise em Arouca"
+  }, 
+   {
+    title: "Inovação",
+    description: [
+      "A inovação na Host Wise não é um buzzword — é uma prática diária. Desenvolvemos soluções, processos e ferramentas que nos permitem operar melhor, escalar com eficiência e entregar mais valor aos clientes.",
+      "Apostamos em tecnologia, automação e inteligência artificial para otimizar a gestão, reduzir fricção e melhorar decisões. Mas acreditamos que a verdadeira inovação nasce da combinação entre tecnologia, pessoas e pensamento crítico.",
+      "Questionar o status quo faz parte do nosso ADN. Se algo pode ser feito de forma mais simples, mais rápida ou mais inteligente, queremos ser os primeiros a tentar."
+    ],
+    icon: "/images/values-culture/innovation.svg",
+    image: "/images/values-culture/jantar-natal-2025-5.webp",
+    imageAlt: "Jantar de Natal da Host Wise 2025"
   },
-  {
-    title: "Foco na Performance",
-    description: [
-      "O que importa não é o número de horas que passas a trabalhar, mas sim o impacto do que entregas. Na Host Wise, valorizamos a produtividade e os resultados, dando-te flexibilidade para gerir o teu tempo da melhor forma.",
-      "Trabalhamos com objetivos claros e metas desafiadoras, permitindo-te focar no que realmente importa: fazer a diferença e alcançar a excelência."
-    ],
-    icon: "/images/values-culture/foco-performance.svg",
-    image: "/images/values-culture/team-building-host-wise-porto-2.webp",
-    imageAlt: "Colaboradores da Host Wise num Team Building no Porto"
-  }
 ];
 
 const benefits = [
@@ -104,7 +128,7 @@ const teamPhotos = [
   <section class="culture-section">
     <div class="section-header-culture">
       <h2>Os Nossos Valores e Cultura</h2>
-      <p>Três pilares que definem como trabalhamos</p>
+      <p>Cinco pilares que definem como trabalhamos</p>
     </div>
 
     <div class="culture-container">
@@ -132,7 +156,7 @@ const teamPhotos = [
   </section>
 
   <!-- Benefits Package Section -->
-  <section class="benefits-section">
+  <section id="benefits" class="benefits-section">
     <div class="container">
       <div class="section-header">
         <h2>Pacote de Benefícios</h2>
@@ -195,7 +219,7 @@ const teamPhotos = [
           e o teu crescimento é prioridade.
         </p>
         <div class="cta-buttons">
-          <a href="/vagas-emprego" class="btn-primary-cta">
+          <a href="/carreiras/vagas-emprego" class="btn-primary-cta">
             Explora as Oportunidades
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -321,10 +345,11 @@ const teamPhotos = [
   .culture-container {
     max-width: 1400px;
     margin: 0 auto;
+    padding-bottom: 100px;
   }
 
   .culture-row {
-    min-height: 100vh;
+    min-height: 60vh;
     display: flex;
     align-items: flex-start;
     padding: 0 40px;
@@ -342,23 +367,101 @@ const teamPhotos = [
     top: 150px;
   }
 
+  .culture-row[data-index="3"] .culture-content-sticky {
+    top: 200px;
+  }
+
+  .culture-row[data-index="4"] .culture-content-sticky {
+    top: 250px;
+  }
+
   .culture-content-sticky {
     position: sticky;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
     align-items: center;
-    background: linear-gradient(135deg, var(--blue-light) 0%, rgba(92, 176, 214, 0.05) 100%);
     border: 2px solid var(--gray-light);
     border-radius: 24px;
     padding: 60px 50px;
     width: 100%;
     box-shadow: 0 8px 32px rgba(12, 68, 99, 0.1);
     transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Accent line at the top of each card */
+  .culture-content-sticky::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+  }
+
+  /* Card 1 - Primary Blue */
+  .culture-row[data-index="0"] .culture-content-sticky {
+    background: linear-gradient(135deg, #E8F4FC 0%, rgba(12, 68, 99, 0.03) 100%);
+    border-left: 4px solid var(--primary);
+  }
+  .culture-row[data-index="0"] .culture-content-sticky::before {
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  }
+  .culture-row[data-index="0"] .culture-content-sticky:hover {
+    border-color: var(--primary);
+  }
+
+  /* Card 2 - Teal/Cyan */
+  .culture-row[data-index="1"] .culture-content-sticky {
+    background: linear-gradient(135deg, #E0F7F6 0%, rgba(38, 166, 154, 0.03) 100%);
+    border-left: 4px solid #26A69A;
+  }
+  .culture-row[data-index="1"] .culture-content-sticky::before {
+    background: linear-gradient(90deg, #26A69A 0%, #4DB6AC 100%);
+  }
+  .culture-row[data-index="1"] .culture-content-sticky:hover {
+    border-color: #26A69A;
+  }
+
+  /* Card 3 - Secondary Blue */
+  .culture-row[data-index="2"] .culture-content-sticky {
+    background: linear-gradient(135deg, var(--blue-light) 0%, rgba(92, 176, 214, 0.05) 100%);
+    border-left: 4px solid var(--secondary);
+  }
+  .culture-row[data-index="2"] .culture-content-sticky::before {
+    background: linear-gradient(90deg, var(--secondary) 0%, #7EC8E3 100%);
+  }
+  .culture-row[data-index="2"] .culture-content-sticky:hover {
+    border-color: var(--secondary);
+  }
+
+  /* Card 4 - Purple/Lavender */
+  .culture-row[data-index="3"] .culture-content-sticky {
+    background: linear-gradient(135deg, #EDE7F6 0%, rgba(103, 58, 183, 0.03) 100%);
+    border-left: 4px solid #7E57C2;
+  }
+  .culture-row[data-index="3"] .culture-content-sticky::before {
+    background: linear-gradient(90deg, #7E57C2 0%, #9575CD 100%);
+  }
+  .culture-row[data-index="3"] .culture-content-sticky:hover {
+    border-color: #7E57C2;
+  }
+
+  /* Card 5 - Coral/Orange */
+  .culture-row[data-index="4"] .culture-content-sticky {
+    background: linear-gradient(135deg, #FFF3E0 0%, rgba(255, 138, 101, 0.03) 100%);
+    border-left: 4px solid #FF8A65;
+  }
+  .culture-row[data-index="4"] .culture-content-sticky::before {
+    background: linear-gradient(90deg, #FF8A65 0%, #FFAB91 100%);
+  }
+  .culture-row[data-index="4"] .culture-content-sticky:hover {
+    border-color: #FF8A65;
   }
 
   .culture-content-sticky:hover {
-    border-color: var(--secondary);
     box-shadow: 0 16px 48px rgba(12, 68, 99, 0.15);
   }
 
@@ -425,7 +528,7 @@ const teamPhotos = [
   /* Benefits Section */
   .benefits-section {
     padding: 100px 20px;
-    background: linear-gradient(180deg, #F8FCFF 0%, #fff 100%);
+    background: linear-gradient(180deg, white 0%, var(--blue-light) 50%, white 100%);;
   }
 
   .section-header {
