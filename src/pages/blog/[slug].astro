@@ -98,7 +98,8 @@ const imageUrl = featuredImage || randomFallback;
 const headings = extractHeadings(post.content.rendered);
 ---
 
-<Layout title={`${title} - Blog Host Wise`}>
+<Layout title={`${title}`}
+description={excerpt}>
   <!-- Article Hero -->
   <article class="blog-article">
     <div class="article-hero">

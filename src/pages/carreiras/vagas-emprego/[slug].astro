@@ -143,7 +143,7 @@ const workModelClasses: Record<string, string> = {
 
           <form
             class="application-form"
-            action="https://n8n.srv860220.hstgr.cloud/webhook-test/vagas-emprego/candidatura"
+            action="https://n8n.srv860220.hstgr.cloud/webhook/vagas-emprego/candidatura"
             method="POST"
             enctype="multipart/form-data"
             id="applicationForm"
@@ -856,10 +856,6 @@ select:focus {
     display: block;
   }
 
-  .success-message + .application-form {
-    display: none;
-  }
-
   .success-icon {
     color: #2E7D32;
     margin-bottom: 20px;
@@ -1024,4 +1020,109 @@ select:focus {
       setSelected(true);
     });
   }
+</script>
+<script>
+  (function () {
+    const form = document.getElementById('applicationForm');
+    if (!(form instanceof HTMLFormElement)) return;
+
+    const card = form.closest('.application-card');
+    const btn = form.querySelector('.btn-submit');
+    const btnText = btn?.querySelector('.btn-text');
+    const cvError = document.getElementById('cvError'); // já tens
+
+    // Mensagem de erro geral (vamos criar uma se não existir)
+    let generalError = document.getElementById('formError');
+    if (!generalError) {
+      generalError = document.createElement('p');
+      generalError.id = 'formError';
+      generalError.className = 'field-error';
+      generalError.setAttribute('aria-live', 'polite');
+      form.querySelector('.form-actions')?.insertAdjacentElement('beforebegin', generalError);
+    }
+
+    function setLoading(isLoading) {
+      if (!btn) return;
+      btn.disabled = isLoading;
+      btn.classList.toggle('loading', isLoading);
+    }
+
+    function showError(msg) {
+      if (!generalError) return;
+      generalError.textContent = msg;
+      generalError.classList.add('show');
+    }
+
+    function clearError() {
+      if (!generalError) return;
+      generalError.textContent = '';
+      generalError.classList.remove('show');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearError();
+
+      // validação nativa do browser
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const formData = new FormData(form);
+
+        // POST para o endpoint do form (action)
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+        });
+
+        // tenta ler JSON
+        let data = null;
+        const ct = res.headers.get('content-type') || '';
+        if (ct.includes('application/json')) {
+          data = await res.json();
+        } else {
+          // fallback: texto
+          const t = await res.text();
+          data = { ok: res.ok, message: t };
+        }
+
+        if (!res.ok || !data || data.ok !== true) {
+          const msg =
+            (data && data.message) ||
+            'Não foi possível submeter a candidatura. Verifica os dados e tenta novamente.';
+          showError(msg);
+          return;
+        }
+
+        // sucesso -> usa o UI que já tens
+        if (card) card.classList.add('submitted');
+        form.reset();
+
+        // limpa UI do upload (nome do ficheiro)
+        const fileNameDisplay = document.querySelector('.file-name');
+        const fileWrapper = document.querySelector('.file-upload-wrapper');
+        if (fileNameDisplay) fileNameDisplay.textContent = 'Clica para selecionar o teu CV';
+        fileWrapper?.classList.remove('file-selected');
+        if (cvError) {
+          cvError.textContent = '';
+          cvError.classList.remove('show');
+        }
+
+      } catch (err) {
+        showError('Erro de rede. Tenta novamente dentro de alguns segundos.');
+      } finally {
+        setLoading(false);
+
+        // reset do Turnstile (se existir)
+        if (window.turnstile && typeof window.turnstile.reset === 'function') {
+          try { window.turnstile.reset(); } catch (_) {}
+        }
+      }
+    });
+  })();
 </script>
