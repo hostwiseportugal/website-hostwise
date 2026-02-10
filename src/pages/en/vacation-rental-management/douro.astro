@@ -1,0 +1,199 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import HeroSectionV3 from '../../../components/HeroSectionV3.astro';
+import IntroSection from '../../../components/IntroSection.astro';
+import ServicesAccordionText from '../../../components/ServicesAccordionText.astro';
+import PlatformsMarquee from '../../../components/PlatformsMarquee.astro';
+import ModelsIntro from '../../../components/ModelsIntro.astro';
+import OwnerTestimonials from '../../../components/OwnerTestimonials.astro';
+import FAQSection from '../../../components/FAQSection.astro';
+import FeaturesGrid from '../../../components/FeaturesGrid.astro';
+import { serviceSchema } from "../../../lib/schema/service";
+import { faqPageSchemaFromCategories } from "../../../lib/schema/faq-from-categories";
+import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
+
+const categories = [
+  {
+    id: 'essentials',
+    label: 'The Essentials',
+    questions: [
+      {
+        question: 'Why choose Host Wise?',
+        answer: 'Host Wise is a vacation rental management company with extensive experience in the Portuguese market, ensuring a complete and hassle-free service for property owners, while providing an excellent experience for guests, with permanent support to guarantee positive reviews and higher occupancy rates.',
+      },
+      {
+        question: 'How will Host Wise increase my profitability?',
+        answer: '<p>Our revenue management team implements a dynamic data-driven strategy, adjusting your Airbnb prices in real time according to multiple factors, such as market trends, local occupancy rates, competitor analysis and regional events.</p><br><p>We use specialized tools, such as PriceLabs, to maximize your income without compromising occupancy rates. Additionally, in collaboration with our marketing team, we optimize listings with persuasive descriptions, professional photography and SEO techniques to increase your property\'s visibility and attract more guests.</p>',
+      },
+      {
+        question: 'Why choose Host Wise instead of managing my property myself?',
+        answer: '<p>Managing a vacation rental requires time, dedication and experience to ensure maximum profitability. Without the right strategy, you may miss opportunities to increase your profits and optimize occupancy.</p><br><p>Host Wise offers professional and comprehensive vacation rental management, freeing you from operational tasks and ensuring excellent service for both you and your guests.</p><br><p>We have a team of specialists who deeply understand the market and implement intelligent pricing, marketing and operational strategies to optimize your returns without complications.</p><br><p>By trusting Host Wise, you transform your property into a passive income source, without worrying about bookings, check-ins, cleaning or maintenance.</p>',
+      },
+    ],
+  },
+  {
+    id: 'payments-pricing',
+    label: 'Payments and Pricing',
+    questions: [
+      {
+        question: 'How much does Host Wise\'s service cost?',
+        answer: '<p>The cost of Host Wise\'s service varies depending on the management model chosen (guaranteed income or commission), location and property specifications.</p><br><p>We offer a transparent model with no hidden fees, adapting our proposal to each owner\'s needs.</p>',
+      },
+    ],
+  },
+  {
+    id: 'guaranteed-income',
+    label: 'Guaranteed Income',
+    questions: [
+      {
+        question: 'What is the guaranteed income model?',
+        answer: '<p>In the guaranteed income model, the owner receives a fixed monthly rent, regardless of the property\'s occupancy during a period that can last up to 10 years.</p><br><p>This model guarantees you long-term financial stability without the worry of tenant management or minor maintenance.</p>',
+      },
+      {
+        question: 'How do you determine my property\'s value in the guaranteed income model?',
+        answer: '<p>The valuation is done through a profitability study based on the analysis of several factors, including location, size and condition of the property, and current real estate market trends and the location where the accommodation is situated.</p><br><p>This study allows us to predict the net revenue generated for the proposed contract term.</p>',
+      },
+    ],
+  },
+  {
+    id: 'commission',
+    label: 'Commission',
+    questions: [
+      {
+        question: 'Can I use my property while it\'s being managed by Host Wise?',
+        answer: 'Yes, owners can book their properties for personal use, as long as they notify Host Wise in advance. We will block the dates on the booking calendar to ensure no reservations are made during your stay.',
+      },
+    ],
+  },
+];
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const canonicalUrl = new URL(Astro.url); canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: new URL("/en", site).href },
+  { name: "Vacation Rental Management", url: new URL("/en/vacation-rental-management", site).href },
+  { name: "Douro", url: canonical },
+]);
+
+const schemas = [
+  breadcrumbs,
+  serviceSchema({
+    serviceName: "Vacation Rental Management",
+    url: canonical,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Douro", type: "Place" }],
+  }),
+  ...(categories.length ? [faqPageSchemaFromCategories(categories)] : []),
+];
+
+const alternates = [
+  { hreflang: "pt-PT", href: "https://www.hostwise.pt/gestao-alojamento-local/douro" },
+  { hreflang: "en", href: "https://www.hostwise.pt/en/vacation-rental-management/douro" },
+  { hreflang: "x-default", href: "https://www.hostwise.pt/gestao-alojamento-local/douro" },
+];
+---
+
+<Layout title="Vacation Rental Management in Douro"
+description='Vacation rental management in Douro for unique properties, with careful operation, focus on guest experience and sustainable profitability.'
+schemas={schemas}
+alternates={alternates}
+canonical={canonical}>
+  <!-- Hero Section -->
+  <HeroSectionV3
+    badge_text="Vacation Rental Management Douro"
+    badge_icon_key="home"
+    heading="In the Douro, Every Property Tells a Story"
+    description="In the Douro, vacation rental management is not mass-market — it's personalized. We manage tourist properties with a focus on authenticity, guest experience and professional operation that protects heritage and ensures consistent results throughout the year."
+    primary_cta_label="Get a Proposal"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+    secondary_cta_label="Learn More"
+    secondary_cta_url="#intro-section"
+    image="/images/gestao-alojamento-local-header.webp"
+  />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="Professional Management for Unique Properties in the Douro."
+    intro_text={`
+      <p>
+        The Douro is one of Portugal's most emblematic regions — not just for its landscape, but for the type of experience it offers. Here, tourism is made of authenticity, detail and connection to the territory.
+      </p>
+      <p>
+        Host Wise applies its vacation rental management experience in the Douro with an approach adjusted to the region's reality: unique properties, selective demand and the need for careful, professional and efficient operation.
+      </p>
+      <p>
+        We work with owners who seek to monetize their properties without compromising the space's identity, ensuring management that respects heritage, values the guest experience and ensures sustainable results throughout the year.
+      </p>
+      <p>
+        In a destination where every booking counts, our strategy combines local knowledge, pricing adjusted to real demand and operation attentive to detail — to transform unique properties into solid and well-positioned tourist assets.
+      </p>
+    `}
+    intro_cta_label="Get a Proposal"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+  />
+
+  <!-- Features Grid -->
+  <FeaturesGrid
+  />
+
+  <!-- Platforms Marquee -->
+  <PlatformsMarquee
+    platforms_badge="Multi-Platform Presence"
+    platforms_title="Your Listings on the Major Booking Platforms"
+    platforms_subtitle="We maximize your property's visibility with presence on the main global booking platforms. Synchronized management of calendars, prices and availability in real time."
+    platforms={[
+      { name: 'Airbnb', logo: '/images/platform-logos/airbnb-logo.svg' },
+      { name: 'Booking.com', logo: '/images/platform-logos/booking-com-logo.svg' },
+      { name: 'Vrbo', logo: '/images/platform-logos/vrbo-logo.svg' },
+      { name: 'Expedia', logo: '/images/platform-logos/expedia-logo.svg' },
+      { name: 'Flatio', logo: '/images/platform-logos/flatio-logo.svg' },
+      { name: 'Host Wise', logo: '/images/platform-logos/hostwise-logo.svg' },
+      { name: 'Housing Anywhere', logo: '/images/platform-logos/housing-anywhere-logo.svg' },
+      { name: 'Idealista', logo: '/images/platform-logos/idealista-logo.svg' },
+      { name: 'InLife', logo: '/images/platform-logos/inlife-logo.svg' },
+      { name: 'Marriott Homes & Villas', logo: '/images/platform-logos/marriott-homes-villas-logo.svg' },
+      { name: 'Spotahome', logo: '/images/platform-logos/spotahome-logo.svg' },
+      { name: 'Uniplaces', logo: '/images/platform-logos/uniplaces-logo.svg' },
+    ]}
+  />
+
+  <!-- Models Intro -->
+  <ModelsIntro />
+
+  <!-- Owner Testimonials -->
+  <OwnerTestimonials
+    badgeLabel="Testimonials"
+    title="Meet Our Property Owners"
+    subtitle="With solutions tailored to our owners' needs, we ensure the best experience so you can maximize your returns with total peace of mind. See what our clients say about Host Wise's vacation rental management services in the Douro."
+    testimonials={[
+      {
+        name: 'Roberto F.',
+        location: 'Lamego',
+        property: 'Vacation Rental Owner',
+        rating: 5,
+        comment: 'I decided to rent my country house in the Douro with Host Wise, and opted for guaranteed income. It has been a great experience! I receive a fixed income every month, without worrying about seasonality or house maintenance. The team is highly professional and always available to resolve any issue.',
+      },
+      {
+        name: 'Amélia C.',
+        location: 'Santa Marta de Penaguião',
+        property: 'Vacation Rental Owner',
+        rating: 5,
+        comment: 'I chose Host Wise to manage my property on commission in the Douro, and I am extremely satisfied. Occupancy has been constant and, during the harvest season, the return was even higher than I expected. They handle everything, from guest communication to cleaning and maintenance, allowing me to relax and watch the profits grow.',
+      },
+    ]}
+    ctaTitle="Ready to Maximize Your Returns in the Douro?"
+    ctaSubtitle="Receive a personalized proposal for your property within 24 hours."
+    ctaLabel="Get a Free Proposal"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- FAQ Section -->
+  <FAQSection
+    title="We Answer Your Questions"
+    subtitle="Everything you need to know about managing your property with Host Wise."
+    categories={categories}
+  />
+
+</Layout>

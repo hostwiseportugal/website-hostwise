@@ -11,7 +11,9 @@ import FAQSection from '../components/FAQSection.astro';
 import WiseGroupSection from '../components/WiseGroupSection.astro';
 import PartnersMarquee from '../components/PartnersMarquee.astro';
 import { faqPageSchemaFromCategories } from "../lib/schema/faq-from-categories";
+import { websiteSchema } from "../lib/schema/website";
 
+const siteUrl = "https://www.hostwise.pt";
 const apiBase = import.meta.env.WORDPRESS_API_URL;
 
 // 1) Home (ACF)
@@ -19,6 +21,24 @@ const HOME_PAGE_ID = 59;
 const res = await fetch(`${apiBase}/pages/${HOME_PAGE_ID}?lang=pt&_embed`);
 const page = await res.json();
 const acf = page.acf || {};
+
+const faqCategoriesData =
+  (acf.faq_categories || []).map((cat: any) => ({
+    id: cat.faq_category_id,
+    label: cat.faq_category_label,
+    questions: (cat.faq_items || []).map((item: any) => ({
+      question: item.faq_question,
+      answer: item.faq_answer,
+    })),
+  })) || [];
+
+const schemas = [
+  websiteSchema({ siteUrl, name: "Host Wise" }),
+  ...(faqCategoriesData.length ? [faqPageSchemaFromCategories(faqCategoriesData)] : []),
+];
+
+
+
 
 // 2) Posts do blog (só 3 para a home)
 const postsRes = await fetch(
@@ -62,25 +82,12 @@ const blogPosts = posts.map((post) => {
   };
 });
 
-const faqCategoriesData =
-  (acf.faq_categories || []).map((cat: any) => ({
-    id: cat.faq_category_id,
-    label: cat.faq_category_label,
-    questions: (cat.faq_items || []).map((item: any) => ({
-      question: item.faq_question,
-      answer: item.faq_answer,
-    })),
-  })) || [];
 
-  const schemas = [
-  // Só adiciona FAQ schema se existirem FAQs na página
-  ...(faqCategoriesData.length ? [faqPageSchemaFromCategories(faqCategoriesData)] : []),
-];
 
 ---
 
-<Layout title="HostWise - Gestão de Alojamentos Locais e Asset Management"
-description=''
+<Layout title="Empresa de Gestão de Alojamento Local em Portugal"
+description='A Host Wise é uma empresa de gestão de alojamento local especializada em maximizar a rentabilidade de imóveis turísticos, do apartamento ao hotel.'
 schemas={schemas}>
   <HeroToggle
     tabOwnerLabel={acf.hero_tab_owner_label}

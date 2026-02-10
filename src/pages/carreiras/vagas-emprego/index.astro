@@ -1,6 +1,10 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { iconMap } from '../../../icons/iconMap';
+import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
+import { itemListSchema } from "../../../lib/schema/item-list";
+import { collectionPageSchema } from "../../../lib/schema/collection-page";
+
 
 const apiBase = import.meta.env.WORDPRESS_API_URL;
 
@@ -57,9 +61,59 @@ const workModelClasses: Record<string, string> = {
   'Híbrido': 'badge-hibrido',
   'Presencial': 'badge-presencial',
 };
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+
+// canonical limpo
+const canonicalUrl = new URL(Astro.url);
+canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const metaDescription =
+  "Veja as vagas de emprego abertas na Host Wise e encontre oportunidades para crescer numa empresa de gestão de alojamento local.";
+
+// URLs absolutas das vagas (para schema)
+const jobItems = jobsData.map((j, idx) => ({
+  name: j.title,
+  url: new URL(`/carreiras/vagas-emprego/${j.slug}`, site).href,
+  position: idx + 1,
+}));
+
+const schemas = [
+  breadcrumbSchema([
+    { name: "Home", url: site.href },
+    { name: "Carreiras", url: new URL("/carreiras", site).href },
+    { name: "Vagas de Emprego", url: canonical },
+  ]),
+
+  collectionPageSchema({
+    url: canonical,
+    name: "Vagas de Emprego - Host Wise",
+    description: metaDescription,
+    inLanguage: "pt-PT",
+  }),
+
+  itemListSchema({
+    url: canonical,
+    name: "Lista de Vagas de Emprego",
+    items: jobItems,
+  }),
+];
+
+// hreflang (EN vai ter slug/estrutura possivelmente diferente)
+const alternates = [
+  { hreflang: "pt-PT", href: canonical },
+  { hreflang: "en", href: new URL("/en/careers/job-openings", site).href }, // ajusta se necessário
+  { hreflang: "x-default", href: canonical },
+];
+
 ---
 
-<Layout title="Vagas de Emprego - Host Wise | Oportunidades de Carreira">
+<Layout title="Vagas de Emprego"
+description={metaDescription}
+  schemas={schemas}
+  alternates={alternates}
+  canonical={canonical}>
   <!-- Hero Section -->
   <section class="jobs-hero">
     <div class="container">

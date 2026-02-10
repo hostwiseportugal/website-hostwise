@@ -1,0 +1,369 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSectionV3 from '../../components/HeroSectionV3.astro';
+import IntroSection from '../../components/IntroSection.astro';
+import BenefitsGrid from '../../components/BenefitsGrid.astro';
+import CommissionVsTraditional from '../../components/CommissionVsTraditional.astro';
+import PricingSection from '../../components/PricingSection.astro';
+import ModelsComparison from '../../components/ModelsComparison.astro';
+import OwnerTestimonials from '../../components/OwnerTestimonials.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { serviceSchema } from "../../lib/schema/service";
+import { faqPageSchemaFromCategories } from "../../lib/schema/faq-from-categories";
+import { breadcrumbSchema } from "../../lib/schema/breadcrumbs";
+
+const benefits = [
+  {
+    title: "Unlimited Revenue Potential",
+    description: "Unlike the guaranteed income model, the sky is the limit here. The more bookings and better your property performs, the more you earn. Ideal for owners who want to maximise profits and benefit directly from their property's success.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "Full Transparency on Earnings",
+    description: "You receive detailed monthly reports with all bookings, gross revenue, applied commission and net income. You can track everything in real time and see exactly where every euro comes from.",
+    color: "rgba(12, 68, 99, 1)"
+  },
+  {
+    title: "Professional Management Included",
+    description: "We handle everything: dynamic pricing optimisation, marketing across major platforms, guest communication, cleaning, maintenance and much more. You relax while we work to maximise your bookings.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "Market Flexibility",
+    description: "Take advantage of tourism demand peaks. High seasons, special events and festive periods generate more bookings and higher rates — and you benefit directly with increased earnings.",
+    color: "rgba(12, 68, 99, 1)"
+  },
+  {
+    title: "Continuous Optimisation",
+    description: "Our team constantly works to improve your property's performance: price adjustments, space improvements, guest feedback and marketing strategies. All to ensure you receive the maximum possible.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "No Growth Limits",
+    description: "Unlike a fixed rent, with the commission model you can benefit from positive market trends, increased demand in your area and improvements to your property. Your income grows with the property's potential.",
+    color: "rgba(12, 68, 99, 1)"
+  }
+];
+
+const categories = [
+  {
+    id: 'model',
+    label: 'About the Model',
+    questions: [
+      {
+        question: 'How can I track my property\'s results?',
+        answer: 'Host Wise provides regular reports on your property\'s performance, including occupancy, revenue and guest feedback. We keep you updated on the success of your vacation rental in a transparent manner.',
+      },
+      {
+        question: 'Can I use my property while it is being managed by Host Wise?',
+        answer: 'Yes, owners can book their properties for personal use, as long as they notify Host Wise in advance. We will block the dates in the booking calendar to ensure no reservation is made during your stay.',
+      },
+    ],
+  },
+  {
+    id: 'host-wise',
+    label: 'About Host Wise',
+    questions: [
+      {
+        question: 'Why choose Host Wise?',
+        answer: 'Host Wise is a vacation rental management company with extensive experience in the Portuguese market, providing a complete and hassle-free service for owners, while ensuring an excellent experience for guests, with permanent support to guarantee positive reviews and higher occupancy rates.',
+      },
+      {
+        question: 'How will Host Wise increase my profitability?',
+        answer: '<p>Our revenue management team implements a dynamic data-driven strategy, adjusting your property\'s prices in real time according to multiple factors, such as market trends, local occupancy rates, competitor analysis and regional events.</p><br><p>We use specialised tools like PriceLabs to maximise your revenue without compromising occupancy rates. Additionally, in collaboration with our marketing team, we optimise listings with persuasive descriptions, professional photography and SEO techniques to increase your property\'s visibility and attract more guests.</p>',
+      },
+      {
+        question: 'Why choose Host Wise instead of managing the property yourself?',
+        answer: 'Managing a vacation rental requires time, dedication and expertise to maximise profits. Host Wise offers a complete solution, saving you time and hassle, while maximising your property\'s profitability. We work with a team of local specialists and have deep knowledge of the market, ensuring efficient and stress-free management.',
+      },
+    ],
+  },
+];
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const canonicalUrl = new URL(Astro.url); canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: new URL("/en", site).href },
+  { name: "Commission Model", url: canonical },
+]);
+
+const schemas = [
+  breadcrumbs,
+  serviceSchema({
+    serviceName: "Commission-Based Vacation Rental Management",
+    url: canonical,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Portugal", type: "Country" }],
+  }),
+  ...(categories.length ? [faqPageSchemaFromCategories(categories)] : []),
+];
+
+const alternates = [
+  {
+    hreflang: "pt-PT",
+    href: "https://www.hostwise.pt/comissao",
+  },
+  {
+    hreflang: "en",
+    href: "https://www.hostwise.pt/en/commission",
+  },
+  {
+    hreflang: "x-default",
+    href: "https://www.hostwise.pt/comissao",
+  },
+];
+---
+
+<Layout title="Commission-Based Vacation Rental Management"
+description='Commission-based vacation rental management model, focused on maximising occupancy, revenue and property performance.'
+schemas={schemas}
+alternates={alternates}
+canonical={canonical}>
+  <!-- Hero Section V3 -->
+  <HeroSectionV3
+    badge_text="Commission"
+    badge_icon_key="chartLine"
+    heading="More Bookings, More Revenue. No Limits."
+    description="The commission model is designed for owners who want to benefit directly from their property's performance. We combine middle-term and short-term strategies to optimise your income throughout the year."
+    primary_cta_label="Get a Proposal"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+    secondary_cta_label="Learn More"
+    secondary_cta_url="#intro-section"
+    image="/images/quarto-alojamento-local-tristao-cunha-porto.webp"
+  />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="A model for those who want to unlock their property's full market potential."
+    intro_text={`
+      <p>
+        Host Wise's commission model is a flexible, results-driven solution. Instead of a fixed amount, we charge a percentage of the revenue generated by your property. This means we only earn when you earn — our goals are fully aligned with yours.
+      </p>
+      <p>
+        This model is ideal for owners who want to get the most out of their vacation rental, while keeping the option to use the property whenever they wish. With our professional management, we enhance every booking through pricing optimisation, multi-platform promotion and a complete guest service.
+      </p>
+      <p>
+        If you're looking for a transparent, performance-based approach with continuous support, the commission model is the right choice.
+      </p>
+    `}
+    intro_cta_label="Get a Proposal"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- Benefits Grid -->
+  <BenefitsGrid
+    benefits={benefits}
+    badgeText="Model Benefits"
+    heading="Why Choose the Commission Model?"
+    subheading="The commission model is designed for owners who want to maximise their property's potential. Benefit directly from booking performance, with a commission aligned with results."
+    hintText="Click a card to learn more"
+  />
+
+  <!-- Commission vs Traditional Comparison -->
+  <CommissionVsTraditional
+    badgeText="Commission Model"
+    title="Unlimited Revenue Potential vs. Traditional Rental"
+    description="With traditional rental, your income is fixed — or worse, it may be zero if you have no tenant. With Host Wise's commission model, your property adapts to market demand, maximising returns in every season."
+    traditionalTitle="Traditional Rental"
+    traditionalTag="Limited Income"
+    revenueLabel="Monthly Income"
+    traditionalAmount="€800"
+    traditionalNote="Fixed (when there is a tenant)"
+    traditionalBars={[
+      { month: 'Jan', value: '€800', height: '60%' },
+      { month: 'Feb', value: '€0', height: '10%', type: 'empty' },
+      { month: 'Mar', value: '€800', height: '60%' },
+      { month: 'Apr', value: '€800', height: '60%' },
+      { month: 'May', value: '€800', height: '60%' },
+      { month: 'Jun', value: '€800', height: '60%' },
+      { month: 'Jul', value: '€800', height: '60%' },
+      { month: 'Aug', value: '€800', height: '60%' },
+      { month: 'Sep', value: '€800', height: '60%' },
+      { month: 'Oct', value: '€0', height: '10%', type: 'empty' },
+      { month: 'Nov', value: '€800', height: '60%' },
+      { month: 'Dec', value: '€800', height: '60%' },
+    ]}
+    traditionalFeatures={[
+      'Fixed income, no growth potential',
+      'Risk of months without a tenant = €0',
+      'Does not benefit from high seasons',
+      'Total dependence on a single tenant',
+    ]}
+    totalLabel="Estimated Annual Total"
+    traditionalTotal="€8,000"
+    traditionalTotalNote="With 2 months of vacancy"
+    commissionPopularBadge="Highest Potential"
+    commissionTitle="Host Wise Commission Model"
+    commissionTag="Unlimited Potential"
+    commissionAmount="€800 - €2,500+"
+    commissionNote="Variable based on demand"
+    commissionBars={[
+      { month: 'Jan', value: '€700', height: '50%', type: 'middle-term' },
+      { month: 'Feb', value: '€750', height: '55%', type: 'middle-term' },
+      { month: 'Mar', value: '€900', height: '65%', type: 'mixed' },
+      { month: 'Apr', value: '€1,200', height: '80%', type: 'short-term' },
+      { month: 'May', value: '€1,400', height: '90%', type: 'short-term' },
+      { month: 'Jun', value: '€1,800', height: '100%', type: 'short-term' },
+      { month: 'Jul', value: '€2,200', height: '115%', type: 'short-term' },
+      { month: 'Aug', value: '€2,500', height: '120%', type: 'short-term' },
+      { month: 'Sep', value: '€1,500', height: '95%', type: 'short-term' },
+      { month: 'Oct', value: '€1,000', height: '70%', type: 'mixed' },
+      { month: 'Nov', value: '€700', height: '50%', type: 'middle-term' },
+      { month: 'Dec', value: '€1,100', height: '75%', type: 'mixed' },
+    ]}
+    traditionalLineTip="Traditional rental level"
+    legendMiddleTerm="Middle-term (low season)"
+    legendShortTerm="Short-term rental (high season)"
+    legendMixed="Mixed strategy"
+    commissionFeatures={[
+      'Unlimited potential during high seasons',
+      'Middle-term in low season = stability',
+      'Short-term in high season = maximisation',
+      'Guest diversification = less risk',
+    ]}
+    commissionTotal="€15,750"
+    commissionTotalNote="+97% vs. traditional rental"
+    strategyTitle="Our Strategy: The Best of Both Worlds"
+    lowSeasonTitle="Low Season"
+    lowSeasonPeriod="Nov - Mar"
+    lowSeasonDescription="We prioritise <strong>medium-term stays</strong> (1-3 months) to ensure stable occupancy and consistent income, even when tourism demand is lower."
+    highSeasonTitle="High Season"
+    highSeasonPeriod="Apr - Oct"
+    highSeasonDescription="We maximise income with <strong>short-term vacation rentals</strong>, taking advantage of strong tourism demand and events to charge premium rates."
+    resultTitle="Result: Optimised occupancy throughout the year"
+    resultDescription="By combining strategies, we eliminate the occupancy gaps typical of pure vacation rental and consistently outperform traditional rental income."
+    ctaTitle="Discover Your Property's True Potential"
+    ctaDescription="Receive a personalised simulation comparing your current income with the potential under the commission model."
+    ctaButtonLabel="Get a Free Simulation"
+    ctaButtonUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- Pricing Section -->
+  <PricingSection
+    title="Choose the Ideal Commission Plan for Your Property"
+    description="With our commission model, you have the freedom to choose the management level that best suits your profile. Check the available options and discover how we can make your property profitable with full transparency."
+    shortTermLabel="Short-Term"
+    midTermLabel="Mid-Term"
+    startingText="from"
+    shortTermPlans={[
+      {
+        badge: null,
+        name: "Pricing Management",
+        commission: "9%",
+        description: "Ideal for owners who want to keep operational control",
+        features: [
+          "Listing creation and optimisation",
+          "Presence on major platforms",
+          "Daily pricing management and optimisation",
+          "Payment management"
+        ],
+        cta: { text: "Choose This Plan", href: "https://hostwise.typeform.com/to/pWgP4EuZ" }
+      },
+      {
+        badge: "Most Popular",
+        name: "Full Service",
+        commission: "19%",
+        description: "100% dedicated management - don't worry about a thing",
+        features: [
+          "All Pricing Management services",
+          "Property maintenance support",
+          "Professional cleaning service",
+          "Access to the Owner Portal",
+          "24/7 guest communication",
+          "UCFE/SEF communication",
+          "Tourist tax payment",
+          "Invoicing service",
+          "Quality control inspections",
+          "Professional photography support",
+          "Guest verification",
+          "Toiletries",
+          "Automated check-in"
+        ],
+        cta: { text: "Choose This Plan", href: "https://hostwise.typeform.com/to/pWgP4EuZ" }
+      }
+    ]}
+    midTermPlans={[
+      {
+        badge: null,
+        name: "Mid-Term Management",
+        commission: "14%",
+        description: "For 1 to 12-month rentals with stability",
+        features: [
+          "Listing creation and optimisation",
+          "Presence on specialised major platforms",
+          "Guest verification",
+          "Rent, deposit and expense collection",
+          "Pricing management and optimisation",
+          "24/7 guest communication",
+          "End-of-stay inspection and deposit return",
+          "Invoicing and legal compliance management"
+        ],
+        cta: { text: "Choose This Plan", href: "https://hostwise.typeform.com/to/pWgP4EuZ" }
+      }
+    ]}
+    footerNote="Commission on gross revenue. The commission will depend on the property profile, its location and the contract duration."
+  />
+
+  <!-- Models Comparison -->
+  <ModelsComparison
+    badgeLabel="Compare Models"
+    title="Guaranteed Income vs. Commission: Which Model Suits You Best?"
+    paragraphs={[
+      'Each owner has different <strong>objectives</strong>, <strong>risk profiles</strong> and <strong>expectations</strong>. That\'s why we offer two distinct models — so you can choose the one that best fits your reality.',
+      'Compare the main differences between the guaranteed income and commission models and make an informed decision.',
+    ]}
+    guaranteedColumnTitle="Guaranteed Income"
+    commissionColumnTitle="Commission"
+    comparisonData={[
+      { feature: 'Monthly Income', guaranteed: 'Fixed', commission: 'Variable (market-dependent)' },
+      { feature: 'Revenue Potential', guaranteed: 'Limited to the contract', commission: 'Unlimited' },
+      { feature: 'Occupancy Risk', guaranteed: 'Assumed by Host Wise', commission: 'Shared with the owner' },
+      { feature: 'Maintenance', guaranteed: 'Included', commission: 'Owner\'s responsibility' },
+      { feature: 'Utilities', guaranteed: 'Included', commission: 'Owner\'s responsibility' },
+      { feature: 'Contract Duration', guaranteed: 'Long-term', commission: 'Flexible' },
+      { feature: 'Ideal For', guaranteed: 'Security and predictability', commission: 'Revenue maximisation' },
+    ]}
+    mobileBtnGuaranteed="Guaranteed"
+    mobileBtnCommission="Commission"
+    mobileCta="Still unsure? Talk to us"
+    mobileCTaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+    ctaTitle="Still not sure which model is right for you?"
+    ctaDescription="Talk to us and receive a personalised analysis for your property."
+    ctaButtonLabel="Get a Free Proposal"
+    ctaButtonUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- Owner Testimonials -->
+  <OwnerTestimonials
+    badgeLabel="Testimonials"
+    title="Meet Our Property Owners"
+    subtitle="With solutions tailored to our owners' needs, we guarantee the best experience so you can maximise your returns with total peace of mind."
+    testimonials={[
+      {
+        name: 'Ana R.',
+        location: 'Owner in Porto City Centre',
+        rating: 5,
+        comment: 'I chose Host Wise to manage my property on commission, and I am thrilled with the results. They significantly increased the apartment\'s occupancy, and the income I\'m earning is much higher than what I could achieve on my own. The team handles everything: guest communication, cleaning, maintenance... It truly is a complete service. If you\'re looking for a vacation rental management company in Porto, I recommend Host Wise without hesitation!',
+      },
+      {
+        name: 'Miguel F.',
+        location: 'Owner in Vilamoura',
+        rating: 5,
+        comment: 'Working with Host Wise, I opted for commission-based management and I\'m very pleased with the results. Occupancy has been high and the income has exceeded my expectations. The team does an extraordinary job caring for the property and ensuring guests have a great experience. They manage every detail, which allows me to relax and watch my investment grow.',
+      },
+    ]}
+    ctaTitle="Ready to maximise your returns?"
+    ctaSubtitle="Receive a personalised simulation for your property within 24 hours."
+    ctaLabel="Get a Free Proposal"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- FAQ Section -->
+  <FAQSection
+    title="Frequently Asked Questions"
+    subtitle="Everything you need to know about Host Wise's commission model."
+    categories={categories}
+  />
+</Layout>

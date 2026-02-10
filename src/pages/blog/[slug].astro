@@ -1,33 +1,40 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { blogPostingSchema } from "../../lib/schema/blog-posting";
+import { breadcrumbSchema } from "../../lib/schema/breadcrumbs";
+import { wpFetchJson } from "../../lib/wpFetch";
 
-// Export getStaticPaths for static generation
+
 export async function getStaticPaths() {
   const apiBase = import.meta.env.WORDPRESS_API_URL;
-  
-  // Fetch all posts
-  const res = await fetch(`${apiBase}/posts?lang=pt&per_page=100`);
-  const posts = await res.json();
-  
-  // Return paths for all posts
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-  }));
+  if (!apiBase) throw new Error("WORDPRESS_API_URL is missing");
+
+  // ✅ Não depender de ?lang=pt (filtra pelo campo lang)
+  const all = await wpFetchJson<any[]>(`${apiBase}/posts?per_page=100&_fields=slug,lang`);
+  return all
+    .filter((p) => p.lang === "pt")
+    .map((p) => ({ params: { slug: p.slug } }));
 }
 
 const { slug } = Astro.params;
 const apiBase = import.meta.env.WORDPRESS_API_URL;
+if (!apiBase) throw new Error("WORDPRESS_API_URL is missing");
 
+// ✅ Buscar por slug sem lang= e filtrar por lang
+const list = await wpFetchJson<any[]>(`${apiBase}/posts?slug=${slug}&_embed`);
+const post = list.find((p) => p.lang === "pt");
 
-// Fetch the post
-const res = await fetch(`${apiBase}/posts?slug=${slug}&lang=pt&_embed`);
-const posts = await res.json();
+if (!post) return Astro.redirect('/404');
 
-if (!posts || posts.length === 0) {
-  return Astro.redirect('/404');
+// ✅ Buscar slug EN via translations.en (se existir)
+const enId = post.translations?.en;
+let enSlug: string | null = null;
+
+if (typeof enId === "number" && enId > 0) {
+  const enPost = await wpFetchJson<any>(`${apiBase}/posts/${enId}?_embed`);
+  enSlug = enPost?.slug ?? null;
 }
 
-const post = posts[0];
 
 function decodeHtml(str) {
   if (!str) return '';
@@ -96,10 +103,63 @@ const randomFallback = fallbackImages[Math.floor(Math.random() * fallbackImages.
 const imageUrl = featuredImage || randomFallback;
 
 const headings = extractHeadings(post.content.rendered);
+
+function stripHtmlToText(html: string) {
+  return (html || "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const metaDescription = stripHtmlToText(excerpt).slice(0, 155);
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+
+// ✅ canonical sempre com base no site (não localhost)
+const canonicalUrl = new URL(Astro.url.pathname, site).href;
+
+const publishedISO = new Date(post.date).toISOString();
+const modifiedISO = post.modified ? new Date(post.modified).toISOString() : undefined;
+
+const absoluteImageUrl = imageUrl.startsWith("http") ? imageUrl : new URL(imageUrl, site).href;
+
+const schemas = [
+breadcrumbSchema([
+    { name: "Home", url: site.href },
+    { name: "Blog", url: new URL("/blog", site).href },
+    { name: title, url: canonicalUrl },
+  ]),  
+blogPostingSchema({
+    url: canonicalUrl,
+    headline: title,
+    description: metaDescription,
+    image: absoluteImageUrl,
+    datePublished: publishedISO,
+    dateModified: modifiedISO,
+    inLanguage: "pt-PT",
+  }),
+];
+
+// alternates
+const ptHref = new URL(`/blog/${slug}`, site).href;
+const enHref = enSlug ? new URL(`/en/blog/${enSlug}`, site).href : null;
+
+const alternates = [
+  { hreflang: "pt-PT", href: ptHref },
+  ...(enHref ? [{ hreflang: "en", href: enHref }] : []),
+  { hreflang: "x-default", href: ptHref },
+];
+
+
 ---
 
-<Layout title={`${title}`}
-description={excerpt}>
+<Layout title={title}
+description={metaDescription}
+alternates={alternates}
+ogType="article"
+ogImage={absoluteImageUrl}
+schemas={schemas}
+canonical={canonicalUrl}>
   <!-- Article Hero -->
   <article class="blog-article">
     <div class="article-hero">

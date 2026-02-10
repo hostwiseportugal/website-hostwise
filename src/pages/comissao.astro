@@ -9,6 +9,8 @@ import PricingSection from '../components/PricingSection.astro';
 import ModelsComparison from '../components/ModelsComparison.astro';
 import OwnerTestimonials from '../components/OwnerTestimonials.astro';
 import FAQSection from '../components/FAQSection.astro';
+import { serviceSchema } from "../lib/schema/service";
+import { faqPageSchemaFromCategories } from "../lib/schema/faq-from-categories";
 
 const benefits = [
   {
@@ -42,9 +44,72 @@ const benefits = [
     color: "rgba(12, 68, 99, 1)"
   }
 ];
+
+const categories=[
+      {
+        id: 'modelo',
+        label: 'Sobre o Modelo',
+        questions: [
+          {
+            question: 'Como posso acompanhar os resultados da minha propriedade?',
+            answer: 'A Host Wise fornece relatórios regulares sobre o desempenho do seu imóvel, incluindo ocupação, receitas, e feedback dos hóspedes. Mantemo-lo atualizado sobre o sucesso do seu alojamento local de forma transparente.',
+          },
+          {
+            question: 'Posso usar a minha propriedade enquanto ela está a ser gerida pela Host Wise?',
+            answer: 'Sim, os proprietários podem reservar as suas propriedades para uso pessoal, desde que notifiquem a Host Wise com antecedência. Bloquearemos as datas no calendário de reservas para garantir que nenhuma reserva seja feita durante a sua estadia.',
+          },
+        ],
+      },
+      {
+        id: 'host-wise',
+        label: 'Sobre a Host Wise',
+        questions: [
+          {
+            question: 'Porquê escolher a Host Wise?',
+            answer: 'A Host Wise é uma empresa de gestão de alojamento local com vasta experiência no mercado português, garantindo um serviço completo e sem complicações para os proprietários, enquanto asseguramos uma experiência de excelência para os hóspedes, com apoio permanente para garantir avaliações positivas e maior taxa de ocupação.',
+          },
+          {
+            question: 'Como é que a Host Wise vai aumentar a minha rentabilidade?',
+            answer: '<p>A nossa equipa de gestão de receitas implementa uma estratégia dinâmica baseada em dados, ajustando os preços do seu airbnb em tempo real de acordo com múltiplos fatores, como tendências de mercado, taxa de ocupação local, análise da concorrência e eventos na região.</p><br><p>Utilizamos ferramentas especializadas, como o PriceLabs, para maximizar o seu rendimento sem comprometer a taxa de ocupação. Além disso, em colaboração com a equipa de marketing, otimizamos os anúncios com descrições persuasivas, fotografias profissionais e técnicas de SEO para aumentar a visibilidade da sua propriedade e atrair mais hóspedes.</p>',
+          },
+            {
+            question: 'Porquê escolher a Host Wise e não gerir o imóvel por conta própria?',
+            answer: 'Gerir um alojamento local exige tempo, dedicação e experiência para maximizar os lucros. A Host Wise oferece uma solução completa, poupando-lhe tempo e aborrecimentos, ao mesmo tempo que maximiza a rentabilidade do seu imóvel. Trabalhamos com uma equipa de especialistas locais e conhecemos profundamente o mercado, garantindo uma gestão eficiente e tranquila.',
+          },
+        ],
+      },
+    ]
+
+    const schemas = [
+  serviceSchema({
+    serviceName: "Gestão de Alojamento Local por Comissão",
+    url: Astro.url.href,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Portugal", type: "Country" }],
+  }),
+  ...(categories.length ? [faqPageSchemaFromCategories(categories)] : []),
+];
+
+const alternates = [
+  {
+    hreflang: "pt-PT",
+    href: "https://www.hostwise.pt/comissao",
+  },
+  {
+    hreflang: "en",
+    href: "https://www.hostwise.pt/en/commission",
+  },
+  {
+    hreflang: "x-default",
+    href: "https://www.hostwise.pt/comissao",
+  },
+];
 ---
 
-<Layout title="Modelo de Comissão - Host Wise">
+<Layout title="Gestão de Alojamento Local por Comissão"
+description='Modelo de gestão de alojamento local por comissão, com foco em maximizar ocupação, receita e performance do imóvel.'
+schemas={schemas}
+alternates={alternates}>
   <!-- Hero Section V3 -->
   <HeroSectionV3
     badge_text="Comissão"
@@ -52,7 +117,7 @@ const benefits = [
     heading="Mais Reservas, Mais Rendimento. Sem Limites."
     description="O modelo de comissão foi pensado para proprietários que querem beneficiar diretamente da performance do seu alojamento. Combinamos estratégias de middle-term e short-term para otimizar o seu rendimento durante todo o ano."
     primary_cta_label="Receber Proposta"
-    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
     secondary_cta_label="Saber Mais"
     secondary_cta_url="#intro-section"
     image="/images/quarto-alojamento-local-tristao-cunha-porto.webp"
@@ -73,7 +138,7 @@ const benefits = [
       </p>
     `}
     intro_cta_label="Quero Receber uma Proposta"
-    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
   />
 
   <!-- Benefits Grid -->
@@ -81,7 +146,7 @@ const benefits = [
     benefits={benefits}
     badgeText="Vantagens do Modelo"
     heading="Porquê escolher o Modelo de Comissão?"
-    subheading="O modelo de comissão foi desenhado para proprietários que querem maximizar o potencial do seu alojamento. Receba uma percentagem do rendimento bruto e beneficie diretamente do sucesso das suas reservas."
+    subheading="O modelo de comissão foi desenhado para proprietários que querem maximizar o potencial do seu alojamento. Beneficie diretamente do desempenho das reservas, com uma comissão alinhada com os resultados."
   />
 
   <!-- Commission vs Traditional Comparison -->
@@ -115,46 +180,13 @@ const benefits = [
     ctaTitle="Pronto para maximizar os seus rendimentos?"
     ctaSubtitle="Receba uma simulação personalizada para o seu imóvel em 24 horas."
     ctaLabel="Receber Proposta Gratuita"
-    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ?"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
   />
 
   <!-- FAQ Section -->
   <FAQSection
     title="Perguntas Frequentes"
     subtitle="Tudo o que precisa de saber sobre o modelo de comissão da Host Wise."
-    categories={[
-      {
-        id: 'modelo',
-        label: 'Sobre o Modelo',
-        questions: [
-          {
-            question: 'Como posso acompanhar os resultados da minha propriedade?',
-            answer: 'A Host Wise fornece relatórios regulares sobre o desempenho do seu imóvel, incluindo ocupação, receitas, e feedback dos hóspedes. Mantemo-lo atualizado sobre o sucesso do seu alojamento local de forma transparente.',
-          },
-          {
-            question: 'Posso usar a minha propriedade enquanto ela está a ser gerida pela Host Wise?',
-            answer: 'Sim, os proprietários podem reservar as suas propriedades para uso pessoal, desde que notifiquem a Host Wise com antecedência. Bloquearemos as datas no calendário de reservas para garantir que nenhuma reserva seja feita durante a sua estadia.',
-          },
-        ],
-      },
-      {
-        id: 'host-wise',
-        label: 'Sobre a Host Wise',
-        questions: [
-          {
-            question: 'Porquê escolher a Host Wise?',
-            answer: 'A Host Wise é uma empresa de gestão de alojamento local com vasta experiência no mercado português, garantindo um serviço completo e sem complicações para os proprietários, enquanto asseguramos uma experiência de excelência para os hóspedes, com apoio permanente para garantir avaliações positivas e maior taxa de ocupação.',
-          },
-          {
-            question: 'Como é que a Host Wise vai aumentar a minha rentabilidade?',
-            answer: '<p>A nossa equipa de gestão de receitas implementa uma estratégia dinâmica baseada em dados, ajustando os preços do seu airbnb em tempo real de acordo com múltiplos fatores, como tendências de mercado, taxa de ocupação local, análise da concorrência e eventos na região.</p><br><p><br><p>Utilizamos ferramentas especializadas, como o PriceLabs, para maximizar o seu rendimento sem comprometer a taxa de ocupação. Além disso, em colaboração com a equipa de marketing, otimizamos os anúncios com descrições persuasivas, fotografias profissionais e técnicas de SEO para aumentar a visibilidade da sua propriedade e atrair mais hóspedes.</p>',
-          },
-            {
-            question: 'Porquê escolher a Host Wise e não gerir o imóvel por conta própria?',
-            answer: 'Gerir um alojamento local exige tempo, dedicação e experiência para maximizar os lucros. A Host Wise oferece uma solução completa, poupando-lhe tempo e aborrecimentos, ao mesmo tempo que maximiza a rentabilidade do seu imóvel. Trabalhamos com uma equipa de especialistas locais e conhecemos profundamente o mercado, garantindo uma gestão eficiente e tranquila.',
-          },
-        ],
-      },
-    ]}
+    categories={categories}
   />
 </Layout>

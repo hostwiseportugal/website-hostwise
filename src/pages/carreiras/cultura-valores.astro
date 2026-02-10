@@ -1,5 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { breadcrumbSchema } from "../../lib/schema/breadcrumbs";
+import { aboutPageSchema } from "../../lib/schema/about-page";
+
 
 const culturePillars = [
 {
@@ -107,9 +110,47 @@ const teamPhotos = [
   { src: "/images/values-culture/team-building-arouca-5.webp", alt: "Team Building no Rio Paiva" },
   { src: "/images/values-culture/team-building-paintball-1.webp", alt: "Team Building Paintball" }
 ];
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+
+// canonical limpo
+const canonicalUrl = new URL(Astro.url);
+canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const metaDescription =
+  "Conheça a cultura, os valores e os benefícios de trabalhar na Host Wise, uma empresa que aposta em autonomia, inovação e crescimento.";
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: site.href },
+  { name: "Carreiras", url: new URL("/carreiras", site).href },
+  { name: "Cultura e Valores", url: canonical },
+]);
+
+const schemas = [
+  breadcrumbs,
+  aboutPageSchema({
+    url: canonical,
+    name: "Cultura e Valores da Host Wise",
+    description: metaDescription,
+    inLanguage: "pt-PT",
+  }),
+];
+
+// alternates (ajusta o slug EN ao teu plano final)
+const alternates = [
+  { hreflang: "pt-PT", href: canonical },
+  { hreflang: "en", href: new URL("/en/careers/culture-values", site).href },
+  { hreflang: "x-default", href: canonical },
+];
+
 ---
 
-<Layout title="Trabalhar na Host Wise | A Nossa Cultura e Benefícios">
+<Layout title="Cultura e Valores da Host Wise | Carreiras"
+description={metaDescription}
+  canonical={canonical}
+  alternates={alternates}
+  schemas={schemas}>
   <!-- Hero Section -->
   <section class="work-hero">
     <div class="container">

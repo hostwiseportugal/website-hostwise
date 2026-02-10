@@ -1,0 +1,265 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import HeroSectionV3 from '../../../components/HeroSectionV3.astro';
+import IntroSection from '../../../components/IntroSection.astro';
+import ServicesAccordionText from '../../../components/ServicesAccordionText.astro';
+import PlatformsMarquee from '../../../components/PlatformsMarquee.astro';
+import ModelsIntro from '../../../components/ModelsIntro.astro';
+import OwnerTestimonials from '../../../components/OwnerTestimonials.astro';
+import FAQSection from '../../../components/FAQSection.astro';
+import { serviceSchema } from "../../../lib/schema/service";
+import { faqPageSchemaFromCategories } from "../../../lib/schema/faq-from-categories";
+import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
+
+const categories = [
+  {
+    id: 'essentials',
+    label: 'The Essentials',
+    questions: [
+      {
+        question: 'Why choose Host Wise?',
+        answer: 'Host Wise is a vacation rental management company with extensive experience in the Portuguese market, ensuring a complete and hassle-free service for property owners, while providing an excellent experience for guests, with permanent support to guarantee positive reviews and higher occupancy rates.',
+      },
+      {
+        question: 'How will Host Wise increase my profitability?',
+        answer: '<p>Our revenue management team implements a dynamic data-driven strategy, adjusting your Airbnb prices in real time according to multiple factors, such as market trends, local occupancy rates, competitor analysis and regional events.</p><br><p>We use specialized tools, such as PriceLabs, to maximize your income without compromising occupancy rates. Additionally, in collaboration with our marketing team, we optimize listings with persuasive descriptions, professional photography and SEO techniques to increase your property\'s visibility and attract more guests.</p>',
+      },
+      {
+        question: 'Why choose Host Wise instead of managing my property myself?',
+        answer: '<p>Managing a vacation rental requires time, dedication and experience to ensure maximum profitability. Without the right strategy, you may miss opportunities to increase your profits and optimize occupancy.</p><br><p>Host Wise offers professional and comprehensive vacation rental management, freeing you from operational tasks and ensuring excellent service for both you and your guests.</p><br><p>We have a team of specialists who deeply understand the market and implement intelligent pricing, marketing and operational strategies to optimize your returns without complications.</p><br><p>By trusting Host Wise, you transform your property into a passive income source, without worrying about bookings, check-ins, cleaning or maintenance.</p>',
+      },
+    ],
+  },
+  {
+    id: 'payments-pricing',
+    label: 'Payments and Pricing',
+    questions: [
+      {
+        question: 'How much does Host Wise\'s service cost?',
+        answer: '<p>The cost of Host Wise\'s service varies depending on the management model chosen (guaranteed income or commission), location and property specifications.</p><br><p>We offer a transparent model with no hidden fees, adapting our proposal to each owner\'s needs.</p>',
+      },
+    ],
+  },
+  {
+    id: 'guaranteed-income',
+    label: 'Guaranteed Income',
+    questions: [
+      {
+        question: 'What is the guaranteed income model?',
+        answer: '<p>In the guaranteed income model, the owner receives a fixed monthly rent, regardless of the property\'s occupancy during a period that can last up to 10 years.</p><br><p>This model guarantees you long-term financial stability without the worry of tenant management or minor maintenance.</p>',
+      },
+      {
+        question: 'How do you determine my property\'s value in the guaranteed income model?',
+        answer: '<p>The valuation is done through a profitability study based on the analysis of several factors, including location, size and condition of the property, and current real estate market trends and the location where the accommodation is situated.</p><br><p>This study allows us to predict the net revenue generated for the proposed contract term.</p>',
+      },
+    ],
+  },
+  {
+    id: 'commission',
+    label: 'Commission',
+    questions: [
+      {
+        question: 'Can I use my property while it\'s being managed by Host Wise?',
+        answer: 'Yes, owners can book their properties for personal use, as long as they notify Host Wise in advance. We will block the dates on the booking calendar to ensure no reservations are made during your stay.',
+      },
+    ],
+  },
+];
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const canonicalUrl = new URL(Astro.url); canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: new URL("/en", site).href },
+  { name: "Vacation Rental Management", url: new URL("/en/vacation-rental-management", site).href },
+  { name: "Porto", url: canonical },
+]);
+
+const schemas = [
+  breadcrumbs,
+  serviceSchema({
+    serviceName: "Vacation Rental Management",
+    url: canonical,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Porto", type: "Place" }],
+  }),
+  ...(categories.length ? [faqPageSchemaFromCategories(categories)] : []),
+];
+
+const alternates = [
+  { hreflang: "pt-PT", href: "https://www.hostwise.pt/gestao-alojamento-local/porto" },
+  { hreflang: "en", href: "https://www.hostwise.pt/en/vacation-rental-management/porto" },
+  { hreflang: "x-default", href: "https://www.hostwise.pt/gestao-alojamento-local/porto" },
+];
+---
+
+
+
+<Layout title="Vacation Rental Management in Porto"
+  description="Vacation rental management in Porto with professional operation, local knowledge and focus on your property's profitability. Trust Host Wise's experience."
+  schemas={schemas}
+  alternates={alternates}
+  canonical={canonical}>
+  <!-- Hero Section -->
+  <HeroSectionV3
+    badge_text="Vacation Rental Management Porto"
+    badge_icon_key="home"
+    heading="We Know Porto Like No One Else"
+    description="Professional vacation rental management in Porto, with local operation, real market knowledge and total focus on your property's profitability."
+    primary_cta_label="Get a Proposal"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+    secondary_cta_label="Learn More"
+    secondary_cta_url="#intro-section"
+    image="/images/porto-visto-gaia.webp"
+  />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="Vacation Rental Management in Porto with Local Knowledge and Expertise"
+    intro_text={`
+      <p>
+        This is where we started our activity, this is where we grew and this is where we continue to make a difference in how professional vacation rental management services are delivered.
+      </p>
+      <p>
+        Our team is deeply rooted in the city, with real knowledge of its most sought-after areas, seasonality, tourist profiles and market dynamics.
+      </p>
+      <p>
+        <b>We offer a complete vacation rental management service</b>, designed to maximize your property's profitability and free you from all operational concerns. We handle everything — from promotion to daily operations — with a level of excellence that reflects our field experience.
+      </p>
+      <p>
+        <b>The vacation rental market in Porto has unique characteristics:</b> from containment areas in Baixa and Ribeira to sustainable growth zones in Campanhã and Paranhos.
+      </p>
+      <p>
+        We know the specificities of each neighborhood, the events that impact demand (São João, Primavera Sound, Porto Marathon) and the profiles of tourists who choose the invincible city.
+      </p>
+      <p>
+        This local expertise is fundamental for truly effective and profitable vacation rental management in Porto.
+      </p>
+    `}
+    intro_cta_label="Get a Proposal"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- Services Accordion Text -->
+  <ServicesAccordionText
+    title="Our Vacation Rental Management Services in Porto"
+    description="At Host Wise, each service was designed to meet the real needs of the Porto market. We know that managing a vacation rental in Foz do Douro is not the same as in Baixa or Matosinhos — and that's why we adapt our approach to each area, property profile and target audience."
+    image="/images/quarto-alojamento-prédio-capitão-pombeiro.webp"
+    services={[
+      {
+        title: 'Self Check-in and Check-out Systems',
+        content: '<p>We offer practical and secure self check-in and check-out solutions adapted to the reality of each area, facilitating guest arrivals and departures without compromising the experience. This allows greater flexibility, especially for late arrivals or last-minute bookings.</p>',
+      },
+      {
+        title: '24/7 Guest Support',
+        content: '<p>We speak multiple languages and are well acquainted with the habits of visitors who choose Porto. From recommending a typical restaurant in Fontaínhas to solving a technical problem at 11pm, we are always ready to respond and ensure positive reviews.</p>',
+      },
+      {
+        title: 'Bed Linen and Towels',
+        content: '<p>We provide premium quality bed linen, professionally washed and sanitized. We ensure proper replacement between stays, respecting the standards required by the most demanding guests.</p>',
+      },
+      {
+        title: 'Toiletries',
+        content: '<p>Each accommodation is carefully prepared with quality amenities, designed to provide a comfortable, elegant and worry-free experience from the first moment.</p>',
+      },
+      {
+        title: 'Support for AL License Acquisition',
+        content: '<p>We support owners throughout the process of obtaining a vacation rental license in Porto. We know the procedures of the municipal councils, the requirements by zone (including containment areas) and help with all necessary documentation.</p>',
+      },
+       {
+        title: 'Listing Creation and Optimization',
+        content: '<p>Our team creates optimized and attractive listings on major platforms (Airbnb, Booking, VRBO), with language tailored to the audience visiting Porto. We know how to highlight a modern 2-bedroom in Cedofeita for digital nomads or an apartment with Douro views for couples on romantic getaways.</p>',
+      },
+       {
+        title: 'Dynamic Pricing Management',
+        content: '<p>We use AI-powered pricing tools and adjust prices daily based on local demand, seasonality, events and market behavior. A property near the Coliseu can triple in value on a concert night, and we know when and how to adjust.</p>',
+      },
+       {
+        title: 'Professional Photography',
+        content: '<p>We use photographers specialized in vacation rentals, with experience in showcasing properties in Porto\'s tourist areas. A good image can highlight the unique details of a typical house in Miragaia or a renovated loft in Campanhã — and that makes all the difference in booking rates.</p>',
+      },
+       {
+        title: 'Cleaning Services',
+        content: '<p>We have highly trained internal and external cleaning teams, operating by zones for greater efficiency. Each property receives a cleaning plan adapted to the type of use and location — whether it\'s an express clean in Boavista or a deep clean after extended stays in Marquês. We use checklists and rigorous quality control.</p>',
+      },
+       {
+        title: 'Property Maintenance',
+        content: '<p>We perform preventive and corrective interventions quickly and efficiently, ensuring the property remains in good condition long-term.</p>',
+      },
+
+       {
+        title: 'Complaint and Review Management',
+        content: '<p>We respond to all reviews professionally and strategically, protecting the property\'s reputation on the platforms. We handle complaints empathetically and resolutely, mitigating negative impacts and turning less positive experiences into improvement opportunities. Our experience in Porto allows us to quickly understand what\'s behind each comment — and act effectively.</p>',
+      },
+    ]}
+    ctaLabel="Get a Free Proposal"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- Platforms Marquee -->
+  <PlatformsMarquee
+    platforms_badge="Multi-Platform Presence"
+    platforms_title="Your Listings on the Major Booking Platforms"
+    platforms_subtitle="We maximize your property's visibility with presence on the main global booking platforms. Synchronized management of calendars, prices and availability in real time."
+    platforms={[
+      { name: 'Airbnb', logo: '/images/platform-logos/airbnb-logo.svg' },
+      { name: 'Booking.com', logo: '/images/platform-logos/booking-com-logo.svg' },
+      { name: 'Vrbo', logo: '/images/platform-logos/vrbo-logo.svg' },
+      { name: 'Expedia', logo: '/images/platform-logos/expedia-logo.svg' },
+      { name: 'Flatio', logo: '/images/platform-logos/flatio-logo.svg' },
+      { name: 'Host Wise', logo: '/images/platform-logos/hostwise-logo.svg' },
+      { name: 'Housing Anywhere', logo: '/images/platform-logos/housing-anywhere-logo.svg' },
+      { name: 'Idealista', logo: '/images/platform-logos/idealista-logo.svg' },
+      { name: 'InLife', logo: '/images/platform-logos/inlife-logo.svg' },
+      { name: 'Marriott Homes & Villas', logo: '/images/platform-logos/marriott-homes-villas-logo.svg' },
+      { name: 'Spotahome', logo: '/images/platform-logos/spotahome-logo.svg' },
+      { name: 'Uniplaces', logo: '/images/platform-logos/uniplaces-logo.svg' },
+    ]}
+  />
+
+  <!-- Models Intro -->
+  <ModelsIntro />
+
+  <!-- Owner Testimonials -->
+  <OwnerTestimonials
+    badgeLabel="Testimonials"
+    title="Meet Our Property Owners in Porto"
+    subtitle="With solutions tailored to our owners' needs, we ensure the best experience so you can maximize your returns with total peace of mind. See what our clients say about Host Wise's vacation rental management services in Porto."
+    testimonials={[
+      {
+        name: 'João M.',
+        location: 'Porto',
+        property: 'Vacation Rental Owner in Porto',
+        rating: 5,
+        comment: 'Since I handed over the management of my apartment to Host Wise, my experience as an owner has completely transformed. I opted for guaranteed income and I can say it was the best choice I made. Now I have a fixed rent every month, without worrying about maintenance or property occupancy. The Host Wise team is extremely professional and always available to answer any questions. I highly recommend it to all owners in Porto!',
+      },
+      {
+        name: 'Ana R.',
+        location: 'Porto',
+        property: 'Vacation Rental Owner in Downtown Porto',
+        rating: 5,
+        comment: 'I chose Host Wise to manage my property on commission, and I\'m delighted with the results. They managed to significantly increase the apartment\'s occupancy, and the income I\'m getting is much higher than what I achieved alone. The team handles everything: guest communication, cleaning, maintenance... It\'s truly a complete service. If you\'re looking for a vacation rental management company in Porto, I recommend Host Wise without hesitation!',
+      },
+      {
+        name: 'Pedro S.',
+        location: 'Matosinhos',
+        property: 'Real Estate Investor',
+        rating: 5,
+        comment: 'As an investor, it\'s essential for me to have property management that is efficient and reliable, and that\'s exactly what I found with Host Wise. I already have several properties in Porto managed by them, both in the guaranteed income model and by commission, and the results have been excellent. The team is proactive, detail-oriented and very competent in maximizing returns. I am 100% satisfied with the service and the peace of mind they provide me.',
+      },
+    ]}
+    ctaTitle="Ready to Maximize Your Returns in Porto?"
+    ctaSubtitle="Receive a personalized proposal for your property within 24 hours."
+    ctaLabel="Get a Free Proposal"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- FAQ Section -->
+  <FAQSection
+    title="We Answer Your Questions"
+    subtitle="Everything you need to know about managing your property with Host Wise."
+    categories={categories}
+  />
+
+</Layout>

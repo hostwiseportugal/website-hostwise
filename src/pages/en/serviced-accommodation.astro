@@ -1,0 +1,400 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSectionV3 from '../../components/HeroSectionV3.astro';
+import IntroOQueE from '../../components/IntroOQueE.astro';
+import IntroSection from '../../components/IntroSection.astro';
+import TargetAudienceV2 from '../../components/TargetAudienceV2.astro';
+import ServicesAccordion from '../../components/ServicesAccordion.astro';
+import HowWeOperate from '../../components/HowWeOperate.astro';
+import CaseStudy from '../../components/CaseStudy.astro';
+import ModelsIntro from '../../components/ModelsIntro.astro';
+import ManagementComparison from '../../components/ManagementComparison.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { serviceSchema } from "../../lib/schema/service";
+import { faqPageSchemaFromCategories } from "../../lib/schema/faq-from-categories";
+import { breadcrumbSchema } from "../../lib/schema/breadcrumbs";
+
+const categories = [
+  {
+    id: 'service',
+    label: 'About the Service',
+    questions: [
+      {
+        question: 'What is Host Wise\'s serviced accommodation management?',
+        answer: 'It is a professional end-to-end management service for buildings and tourist assets, such as entire buildings, serviced apartments and aparthotels. Host Wise takes on daily operations, pricing strategy, distribution, maintenance and guest support, with a focus on financial performance and asset appreciation.',
+      },
+      {
+        question: 'What types of assets does Host Wise manage under this model?',
+        answer: 'We manage tourist developments such as entire buildings, apartment blocks in tourist operation, serviced apartments, aparthotels and hybrid projects. We adapt the management model to the type, scale and objectives of the investor.',
+      },
+      {
+        question: 'Does Host Wise manage entire buildings or just individual units?',
+        answer: 'Both. Management can cover the entire building or just part of the units, depending on the asset structure and the owner\'s objectives.',
+      },
+      {
+        question: 'Does this service apply to projects under development?',
+        answer: 'Yes. We work with developers from the project design phase through to full asset operation.',
+      },
+    ],
+  },
+  {
+    id: 'financial-model-risk',
+    label: 'Financial Model and Risk',
+    questions: [
+      {
+        question: 'How much does Host Wise\'s service cost?',
+        answer: '<p>The cost of Host Wise\'s service varies depending on the management model chosen (guaranteed income or commission), location and property specifications.</p><br><p>We offer a transparent model with no hidden fees, adapting our proposal to each owner\'s needs.</p>',
+      },
+      {
+        question: 'Does Host Wise assume operational risk?',
+        answer: 'Yes. Depending on the contracted model, Host Wise may assume partial or full operational risk, including occupancy risk, cost management and daily operation of the development.',
+      },
+      {
+        question: 'Are operational costs included in the management?',
+        answer: 'Operational costs are defined transparently at the beginning of the partnership. In some models, certain expenses may be included; in others, they are managed and reported centrally and in detail.',
+      },
+    ],
+  },
+  {
+    id: 'operations-technology-performance',
+    label: 'Operations, Technology and Performance',
+    questions: [
+      {
+        question: 'How is pricing and revenue management handled?',
+        answer: 'We use market data and dynamic pricing tools to adjust rates in real time, maximizing occupancy and revenue throughout the year, including strategies for lower demand periods.',
+      },
+      {
+        question: 'Is the operation fully digital?',
+        answer: 'The operation combines technology, automation and on-the-ground teams. Whenever possible, we use digital processes and self check-in, but we assess on a case-by-case basis the need for physical presence to ensure the best experience and operational efficiency.',
+      },
+      {
+        question: 'How is the quality of operations and guest experience guaranteed?',
+        answer: 'We follow operational standards with hotel-grade rigour, specialized teams, preventive maintenance and 24/7 guest support. The guest experience is treated as a key factor for asset performance and reputation.',
+      },
+    ],
+  },
+  {
+    id: 'licensing',
+    label: 'Licensing',
+    questions: [
+      {
+        question: 'Does Host Wise handle the licensing of the development?',
+        answer: 'Yes. We provide support in the tourist licensing process and regulatory compliance, ensuring the development operates in accordance with current legislation.',
+      },
+      {
+        question: 'Does Host Wise monitor changes in tourist accommodation legislation?',
+        answer: 'Yes. We actively monitor the legal framework and adjust the operational strategy whenever necessary to protect the investment and ensure continuity of operations.',
+      },
+    ],
+  },
+];
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const canonicalUrl = new URL(Astro.url); canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: new URL("/en", site).href },
+  { name: "Serviced Apartments Management", url: canonical },
+]);
+
+const schemas = [
+  breadcrumbs,
+  serviceSchema({
+    serviceName: "Serviced Apartments Management",
+    url: canonical,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Portugal", type: "Country" }],
+  }),
+  ...(categories.length ? [faqPageSchemaFromCategories(categories)] : []),
+];
+
+const alternates = [
+  {
+    hreflang: "pt-PT",
+    href: "https://www.hostwise.pt/gestao-empreendimentos-turisticos",
+  },
+  {
+    hreflang: "en",
+    href: "https://www.hostwise.pt/en/serviced-apartments",
+  },
+  {
+    hreflang: "x-default",
+    href: "https://www.hostwise.pt/gestao-empreendimentos-turisticos",
+  },
+];
+---
+
+<Layout title="Serviced Apartments Management"
+description='Professional management of tourist developments, buildings and serviced apartments, focused on performance, operational efficiency and profitability.'
+schemas={schemas}
+alternates={alternates}
+canonical={canonical}>
+  <!-- Hero Section -->
+  <HeroSectionV3
+    badge_text="Serviced Apartments Management"
+    badge_icon_key="building"
+    heading="Transform Your Building into a High-Performance Tourist Asset"
+    description="We manage tourist developments and entire buildings, combining professional operations, technology and profitability strategy to maximize results and long-term asset value."
+    features={[
+      { label: 'Full Management' },
+      { label: 'Flexible Models' },
+    ]}
+    stats={[
+      { label: 'Years of Experience', value: '9', icon_key: 'calendar' },
+      { label: 'Tourist Developments', value: '42+', icon_key: 'home' },
+    ]}
+    primary_cta_label="Get a Proposal"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+    secondary_cta_label="Learn More"
+    secondary_cta_url="#intro-section"
+    image="/images/sala-apartamento-predio-general-silveira.webp"
+  />
+
+  <!-- Intro O Que É -->
+  <IntroOQueE
+    title="What is Serviced Apartments Management?"
+    description="Serviced apartments management is designed for large-scale real estate assets that don't fit traditional hospitality, but require professional, centralized operations focused on performance."
+    subtitle="This service applies to:"
+    serviceTypes={[
+      {
+        title: 'Entire buildings for tourist operation',
+        image: '/images/predio-largo-repubica-brasil-guimaraes-fachada-exterior-2.webp',
+      },
+      {
+        title: 'Tourist buildings',
+        image: '/images/predio-castelo-paiva-exterior.webp',
+      },
+      {
+        title: 'Serviced apartments',
+        image: '/images/sala-cozinha-apartamento-predio-santa-catarina.webp',
+      },
+      {
+        title: 'Aparthotels without traditional hotel operations',
+        image: '/images/casas-palacio-exterior.webp',
+      },
+      {
+        title: 'Hybrid short and mid-term stay projects',
+        image: '/images/sala-apartamento-predio-rua-fabrica-2.webp',
+      },
+    ]}
+  />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="The new model for tourist asset operation"
+    intro_text={`
+      <p>
+        The growth of tourist operation models outside traditional hospitality — such as entire buildings, serviced apartments and hybrid projects — requires a management approach different from classic property administration or conventional hotel management.
+      </p>
+      <p>
+        These assets combine real estate scale with hospitality logic, which demands rigorous operational control, dynamic revenue strategy, efficient distribution and a strong technological foundation. Their complexity lies not only in daily operations, but in the need to align profitability, guest experience and long-term asset preservation.
+      </p>
+      <p>
+        Serviced apartments management thus emerges as a specialized solution for investors and owners who want to operate tourist buildings professionally, in a structured and performance-oriented manner.
+      </p>
+    `}
+    intro_cta_label="Get a Proposal"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- Target Audience -->
+  <TargetAudienceV2
+    title="Who is this service for?"
+    developedForTitle="This service was developed for:"
+    developedFor={[
+      { text: 'Real estate investors and investment funds' },
+      { text: 'Property developers' },
+      { text: 'Owners of tourist buildings' },
+      { text: 'Family offices and institutional investors' },
+    ]}
+    idealForTitle="It is ideal for those seeking:"
+    idealFor={[
+      { text: 'Professional and scalable operations' },
+      { text: 'Operational and financial control' },
+      { text: 'Profitability maximization' },
+      { text: 'Medium and long-term asset appreciation' },
+    ]}
+  />
+
+  <!-- Services Accordion -->
+  <ServicesAccordion
+    title="What We Do"
+    description="In managing entire buildings and serviced apartments, Host Wise takes an end-to-end approach, adaptable to each project's reality."
+    ctaLabel="Get a Proposal"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+    services={[
+      {
+        title: 'Full Building Operations',
+        items: [
+          { text: 'Centralized asset management, full or partial' },
+          { text: 'Definition of efficient operational processes' },
+          { text: 'Coordination of check-ins and check-outs, with a strong focus on self check-in' },
+          { text: 'Physical presence whenever the operational model requires it' },
+        ],
+      },
+      {
+        title: 'Revenue Management and Dynamic Pricing',
+        items: [
+          { text: 'Data-driven pricing strategies' },
+          { text: 'Continuous adjustment to demand, seasonality and events' },
+          { text: 'Integration of mid-term stays to mitigate lower demand periods' },
+        ],
+      },
+      {
+        title: 'Distribution and Sales Channels',
+        items: [
+          { text: 'OTA management and optimization' },
+          { text: 'Balanced distribution strategy' },
+          { text: 'Maximization of occupancy and net revenue' },
+        ],
+      },
+      {
+        title: 'Licensing and Compliance',
+        items: [
+          { text: 'Support in licensing processes' },
+          { text: 'Legal and operational compliance monitoring' },
+        ],
+      },
+      {
+        title: 'Asset Maintenance and Preservation',
+        items: [
+          { text: 'Preventive and corrective maintenance' },
+          { text: 'Building and equipment preservation' },
+          { text: 'Long-term asset management vision' },
+        ],
+      },
+    ]}
+  />
+
+  <!-- How We Operate -->
+  <HowWeOperate
+    title="How We Operate"
+    steps={[
+      {
+        number: '01',
+        title: 'Personalized Strategy',
+        image: '/images/apartamento-predio-capitao-pombeiro.webp',
+        items: [
+          { text: 'Each asset is analyzed individually, considering type, location, target audience and financial objectives.' },
+          { text: 'We define a management strategy aligned with the owner\'s goals and market characteristics.' },
+          { text: 'The strategy is regularly reviewed to ensure adaptation to market changes.' },
+        ],
+      },
+      {
+        number: '02',
+        title: 'In-House Technology and AI',
+        image: '/images/apartamento-predio-alvaro-casteloes.webp',
+        items: [
+          { text: 'We develop proprietary automation and artificial intelligence solutions to optimize processes, enhance the guest experience and support strategic decisions.' },
+          { text: 'Technology enables more efficient management, reducing operational costs and increasing profitability.' },
+        ],
+      },
+      {
+        number: '03',
+        title: 'Agile, Results-Oriented Execution',
+        image: '/images/sala-apartamento-predio-general-silveira-3.webp',
+        items: [
+          { text: 'Lean structure, minimal bureaucracy and total focus on operational and financial performance.' },
+          { text: 'Ability to quickly adapt to new opportunities or market challenges.' },
+        ],
+      },
+    ]}
+  />
+
+  <!-- Case Study -->
+  <CaseStudy
+    title="Case Study"
+    description="Discover the results of one of the buildings we manage. Real numbers that demonstrate the impact of our integrated approach on profitability and operational efficiency."
+    badge="Under Management"
+    stats={[
+      { label: 'Units', value: '21' },
+      { label: 'Annual Revenue', value: '€480K' },
+      { label: 'Average Price', value: '€125' },
+      { label: 'Occupancy', value: '87%' },
+      { label: 'Profitability', value: '12.4%' },
+    ]}
+  />
+
+  <!-- Models Intro -->
+  <ModelsIntro
+    title="Two Profitability Models. The Choice is Yours."
+    paragraphs={[
+      {
+        paragraph: 'At Host Wise, we offer <strong>two distinct models</strong> to maximize your property\'s returns. Each one is designed for different owner profiles and investment objectives.',
+      },
+      {
+        paragraph: 'Do you prefer <strong>full flexibility</strong> with commissions only on what you earn? Or do you prefer the <strong>security of a guaranteed fixed income</strong> every month, regardless of occupancy?',
+      },
+      {
+        paragraph: 'There is no wrong choice — only the right choice <strong>for you</strong>. Compare the models below and discover which best suits your profile.',
+      },
+    ]}
+    models={[
+      {
+        key: 'guaranteed',
+        badge_label: 'Most Popular',
+        title: 'Guaranteed Income',
+        subtitle: 'Occupancy Risk Assumed',
+        description: 'Receive a <strong>guaranteed fixed amount every month</strong>, regardless of occupancy. Total predictability and zero worries.',
+        benefits: [
+          { text: 'Zero risk of low occupancy' },
+          { text: 'Maintenance at our expense' },
+          { text: 'Full operational cost management' },
+          { text: 'Long-term contracts' },
+        ],
+        cta_label: 'View Model Details',
+        cta_url: '/en/guaranteed-income',
+      },
+      {
+        key: 'commission',
+        title: 'Commission Model',
+        subtitle: 'Performance-Based',
+        description: 'Pay only a <strong>percentage of the revenue generated</strong>. The more your property earns, the more you earn — and we earn alongside you.',
+        benefits: [
+          { text: 'No fixed monthly costs' },
+          { text: 'Commissions only on revenue' },
+          { text: 'Full transparency on earnings' },
+          { text: 'Unlimited revenue potential' },
+        ],
+        cta_label: 'View Model Details',
+        cta_url: '/en/commission',
+      },
+    ]}
+    ctaTitle="Still not sure which model is right for you?"
+    ctaText="Talk to us and receive a personalized analysis for your property."
+    ctaButtonLabel="Get a Free Proposal"
+  />
+
+  <!-- Management Comparison -->
+  <ManagementComparison
+    title="How does serviced apartments management differ?"
+    subtitle="Serviced apartments management should not be confused with other real estate or tourism management models:"
+    comparisons={[
+      {
+        title: 'Condominium administration',
+        description: 'Focuses on common area management, basic maintenance and relations between co-owners.',
+        limitation: 'Does not involve tourist operation, revenue management or commercial operations.',
+      },
+      {
+        title: 'Dispersed vacation rental management',
+        description: 'Suitable for individual apartments or small portfolios.',
+        limitation: 'Does not meet the operational and strategic demands of large-scale buildings.',
+      },
+      {
+        title: 'Traditional hotel management',
+        description: 'Centered on units with permanent reception, hospitality services and heavy structures.',
+        limitation: 'Not always the most efficient solution for flexible or hybrid assets.',
+      },
+    ]}
+    conclusion="Serviced apartments management sits between these models, offering professional, scalable and technology-driven operations for large-scale tourist assets."
+  />
+
+  <!-- FAQ Section -->
+  <FAQSection
+    title="Frequently Asked Questions"
+    subtitle="Get answers to your questions about serviced apartments management."
+    categories={categories}
+  />
+
+</Layout>

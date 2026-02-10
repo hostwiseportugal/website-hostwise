@@ -1,0 +1,326 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSectionV3 from '../../components/HeroSectionV3.astro';
+import IntroOQueE from '../../components/IntroOQueE.astro';
+import IntroSection from '../../components/IntroSection.astro';
+import TargetAudienceV2 from '../../components/TargetAudienceV2.astro';
+import ServicesAccordion from '../../components/ServicesAccordion.astro';
+import HowWeOperate from '../../components/HowWeOperate.astro';
+import CaseStudy from '../../components/CaseStudy.astro';
+import ModelsIntro from '../../components/ModelsIntro.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { serviceSchema } from "../../lib/schema/service";
+import { faqPageSchemaFromCategories } from "../../lib/schema/faq-from-categories";
+import { breadcrumbSchema } from "../../lib/schema/breadcrumbs";
+
+const categories = [
+  {
+    id: 'service',
+    label: 'About the Service',
+    questions: [
+      {
+        question: 'What is Host Wise\'s hotel asset management?',
+        answer: 'It is a professional end-to-end management service for hotel assets, including hotels, boutique hotels, hostels, aparthotels and multi-unit portfolios. Host Wise takes on the operational, strategic and financial management of the asset, with a focus on performance, profitability and medium to long-term appreciation.',
+      },
+      {
+        question: 'What types of hotel units does Host Wise manage?',
+        answer: 'We manage independent hotels, boutique hotels, hostels, aparthotels and hybrid assets. We work with both single units and hotel portfolios, adapting the management model to the type, scale and positioning of the asset.',
+      },
+      {
+        question: 'Does Host Wise only work with hotels already in operation?',
+        answer: 'No. We work with assets already in operation as well as projects in the development, repositioning, rebranding or pre-opening phase.',
+      },
+    ],
+  },
+  {
+    id: 'financial-model-risk',
+    label: 'Financial Model and Risk',
+    questions: [
+      {
+        question: 'How much does Host Wise\'s service cost?',
+        answer: '<p>The cost of Host Wise\'s service varies depending on the management model chosen (guaranteed income or commission), location and property specifications.</p><br><p>We offer a transparent model with no hidden fees, adapting our proposal to each owner\'s needs.</p>',
+      },
+      {
+        question: 'Does Host Wise assume operational risk in hotel management?',
+        answer: 'Depending on the contracted model, Host Wise may assume partial or full operational risk, including occupancy risk, cost control and daily management of operations.',
+      },
+      {
+        question: 'How are costs and operational expenses managed?',
+        answer: 'Cost management is centralized, transparent and focused on operational efficiency. All costs are monitored and reported regularly, with a focus on NOI optimization.',
+      },
+    ],
+  },
+  {
+    id: 'operations-technology-performance',
+    label: 'Operations, Technology and Performance',
+    questions: [
+      {
+        question: 'How is the pricing and revenue management strategy defined?',
+        answer: 'The revenue strategy is based on data, market analysis and demand segmentation. We use dynamic pricing and active channel management to maximize occupancy, ADR and overall revenue throughout the year.',
+      },
+      {
+        question: 'Does Host Wise use proprietary technology in hotel management?',
+        answer: 'Yes. We use technology and automation solutions developed in-house to optimize processes, support strategic decisions and improve operational efficiency, complemented by market-leading tools.',
+      },
+      {
+        question: 'How is the quality of operations and guest service guaranteed?',
+        answer: 'Operations follow hotel-grade standards of rigour, with specialized teams, defined procedures, preventive maintenance and 24/7 guest support. The guest experience is treated as a critical factor for reputation, occupancy and profitability.',
+      },
+    ],
+  },
+  {
+    id: 'licensing',
+    label: 'Licensing',
+    questions: [
+      {
+        question: 'Does Host Wise ensure legal and regulatory compliance for hotel assets?',
+        answer: 'Yes. We monitor the legal and regulatory framework applicable to hotel activity, ensuring operations comply with current legislation.',
+      },
+      {
+        question: 'Does Host Wise support licensing and hotel reclassification processes?',
+        answer: 'Yes. We provide support in licensing, reclassification and tourism framework processes, in coordination with the relevant authorities whenever necessary.',
+      },
+    ],
+  },
+];
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const canonicalUrl = new URL(Astro.url); canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: new URL("/en", site).href },
+  { name: "Hotel Asset Management", url: canonical },
+]);
+
+const schemas = [
+  breadcrumbs,
+  serviceSchema({
+    serviceName: "Hotel Asset Management",
+    url: canonical,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Portugal", type: "Country" }],
+  }),
+  ...(categories.length ? [faqPageSchemaFromCategories(categories)] : []),
+];
+
+const alternates = [
+  {
+    hreflang: "pt-PT",
+    href: "https://www.hostwise.pt/gestao-ativos-hoteleiros",
+  },
+  {
+    hreflang: "en",
+    href: "https://www.hostwise.pt/en/hotel-asset-management",
+  },
+  {
+    hreflang: "x-default",
+    href: "https://www.hostwise.pt/gestao-ativos-hoteleiros",
+  },
+];
+---
+
+<Layout title="Hotel Asset Management"
+description='Hotel asset management with operational rigour, revenue management and focus on the appreciation of hotels, boutique hotels, hostels and guesthouses.'
+schemas={schemas}
+alternates={alternates}
+canonical={canonical}>
+  <!-- Hero Section -->
+  <HeroSectionV3
+    badge_text="Hotel Asset Management"
+    badge_icon_key="hotel"
+    heading="Performance Optimization and Value Creation for Hotel Assets"
+    description="We manage hotels, boutique hotels and hostels with a modern, data-driven approach, focused on operational efficiency, profitability and asset appreciation."
+    features={[
+      { label: 'Operational Management' },
+      { label: 'Revenue Management' },
+      { label: 'Proprietary Technology' },
+    ]}
+    stats={[
+      { label: 'Years of Experience', value: '9+', icon_key: 'calendar' },
+      { label: 'Properties', value: '625+', icon_key: 'home' },
+    ]}
+    primary_cta_label="Get a Proposal"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+    secondary_cta_label="Learn More"
+    secondary_cta_url="#intro-section"
+    image="/images/quarto-alojamento-rua-fabrica-porto.webp"
+  />
+
+  <!-- Intro O Que É -->
+  <IntroOQueE
+    title="What is Hotel Asset Management?"
+    description="Hotel asset management is designed for units with structured hotel operations, requiring operational control, revenue strategy and consistent execution."
+    subtitle="This service applies to:"
+    serviceTypes={[
+      { title: 'Independent Hotels', image: '/images/quarto-alojamento-paredes.webp' },
+      { title: 'Boutique Hotels', image: '/images/quarto-alojamento-paredes-2.webp' },
+      { title: 'Hostels', image: '/images/quarto-porto-lounge-hostel.webp' },
+      { title: 'Guesthouses', image: '/images/guesthouse-ladeira-exterior-piscina.webp' },
+      { title: 'Hotel Projects in Repositioning', image: '/images/burro-ville-backyard-view-pool.webp' },
+    ]}
+  />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="A New Standard in Independent Hotel Management"
+    intro_text={`
+      <p>
+        The hotel market has become progressively more competitive, pressured by operational costs, dependence on intermediaries and changes in guest behaviour. Independent hotels, boutique hotels and hostels face challenges today that require more analytical, agile and data-driven management.
+      </p>
+      <p>
+        Hotel asset management goes beyond daily operations. It involves strategic decisions about pricing, distribution, cost structure, market positioning and long-term asset appreciation.
+      </p>
+      <p>
+        It is in this context that Host Wise acts as a management partner, combining operational experience, technology and a focus on performance.
+      </p>
+    `}
+    intro_cta_label="Get a Proposal"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- Target Audience -->
+  <TargetAudienceV2
+    title="Who is this service for?"
+    developedForTitle="This service was developed for:"
+    developedFor={[
+      { text: 'Hotel and hostel owners' },
+      { text: 'Hospitality investors' },
+      { text: 'Independent operators' },
+      { text: 'Funds with hotel assets in their portfolio' },
+    ]}
+    idealForTitle="It is ideal for those seeking:"
+    idealFor={[
+      { text: 'Better operational performance' },
+      { text: 'Cost and revenue control' },
+      { text: 'Professional pricing strategy' },
+      { text: 'Medium and long-term asset appreciation' },
+    ]}
+  />
+
+  <!-- Services Accordion -->
+  <ServicesAccordion
+    title="What We Do"
+    description="Host Wise acts as a hotel management partner, adapting to the reality and maturity of each operation."
+    image="/images/quarto-alojamento-rua-fabrica-porto-2.webp"
+    services={[
+      {
+        title: 'Day-to-Day Operational Management',
+        items: [
+          { text: 'Coordination of daily operations' },
+          { text: 'Definition and optimization of processes' },
+          { text: 'Focus on consistency of the guest experience' },
+        ],
+      },
+      {
+        title: 'Revenue Management and Pricing',
+        items: [
+          { text: 'Dynamic pricing strategies' },
+          { text: 'Occupancy and RevPAR optimization' },
+          { text: 'Continuous performance analysis' },
+        ],
+      },
+      {
+        title: 'Distribution and Sales Channels',
+        items: [
+          { text: 'OTA and direct channel management' },
+          { text: 'Reduction of intermediary dependence' },
+          { text: 'Strategy aligned with the hotel\'s positioning' },
+        ],
+      },
+      {
+        title: 'Team Management',
+        items: [
+          { text: 'Team coordination and optimization' },
+          { text: 'Definition of operational standards' },
+        ],
+      },
+      {
+        title: 'Asset Maintenance and Preservation',
+        items: [
+          { text: 'Preventive maintenance' },
+          { text: 'Property and infrastructure preservation' },
+        ],
+      },
+    ]}
+  />
+
+  <!-- Case Study -->
+  <CaseStudy
+    title="Case Study"
+    description="Discover the results of one of the buildings we manage. Real numbers that demonstrate the impact of our integrated approach on profitability and operational efficiency."
+    propertyName="Burro Ville"
+    propertyLocation="Portimão"
+    badge="Under Management"
+    stats={[
+      { label: 'Houses', value: '7' },
+      { label: 'Annual Revenue', value: '€720K' },
+      { label: 'Average Price', value: '€95' },
+      { label: 'Occupancy', value: '82%' },
+      { label: 'Profitability', value: '14.2%' },
+    ]}
+    images={[
+      '/images/burro-ville-aerial-view.webp',
+      '/images/burro-ville-house-backyard-area.webp',
+      '/images/burro-ville-outside-view-with-pool.webp',
+    ]}
+  />
+
+  <!-- Models Intro -->
+  <ModelsIntro
+    title="Two Profitability Models. The Choice is Yours."
+    paragraphs={[
+      {
+        paragraph: 'At Host Wise, we offer <strong>two distinct models</strong> to maximize your property\'s returns. Each one is designed for different owner profiles and investment objectives.',
+      },
+      {
+        paragraph: 'Do you prefer <strong>full flexibility</strong> with commissions only on what you earn? Or do you prefer the <strong>security of a guaranteed fixed income</strong> every month, regardless of occupancy?',
+      },
+      {
+        paragraph: 'There is no wrong choice — only the right choice <strong>for you</strong>. Compare the models below and discover which best suits your profile.',
+      },
+    ]}
+    models={[
+      {
+        key: 'guaranteed',
+        badge_label: 'Most Popular',
+        title: 'Guaranteed Income',
+        subtitle: 'Occupancy Risk Assumed',
+        description: 'Receive a <strong>guaranteed fixed amount every month</strong>, regardless of occupancy. Total predictability and zero worries.',
+        benefits: [
+          { text: 'Zero risk of low occupancy' },
+          { text: 'Maintenance at our expense' },
+          { text: 'Full operational cost management' },
+          { text: 'Long-term contracts' },
+        ],
+        cta_label: 'View Model Details',
+        cta_url: '/en/guaranteed-income',
+      },
+      {
+        key: 'commission',
+        title: 'Commission Model',
+        subtitle: 'Performance-Based',
+        description: 'Pay only a <strong>percentage of the revenue generated</strong>. The more your property earns, the more you earn — and we earn alongside you.',
+        benefits: [
+          { text: 'No fixed monthly costs' },
+          { text: 'Commissions only on revenue' },
+          { text: 'Full transparency on earnings' },
+          { text: 'Unlimited revenue potential' },
+        ],
+        cta_label: 'View Model Details',
+        cta_url: '/en/commission',
+      },
+    ]}
+    ctaTitle="Still not sure which model is right for you?"
+    ctaText="Talk to us and receive a personalized analysis for your property."
+    ctaButtonLabel="Get a Free Proposal"
+  />
+
+  <!-- FAQ Section -->
+  <FAQSection
+    title="Frequently Asked Questions"
+    subtitle="Get answers to your questions about hotel asset management."
+    categories={categories}
+  />
+
+</Layout>

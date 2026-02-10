@@ -1,0 +1,784 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { blogPostingSchema } from "../../../lib/schema/blog-posting";
+import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
+import { wpFetchJson } from "../../../lib/wpFetch";
+
+export async function getStaticPaths() {
+  const apiBase = import.meta.env.WORDPRESS_API_URL;
+  if (!apiBase) throw new Error("WORDPRESS_API_URL is missing");
+
+  // ✅ pega em todos, filtra por lang === "en"
+  const all = await wpFetchJson<any[]>(`${apiBase}/posts?per_page=100&_fields=slug,lang`);
+  return all
+    .filter((p) => p.lang === "en")
+    .map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const apiBase = import.meta.env.WORDPRESS_API_URL;
+if (!apiBase) throw new Error("WORDPRESS_API_URL is missing");
+
+// ✅ Buscar por slug sem lang= e filtrar por lang
+const list = await wpFetchJson<any[]>(`${apiBase}/posts?slug=${slug}&_embed`);
+const post = list.find((p) => p.lang === "en");
+
+if (!post) return Astro.redirect("/404");
+
+// ✅ Buscar slug PT via translations.pt (se existir)
+const ptId = post.translations?.pt;
+let ptSlug: string | null = null;
+
+if (typeof ptId === "number" && ptId > 0) {
+  const ptPost = await wpFetchJson<any>(`${apiBase}/posts/${ptId}?_embed`);
+  ptSlug = ptPost?.slug ?? null;
+}
+
+
+function decodeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(code))
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+// Extract headings for table of contents
+function extractHeadings(content) {
+  const headingRegex = /<h([2-3])[^>]*>(.*?)<\/h\1>/gi;
+  const headings = [];
+  let match;
+
+  while ((match = headingRegex.exec(content)) !== null) {
+    const level = parseInt(match[1]);
+    const text = match[2].replace(/<[^>]*>/g, ''); // Remove any HTML tags
+    const id = text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove accents
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-');
+
+    headings.push({ level, text: decodeHtml(text), id });
+  }
+
+  return headings;
+}
+
+// Add IDs to headings in content
+function addIdsToHeadings(content) {
+  return content.replace(/<h([2-3])[^>]*>(.*?)<\/h\1>/gi, (match, level, text) => {
+    const cleanText = text.replace(/<[^>]*>/g, '');
+    const id = cleanText
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-');
+
+    return `<h${level} id="${id}">${text}</h${level}>`;
+  });
+}
+
+const title = decodeHtml(post.title.rendered);
+const content = addIdsToHeadings(post.content.rendered);
+const excerpt = post.excerpt?.rendered ?? '';
+const date = new Date(post.date).toLocaleDateString('en-US', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric'
+});
+
+const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+const fallbackImages = [
+  '/images/property-1.webp',
+  '/images/property-2.webp',
+  '/images/property-3.webp'
+];
+const randomFallback = fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
+const imageUrl = featuredImage || randomFallback;
+
+const headings = extractHeadings(post.content.rendered);
+
+function stripHtmlToText(html: string) {
+  return (html || "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const metaDescription = stripHtmlToText(excerpt).slice(0, 155);
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const canonicalUrl = new URL(Astro.url.pathname, site).href;
+
+const publishedISO = new Date(post.date).toISOString();
+const modifiedISO = post.modified ? new Date(post.modified).toISOString() : undefined;
+
+const absoluteImageUrl = imageUrl.startsWith("http") ? imageUrl : new URL(imageUrl, site).href;
+
+const schemas = [
+breadcrumbSchema([
+    { name: "Home", url: site.href },
+    { name: "Blog", url: new URL("/blog", site).href },
+    { name: title, url: canonicalUrl },
+  ]),  
+blogPostingSchema({
+    url: canonicalUrl,
+    headline: title,
+    description: metaDescription,
+    image: absoluteImageUrl,
+    datePublished: publishedISO,
+    dateModified: modifiedISO,
+    inLanguage: "en-US",
+  }),
+];
+
+
+// alternates
+const enHref = new URL(`/en/blog/${slug}`, site).href;
+const ptHref = ptSlug ? new URL(`/blog/${ptSlug}`, site).href : null;
+
+const alternates = [
+  ...(ptHref ? [{ hreflang: "pt-PT", href: ptHref }] : []),
+  { hreflang: "en", href: enHref },
+  { hreflang: "x-default", href: ptHref ?? enHref },
+];
+
+
+
+---
+
+<Layout title={title}
+description={metaDescription}
+alternates={alternates}
+ogType="article"
+ogImage={absoluteImageUrl}
+schemas={schemas}
+canonical={canonicalUrl}>
+  <!-- Article Hero -->
+  <article class="blog-article">
+    <div class="article-hero">
+      <div class="article-hero-container">
+        <a href="/blog" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Voltar ao Blog
+        </a>
+
+        <div class="article-meta">
+          <time datetime={post.date}>{date}</time>
+        </div>
+
+        <h1>{title}</h1>
+
+        {excerpt && (
+          <div class="article-excerpt" set:html={excerpt}></div>
+        )}
+      </div>
+    </div>
+
+    <!-- Featured Image -->
+    <div class="article-image-wrapper">
+      <div class="article-image-container">
+        <img src={imageUrl} alt={title} class="article-featured-image" />
+      </div>
+    </div>
+
+    <!-- Article Content -->
+    <div class="article-content-wrapper">
+      <div class="article-container">
+        <div class="article-layout">
+          <!-- Table of Contents (Desktop Sidebar) -->
+          {headings.length > 0 && (
+            <aside class="toc-sidebar">
+              <div class="toc-sticky">
+                <h3 class="toc-title">Índice</h3>
+                <nav class="toc-nav">
+                  <ul class="toc-list">
+                    {headings.map((heading) => (
+                      <li class={`toc-item toc-level-${heading.level}`}>
+                        <a href={`#${heading.id}`} class="toc-link">
+                          {heading.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
+            </aside>
+          )}
+
+          <!-- Main Content -->
+          <div class="article-main">
+            {/* Mobile TOC Accordion */}
+            {headings.length > 0 && (
+              <div class="toc-accordion">
+                <button class="toc-accordion-trigger" id="tocTrigger">
+                  <div class="toc-accordion-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                      <path d="M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2zm16 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2z"/>
+                    </svg>
+                    <span>Índice do Artigo</span>
+                  </div>
+                  <svg class="toc-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </button>
+                <div class="toc-accordion-content" id="tocContent">
+                  <nav class="toc-nav-mobile">
+                    <ul class="toc-list-mobile">
+                      {headings.map((heading) => (
+                        <li class={`toc-item-mobile toc-level-${heading.level}`}>
+                          <a href={`#${heading.id}`} class="toc-link-mobile">
+                            {heading.text}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            )}
+
+            {/* Article Content */}
+            <div class="prose" set:html={content}></div>
+
+            {/* Back to Blog CTA */}
+            <div class="article-footer">
+              <a href="/blog" class="btn-back-to-blog">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+                Ver Mais Artigos
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .article-hero {
+    padding: 160px 20px 60px;
+    background: linear-gradient(135deg, #F8FCFF 0%, #fff 100%);
+  }
+
+  .article-hero-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: gap 0.3s;
+  }
+
+  .back-link:hover {
+    gap: 12px;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .article-meta time {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+    color: var(--text);
+    opacity: 0.6;
+    font-weight: 500;
+  }
+
+  .article-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.15;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .article-excerpt {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .article-excerpt p {
+    margin: 0;
+  }
+
+  /* Featured Image */
+  .article-image-wrapper {
+    background: linear-gradient(135deg, #F8FCFF 0%, #fff 100%);
+    padding: 0 20px 80px;
+  }
+
+  .article-image-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(12, 68, 99, 0.15);
+  }
+
+  .article-featured-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+
+  /* Content Area */
+  .article-content-wrapper {
+    background: white;
+    padding: 0 20px 100px;
+  }
+
+  .article-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .article-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+    position: relative;
+  }
+
+  @media (min-width: 1024px) {
+    .article-layout {
+      grid-template-columns: 280px 1fr;
+      gap: 80px;
+    }
+  }
+
+  /* Table of Contents - Desktop Sidebar */
+  .toc-sidebar {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .toc-sidebar {
+      display: block;
+    }
+  }
+
+  .toc-sticky {
+    position: sticky;
+    top: 120px;
+    background: var(--blue-light);
+    border-radius: 20px;
+    padding: 28px;
+    border: 2px solid rgba(92, 176, 214, 0.15);
+  }
+
+  .toc-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .toc-nav {
+    max-height: calc(100vh - 240px);
+    overflow-y: auto;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc-item {
+    margin-bottom: 12px;
+  }
+
+  .toc-level-3 {
+    margin-left: 16px;
+  }
+
+  .toc-link {
+    display: block;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    border-left: 3px solid transparent;
+  }
+
+  .toc-link:hover {
+    background: white;
+    border-left-color: var(--secondary);
+    color: var(--primary);
+    transform: translateX(4px);
+  }
+
+  .toc-link.active {
+    background: white;
+    border-left-color: var(--secondary);
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  /* Table of Contents - Mobile Accordion */
+  .toc-accordion {
+    display: block;
+    margin-bottom: 40px;
+    background: var(--blue-light);
+    border-radius: 16px;
+    border: 2px solid rgba(92, 176, 214, 0.15);
+    overflow: hidden;
+  }
+
+  @media (min-width: 1024px) {
+    .toc-accordion {
+      display: none;
+    }
+  }
+
+  .toc-accordion-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .toc-accordion-trigger:hover {
+    background: rgba(92, 176, 214, 0.05);
+  }
+
+  .toc-accordion-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+
+  .toc-accordion-header svg {
+    color: var(--secondary);
+  }
+
+  .toc-chevron {
+    color: var(--secondary);
+    transition: transform 0.3s;
+  }
+
+  .toc-accordion.active .toc-chevron {
+    transform: rotate(180deg);
+  }
+
+  .toc-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .toc-accordion.active .toc-accordion-content {
+    max-height: 1000px;
+  }
+
+  .toc-nav-mobile {
+    padding: 0 24px 24px;
+  }
+
+  .toc-list-mobile {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc-item-mobile {
+    margin-bottom: 8px;
+  }
+
+  .toc-item-mobile.toc-level-3 {
+    margin-left: 20px;
+  }
+
+  .toc-link-mobile {
+    display: block;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    border-left: 3px solid transparent;
+  }
+
+  .toc-link-mobile:hover {
+    background: white;
+    border-left-color: var(--secondary);
+    color: var(--primary);
+  }
+
+  /* Article Main Content */
+  .article-main {
+    max-width: 800px;
+  }
+
+  /* Prose Styles */
+  .prose {
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .prose :global(h2) {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 48px;
+    margin-bottom: 20px;
+    line-height: 1.3;
+    scroll-margin-top: 100px;
+  }
+
+  .prose :global(h3) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 36px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+    scroll-margin-top: 100px;
+  }
+
+  .prose :global(p) {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: 24px;
+    padding-left: 28px;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+  }
+
+  .prose :global(a) {
+    color: var(--secondary);
+    text-decoration: underline;
+    transition: color 0.3s;
+  }
+
+  .prose :global(a:hover) {
+    color: var(--primary);
+  }
+
+  .prose :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    margin: 32px 0;
+    box-shadow: 0 8px 32px rgba(12, 68, 99, 0.1);
+  }
+
+  .prose :global(blockquote) {
+    border-left: 4px solid var(--secondary);
+    padding-left: 24px;
+    margin: 32px 0;
+    font-style: italic;
+    color: var(--text);
+    opacity: 0.9;
+  }
+
+  .prose :global(code) {
+    background: rgba(92, 176, 214, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95em;
+    color: var(--primary);
+  }
+
+  .prose :global(pre) {
+    background: var(--blue-light);
+    padding: 24px;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin: 28px 0;
+    border: 2px solid rgba(92, 176, 214, 0.15);
+  }
+
+  .prose :global(pre code) {
+    background: transparent;
+    padding: 0;
+  }
+
+  /* Article Footer */
+  .article-footer {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 2px solid var(--blue-light);
+    text-align: center;
+  }
+
+  .btn-back-to-blog {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.25);
+  }
+
+  .btn-back-to-blog:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(12, 68, 99, 0.35);
+    gap: 16px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .article-hero {
+      padding: 140px 20px 50px;
+    }
+
+    .article-hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .article-excerpt {
+      font-size: 1.15rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .article-hero {
+      padding: 120px 20px 40px;
+    }
+
+    .article-hero h1 {
+      font-size: 2rem;
+    }
+
+    .article-excerpt {
+      font-size: 1.05rem;
+    }
+
+    .article-image-wrapper {
+      padding: 0 20px 60px;
+    }
+
+    .prose :global(h2) {
+      font-size: 1.75rem;
+    }
+
+    .prose :global(h3) {
+      font-size: 1.35rem;
+    }
+
+    .prose :global(p),
+    .prose :global(li) {
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .article-hero h1 {
+      font-size: 1.75rem;
+    }
+
+    .prose :global(h2) {
+      font-size: 1.5rem;
+    }
+
+    .prose :global(h3) {
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  // TOC Accordion functionality
+  const tocTrigger = document.getElementById('tocTrigger');
+  const tocAccordion = tocTrigger?.closest('.toc-accordion');
+
+  tocTrigger?.addEventListener('click', () => {
+    tocAccordion?.classList.toggle('active');
+  });
+
+  // Close accordion when clicking a link
+  const tocLinksMobile = document.querySelectorAll('.toc-link-mobile');
+  tocLinksMobile.forEach(link => {
+    link.addEventListener('click', () => {
+      tocAccordion?.classList.remove('active');
+    });
+  });
+
+  // Active link highlighting on scroll (desktop)
+  const tocLinks = document.querySelectorAll('.toc-link');
+  const headings = document.querySelectorAll('.prose h2, .prose h3');
+
+  function updateActiveLink() {
+    let currentActive = '';
+
+    headings.forEach(heading => {
+      const rect = heading.getBoundingClientRect();
+      if (rect.top <= 150 && rect.top >= -rect.height) {
+        currentActive = heading.id;
+      }
+    });
+
+    tocLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${currentActive}`) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener('scroll', updateActiveLink);
+    updateActiveLink();
+  }
+</script>

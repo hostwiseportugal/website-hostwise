@@ -1,7 +1,65 @@
 ---
 import { iconMap } from '../icons/iconMap';
+import { headerCopy } from "../lib/i18n/header";
+import { getAlternateHref } from '../lib/i18n/routes';
 
+type Alternate = { hreflang: string; href: string };
+
+const pathname = Astro.url.pathname;
+const isEn = pathname === "/en" || pathname.startsWith("/en/");
+const lang = isEn ? "en" : "pt";
+const t = headerCopy[lang];
+const currentLang = lang;
+
+// props (vindas do Layout)
+const { alternates = [] } = Astro.props as {
+  alternates?: Alternate[];
+};
+
+// helpers: transformar href absoluto em path relativo (para dev/prod)
+function toPath(href: string) {
+  try {
+    // se for absoluto, parse e devolve pathname
+    if (href.startsWith("http://") || href.startsWith("https://")) {
+      const u = new URL(href);
+      return u.pathname || "/";
+    }
+    // já é relativo
+    return href || "/";
+  } catch {
+    return href || "/";
+  }
+}
+
+// 1) tentar alternates (melhor para blog posts com slugs diferentes)
+const ptAlt = alternates.find(a => a.hreflang?.toLowerCase() === "pt-pt");
+const enAlt = alternates.find(a => a.hreflang?.toLowerCase() === "en");
+
+const ptHref = ptAlt?.href ? toPath(ptAlt.href) : getAlternateHref(pathname, "pt");
+const enHref = enAlt?.href ? toPath(enAlt.href) : getAlternateHref(pathname, "en");
+
+// links de navegação (hardcoded por língua)
+const links = lang === "en"
+  ? {
+      service1: "/en/vacation-rental-management",
+      service2: "/en/serviced-accommodation",
+      service3: "/en/hotel-asset-management",
+      model1: "/en/guaranteed-profitability",
+      model2: "/en/commission",
+      referrals: "/en/referrals",
+      typeform: "https://hostwise.typeform.com/to/fYQv5Zi3",
+    }
+  : {
+      service1: "/gestao-alojamento-local",
+      service2: "/gestao-empreendimentos-turisticos",
+      service3: "/gestao-ativos-hoteleiros",
+      model1: "/rentabilidade-garantida",
+      model2: "/comissao",
+      referrals: "/referrals",
+      typeform: "https://hostwise.typeform.com/to/pWgP4EuZ",
+    };
 ---
+
 
 <header class="header">
   <div class="header-container">
@@ -15,33 +73,33 @@ import { iconMap } from '../icons/iconMap';
       <!-- Serviços com Mega Menu -->
       <div class="nav-item has-mega">
         <button class="nav-link">
-          Serviços
+          {t.services}
           <div class="nav-icon" set:html={iconMap.chevronDown} />
         </button>
         
         <div class="mega-menu">
           <div class="mega-menu-content">
-            <a href="/gestao-alojamento-local" class="mega-item">
+            <a href={links.service1} class="mega-item">
               <div class="mega-icon" set:html={iconMap.home} />
               <div class="mega-text">
-                <div class="mega-title">Gestão de Alojamento Local</div>
-                <p>Maximize a rentabilidade do seu alojamento local, com uma gestão profissional</p>
+                <div class="mega-title">{t.service1Title}</div>
+                <p>{t.service1Desc}</p>
               </div>
             </a>
 
-            <a href="/gestao-empreendimentos-turisticos" class="mega-item">
+            <a href={links.service2} class="mega-item">
               <div class="mega-icon" set:html={iconMap.building} />
               <div class="mega-text">
-                <div class="mega-title">Gestão de Empreendimentos Turísticos</div>
-                <p>Transforme o seu edifício num ativo turístico de alta performance</p>
+                <div class="mega-title">{t.service2Title}</div>
+                <p>{t.service2Desc}</p>
               </div>
             </a>
 
-            <a href="/gestao-ativos-hoteleiros" class="mega-item">
+            <a href={links.service3} class="mega-item">
               <div class="mega-icon" set:html={iconMap.hotel} />
               <div class="mega-text">
-                <div class="mega-title">Gestão de Ativos Hoteleiros</div>
-                <p>Otimização de performance e valorização para portfólios de hospitalidade</p>
+                <div class="mega-title">{t.service3Title}</div>
+                <p>{t.service3Desc}</p>
               </div>
             </a>
           </div>
@@ -51,25 +109,25 @@ import { iconMap } from '../icons/iconMap';
       <!-- Modelos com Mega Menu -->
       <div class="nav-item has-mega">
         <button class="nav-link">
-          Modelos de Gestão
+          {t.models}
           <div class="nav-icon" set:html={iconMap.chevronDown} />
         </button>
 
         <div class="mega-menu">
           <div class="mega-menu-content">
-            <a href="/rentabilidade-garantida" class="mega-item">
+            <a href={links.model1} class="mega-item">
               <div class="mega-icon" set:html={iconMap.shield} />
               <div class="mega-text">
-                <div class="mega-title">Rentabilidade Garantida</div>
-                <p>Receba um valor fixo mensal, sem preocupações</p>
+                <div class="mega-title">{t.model1Title}</div>
+                <p>{t.model1Desc}</p>
               </div>
             </a>
 
-            <a href="/comissao" class="mega-item">
+            <a href={links.model2} class="mega-item">
               <div class="mega-icon" set:html={iconMap.chartLine} />
               <div class="mega-text">
-                <div class="mega-title">Modelo de Comissão</div>
-                <p>Pague apenas por resultados: 9-19% da receita</p>
+                <div class="mega-title">{t.model2Title}</div>
+                <p>{t.model2Desc}</p>
               </div>
             </a>
           </div>
@@ -77,27 +135,39 @@ import { iconMap } from '../icons/iconMap';
       </div>
 
       <!-- Links Simples -->
-      <a href="/referrals" class="nav-link">Referrals</a>
+      <a href={links.referrals} class="nav-link">{t.referrals}</a>
     </nav>
 
     <!-- CTAs e Language -->
     <div class="header-actions">
       <!-- Language Selector -->
       <div class="language-selector">
-        <button class="lang-btn active" data-lang="pt">
-          <span class="flag">🇵🇹</span>
-          <span class="lang-text">PT</span>
-        </button>
-        <button class="lang-btn" data-lang="en">
-          <span class="flag">🇬🇧</span>
-          <span class="lang-text">EN</span>
-        </button>
-      </div>
+  <a
+    href={ptHref}
+    class={`lang-btn ${currentLang === "pt" ? "active" : ""}`}
+    aria-label="Mudar para Português"
+  >
+    <span class="flag">🇵🇹</span>
+    <span class="lang-text">PT</span>
+  </a>
+
+  <a
+    href={enHref}
+    class={`lang-btn ${currentLang === "en" ? "active" : ""}`}
+    aria-label="Switch to English"
+  >
+    <span class="flag">🇬🇧</span>
+    <span class="lang-text">EN</span>
+  </a>
+</div>
+
+
+
 
       <!-- CTAs Desktop -->
       <div class="cta-buttons">
-        <a href="https://hostwise.typeform.com/to/pWgP4EuZ?" class="btn-primary">Receber Proposta</a>
-        <a href="https://hostwisebooking.pt" target="_blank" class="btn-secondary">Reserve Connosco</a>
+        <a href={links.typeform} class="btn-primary">{t.ctaProposal}</a>
+        <a href="https://hostwisebooking.pt" target="_blank" class="btn-secondary">{t.ctaBook}</a>
       </div>
 
       <!-- Mobile Menu Button -->
@@ -115,33 +185,33 @@ import { iconMap } from '../icons/iconMap';
       <!-- Serviços Mobile -->
       <div class="mobile-section">
         <button class="mobile-section-title">
-          Os Nossos Serviços
+          {t.mobileServicesTitle}
           <div class="mobile-icon" set:html={iconMap.chevronDown} />
         </button>
         <div class="mobile-submenu">
-          <a href="/gestao-alojamento-local">Gestão de Alojamento Local</a>
-          <a href="/gestao-empreendimentos-turisticos">Gestão de Empreendimentos Turísticos</a>
-          <a href="/gestao-ativos-hoteleiros">Gestão de Ativos Hoteleiros</a>
+          <a href={links.service1}>{t.service1Title}</a>
+          <a href={links.service2}>{t.service2Title}</a>
+          <a href={links.service3}>{t.service3Title}</a>
         </div>
       </div>
 
       <!-- Modelos Mobile -->
       <div class="mobile-section">
         <button class="mobile-section-title">
-          Os Nossos Modelos
+          {t.mobileModelsTitle}
           <div class="mobile-icon" set:html={iconMap.chevronDown} />
         </button>
         <div class="mobile-submenu">
-          <a href="/rentabilidade-garantida">Rentabilidade Garantida</a>
-          <a href="/comissao">Modelo de Comissão</a>
+          <a href={links.model1}>{t.model1Title}</a>
+          <a href={links.model2}>{t.model2Title}</a>
         </div>
       </div>
-      <a href="/referrals" class="mobile-link">Referrals</a>
+      <a href={links.referrals} class="mobile-link">{t.referrals}</a>
 
       <!-- CTAs Mobile -->
       <div class="mobile-ctas">
-        <a href="/proposta" class="btn-primary">Receber Proposta</a>
-        <a href="https://hostwisebooking.pt" target="_blank" class="btn-secondary">Reserve Connosco</a>
+        <a href="/proposta" class="btn-primary">{t.ctaProposal}</a>
+        <a href="https://hostwisebooking.pt" target="_blank" class="btn-secondary">{t.ctaBook}</a>
       </div>
     </div>
   </div>
@@ -610,61 +680,33 @@ import { iconMap } from '../icons/iconMap';
 
 <script>
   class HeaderManager {
-    private header: HTMLElement | null;
-    private mobileMenuBtn: HTMLElement | null;
-    private mobileMenu: HTMLElement | null;
-    private mobileSections: NodeListOf<HTMLElement>;
-    private langButtons: NodeListOf<HTMLElement>;
-
     constructor() {
       this.header = document.querySelector('.header');
       this.mobileMenuBtn = document.querySelector('.mobile-menu-btn');
       this.mobileMenu = document.querySelector('.mobile-menu');
       this.mobileSections = document.querySelectorAll('.mobile-section');
-      this.langButtons = document.querySelectorAll('.lang-btn');
-
       this.init();
     }
 
     init() {
-      // Scroll detection
       window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-          this.header?.classList.add('scrolled');
-        } else {
-          this.header?.classList.remove('scrolled');
-        }
+        if (window.scrollY > 50) this.header?.classList.add('scrolled');
+        else this.header?.classList.remove('scrolled');
       });
 
-      // Mobile menu toggle
       this.mobileMenuBtn?.addEventListener('click', () => {
         this.mobileMenuBtn?.classList.toggle('active');
         this.mobileMenu?.classList.toggle('active');
         document.body.style.overflow = this.mobileMenu?.classList.contains('active') ? 'hidden' : '';
       });
 
-      // Mobile sections accordion
-      this.mobileSections.forEach(section => {
+      this.mobileSections.forEach((section) => {
         const title = section.querySelector('.mobile-section-title');
-        title?.addEventListener('click', () => {
-          section.classList.toggle('active');
-        });
+        title?.addEventListener('click', () => section.classList.toggle('active'));
       });
 
-      // Language switcher
-      this.langButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          this.langButtons.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          
-          const lang = btn.dataset.lang;
-          console.log('Language changed to:', lang);
-        });
-      });
-
-      // Close mobile menu on link click
       const mobileLinks = document.querySelectorAll('.mobile-submenu a, .mobile-link');
-      mobileLinks.forEach(link => {
+      mobileLinks.forEach((link) => {
         link.addEventListener('click', () => {
           this.mobileMenuBtn?.classList.remove('active');
           this.mobileMenu?.classList.remove('active');
@@ -674,9 +716,5 @@ import { iconMap } from '../icons/iconMap';
     }
   }
 
-  if (typeof window !== 'undefined') {
-    document.addEventListener('DOMContentLoaded', () => {
-      new HeaderManager();
-    });
-  }
+  document.addEventListener('DOMContentLoaded', () => new HeaderManager());
 </script>

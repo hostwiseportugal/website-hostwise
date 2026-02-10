@@ -13,7 +13,9 @@ import RegionsCarousel from '../../components/RegionsCarousel.astro';
 import OwnerTestimonials from '../../components/OwnerTestimonials.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import { serviceSchema } from "../../lib/schema/service";
-import { faqPageSchema } from "../../lib/schema/faq";
+import { faqPageSchemaFromCategories } from "../../lib/schema/faq-from-categories";
+import { breadcrumbSchema } from "../../lib/schema/breadcrumbs";
+
 
 const apiBase = import.meta.env.WORDPRESS_API_URL;
 const PAGE_ID = 192;
@@ -22,26 +24,6 @@ const page = await res.json();
 const acf = page.acf || {};
 
 const serviceName = "Gestão de Alojamento Local";
-const schemas = [
-  serviceSchema({
-    serviceName,
-    url: Astro.url.href,
-    providerUrl: "https://www.hostwise.pt",
-    areaServed: [{ name: "Portugal", type: "Country" }],
-  }),
-  faqPageSchema([
-    // Só FAQs que estão mesmo visíveis na página
-    { question: "…", answer: "…" },
-  ]),
-];
-
-const testimonialsData = (acf.owner_testimonials || []).map((t: any) => ({
-  name: t.owner_testimonial_name,
-  location: t.owner_testimonial_location,
-  property: t.owner_testimonial_property,
-  rating: Number(t.owner_testimonial_rating) || 0,
-  comment: t.owner_testimonial_comment,
-}));
 
 const faqCategoriesData =
   (acf.faq_categories || []).map((cat: any) => ({
@@ -53,11 +35,54 @@ const faqCategoriesData =
     })),
   })) || [];
 
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const canonicalUrl = new URL(Astro.url); canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+  const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: "https://www.hostwise.pt" },
+  { name: "Gestão de Alojamento Local", url: canonical },
+]);
+
+      const schemas = [
+        breadcrumbs,
+  serviceSchema({
+    serviceName,
+    url: canonical,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Portugal", type: "Country" }],
+  }),
+  ...(faqCategoriesData.length ? [faqPageSchemaFromCategories(faqCategoriesData)] : []),
+];
+
+const testimonialsData = (acf.owner_testimonials || []).map((t: any) => ({
+  name: t.owner_testimonial_name,
+  location: t.owner_testimonial_location,
+  property: t.owner_testimonial_property,
+  rating: Number(t.owner_testimonial_rating) || 0,
+  comment: t.owner_testimonial_comment,
+}));
+
+const alternates = [
+  {
+    hreflang: "pt-PT",
+    href: "https://www.hostwise.pt/gestao-alojamento-local",
+  },
+  {
+    hreflang: "en",
+    href: "https://www.hostwise.pt/en/vacation-rental-management",
+  },
+  {
+    hreflang: "x-default",
+    href: "https://www.hostwise.pt/gestao-alojamento-local",
+  },
+];
 ---
 
 <Layout title={serviceName}
-  description="..."
-  ogImage="/images/og/servico-gestao-al.jpg"
+  description="Gestão de alojamento local end-to-end, com pricing dinâmico, operação profissional e foco na rentabilidade do seu imóvel. Conheça a abordagem Host Wise."
+  canonical={canonical}
+  alternates={alternates}
   schemas={schemas}>
   <!-- Hero Section -->
   <HeroSectionV2

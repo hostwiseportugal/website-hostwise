@@ -1,0 +1,632 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const lastUpdated = "28 January 2025";
+
+const alternates = [
+  { hreflang: "pt-PT", href: "https://www.hostwise.pt/politica-de-cookies" },
+  { hreflang: "en", href: "https://www.hostwise.pt/en/cookie-policy" },
+  { hreflang: "x-default", href: "https://www.hostwise.pt/politica-de-cookies" },
+];
+---
+
+<Layout title="Cookie Policy" description="Learn how Host Wise uses cookies to improve your browsing experience and comply with legal obligations." alternates={alternates}>
+  <section class="legal-page">
+    <div class="container">
+      <div class="legal-header">
+        <span class="legal-badge">Legal Document</span>
+        <h1>Cookie Policy</h1>
+        <p class="last-updated">Last updated: {lastUpdated}</p>
+      </div>
+
+      <div class="legal-content">
+        <div class="legal-intro">
+          <p>
+            This Cookie Policy explains what cookies are, how we use them on the Host Wise website,
+            the types of cookies we use and how you can manage your cookie preferences.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>1. What Are Cookies?</h2>
+          <p>
+            Cookies are small text files that are stored on your device (computer, tablet or smartphone)
+            when you visit a website. Cookies are widely used to make websites work more efficiently,
+            as well as to provide information to website owners.
+          </p>
+          <p>
+            Cookies allow the website to recognise your device and remember information about your visit,
+            such as your language preferences, settings and other information. This can make your next
+            visit easier and the website more useful to you.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>2. Types of Cookies We Use</h2>
+          <p>We use different types of cookies for various purposes:</p>
+
+          <h3>2.1. Strictly Necessary Cookies</h3>
+          <p>
+            These cookies are essential for you to browse the website and use its features.
+            Without these cookies, services such as contact forms and secure areas cannot be provided.
+            These cookies do not collect information about you that could be used for marketing.
+          </p>
+          <div class="cookie-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cookie</th>
+                  <th>Purpose</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>cookie_consent</td>
+                  <td>Stores your cookie consent preferences</td>
+                  <td>1 year</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>2.2. Analytics and Performance Cookies</h3>
+          <p>
+            These cookies collect information about how visitors use our website, for example,
+            which pages are most visited and whether they receive error messages. These cookies do not
+            collect information that identifies a visitor. All information collected by these cookies is
+            aggregated and therefore anonymous. It is only used to improve how the website works.
+          </p>
+
+          <h4>Google Analytics (via Google Tag Manager)</h4>
+          <p>
+            We use Google Analytics to understand how visitors interact with our website.
+            Google Analytics uses cookies to collect information and generate reports on website
+            usage statistics without personally identifying individual visitors.
+          </p>
+          <div class="cookie-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cookie</th>
+                  <th>Purpose</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>_ga</td>
+                  <td>Distinguishes unique users by assigning a randomly generated number</td>
+                  <td>2 years</td>
+                </tr>
+                <tr>
+                  <td>_ga_*</td>
+                  <td>Used by Google Analytics to persist session state</td>
+                  <td>2 years</td>
+                </tr>
+                <tr>
+                  <td>_gid</td>
+                  <td>Distinguishes unique users</td>
+                  <td>24 hours</td>
+                </tr>
+                <tr>
+                  <td>_gat</td>
+                  <td>Used to throttle request rate to Google Analytics</td>
+                  <td>1 minute</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            For more information on how Google uses collected data, visit:
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.
+          </p>
+
+          <h4>Microsoft Clarity</h4>
+          <p>
+            We use Microsoft Clarity to understand how users interact with our website through
+            heatmaps and session recordings. This helps us identify usability issues and improve
+            the user experience.
+          </p>
+          <div class="cookie-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cookie</th>
+                  <th>Purpose</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>_clck</td>
+                  <td>Persists the Clarity user ID and website-specific preferences</td>
+                  <td>1 year</td>
+                </tr>
+                <tr>
+                  <td>_clsk</td>
+                  <td>Connects multiple page views from a user into a single Clarity session recording</td>
+                  <td>1 day</td>
+                </tr>
+                <tr>
+                  <td>CLID</td>
+                  <td>Identifies the first time Clarity saw this user on any website using Clarity</td>
+                  <td>1 year</td>
+                </tr>
+                <tr>
+                  <td>ANONCHK</td>
+                  <td>Indicates whether MUID is transferred to ANID (cookie used for advertising)</td>
+                  <td>Session</td>
+                </tr>
+                <tr>
+                  <td>MR</td>
+                  <td>Used to collect information for analytics purposes</td>
+                  <td>7 days</td>
+                </tr>
+                <tr>
+                  <td>MUID</td>
+                  <td>Identifies unique website visitors</td>
+                  <td>1 year</td>
+                </tr>
+                <tr>
+                  <td>SM</td>
+                  <td>Used to synchronise MUID across Microsoft domains</td>
+                  <td>Session</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            For more information, visit:
+            <a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener noreferrer">Microsoft Privacy Policy</a>.
+          </p>
+
+          <h3>2.3. Marketing and Advertising Cookies</h3>
+          <p>
+            These cookies are used to track visitors across websites. The intention is to display ads
+            that are relevant and engaging for the individual user and therefore more valuable for
+            publishers and third-party advertisers.
+          </p>
+
+          <h4>Facebook Pixel (Meta)</h4>
+          <p>
+            We use Facebook Pixel to measure the effectiveness of our advertising campaigns on Facebook
+            and Instagram, and to show relevant ads to our website visitors on those platforms.
+          </p>
+          <div class="cookie-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cookie</th>
+                  <th>Purpose</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>_fbp</td>
+                  <td>Used by Facebook to deliver a series of advertising products</td>
+                  <td>3 months</td>
+                </tr>
+                <tr>
+                  <td>_fbc</td>
+                  <td>Stores the last click on a Facebook ad</td>
+                  <td>2 years</td>
+                </tr>
+                <tr>
+                  <td>fr</td>
+                  <td>Used by Facebook to deliver, measure and improve ad relevance</td>
+                  <td>3 months</td>
+                </tr>
+                <tr>
+                  <td>tr</td>
+                  <td>Used by Facebook for conversion tracking and retargeting</td>
+                  <td>Session</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            For more information on how Facebook uses data, visit:
+            <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener noreferrer">Facebook Privacy Policy</a>.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>3. Google Tag Manager</h2>
+          <p>
+            We use Google Tag Manager to manage and implement the analytics and marketing tags mentioned above.
+            Google Tag Manager itself does not use cookies, but it facilitates the implementation of tags that may use cookies.
+          </p>
+          <p>
+            Google Tag Manager is a tool that allows us to manage website scripts and tags centrally,
+            ensuring they are loaded efficiently and in accordance with your consent preferences.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>4. How to Manage Cookies</h2>
+          <p>
+            You can manage your cookie preferences at any time. There are several ways to do this:
+          </p>
+
+          <h3>4.1. Via the Cookie Banner</h3>
+          <p>
+            When you visit our website for the first time, a cookie banner is displayed that allows you
+            to accept or reject non-essential cookies. You can change your preferences at any time
+            by clicking the "Cookie Settings" link in the website footer.
+          </p>
+
+          <h3>4.2. Via Your Browser</h3>
+          <p>
+            Most browsers allow you to control cookies through their settings. You can configure
+            your browser to reject all cookies or to alert you when a cookie is being sent.
+          </p>
+          <p>Here are links to instructions for the most popular browsers:</p>
+          <ul>
+            <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Google Chrome</a></li>
+            <li><a href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer" target="_blank" rel="noopener noreferrer">Mozilla Firefox</a></li>
+            <li><a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener noreferrer">Safari</a></li>
+            <li><a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer">Microsoft Edge</a></li>
+          </ul>
+
+          <h3>4.3. Opt-out of Specific Services</h3>
+          <p>You can opt out of specific analytics and advertising services:</p>
+          <ul>
+            <li><a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out</a></li>
+            <li><a href="https://www.facebook.com/settings?tab=ads" target="_blank" rel="noopener noreferrer">Facebook Ad Settings</a></li>
+            <li><a href="https://account.microsoft.com/privacy" target="_blank" rel="noopener noreferrer">Microsoft Privacy Settings</a></li>
+          </ul>
+
+          <div class="info-box warning">
+            <p>
+              <strong>Note:</strong> If you disable or reject cookies, some parts of the website may not function
+              correctly or your browsing experience may be affected.
+            </p>
+          </div>
+        </div>
+
+        <div class="legal-section">
+          <h2>5. Third-Party Cookies</h2>
+          <p>
+            Some cookies are placed by third-party services that appear on our pages.
+            We do not control the distribution of these cookies and you should check the relevant
+            third-party websites for more information about these cookies.
+          </p>
+          <p>
+            Third parties that use cookies on our website include:
+          </p>
+          <ul>
+            <li><strong>Google</strong> (Analytics and Tag Manager)</li>
+            <li><strong>Microsoft</strong> (Clarity)</li>
+            <li><strong>Meta/Facebook</strong> (Pixel)</li>
+          </ul>
+        </div>
+
+        <div class="legal-section">
+          <h2>6. Updates to this Policy</h2>
+          <p>
+            We may update this Cookie Policy from time to time to reflect changes in the cookies
+            we use or for other operational, legal or regulatory reasons.
+          </p>
+          <p>
+            We recommend that you visit this page regularly to stay informed about our use of cookies.
+            The date of the last update is indicated at the top of this page.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h2>7. More Information</h2>
+          <p>
+            For more information on how we handle your personal data, please see our
+            <a href="/en/privacy-policy">Privacy Policy</a>.
+          </p>
+          <p>
+            If you have questions about this Cookie Policy, you can contact us at:
+          </p>
+          <div class="info-box">
+            <p><strong>Host Wise, Lda.</strong></p>
+            <p>Email: <a href="mailto:comercial@hostwise.pt">comercial@hostwise.pt</a></p>
+            <p>Phone: +351 308 804 682</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="legal-footer">
+        <a href="/en" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 80px 20px 100px;
+    background: linear-gradient(180deg, #F8FCFF 0%, #fff 100%);
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .legal-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .legal-badge {
+    display: inline-block;
+    background: rgba(92, 176, 214, 0.15);
+    color: var(--secondary);
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .legal-header h1 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .last-updated {
+    font-size: 0.95rem;
+    color: var(--text);
+    opacity: 0.7;
+  }
+
+  .legal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 48px;
+    box-shadow: 0 4px 24px rgba(12, 68, 99, 0.08);
+  }
+
+  .legal-intro {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text);
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--gray-light);
+    margin-bottom: 32px;
+  }
+
+  .legal-section {
+    margin-bottom: 40px;
+  }
+
+  .legal-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .legal-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--blue-light);
+  }
+
+  .legal-section h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin: 24px 0 12px;
+  }
+
+  .legal-section h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--secondary);
+    margin: 20px 0 10px;
+  }
+
+  .legal-section p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .legal-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px 0;
+  }
+
+  .legal-section ul li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .legal-section ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 8px;
+    height: 8px;
+    background: var(--secondary);
+    border-radius: 50%;
+  }
+
+  .legal-section ul li strong {
+    color: var(--primary);
+  }
+
+  .legal-section a {
+    color: var(--secondary);
+    text-decoration: underline;
+    transition: color 0.3s;
+  }
+
+  .legal-section a:hover {
+    color: var(--primary);
+  }
+
+  .info-box {
+    background: var(--blue-light);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+
+  .info-box p {
+    margin: 0 0 8px 0;
+    font-size: 0.95rem;
+  }
+
+  .info-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  .info-box a {
+    color: var(--secondary);
+  }
+
+  .info-box.warning {
+    background: #FFF8E1;
+    border-left: 4px solid #FFC107;
+  }
+
+  .cookie-table {
+    margin: 16px 0 24px;
+    overflow-x: auto;
+  }
+
+  .cookie-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .cookie-table th,
+  .cookie-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .cookie-table th {
+    background: var(--blue-light);
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .cookie-table td {
+    color: var(--text);
+  }
+
+  .cookie-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .cookie-table td:first-child {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--secondary);
+    white-space: nowrap;
+  }
+
+  .legal-footer {
+    margin-top: 48px;
+    text-align: center;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .back-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(12, 68, 99, 0.25);
+  }
+
+  @media (max-width: 768px) {
+    .legal-page {
+      padding: 60px 20px 80px;
+    }
+
+    .legal-header h1 {
+      font-size: 2rem;
+    }
+
+    .legal-content {
+      padding: 32px 24px;
+    }
+
+    .legal-intro {
+      font-size: 1rem;
+    }
+
+    .legal-section h2 {
+      font-size: 1.3rem;
+    }
+
+    .legal-section h3 {
+      font-size: 1.05rem;
+    }
+
+    .cookie-table {
+      margin: 12px -24px 20px;
+      padding: 0 24px;
+    }
+
+    .cookie-table th,
+    .cookie-table td {
+      padding: 10px 12px;
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .legal-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .legal-content {
+      padding: 24px 20px;
+    }
+
+    .legal-section h2 {
+      font-size: 1.2rem;
+    }
+
+    .info-box {
+      padding: 16px 20px;
+    }
+
+    .cookie-table th,
+    .cookie-table td {
+      padding: 8px 10px;
+      font-size: 0.8rem;
+    }
+  }
+</style>

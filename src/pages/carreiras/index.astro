@@ -1,5 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { breadcrumbSchema } from "../../lib/schema/breadcrumbs";
+import { collectionPageSchema } from "../../lib/schema/collection-page";
+import { itemListSchema } from "../../lib/schema/item-list";
+
 
 const benefits = [
   {
@@ -87,9 +91,58 @@ const testimonials = [
     quote: "Trabalhar na Host Wise tem sido uma experiência positiva. Devido ao nosso crescimento acelerado, em termos de volume de vendas, portfólio, recursos humanos e infraestruturas, o dia-a-dia é muito dinâmico e sinto que evoluí profissionalmente."
   }
 ];
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+
+// canonical limpo
+const canonicalUrl = new URL(Astro.url);
+canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const metaDescription =
+  "Descubra oportunidades de carreira na Host Wise e faça parte de uma empresa de gestão de alojamento local focada em inovação e performance.";
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: site.href },
+  { name: "Carreiras", url: canonical },
+]);
+
+// link para a página de vagas
+const jobsIndexUrl = new URL("/carreiras/vagas-emprego", site).href;
+
+const schemas = [
+  breadcrumbs,
+
+  collectionPageSchema({
+    url: canonical,
+    name: "Carreiras na Host Wise",
+    description: metaDescription,
+    inLanguage: "pt-PT",
+  }),
+
+  itemListSchema({
+    url: canonical,
+    name: "Recursos de Carreiras",
+    items: [
+      { name: "Vagas de Emprego", url: jobsIndexUrl, position: 1 },
+    ],
+  }),
+];
+
+// alternates (ajusta o slug EN ao teu plano final)
+const alternates = [
+  { hreflang: "pt-PT", href: canonical },
+  { hreflang: "en", href: new URL("/en/careers", site).href },
+  { hreflang: "x-default", href: canonical },
+];
+
 ---
 
-<Layout title="Carreiras - Host Wise | Transforma o Teu Talento em Impacto">
+<Layout title="Carreiras na Host Wise | Junte-se à Equipa"
+description={metaDescription}
+  canonical={canonical}
+  alternates={alternates}
+  schemas={schemas}>
   <!-- Hero Section -->
   <section class="careers-hero">
     <div class="container">

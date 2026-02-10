@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 // Check what team photos exist
 import { readdir } from 'fs/promises';
 import { join } from 'path';
+import { aboutPageSchema } from "../lib/schema/about-page"; 
 
 let teamPhotos: string[] = [];
 try {
@@ -45,9 +46,22 @@ const missionPillars = [
     </svg>`
   }
 ];
+
+
+const schemas = [
+  aboutPageSchema({ url: Astro.url.href, name: "Sobre a Host Wise" }),
+];
+const alternates = [
+  { hreflang: "pt-PT", href: "https://www.hostwise.pt/sobre-hostwise" },
+  { hreflang: "en", href: "https://www.hostwise.pt/en/about-hostwise" },
+  { hreflang: "x-default", href: "https://www.hostwise.pt/sobre-hostwise" },
+];
 ---
 
-<Layout title="Sobre a Host Wise - A Nossa História">
+<Layout title="Sobre Nós"
+description='Conheça a Host Wise, empresa de gestão de alojamento local focada em performance, tecnologia e rentabilidade de ativos turísticos em Portugal.'
+schemas={schemas}
+alternates={alternates}>
   <!-- Hero Section -->
   <section class="about-hero">
     <div class="container">
@@ -155,7 +169,7 @@ const missionPillars = [
         </div>
         <h2>Conheça a Nossa Equipa</h2>
         <p>
-          Somos mais de 50 profissionais com uma vasta experiência em turismo e gestão de propriedades focados em oferecer serviços que tragam valor e rentabilidade aos seus imóveis.
+          Somos mais de 40 profissionais com uma vasta experiência em turismo e gestão de propriedades focados em oferecer serviços que tragam valor e rentabilidade aos seus imóveis.
         </p>
         <p class="team-subtext">
           Estamos sempre à procura de pessoas com as skills e mindset certos para vencer na gestão de alojamento local. Visite a nossa página de carreiras e pesquise as vagas disponíveis.

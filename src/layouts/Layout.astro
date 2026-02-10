@@ -14,50 +14,77 @@ interface Props {
   canonical?: string; // se quiseres forçar um canonical diferente
   ogImage?: string;   // podes passar relativo (/images/og/x.jpg) ou absoluto
   schemas?: any[]; // vamos passar array de schemas
+  ogType?: "website" | "article";
+  alternates?: { hreflang: string; href: string }[];
+
+
 }
 
 const siteName = "Host Wise";
 
 const {
   title,
-  description = "Gestão profissional de Alojamento Locais e Ativos Hoteleiros em Portugal",
+  description = "A Host Wise é uma empresa de gestão de alojamento local especializada em maximizar a rentabilidade de imóveis turísticos, do apartamento ao hotel.",
   noindex = false,
   canonical: canonicalOverride,
   ogImage,
   schemas = [],
+  ogType = "website",
+  alternates,
 } = Astro.props;
 
-// Canonical (self-canonical)
-const canonical = Astro.url.href;
 
-// OG image (default + aceita relativo)
-const resolvedOgImage = ogImage
-  ? (ogImage.startsWith("http") ? ogImage : new URL(ogImage, Astro.site).href)
-  : new URL("/images/og/default.webp", Astro.site).href;
 
 // Hreflang automático (PT <-> EN via /en/)
 const pathname = Astro.url.pathname; // ex: "/gestao-alojamento-local/porto" ou "/en/local-accommodation-management/porto"
-const isEn = pathname.startsWith("/en/");
+const isEn = pathname === "/en" || pathname.startsWith("/en/");
 const ptPath = isEn ? pathname.replace(/^\/en/, "") : pathname;
+const safePtPath = ptPath === "" ? "/" : ptPath;
 const enPath = isEn ? pathname : `/en${pathname}`;
 
-// URLs absolutas
-const ptUrl = new URL(ptPath, Astro.site).href;
-const enUrl = new URL(enPath, Astro.site).href;
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const autoPtUrl = new URL(safePtPath, site).href;
+const autoEnUrl = new URL(enPath, site).href;
+
+// Canonical (self-canonical)
+const canonicalUrl = new URL(Astro.url.pathname, site);
+canonicalUrl.search = "";
+const canonical = canonicalOverride ?? canonicalUrl.href;
+
+// OG image (default + aceita relativo)
+const resolvedOgImage = ogImage
+  ? (ogImage.startsWith("http") ? ogImage : new URL(ogImage, site).href)
+  : new URL("/images/og/default.webp", site).href;
+
+
+
+
+
+
 
 const org = organizationSchema({
-  siteUrl: Astro.site?.href ?? "https://www.hostwise.pt",
-  logoUrl: new URL("/images/host-wise-logo-quadrado.svg", Astro.site).href,
+  siteUrl: site.href,
+  logoUrl: new URL("/images/host-wise-logo-quadrado.svg", site).href,
 });
 
 // Junta Organization + schemas específicos da página (Service, FAQ, etc.)
 const allSchemas = [org, ...schemas];
 
-  
+
+
+
+const finalAlternates = alternates?.length
+  ? alternates
+  : [
+      { hreflang: "pt-PT", href: autoPtUrl },
+      { hreflang: "en_US", href: autoEnUrl },
+      { hreflang: "x-default", href: autoPtUrl },
+    ];
+ 
 ---
 
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang={isEn ? "en_US" : "pt-PT"}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -66,9 +93,10 @@ const allSchemas = [org, ...schemas];
     <meta name="description" content={description} />
 
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="pt-PT" href={ptUrl} />
-    <link rel="alternate" hreflang="en" href={enUrl} />
-    <link rel="alternate" hreflang="x-default" href={ptUrl} />
+    {finalAlternates.map((a) => (
+    <link rel="alternate" hreflang={a.hreflang} href={a.href} />
+))}
+
 
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
@@ -83,7 +111,8 @@ const allSchemas = [org, ...schemas];
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={`${title} | ${siteName}`} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content={isEn ? "en_US" : "pt_PT"} />
     <meta property="og:url" content={canonical} />
     {resolvedOgImage && <meta property="og:image" content={resolvedOgImage} />}
 
@@ -98,11 +127,11 @@ const allSchemas = [org, ...schemas];
   </head>
 
   <body>
-    <Header />
+    <Header lang={isEn ? "en" : "pt"} alternates={finalAlternates}/>
     <main>
       <slot />
     </main>
-    <Footer />
+    <Footer lang={isEn ? "en" : "pt"} />
     <CookieBanner />
   </body>
 </html>

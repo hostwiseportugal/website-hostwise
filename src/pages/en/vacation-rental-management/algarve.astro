@@ -1,0 +1,258 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import HeroSectionV3 from '../../../components/HeroSectionV3.astro';
+import IntroSection from '../../../components/IntroSection.astro';
+import ServicesAccordionText from '../../../components/ServicesAccordionText.astro';
+import PlatformsMarquee from '../../../components/PlatformsMarquee.astro';
+import ModelsIntro from '../../../components/ModelsIntro.astro';
+import OwnerTestimonials from '../../../components/OwnerTestimonials.astro';
+import FAQSection from '../../../components/FAQSection.astro';
+import { serviceSchema } from "../../../lib/schema/service";
+import { faqPageSchemaFromCategories } from "../../../lib/schema/faq-from-categories";
+import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
+
+const categories = [
+  {
+    id: 'essentials',
+    label: 'The Essentials',
+    questions: [
+      {
+        question: 'Why choose Host Wise?',
+        answer: 'Host Wise is a vacation rental management company with extensive experience in the Portuguese market, ensuring a complete and hassle-free service for property owners, while providing an excellent experience for guests, with permanent support to guarantee positive reviews and higher occupancy rates.',
+      },
+      {
+        question: 'How will Host Wise increase my profitability?',
+        answer: '<p>Our revenue management team implements a dynamic data-driven strategy, adjusting your Airbnb prices in real time according to multiple factors, such as market trends, local occupancy rates, competitor analysis and regional events.</p><br><p>We use specialized tools, such as PriceLabs, to maximize your income without compromising occupancy rates. Additionally, in collaboration with our marketing team, we optimize listings with persuasive descriptions, professional photography and SEO techniques to increase your property\'s visibility and attract more guests.</p>',
+      },
+      {
+        question: 'Why choose Host Wise instead of managing my property myself?',
+        answer: '<p>Managing a vacation rental requires time, dedication and experience to ensure maximum profitability. Without the right strategy, you may miss opportunities to increase your profits and optimize occupancy.</p><br><p>Host Wise offers professional and comprehensive vacation rental management, freeing you from operational tasks and ensuring excellent service for both you and your guests.</p><br><p>We have a team of specialists who deeply understand the market and implement intelligent pricing, marketing and operational strategies to optimize your returns without complications.</p><br><p>By trusting Host Wise, you transform your property into a passive income source, without worrying about bookings, check-ins, cleaning or maintenance.</p>',
+      },
+    ],
+  },
+  {
+    id: 'payments-pricing',
+    label: 'Payments and Pricing',
+    questions: [
+      {
+        question: 'How much does Host Wise\'s service cost?',
+        answer: '<p>The cost of Host Wise\'s service varies depending on the management model chosen (guaranteed income or commission), location and property specifications.</p><br><p>We offer a transparent model with no hidden fees, adapting our proposal to each owner\'s needs.</p>',
+      },
+    ],
+  },
+  {
+    id: 'guaranteed-income',
+    label: 'Guaranteed Income',
+    questions: [
+      {
+        question: 'What is the guaranteed income model?',
+        answer: '<p>In the guaranteed income model, the owner receives a fixed monthly rent, regardless of the property\'s occupancy during a period that can last up to 10 years.</p><br><p>This model guarantees you long-term financial stability without the worry of tenant management or minor maintenance.</p>',
+      },
+      {
+        question: 'How do you determine my property\'s value in the guaranteed income model?',
+        answer: '<p>The valuation is done through a profitability study based on the analysis of several factors, including location, size and condition of the property, and current real estate market trends and the location where the accommodation is situated.</p><br><p>This study allows us to predict the net revenue generated for the proposed contract term.</p>',
+      },
+    ],
+  },
+  {
+    id: 'commission',
+    label: 'Commission',
+    questions: [
+      {
+        question: 'Can I use my property while it\'s being managed by Host Wise?',
+        answer: 'Yes, owners can book their properties for personal use, as long as they notify Host Wise in advance. We will block the dates on the booking calendar to ensure no reservations are made during your stay.',
+      },
+    ],
+  },
+];
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const canonicalUrl = new URL(Astro.url); canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: new URL("/en", site).href },
+  { name: "Vacation Rental Management", url: new URL("/en/vacation-rental-management", site).href },
+  { name: "Algarve", url: canonical },
+]);
+
+const schemas = [
+  breadcrumbs,
+  serviceSchema({
+    serviceName: "Vacation Rental Management",
+    url: canonical,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Algarve", type: "Place" }],
+  }),
+  ...(categories.length ? [faqPageSchemaFromCategories(categories)] : []),
+];
+
+const alternates = [
+  { hreflang: "pt-PT", href: "https://www.hostwise.pt/gestao-alojamento-local/algarve" },
+  { hreflang: "en", href: "https://www.hostwise.pt/en/vacation-rental-management/algarve" },
+  { hreflang: "x-default", href: "https://www.hostwise.pt/gestao-alojamento-local/algarve" },
+];
+
+---
+
+<Layout title="Vacation Rental Management in Algarve"
+description='Performance-oriented vacation rental management in Algarve, focused on seasonality and return on investment, with professional operation and dynamic pricing.'
+schemas={schemas}
+alternates={alternates}
+canonical={canonical}>
+  <!-- Hero Section -->
+  <HeroSectionV3
+    badge_text="Vacation Rental Management Algarve"
+    badge_icon_key="home"
+    heading="Algarve is More Than Sun. It's Performance."
+    description="We manage vacation rentals with a focus on smart occupancy, seasonal pricing and efficient operations, adapted to the unique dynamics of the Algarve market."
+    primary_cta_label="Get a Proposal"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+    secondary_cta_label="Learn More"
+    secondary_cta_url="#intro-section"
+    image="/images/alojamento-local-algarve-header.webp"
+  />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="Maximizing Returns in Algarve Requires Strategy. We Handle That."
+    intro_text={`
+      <p>
+        Host Wise expanded to the Algarve after the success of its initial operation in Porto, bringing with it the same <b>dedication and excellence in vacation rental management.</b>
+      </p>
+      <p>
+        Host Wise recognized the potential of the Algarve territory and established a sustained operation, adapting its services to the specific needs of this market.
+      </p>
+      <p>
+        Seasonality and international tourism play a crucial role, which is why Host Wise ensures efficient management, from property promotion to guest reception and property maintenance.
+      </p>
+      <p>
+        If you're looking for a <b>vacation rental management company in the Algarve</b> that knows the market well and ensures hassle-free operations, <b>Host Wise is the ideal choice.</b>
+      </p>
+    `}
+    intro_cta_label="Get a Proposal"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- Services Accordion Text -->
+  <ServicesAccordionText
+    title="Our Vacation Rental Management Services in Algarve"
+    description="At Host Wise, each service was designed to meet the real needs of the Algarve market. We know that managing a vacation rental in Lagos is not the same as in Albufeira or Tavira — and that's why we adapt our approach to each area, property profile and guest type."
+    image="/images/sala-alojamento-local-olhos-agua-algarve.webp"
+    services={[
+      {
+        title: 'Self Check-in and Check-out Systems',
+        content: '<p>We offer practical and secure self check-in and check-out solutions adapted to the reality of each Algarve location, allowing hassle-free arrivals and departures. This flexibility is essential in a region with high international demand and last-minute bookings, especially during summer.</p>',
+      },
+      {
+        title: '24/7 Guest Support',
+        content: '<p>We speak multiple languages and are well acquainted with the habits of visitors who choose the Algarve. From recommending a restaurant with fresh fish in Portimão to resolving a technical issue in Vilamoura, our team is available 24 hours a day to ensure the best experience and positive reviews.</p>',
+      },
+      {
+        title: 'Bed Linen and Towels',
+        content: '<p>We use premium quality bed linen and towels, professionally washed and sanitized. We ensure replacement between stays and compliance with the standards required by national and international guests who value comfort and cleanliness.</p>',
+      },
+      {
+        title: 'Toiletries',
+        content: '<p>Each accommodation is prepared with quality amenities, designed to provide a welcoming and worry-free experience — from the first dip in the pool to the last day of vacation.</p>',
+      },
+      {
+        title: 'Support for AL License Acquisition',
+        content: '<p>We support owners throughout the process of obtaining a vacation rental license in the Algarve. We know the procedures of the municipal councils, the specific requirements by municipality and the particularities of coastal areas. We handle the documentation to make the process simple and fast.</p>',
+      },
+       {
+        title: 'Listing Creation and Optimization',
+        content: '<p>We create optimized listings on major platforms (Airbnb, Booking, VRBO), with photos and descriptions tailored to the audience visiting the Algarve. We know how to highlight a 1-bedroom apartment with sea views in Lagos for couples, or a villa with a pool in Albufeira ideal for families on vacation.</p>',
+      },
+       {
+        title: 'Dynamic Pricing Management',
+        content: '<p>We use AI-powered pricing tools that adjust prices daily according to local demand, events and seasonality. In the Algarve, where occupancy varies between high and low seasons, we ensure the ideal balance between profitability and occupancy rate.</p>',
+      },
+       {
+        title: 'Professional Photography',
+        content: '<p>We work with photographers specialized in vacation rentals, with experience in capturing the light and style of Algarve properties. A good image can highlight the unique details of a house by the Ria Formosa or a modern apartment in Vilamoura Marina — and that translates into more bookings.</p>',
+      },
+       {
+        title: 'Cleaning Services',
+        content: '<p>We have internal and external cleaning teams distributed by zones, ensuring speed and consistency. We adapt the cleaning plan to the property type and stay frequency, with rigorous quality control. Whether it\'s a quick clean between check-outs in Armação de Pêra or a deep clean after a long stay in Tavira, everything is monitored in detail.</p>',
+      },
+       {
+        title: 'Property Maintenance',
+        content: '<p>We perform preventive and corrective maintenance, ensuring that each vacation rental remains in perfect condition over time — from air conditioning systems to small inevitable repairs in a beachfront property.</p>',
+      },
+
+       {
+        title: 'Complaint and Review Management',
+        content: '<p>We manage all reviews professionally and strategically, protecting the property\'s reputation on the platforms. We handle complaints empathetically and resolutely, turning negative experiences into improvement opportunities. Our experience in the Algarve allows us to understand the guest profile of each region — and act effectively to protect the listing\'s performance.</p>',
+      },
+    ]}
+    ctaLabel="Get a Free Proposal"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- Platforms Marquee -->
+  <PlatformsMarquee
+    platforms_badge="Multi-Platform Presence"
+    platforms_title="Your Listings on the Major Booking Platforms"
+    platforms_subtitle="We maximize your property's visibility with presence on the main global booking platforms. Synchronized management of calendars, prices and availability in real time."
+    platforms={[
+      { name: 'Airbnb', logo: '/images/platform-logos/airbnb-logo.svg' },
+      { name: 'Booking.com', logo: '/images/platform-logos/booking-com-logo.svg' },
+      { name: 'Vrbo', logo: '/images/platform-logos/vrbo-logo.svg' },
+      { name: 'Expedia', logo: '/images/platform-logos/expedia-logo.svg' },
+      { name: 'Flatio', logo: '/images/platform-logos/flatio-logo.svg' },
+      { name: 'Host Wise', logo: '/images/platform-logos/hostwise-logo.svg' },
+      { name: 'Housing Anywhere', logo: '/images/platform-logos/housing-anywhere-logo.svg' },
+      { name: 'Idealista', logo: '/images/platform-logos/idealista-logo.svg' },
+      { name: 'InLife', logo: '/images/platform-logos/inlife-logo.svg' },
+      { name: 'Marriott Homes & Villas', logo: '/images/platform-logos/marriott-homes-villas-logo.svg' },
+      { name: 'Spotahome', logo: '/images/platform-logos/spotahome-logo.svg' },
+      { name: 'Uniplaces', logo: '/images/platform-logos/uniplaces-logo.svg' },
+    ]}
+  />
+
+  <!-- Models Intro -->
+  <ModelsIntro />
+
+  <!-- Owner Testimonials -->
+  <OwnerTestimonials
+    badgeLabel="Testimonials"
+    title="Meet Our Property Owners in Algarve"
+    subtitle="With solutions tailored to our owners' needs, we ensure the best experience so you can maximize your returns with total peace of mind. See what our clients say about Host Wise's vacation rental management services in the Algarve."
+    testimonials={[
+      {
+        name: 'Sofia L.',
+        location: 'Lagos',
+        property: 'Vacation Rental Owner',
+        rating: 5,
+        comment: 'When I decided to invest in properties in the Algarve, I wanted a trustworthy company to manage my properties. Host Wise was the perfect choice. I opted for guaranteed income and have been receiving a fixed rent without fail every month. Best of all, I don\'t have to worry about maintenance or guest issues. The service is impeccable and has given me enormous peace of mind.',
+      },
+      {
+        name: 'Miguel F.',
+        location: 'Vilamoura',
+        property: 'Vacation Rental Owner',
+        rating: 5,
+        comment: 'Working with Host Wise, I opted for commission-based management and I\'m very satisfied with the results. Occupancy has been high and the income has exceeded my expectations. The team does an extraordinary job taking care of the property and ensuring guests have a great experience. They manage all the details, which allows me to relax and watch my investment grow.',
+      },
+      {
+        name: 'Catarina P.',
+        location: 'Portimão',
+        property: 'Real Estate Investor',
+        rating: 5,
+        comment: 'I already had experience with Host Wise in Porto and when I expanded my investments to the Algarve, I didn\'t hesitate to continue with the same team. The flexibility to choose between guaranteed income and commission-based management is a great asset, as it allows me to adapt each property to the local market. Host Wise has been fundamental to the success of my investments in the Algarve, always with high-level service.',
+      },
+    ]}
+    ctaTitle="Ready to Maximize Your Returns in Algarve?"
+    ctaSubtitle="Receive a personalized proposal for your property within 24 hours."
+    ctaLabel="Get a Free Proposal"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- FAQ Section -->
+  <FAQSection
+    title="We Answer Your Questions"
+    subtitle="Everything you need to know about managing your property with Host Wise."
+    categories={categories}
+  />
+
+</Layout>

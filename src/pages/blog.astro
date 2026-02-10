@@ -1,10 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { breadcrumbSchema } from "../lib/schema/breadcrumbs";
+import { blogSchema } from "../lib/schema/blog";
+import { wpFetchJson } from "../lib/wpFetch";
+import { wpListAllPosts } from "../lib/wpListAll";
 
 const apiBase = import.meta.env.WORDPRESS_API_URL;
+if (!apiBase) throw new Error("WORDPRESS_API_URL is missing");
 
-const res = await fetch(`${apiBase}/posts?lang=pt&_embed&per_page=100`);
-const posts = await res.json();
+// ✅ sem _embed
+const all = await wpListAllPosts(
+  apiBase,
+  `_fields=id,slug,lang,title,excerpt,date,featured_image_url`,
+  30
+);
+
+const posts = all.filter((p) => p.lang === "pt");
 
 
 function decodeHtml(str) {
@@ -20,26 +31,64 @@ function decodeHtml(str) {
 
 
 
-// Normalizar estrutura para encaixar no teu layout
-const allBlogPosts = posts.map((post) => {
-  return {
-    title: decodeHtml(post.title.rendered),
-    excerpt: post.excerpt?.rendered ?? '',
-    slug: post.slug,
-    date: new Date(post.date).toLocaleDateString('pt-PT', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric'
-    }),
-    image:
-      post._embedded?.['wp:featuredmedia']?.[0]?.source_url ??
-      '/images/property-1.webp', // fallback
-    categories: [] // se quiseres já tratamos disto depois
-  };
-});
+const fallbackImages = [
+  '/images/property-1.webp',
+  '/images/property-2.webp',
+];
+
+const allBlogPosts = posts.map((post, idx) => ({
+  title: decodeHtml(post.title.rendered),
+  excerpt: post.excerpt?.rendered ?? '',
+  slug: post.slug,
+  date: new Date(post.date).toLocaleDateString('pt-PT', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  }),
+  image: post.featured_image_url || fallbackImages[idx % fallbackImages.length],
+  categories: []
+}));
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+
+// ✅ canonical robusto
+const canonical = new URL(Astro.url.pathname, site).href;
+
+const topPosts = posts.slice(0, 10).map((p, idx) => ({
+  url: new URL(`/blog/${p.slug}`, site).href,
+  headline: decodeHtml(p.title?.rendered ?? ""),
+  datePublished: p.date ? new Date(p.date).toISOString() : undefined,
+  image: p.featured_image_url || undefined,
+}));
+
+const schemas = [
+  breadcrumbSchema([
+    { name: "Home", url: site.href },
+    { name: "Blog", url: canonical },
+  ]),
+  blogSchema({
+    url: canonical,
+    name: "Blog Host Wise",
+    description:
+      "Artigos e conteúdos sobre gestão de alojamento local, rentabilidade, turismo e investimento imobiliário, com insights práticos da equipa Host Wise.",
+    inLanguage: "pt-PT",
+    items: topPosts,
+  }),
+];
+
+const alternates = [
+  { hreflang: "pt-PT", href: new URL("/blog", site).href },
+  { hreflang: "en", href: new URL("/en/blog", site).href },
+  { hreflang: "x-default", href: new URL("/blog", site).href },
+];
 ---
 
-<Layout title="Blog - Host Wise | Insights sobre Alojamento Local">
+<Layout title="Blog"
+description='Artigos e conteúdos sobre gestão de alojamento local, rentabilidade, turismo e investimento imobiliário, com insights práticos da equipa Host Wise.'
+schemas={schemas}
+  canonical={canonical}
+  alternates={alternates}
+  ogType="website">
   <!-- Hero Section -->
   <section class="blog-hero">
     <div class="blog-hero-container">

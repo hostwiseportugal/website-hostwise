@@ -1,6 +1,8 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { iconMap } from '../../../icons/iconMap';
+import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
+import { jobPostingSchema } from "../../../lib/schema/job-posting";
 
 // Export getStaticPaths for static generation
 export async function getStaticPaths() {
@@ -61,10 +63,82 @@ const workModelClasses: Record<string, string> = {
   'Híbrido': 'badge-hibrido',
   'Presencial': 'badge-presencial',
 };
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+
+// canonical limpo
+const canonicalUrl = new URL(Astro.url);
+canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+// meta description (texto, curto)
+function stripHtmlToText(html: string) {
+  return (html || "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const metaDescription =
+  stripHtmlToText(description || requirements).slice(0, 155) ||
+  `Vaga ${title} na Host Wise.`;
+
+// breadcrumbs
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: site.href },
+  { name: "Carreiras", url: new URL("/carreiras", site).href },
+  { name: "Vagas de Emprego", url: new URL("/carreiras/vagas-emprego", site).href },
+  { name: title, url: canonical },
+]);
+
+/**
+ * IMPORTANT:
+ * Como EN vai ter slug diferente, só metas alternate EN se tiveres o slug EN disponível.
+ * Sugestão: ACF field `job_slug_en` (string).
+ */
+const enSlug = acf.job_slug_en || ""; // <-- cria este campo no WP
+const alternates = [
+  { hreflang: "pt-PT", href: canonical },
+  ...(enSlug
+    ? [{ hreflang: "en", href: new URL(`/en/careers/job-openings/${enSlug}`, site).href }]
+    : []),
+  { hreflang: "x-default", href: canonical },
+];
+
+// JobPosting schema
+const schemas = [
+  breadcrumbs,
+  jobPostingSchema({
+    url: canonical,
+    title,
+    descriptionHtml: description,
+    requirementsHtml: requirements,
+    department,
+    workModels,
+    jobLocationText: location,
+    inLanguage: "pt-PT",
+    hiringOrganization: {
+      name: "Host Wise",
+      url: site.href,
+      logo: new URL("/images/host-wise-logo-quadrado.svg", site).href,
+      sameAs: [
+        "https://www.linkedin.com/company/hostwiseonline/",
+        "https://www.instagram.com/hostwisept/",
+        "https://www.tiktok.com/@hostwiseonline",
+      ],
+    },
+  }),
+];
+
 ---
 
 
-<Layout title={`${title} - Vagas Host Wise`}>
+<Layout title={`${title} - Vagas de Emprego`}
+  description={metaDescription}
+  schemas={schemas}
+  alternates={alternates}
+  canonical={canonical}
+  ogType="article">
   <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <article class="job-page">
     <!-- Hero Section -->

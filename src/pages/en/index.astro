@@ -1,0 +1,811 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroToggle from '../../components/HeroToggle.astro';
+import ToggleSection from '../../components/ToggleSection.astro';
+import IntroSectionWStats from '../../components/IntroSectionWStats.astro';
+import ServicesSwitch from '../../components/ServicesSwitch.astro';
+import AnimatedStats from '../../components/AnimatedStats.astro';
+import ModelsIntro from '../../components/ModelsIntro.astro';
+import BlogSection from '../../components/BlogSection.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import WiseGroupSection from '../../components/WiseGroupSection.astro';
+import PartnersMarquee from '../../components/PartnersMarquee.astro';
+import { faqPageSchemaFromCategories } from "../../lib/schema/faq-from-categories";
+import { websiteSchema } from "../../lib/schema/website";
+
+const siteUrl = "https://www.hostwise.pt";
+const apiBase = import.meta.env.WORDPRESS_API_URL;
+
+// 1) Home (ACF)
+const HOME_PAGE_ID = 78; 
+const res = await fetch(`${apiBase}/pages/${HOME_PAGE_ID}?lang=pt&_embed`);
+const page = await res.json();
+const acf = page.acf || {};
+
+const faqCategoriesData =
+  (acf.faq_categories || []).map((cat: any) => ({
+    id: cat.faq_category_id,
+    label: cat.faq_category_label,
+    questions: (cat.faq_items || []).map((item: any) => ({
+      question: item.faq_question,
+      answer: item.faq_answer,
+    })),
+  })) || [];
+
+const schemas = [
+  websiteSchema({ siteUrl, name: "Host Wise" }),
+  ...(faqCategoriesData.length ? [faqPageSchemaFromCategories(faqCategoriesData)] : []),
+];
+
+
+
+
+// 2) Posts do blog (só 3 para a home)
+const postsRes = await fetch(
+  `${apiBase}/posts?lang=pt&_embed&per_page=3`
+);
+const posts = await postsRes.json();
+
+// 3) Helper para decodificar HTML entities (mesmo que usaste em /blog)
+function decodeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(code))
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+// 4) Normalizar para o formato que o BlogSection espera
+const blogPosts = posts.map((post) => {
+  const rawExcerpt =
+    typeof post.excerpt === 'string'
+      ? post.excerpt
+      : post.excerpt?.rendered || '';
+
+  const excerptText = rawExcerpt
+    .replace(/<[^>]+>/g, '') // tira tags HTML
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return {
+    slug: post.slug,
+    title: decodeHtml(post.title.rendered),
+    excerpt: excerptText,
+    image:
+      post._embedded?.['wp:featuredmedia']?.[0]?.source_url ??
+      '/images/property-1.webp',
+    // mais tarde podemos mapear categorias; por agora fica vazio
+    categories: [] as string[],
+  };
+});
+
+
+
+---
+
+<Layout title="Empresa de Gestão de Alojamento Local em Portugal"
+description='A Host Wise é uma empresa de gestão de alojamento local especializada em maximizar a rentabilidade de imóveis turísticos, do apartamento ao hotel.'
+schemas={schemas}>
+  <HeroToggle
+    tabOwnerLabel={acf.hero_tab_owner_label}
+    tabGuestLabel={acf.hero_tab_guest_label}
+    images={acf.hero_images}
+    ownerBadge={acf.hero_owner_badge}
+    ownerTitle={acf.hero_owner_title}
+    ownerText={acf.hero_owner_text}
+    ownerCtaLabel={acf.hero_owner_cta_label}
+    ownerCtaUrl={acf.hero_owner_cta_url}
+    ownerSwitchLabel={acf.hero_owner_switch_label}
+    guestBadge={acf.hero_guest_badge}
+    guestTitle={acf.hero_guest_title}
+    guestText={acf.hero_guest_text}
+    guestSwitchLabel={acf.hero_guest_switch_label}
+  />
+
+
+  <!-- Toggle Section - Proprietários vs Hóspedes -->
+  <ToggleSection
+  ownerTitle={acf.toggle_owner_title}
+  ownerDescription={acf.toggle_owner_description}
+  ownerBenefits={acf.toggle_owner_benefits}
+  ownerImage={acf.toggle_owner_image}
+  ownerCtaLabel={acf.toggle_owner_cta_label}
+  ownerCtaUrl={acf.toggle_owner_cta_url}
+
+  guestTitle={acf.toggle_guest_title}
+  guestDescription={acf.toggle_guest_description}
+  guestBenefits={acf.toggle_guest_benefits}
+  guestImage={acf.toggle_guest_image}
+  guestCtaLabel={acf.toggle_guest_cta_label}
+  guestCtaUrl={acf.toggle_guest_cta_url}
+  />
+  
+  <!-- Intro Section -->
+  <IntroSectionWStats
+  title={acf.intro_title}
+  paragraphs={acf.intro_paragraphs}
+  ctaLabel={acf.intro_cta_label}
+  ctaUrl={acf.intro_cta_url}
+  stats={acf.intro_stats}
+  />
+
+  
+
+  <!-- Services Switch Section -->
+  <ServicesSwitch services={acf.services_switch_items} />
+
+  <!-- Stats Section -->
+ <AnimatedStats stats={acf.animated_stats} />
+  
+
+  <!-- Models Intro -->
+  <ModelsIntro
+  title={acf.models_intro_title}
+  paragraphs={acf.models_intro_paragraphs}
+  models={acf.models_intro_cards}
+  ctaTitle={acf.models_cta_title}
+  ctaText={acf.models_cta_text}
+  ctaButtonLabel={acf.models_cta_button_label}
+  ctaButtonUrl={acf.models_cta_button_url}
+  />
+  
+
+  <!-- Parceiros -->
+  <PartnersMarquee
+  title={acf.partners_title}
+  partners={acf.partners_list}
+  />
+
+
+  <!-- Blog Section -->
+  <BlogSection
+  posts={blogPosts}
+  limit={3}
+  badgeLabel={acf.blog_badge_label}
+  title={acf.blog_title}
+  subtitle={acf.blog_subtitle}
+  ctaLabel={acf.blog_cta_label}
+  ctaUrl={acf.blog_cta_url}
+  />
+
+
+  <!-- FAQ Section -->
+  <FAQSection
+  badgeLabel={acf.faq_badge_label}
+  title={acf.faq_title}
+  subtitle={acf.faq_subtitle}
+  categories={faqCategoriesData}
+  showCta={acf.faq_show_cta}
+  ctaTitle={acf.faq_cta_title}
+  ctaSubtitle={acf.faq_cta_subtitle}
+  ctaLabel={acf.faq_cta_label}
+  ctaUrl={acf.faq_cta_url}
+/>
+  
+  <WiseGroupSection
+    badge={acf.wise_group_badge}
+    title={acf.wise_group_title}
+    intro={acf.wise_group_intro}
+    companies={acf.wise_group_companies}
+  />
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+  }
+
+  .hero-text {
+    max-width: 600px;
+  }
+
+  .hero h1 {
+    font-size: 3.5rem;
+    color: var(--primary);
+    margin-bottom: 24px;
+    line-height: 1.1;
+  }
+
+  .hero p {
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-bottom: 32px;
+    opacity: 0.9;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .hero-image {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .hero-image::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background: linear-gradient(to right, white, transparent);
+    z-index: 2;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Presentation */
+  .presentation {
+    background: var(--gray-light);
+  }
+
+  .presentation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .presentation h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 24px;
+  }
+
+  .presentation p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.8;
+  }
+
+  .benefits-list {
+    list-style: none;
+    margin-top: 32px;
+  }
+
+  .benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+  }
+
+  .benefits-list i {
+    color: var(--secondary);
+    font-size: 1.2rem;
+  }
+
+  .presentation-image img {
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Stats */
+  .stats-section {
+    background: var(--primary);
+    color: white;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+  }
+
+  .stat-card {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+
+  /* Services */
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+  }
+
+  .section-header h2 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+  }
+
+  .service-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .service-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--blue-light);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    font-size: 24px;
+    color: var(--secondary);
+  }
+
+  .service-card h3 {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .service-card p {
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* Models */
+  .models {
+    background: var(--gray-light);
+  }
+
+  .models-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+    font-size: 1.1rem;
+    color: var(--text);
+  }
+
+  .model-detail {
+    background: white;
+    border-radius: 16px;
+    padding: 48px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .model-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .model-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--blue-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: var(--secondary);
+  }
+
+  .model-header h3 {
+    font-size: 2rem;
+    color: var(--primary);
+  }
+
+  .model-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .model-description p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .model-benefits, .model-ideal {
+    margin-top: 32px;
+  }
+
+  .model-benefits h4, .model-ideal h4 {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .model-benefits ul {
+    list-style: none;
+  }
+
+  .model-benefits li {
+    display: flex;
+    align-items: start;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+  }
+
+  .model-benefits i {
+    color: var(--secondary);
+    margin-top: 4px;
+  }
+
+  .model-ideal p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    padding: 20px;
+    background: var(--blue-light);
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary);
+  }
+
+  .model-visual img {
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Commission Table */
+  .commission-model .model-content {
+    grid-template-columns: 1fr;
+  }
+
+  .commission-table {
+    margin-top: 32px;
+  }
+
+  .commission-table h4 {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 24px;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  thead {
+    background: var(--primary);
+    color: white;
+  }
+
+  th, td {
+    padding: 20px;
+    text-align: left;
+  }
+
+  th {
+    font-weight: 600;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: background 0.3s;
+  }
+
+  tbody tr:hover {
+    background: var(--blue-light);
+  }
+
+  tbody tr.featured {
+    background: var(--blue-light);
+    border: 2px solid var(--secondary);
+  }
+
+  .highlight {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--secondary);
+  }
+
+  table ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  table li {
+    padding: 4px 0;
+    font-size: 0.95rem;
+  }
+
+  table li::before {
+    content: "✓ ";
+    color: var(--secondary);
+    font-weight: bold;
+    margin-right: 8px;
+  }
+
+  /* Regions */
+  .regions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 32px;
+  }
+
+  .region-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.3s;
+  }
+
+  .region-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .region-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--blue-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 32px;
+    color: var(--secondary);
+  }
+
+  .region-card h3 {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  /* Blog */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+
+  .blog-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .blog-image {
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .blog-card:hover .blog-image img {
+    transform: scale(1.1);
+  }
+
+  .blog-content {
+    padding: 24px;
+  }
+
+  .blog-content h3 {
+    font-size: 1.3rem;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .read-more {
+    color: var(--secondary);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .read-more:hover {
+    gap: 12px;
+  }
+
+  .blog-cta {
+    text-align: center;
+  }
+
+  /* FAQs */
+  .faqs {
+    background: var(--gray-light);
+  }
+
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .faq-question {
+    width: 100%;
+    padding: 24px;
+    background: white;
+    border: none;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .faq-question:hover {
+    background: var(--blue-light);
+  }
+
+  .faq-question i {
+    transition: transform 0.3s;
+    color: var(--secondary);
+  }
+
+  .faq-item.active .faq-question i {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 500px;
+    padding: 0 24px 24px;
+  }
+
+  .faq-answer p {
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  /* CTA Final */
+  .cta-final {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+
+  .cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 32px;
+    opacity: 0.95;
+  }
+
+  .cta-content .btn-primary {
+    background: white;
+    color: var(--primary);
+  }
+
+  .cta-content .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Responsive */
+  @media (max-width: 968px) {
+    .hero {
+      min-height: auto;
+      padding: 60px 0;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .hero-image {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      margin-top: 40px;
+    }
+
+    .hero-image::before {
+      display: none;
+    }
+
+    .presentation-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .model-content {
+      grid-template-columns: 1fr;
+    }
+
+    .model-visual {
+      order: -1;
+    }
+
+    table {
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 12px;
+    }
+  }
+</style>
+

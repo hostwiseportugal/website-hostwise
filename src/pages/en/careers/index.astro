@@ -1,0 +1,1212 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
+import { collectionPageSchema } from "../../../lib/schema/collection-page";
+import { itemListSchema } from "../../../lib/schema/item-list";
+
+
+const benefits = [
+  {
+    title: "Empowerment",
+    description: "You have autonomy to create, test and execute your ideas. Here, initiative is valued.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+    </svg>`
+  },
+  {
+    title: "Career Progression",
+    description: "Variable monthly bonuses and annual salary increases up to 15%. We invest in your growth.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/>
+    </svg>`
+  },
+  {
+    title: "Performance Focus",
+    description: "We measure results and productivity, not hours. Work with clear objectives and flexibility.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+    </svg>`
+  }
+];
+
+const perks = [
+  {
+    title: "Annual Bonuses",
+    description: "We share growth and results with the team.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+    </svg>`
+  },
+  {
+    title: "Remote Work",
+    description: "Flexibility to balance productivity and well-being.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+    </svg>`
+  },
+  {
+    title: "Personal Training",
+    description: "Free personalized training sessions, online or in-person.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+    </svg>`
+  },
+  {
+    title: "Health Insurance",
+    description: "Health coverage for you and your well-being.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1 16h2v-2h-2v2zm0-4h2V7h-2v7z"/>
+    </svg>`
+  },
+  {
+    title: "Accommodation Discount",
+    description: "20% discount on all Host Wise accommodations.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+    </svg>`
+  },
+  {
+    title: "Team Building",
+    description: "Regular team building activities and social events.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+    </svg>`
+  }
+];
+
+const testimonials = [
+  {
+    name: "Renato Chaínho",
+    role: "CEO & Co-Founder",
+    quote: "At Host Wise, we believe that true success is built by people. That's why we promote a culture of collaboration, innovation and respect, where every idea counts and every talent is valued. That's what makes us a unique team and company."
+  },
+  {
+    name: "Diogo Cardoso",
+    role: "Chief Revenue Officer",
+    quote: "Host Wise allows me to challenge myself and gives me the autonomy I need to make decisions and take risks."
+  },
+  {
+    name: "Daniel Gonçalves",
+    role: "Project Manager",
+    quote: "Working at Host Wise has been a positive experience. Due to our accelerated growth in terms of sales volume, portfolio, human resources and infrastructure, the day-to-day is very dynamic and I feel I have grown professionally."
+  }
+];
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+
+const canonicalUrl = new URL(Astro.url);
+canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const metaDescription =
+  "Discover career opportunities at Host Wise and become part of a vacation rental management company focused on innovation and performance.";
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: new URL("/en", site).href },
+  { name: "Careers", url: canonical },
+]);
+
+const jobsIndexUrl = new URL("/en/careers/job-openings", site).href;
+
+const schemas = [
+  breadcrumbs,
+
+  collectionPageSchema({
+    url: canonical,
+    name: "Careers at Host Wise",
+    description: metaDescription,
+    inLanguage: "en",
+  }),
+
+  itemListSchema({
+    url: canonical,
+    name: "Career Resources",
+    items: [
+      { name: "Job Openings", url: jobsIndexUrl, position: 1 },
+    ],
+  }),
+];
+
+const alternates = [
+  { hreflang: "pt-PT", href: new URL("/carreiras", site).href },
+  { hreflang: "en", href: canonical },
+  { hreflang: "x-default", href: new URL("/carreiras", site).href },
+];
+
+---
+
+<Layout title="Careers at Host Wise | Join the Team"
+description={metaDescription}
+  canonical={canonical}
+  alternates={alternates}
+  schemas={schemas}>
+  <!-- Hero Section -->
+  <section class="careers-hero">
+    <div class="container">
+      <div class="hero-layout">
+        <div class="hero-content">
+          <h1 class="hero-title">Transform your talent into impact</h1>
+          <p class="hero-description">
+            We offer more than careers — we offer opportunities to grow, innovate and make a difference.
+            At Host Wise, your talent is valued and every idea counts.
+          </p>
+          <div class="hero-cta-group">
+            <a href="/en/careers/job-openings" class="btn-hero-primary">
+              Explore Opportunities
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+            <a href="/en/careers/culture-values" class="btn-hero-secondary">
+              Culture and Values
+            </a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="/images/carreiras/jantar-natal-2025.webp" alt="Host Wise Team Christmas Dinner" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Philosophy Section -->
+  <section class="philosophy-section">
+    <div class="gallery-grid">
+        <div class="gallery-item gallery-large">
+          <img src="/images/carreiras/festa-500-propriedades-1.webp" alt="Host Wise team celebrating 500 properties" />
+        </div>
+        <div class="gallery-item">
+          <img src="/images/carreiras/festa-500-propriedades-2.webp" alt="Host Wise team toasting to 500 properties" />
+        </div>
+        <div class="gallery-item">
+          <img src="/images/carreiras/jantar-natal-2025-2.webp" alt="Host Wise Team Christmas Party" />
+        </div>
+        <div class="gallery-item">
+          <img src="/images/carreiras/team-building-arouca-4.webp" alt="Team celebrations" />
+        </div>
+        <div class="gallery-item">
+          <img src="/images/carreiras/festa-500-propriedades-3.webp" alt="Host Wise team at 500 properties celebration" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Testimonials Section -->
+  <section class="testimonials-section">
+      <div class="testimonials-grid">
+        {testimonials.map((testimonial, index) => (
+          <div class="testimonial-card" data-index={index}>
+            <div class="quote-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+              </svg>
+            </div>
+            <p class="testimonial-quote">"{testimonial.quote}"</p>
+            <div class="testimonial-author">
+              <p class="author-name">{testimonial.name}</p>
+              <p class="author-role">{testimonial.role}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Why Work Here Section -->
+  <section class="why-work-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why Work at Host Wise?</h2>
+        <p>Three pillars that define our work culture</p>
+      </div>
+
+      <div class="benefits-grid">
+        {benefits.map((benefit, index) => (
+          <div class="benefit-card" data-index={index}>
+            <div class="benefit-icon" set:html={benefit.icon} />
+            <h3>{benefit.title}</h3>
+            <p>{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Perks & Benefits Section -->
+  <section class="perks-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Benefits and Perks</h2>
+        <p>We take care of those who take care of our success</p>
+      </div>
+
+      <div class="perks-grid">
+        {perks.map((perk, index) => (
+          <div class="perk-card" data-index={index}>
+            <div class="perk-icon" set:html={perk.icon} />
+            <h4>{perk.title}</h4>
+            <p>{perk.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="perks-cta">
+        <a href="/en/careers/culture-values#benefits" class="btn-secondary">
+          Discover All Benefits
+        </a>
+      </div>
+    </div>
+  </section>
+
+    <!-- Video Testimonials Section -->
+  <section class="video-testimonial-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Meet Our Team</h2>
+        <p>Hear directly from those who make Host Wise happen every day</p>
+      </div>
+
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-wrapper">
+            <video
+              src="/images/carreiras/diogo.mp4"
+              controls
+              preload="metadata"
+              playsinline
+            >
+              Your browser does not support HTML5 videos.
+            </video>
+            <button class="play-button" aria-label="Play video">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="video-info">
+            <p class="video-name">Diogo Cardoso</p>
+            <p class="video-role">Chief Revenue Officer</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-wrapper">
+            <video
+              src="/images/carreiras/paula.mp4"
+              controls
+              preload="metadata"
+              playsinline
+            >
+              Your browser does not support HTML5 videos.
+            </video>
+            <button class="play-button" aria-label="Play video">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="video-info">
+            <p class="video-name">Paula Silva</p>
+            <p class="video-role">Customer Support @ Host Wise Árvore</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-wrapper">
+            <video
+              src="/images/carreiras/paulo.mp4"
+              controls
+              preload="metadata"
+              playsinline
+            >
+              Your browser does not support HTML5 videos.
+            </video>
+            <button class="play-button" aria-label="Play video">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="video-info">
+            <p class="video-name">Paulo Costa</p>
+            <p class="video-role">Team Leader - Cleaning</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- Final CTA Section -->
+  <section class="final-cta-section">
+    <div class="container">
+      <div class="final-cta-content">
+        <h2>Are You Ready for the Challenge?</h2>
+        <p>
+          Join a dynamic and results-focused team, where your work is valued and your future is a priority.
+        </p>
+        <a href="/en/careers/job-openings" class="btn-final-cta">
+          Explore All Opportunities
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .careers-hero {
+    padding: 180px 20px 100px;
+    background: linear-gradient(135deg, #F8FCFF 0%, #E5F4FE 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .careers-hero::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(92, 176, 214, 0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-content {
+    text-align: left;
+  }
+
+  .hero-image {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(12, 68, 99, 0.2);
+    transition: transform 0.3s ease;
+    animation: fadeInRight 0.8s ease-out 0.3s backwards;
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .hero-image:hover {
+    transform: translateY(-8px);
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-title {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1.1;
+    margin-bottom: 28px;
+    letter-spacing: -0.03em;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-description {
+    font-size: 1.35rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.4s backwards;
+  }
+
+  .btn-hero-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 36px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(12, 68, 99, 0.25);
+  }
+
+  .btn-hero-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(12, 68, 99, 0.35);
+  }
+
+  .btn-hero-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 18px 36px;
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-hero-secondary:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  /* Team Building Gallery Section */
+  .team-building-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, white 0%, var(--blue-light) 100%);
+  }
+
+  .gallery-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .gallery-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .gallery-header p {
+    font-size: 1.2rem;
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    aspect-ratio: 1;
+    box-shadow: 0 10px 30px rgba(12, 68, 99, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .gallery-item.gallery-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(12, 68, 99, 0.2);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Philosophy Section */
+  .philosophy-section {
+    padding: 100px 20px 100px 20px;
+    background: white;
+  }
+
+  .philosophy-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .philosophy-content h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  .philosophy-content p {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  /* Why Work Section */
+  .why-work-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+  }
+
+  .section-header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .benefit-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 32px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(12, 68, 99, 0.08);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+
+  .benefit-card[data-index="0"] { animation-delay: 0.1s; }
+  .benefit-card[data-index="1"] { animation-delay: 0.2s; }
+  .benefit-card[data-index="2"] { animation-delay: 0.3s; }
+
+  @keyframes slideInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(12, 68, 99, 0.15);
+  }
+
+  .benefit-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: transform 0.3s ease;
+  }
+
+  .benefit-card:hover .benefit-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .benefit-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .benefit-card p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  /* Perks Section */
+  .perks-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, white 0%, var(--blue-light) 50%, white 100%);;
+  }
+
+  .perks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto 50px;
+  }
+
+  .perk-card {
+    background: white;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInUp 0.5s ease-out forwards;
+  }
+
+  .perk-card[data-index="0"] { animation-delay: 0.1s; }
+  .perk-card[data-index="1"] { animation-delay: 0.15s; }
+  .perk-card[data-index="2"] { animation-delay: 0.2s; }
+  .perk-card[data-index="3"] { animation-delay: 0.25s; }
+  .perk-card[data-index="4"] { animation-delay: 0.3s; }
+  .perk-card[data-index="5"] { animation-delay: 0.35s; }
+
+  .perk-card:hover {
+    border-color: var(--secondary);
+    background: white;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(12, 68, 99, 0.12);
+  }
+
+  .perk-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .perk-card h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .perk-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text);
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .perks-cta {
+    text-align: center;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 16px 32px;
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  /* Testimonials Section */
+  .testimonials-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .testimonial-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 32px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+
+  .testimonial-card[data-index="0"] { animation-delay: 0.1s; }
+  .testimonial-card[data-index="1"] { animation-delay: 0.2s; }
+  .testimonial-card[data-index="2"] { animation-delay: 0.3s; }
+
+  .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(12, 68, 99, 0.15);
+  }
+
+  .quote-icon {
+    color: var(--secondary);
+    opacity: 0.3;
+    margin-bottom: 20px;
+  }
+
+  .testimonial-quote {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .testimonial-author {
+    border-top: 2px solid var(--gray-light);
+    padding-top: 20px;
+  }
+
+  .author-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+
+  .author-role {
+    font-size: 0.95rem;
+    color: var(--text);
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  /* Video Testimonials Section */
+  .video-testimonial-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .video-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(12, 68, 99, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .video-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(12, 68, 99, 0.2);
+  }
+
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 177.78%; /* 9:16 aspect ratio */
+    background: var(--primary);
+    cursor: pointer;
+  }
+
+  .video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+  }
+
+  .play-button svg {
+    width: 32px;
+    height: 32px;
+    color: var(--primary);
+    margin-left: 4px;
+  }
+
+  .play-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: white;
+  }
+
+  .video-wrapper.playing .play-button {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .video-wrapper video::-webkit-media-controls {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .video-wrapper.playing video::-webkit-media-controls {
+    opacity: 1;
+  }
+
+  .video-info {
+    padding: 24px;
+    text-align: center;
+  }
+
+  .video-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0 0 8px 0;
+  }
+
+  .video-role {
+    font-size: 0.95rem;
+    color: var(--text);
+    opacity: 0.8;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Final CTA Section */
+  .final-cta-section {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    text-align: center;
+  }
+
+  .final-cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .final-cta-content h2 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  .final-cta-content p {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    opacity: 0.95;
+    margin-bottom: 40px;
+  }
+
+  .btn-final-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 40px;
+    background: white;
+    color: var(--primary);
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-final-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .careers-hero {
+      padding: 160px 20px 80px;
+    }
+
+    .hero-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .hero-content {
+      text-align: center;
+    }
+
+    .hero-cta-group {
+      justify-content: center;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+    }
+
+    .benefits-grid,
+    .perks-grid,
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .gallery-item.gallery-large {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    .video-grid,
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .philosophy-content h2,
+    .section-header h2,
+    .final-cta-content h2 {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .careers-hero {
+      padding: 140px 20px 60px;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-description {
+      font-size: 1.15rem;
+    }
+
+    .hero-cta-group {
+      flex-direction: column;
+    }
+
+    .btn-hero-primary,
+    .btn-hero-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .team-building-section,
+    .philosophy-section,
+    .why-work-section,
+    .perks-section,
+    .testimonials-section,
+    .video-testimonial-section,
+    .final-cta-section {
+      padding: 80px 20px 80px 20px;
+    }
+
+    .gallery-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .gallery-item.gallery-large {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+
+    .gallery-header h2 {
+      font-size: 2rem;
+    }
+
+    .gallery-header p {
+      font-size: 1rem;
+    }
+
+    .philosophy-content h2,
+    .section-header h2 {
+      font-size: 2rem;
+    }
+
+    .final-cta-content h2 {
+      font-size: 2.25rem;
+    }
+
+    .benefit-card,
+    .perk-card,
+    .testimonial-card {
+      padding: 32px 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-description {
+      font-size: 1.05rem;
+    }
+
+    .philosophy-content h2,
+    .section-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .final-cta-content h2 {
+      font-size: 1.85rem;
+    }
+
+    .btn-final-cta {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .play-button {
+      width: 60px;
+      height: 60px;
+    }
+
+    .play-button svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+</style>
+
+<script>
+  // Video play/pause functionality
+  const videoWrappers = document.querySelectorAll('.video-wrapper');
+
+  videoWrappers.forEach((wrapper) => {
+    const video = wrapper.querySelector('video');
+    const playButton = wrapper.querySelector('.play-button');
+
+    if (video && playButton) {
+      // Click on play button
+      playButton.addEventListener('click', () => {
+        video.play();
+        wrapper.classList.add('playing');
+      });
+
+      // Click on video to toggle
+      video.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+          wrapper.classList.add('playing');
+        } else {
+          video.pause();
+          wrapper.classList.remove('playing');
+        }
+      });
+
+      // When video ends
+      video.addEventListener('ended', () => {
+        wrapper.classList.remove('playing');
+      });
+
+      // When video is paused
+      video.addEventListener('pause', () => {
+        wrapper.classList.remove('playing');
+      });
+
+      // When video plays
+      video.addEventListener('play', () => {
+        wrapper.classList.add('playing');
+      });
+    }
+  });
+</script>

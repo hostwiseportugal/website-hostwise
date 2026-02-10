@@ -1,68 +1,102 @@
 ---
-const comparisonData = [
-  {
-    feature: "Ideal Para",
-    guaranteed: "Quem valoriza estabilidade e quer receber um valor fixo mensal, sem preocupações.",
-    commission: "Quem quer acompanhar os resultados e beneficiar da performance do imóvel."
-  },
-  {
-    feature: "Receita",
-    guaranteed: "Médio",
-    commission: "Alto",
-    highlight: true
-  },
-  {
-    feature: "Valor Recebido por Mês",
-    guaranteed: "Fixo",
-    commission: "Dependente da Ocupação",
-    highlight: true
-  },
-  {
-    feature: "Risco",
-    guaranteed: "Baixo",
-    commission: "Alto",
-    highlight: true
-  },
-  {
-    feature: "Desgaste da Propriedade/Inventário",
-    guaranteed: "Host Wise trata das Manutenções da Propriedade (exceto estruturais) e da compra de inventário, se necessário.",
-    commission: "Proprietário Encarregue das Manutenções e da Decoração do Imóvel."
-  },
-  {
-    feature: "Utilities",
-    guaranteed: "Ao Encargo da Host Wise",
-    commission: "Ao Encargo do Proprietário"
-  },
-  {
-    feature: "Trabalho para o Proprietário",
-    guaranteed: "Reduzido ou Nenhum",
-    commission: "Encargo com as Manutenções"
-  },
-  {
-    feature: "Tipo de Contrato",
-    guaranteed: "Longo-Prazo",
-    commission: "Anual"
-  }
-];
+interface ComparisonRow {
+  feature: string;
+  guaranteed: string;
+  commission: string;
+  highlight?: boolean;
+}
+
+interface Props {
+  badgeLabel?: string;
+  title?: string;
+  paragraphs?: string[];
+  guaranteedColumnTitle?: string;
+  commissionColumnTitle?: string;
+  comparisonData?: ComparisonRow[];
+  mobileBtnGuaranteed?: string;
+  mobileBtnCommission?: string;
+  mobileCta?: string;
+  mobileCTaUrl?: string;
+  ctaTitle?: string;
+  ctaDescription?: string;
+  ctaButtonLabel?: string;
+  ctaButtonUrl?: string;
+}
+
+const {
+  badgeLabel = 'Compare os Nossos Modelos',
+  title = 'A Gestão de Alojamento Local Que Se Adapta ao seu Perfil de Investimento',
+  paragraphs = [
+    'Cada proprietário tem objetivos diferentes — estabilidade, crescimento ou equilíbrio entre risco e retorno.',
+    'É por isso que na Host Wise oferecemos dois modelos de gestão de alojamento local pensados para se adaptarem ao seu perfil e ao seu imóvel.',
+    'Quer prefira uma abordagem flexível, com partilha de resultados, ou um rendimento estável e garantido todos os meses, temos a solução certa para si.',
+  ],
+  guaranteedColumnTitle = 'Rentabilidade Garantida',
+  commissionColumnTitle = 'Modelo de Comissão',
+  comparisonData = [
+    {
+      feature: "Ideal Para",
+      guaranteed: "Quem valoriza estabilidade e quer receber um valor fixo mensal, sem preocupações.",
+      commission: "Quem quer acompanhar os resultados e beneficiar da performance do imóvel."
+    },
+    {
+      feature: "Receita",
+      guaranteed: "Médio",
+      commission: "Alto",
+      highlight: true
+    },
+    {
+      feature: "Valor Recebido por Mês",
+      guaranteed: "Fixo",
+      commission: "Dependente da Ocupação",
+      highlight: true
+    },
+    {
+      feature: "Risco",
+      guaranteed: "Baixo",
+      commission: "Alto",
+      highlight: true
+    },
+    {
+      feature: "Desgaste da Propriedade/Inventário",
+      guaranteed: "Host Wise trata das Manutenções da Propriedade (exceto estruturais) e da compra de inventário, se necessário.",
+      commission: "Proprietário Encarregue das Manutenções e da Decoração do Imóvel."
+    },
+    {
+      feature: "Utilities",
+      guaranteed: "Ao Encargo da Host Wise",
+      commission: "Ao Encargo do Proprietário"
+    },
+    {
+      feature: "Trabalho para o Proprietário",
+      guaranteed: "Reduzido ou Nenhum",
+      commission: "Encargo com as Manutenções"
+    },
+    {
+      feature: "Tipo de Contrato",
+      guaranteed: "Longo-Prazo",
+      commission: "Anual"
+    }
+  ],
+  mobileBtnGuaranteed = 'Rentabilidade Garantida',
+  mobileBtnCommission = 'Modelo de Comissão',
+  mobileCta = 'Falar com um Especialista',
+  mobileCTaUrl = '#contacto',
+  ctaTitle = 'Qual o Modelo Certo para Si?',
+  ctaDescription = 'Receba uma análise personalizada e descubra qual modelo maximiza os rendimentos do seu imóvel.',
+  ctaButtonLabel = 'Falar com um Especialista',
+  ctaButtonUrl = 'https://hostwise.typeform.com/to/pWgP4EuZ',
+} = Astro.props;
 ---
 
 <section class="models-comparison">
   <div class="container">
     <div class="comparison-header">
-      <span class="section-badge">Compare os Nossos Modelos</span>
-      <h2>A Gestão de Alojamento Local Que Se Adapta ao seu Perfil de Investimento</h2>
-      <p>
-        Cada proprietário tem objetivos diferentes — estabilidade, crescimento ou equilíbrio entre risco e retorno. 
-      </p>
-      <p>
-         É por isso que na Host Wise oferecemos dois modelos de gestão de alojamento local pensados para se adaptarem ao seu perfil e ao seu imóvel.   
-      </p>
-        
-      </p>
-      <p>
-        Quer prefira uma abordagem flexível, com partilha de resultados, ou um rendimento estável e garantido
-        todos os meses, temos a solução certa para si.
-      </p>
+      <span class="section-badge">{badgeLabel}</span>
+      <h2>{title}</h2>
+      {paragraphs.map((p) => (
+        <p>{p}</p>
+      ))}
     </div>
 
     <!-- Desktop Table -->
@@ -78,7 +112,7 @@ const comparisonData = [
                     <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
                   </svg>
                 </div>
-                <h3>Rentabilidade Garantida</h3>
+                <h3>{guaranteedColumnTitle}</h3>
               </div>
             </th>
             <th class="model-column commission-column">
@@ -88,7 +122,7 @@ const comparisonData = [
                     <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/>
                   </svg>
                 </div>
-                <h3>Modelo de Comissão</h3>
+                <h3>{commissionColumnTitle}</h3>
               </div>
             </th>
           </tr>
@@ -122,13 +156,13 @@ const comparisonData = [
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
             <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
           </svg>
-          Rentabilidade Garantida
+          {mobileBtnGuaranteed}
         </button>
         <button class="toggle-btn" data-model="commission">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
             <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/>
           </svg>
-          Modelo de Comissão
+          {mobileBtnCommission}
         </button>
       </div>
 
@@ -153,8 +187,8 @@ const comparisonData = [
       </div>
 
       <div class="mobile-cta">
-        <a href="#contacto" class="btn-primary-large">
-          Falar com um Especialista
+        <a href={mobileCTaUrl} class="btn-primary-large">
+          {mobileCta}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
           </svg>
@@ -164,10 +198,10 @@ const comparisonData = [
 
     <!-- CTA Section -->
     <div class="comparison-cta">
-      <h3>Qual o Modelo Certo para Si?</h3>
-      <p>Receba uma análise personalizada e descubra qual modelo maximiza os rendimentos do seu imóvel.</p>
-      <a href="https://hostwise.typeform.com/to/pWgP4EuZ?" class="cta-primary-btn">
-        Falar com um Especialista
+      <h3>{ctaTitle}</h3>
+      <p>{ctaDescription}</p>
+      <a href={ctaButtonUrl} class="cta-primary-btn">
+        {ctaButtonLabel}
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
         </svg>

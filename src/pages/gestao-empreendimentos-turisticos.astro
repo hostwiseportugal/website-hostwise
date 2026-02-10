@@ -10,74 +10,11 @@ import CaseStudy from '../components/CaseStudy.astro';
 import ModelsIntro from '../components/ModelsIntro.astro';
 import ManagementComparison from '../components/ManagementComparison.astro';
 import FAQSection from '../components/FAQSection.astro';
----
+import { serviceSchema } from "../lib/schema/service";
+import { faqPageSchemaFromCategories } from "../lib/schema/faq-from-categories";
+import { breadcrumbSchema } from "../lib/schema/breadcrumbs";
 
-<Layout title="Gestão de Prédios Inteiros e Serviced Apartments - Host Wise">
-  <!-- Hero Section -->
-  <HeroSectionV3
-    badge_text="Gestão de Empreendimentos Turísticos"
-    badge_icon_key="building"
-    heading="Transforme o seu Edifício num Ativo Turístico de Alta Performance"
-    description="Gerimos empreendimentos turísticos e edifícios inteiros, combinando operação profissional, tecnologia e estratégia de rentabilidade para maximizar resultados e valor do ativo no longo prazo."
-    features={[
-      { label: 'Gestão Completa' },
-      { label: 'Modelos Flexíveis' },
-    ]}
-    stats={[
-      { label: 'Anos de Experiência', value: '9', icon_key: 'calendar' },
-      { label: 'Empreendimentos Turísticos', value: '42+', icon_key: 'home' },
-    ]}
-    primary_cta_label="Receber Proposta"
-    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
-    secondary_cta_label="Saber Mais"
-    secondary_cta_url="#intro-section"
-    image="/images/sala-apartamento-predio-general-silveira.webp"
-  />
-
-  <!-- Intro O Que É -->
-  <IntroOQueE />
-
-  <!-- Intro Section -->
-  <IntroSection
-    intro_title="O novo modelo de exploração de ativos turísticos"
-    intro_text={`
-      <p>
-        O crescimento de modelos de exploração turística fora da hotelaria tradicional — como edifícios inteiros, serviced apartments e projetos híbridos — exige uma abordagem de gestão diferente da administração predial clássica ou da gestão hoteleira convencional.
-      </p>
-      <p>
-        Estes ativos combinam escala imobiliária com lógica de hospitalidade, o que implica controlo operacional rigoroso, estratégia de revenue dinâmica, distribuição eficiente e uma forte base tecnológica. A sua complexidade não reside apenas na operação diária, mas na necessidade de alinhar rentabilidade, experiência do hóspede e preservação do ativo no longo prazo.
-      </p>
-      <p>
-        A gestão de empreendimentos turísticos surge, assim, como uma solução especializada para investidores e proprietários que pretendem explorar edifícios turísticos de forma profissional, estruturada e orientada para performance.
-      </p>
-    `}
-    intro_cta_label="Quero Receber uma Proposta"
-    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
-  />
-
-  <!-- Target Audience -->
-  <TargetAudienceV2 />
-
-  <!-- Services Accordion -->
-  <ServicesAccordion />
-
-  <!-- How We Operate -->
-  <HowWeOperate />
-
-  <!-- Case Study -->
-  <CaseStudy />
-
-  <!-- Models Intro -->
-  <ModelsIntro />
-
-  <!-- Management Comparison -->
-  <ManagementComparison />
-
-  <!-- FAQ Section -->
-  <FAQSection
-    title="Perguntas Frequentes"
-    subtitle="Esclareça as suas dúvidas sobre a gestão de empreendimentos turísticos."
-    categories={[
+const categories=[
       {
         id: 'servico',
         label: 'Sobre o Serviço',
@@ -150,7 +87,115 @@ import FAQSection from '../components/FAQSection.astro';
           },
         ],
       },
+    ]
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const canonicalUrl = new URL(Astro.url); canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+  const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: "https://www.hostwise.pt" },
+  { name: "Gestão de Empreendimentos Turísticos", url: canonical },
+]);
+
+      const schemas = [
+        breadcrumbs,
+  serviceSchema({
+    serviceName: "Gestão de Ativos Hoteleiros",
+    url: canonical,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Portugal", type: "Country" }],
+  }),
+  ...(categories.length ? [faqPageSchemaFromCategories(categories)] : []),
+];
+
+const alternates = [
+  {
+    hreflang: "pt-PT",
+    href: "https://www.hostwise.pt/gestao-empreendimentos-turisticos",
+  },
+  {
+    hreflang: "en",
+    href: "https://www.hostwise.pt/en/serviced-accommodation",
+  },
+  {
+    hreflang: "x-default",
+    href: "https://www.hostwise.pt/gestao-empreendimentos-turisticos",
+  },
+];
+
+---
+
+<Layout title="Gestão de Empreendimentos Turísticos"
+description='Gestão profissional de empreendimentos turísticos, edifícios e serviced apartments, com foco em performance, eficiência operacional e rentabilidade.'
+schemas={schemas}
+alternates={alternates}
+canonical={canonical}>
+  <!-- Hero Section -->
+  <HeroSectionV3
+    badge_text="Gestão de Empreendimentos Turísticos"
+    badge_icon_key="building"
+    heading="Transforme o seu Edifício num Ativo Turístico de Alta Performance"
+    description="Gerimos empreendimentos turísticos e edifícios inteiros, combinando operação profissional, tecnologia e estratégia de rentabilidade para maximizar resultados e valor do ativo no longo prazo."
+    features={[
+      { label: 'Gestão Completa' },
+      { label: 'Modelos Flexíveis' },
     ]}
+    stats={[
+      { label: 'Anos de Experiência', value: '9', icon_key: 'calendar' },
+      { label: 'Empreendimentos Turísticos', value: '42+', icon_key: 'home' },
+    ]}
+    primary_cta_label="Receber Proposta"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+    secondary_cta_label="Saber Mais"
+    secondary_cta_url="#intro-section"
+    image="/images/sala-apartamento-predio-general-silveira.webp"
+  />
+
+  <!-- Intro O Que É -->
+  <IntroOQueE />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="O novo modelo de exploração de ativos turísticos"
+    intro_text={`
+      <p>
+        O crescimento de modelos de exploração turística fora da hotelaria tradicional — como edifícios inteiros, serviced apartments e projetos híbridos — exige uma abordagem de gestão diferente da administração predial clássica ou da gestão hoteleira convencional.
+      </p>
+      <p>
+        Estes ativos combinam escala imobiliária com lógica de hospitalidade, o que implica controlo operacional rigoroso, estratégia de revenue dinâmica, distribuição eficiente e uma forte base tecnológica. A sua complexidade não reside apenas na operação diária, mas na necessidade de alinhar rentabilidade, experiência do hóspede e preservação do ativo no longo prazo.
+      </p>
+      <p>
+        A gestão de empreendimentos turísticos surge, assim, como uma solução especializada para investidores e proprietários que pretendem explorar edifícios turísticos de forma profissional, estruturada e orientada para performance.
+      </p>
+    `}
+    intro_cta_label="Quero Receber uma Proposta"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- Target Audience -->
+  <TargetAudienceV2 />
+
+  <!-- Services Accordion -->
+  <ServicesAccordion />
+
+  <!-- How We Operate -->
+  <HowWeOperate />
+
+  <!-- Case Study -->
+  <CaseStudy />
+
+  <!-- Models Intro -->
+  <ModelsIntro />
+
+  <!-- Management Comparison -->
+  <ManagementComparison />
+
+  <!-- FAQ Section -->
+  <FAQSection
+    title="Perguntas Frequentes"
+    subtitle="Esclareça as suas dúvidas sobre a gestão de empreendimentos turísticos."
+    categories={categories}
   />
 
 </Layout>

@@ -1,42 +1,70 @@
 ---
 import { iconMap } from '../icons/iconMap';
 
-const risks = [
-  {
-    title: "Inquilinos que não pagam a tempo (ou não pagam de todo)",
-    icon: iconMap.euro,
-    color: "rgba(239, 68, 68, 1)" // red
-  },
-  {
-    title: "Dificuldades legais em caso de incumprimento",
-    icon: iconMap.gavel,
-    color: "rgba(245, 158, 11, 1)" // orange
-  },
-  {
-    title: "Manutenção a seu cargo",
-    icon: iconMap.tools,
-    color: "rgba(239, 68, 68, 1)" // red
-  }
-];
+interface RiskItem {
+  title: string;
+  icon: string;
+  color: string;
+}
 
-const advantages = [
-  "Estabilidade de rendimento, como no arrendamento tradicional",
-  "Segurança contratual, mas com mais flexibilidade",
-  "Gestão profissional do imóvel, sem que tenha de se envolver",
-  "Valorização do património, com manutenção e renovação incluídas",
-  "E tudo isto, sem riscos com inquilinos ou burocracias jurídicas"
-];
+interface Props {
+  title?: string;
+  introText?: string;
+  warningText?: string;
+  risks?: RiskItem[];
+  riskBadgeText?: string;
+  solutionText?: string;
+  solutionHighlight?: string;
+  advantages?: string[];
+  ctaLabel?: string;
+  ctaUrl?: string;
+}
+
+const {
+  title = 'Uma Alternativa Mais Segura ao Arrendamento Tradicional',
+  introText = 'Arrendar uma casa a longo prazo pode parecer a escolha mais simples — mas será a mais vantajosa?',
+  warningText = 'A verdade é que o arrendamento tradicional está longe de ser livre de riscos:',
+  risks = [
+    {
+      title: "Inquilinos que não pagam a tempo (ou não pagam de todo)",
+      icon: iconMap.euro,
+      color: "rgba(239, 68, 68, 1)"
+    },
+    {
+      title: "Dificuldades legais em caso de incumprimento",
+      icon: iconMap.gavel,
+      color: "rgba(245, 158, 11, 1)"
+    },
+    {
+      title: "Manutenção a seu cargo",
+      icon: iconMap.tools,
+      color: "rgba(239, 68, 68, 1)"
+    }
+  ],
+  riskBadgeText = 'Risco Eliminado',
+  solutionText = 'E mesmo quando corre tudo bem, há o tempo e esforço gastos a encontrar, avaliar e gerir inquilinos, além dos pedidos e reparações que surgem ao longo do contrato.',
+  solutionHighlight = 'Com o modelo de rentabilidade garantida da Host Wise, tem o melhor dos dois mundos:',
+  advantages = [
+    "Estabilidade de rendimento, como no arrendamento tradicional",
+    "Segurança contratual, mas com mais flexibilidade",
+    "Gestão profissional do imóvel, sem que tenha de se envolver",
+    "Valorização do património, com manutenção e renovação incluídas",
+    "E tudo isto, sem riscos com inquilinos ou burocracias jurídicas"
+  ],
+  ctaLabel = 'Descobrir Como Funciona',
+  ctaUrl = '#contacto',
+} = Astro.props;
 ---
 
 <section class="traditional-comparison">
   <div class="container">
     <div class="comparison-intro">
-      <h2>Uma Alternativa Mais Segura ao Arrendamento Tradicional</h2>
+      <h2>{title}</h2>
       <p class="intro-text">
-        Arrendar uma casa a longo prazo pode parecer a escolha mais simples — mas será a mais vantajosa?
+        {introText}
       </p>
       <p class="warning-text">
-        A verdade é que o arrendamento tradicional está longe de ser livre de riscos:
+        {warningText}
       </p>
     </div>
 
@@ -49,7 +77,7 @@ const advantages = [
           </div>
           <div class="risk-badge">
             <div class="badge-icon" set:html={iconMap.checkCircle} />
-            <span>Risco Eliminado</span>
+            <span>{riskBadgeText}</span>
           </div>
         </div>
       ))}
@@ -58,11 +86,10 @@ const advantages = [
     <div class="solution-section">
       <div class="solution-text">
         <p>
-          E mesmo quando corre tudo bem, há o tempo e esforço gastos a encontrar, avaliar e gerir inquilinos,
-          além dos pedidos e reparações que surgem ao longo do contrato.
+          {solutionText}
         </p>
         <p class="solution-highlight">
-          Com o modelo de rentabilidade garantida da Host Wise, tem o melhor dos dois mundos:
+          {solutionHighlight}
         </p>
       </div>
 
@@ -76,8 +103,8 @@ const advantages = [
       </div>
 
       <div class="solution-cta">
-        <a href="#contacto" class="btn-solution-primary">
-          Descobrir Como Funciona
+        <a href={ctaUrl} class="btn-solution-primary">
+          {ctaLabel}
           <div class="btn-icon" set:html={iconMap.arrowRight} />
         </a>
       </div>

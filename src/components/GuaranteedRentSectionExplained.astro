@@ -1,5 +1,109 @@
 ---
 import { iconMap } from '../icons/iconMap';
+
+interface InfoItem {
+  text: string;
+}
+
+interface StatCard {
+  value: string;
+  label: string;
+  colorClass: string;
+  iconKey: string;
+}
+
+interface StepCard {
+  number: string;
+  title: string;
+  description: string;
+  hasArrow?: boolean;
+}
+
+interface ComparisonListItem {
+  text: string;
+}
+
+interface IdealCard {
+  iconKey: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  badgeText?: string;
+  heading?: string;
+  subtitle?: string;
+  cardLabel?: string;
+  guaranteedBadgeText?: string;
+  amountPeriod?: string;
+  infoItems?: InfoItem[];
+  statCards?: StatCard[];
+  howItWorksTitle?: string;
+  steps?: StepCard[];
+  comparisonTitle?: string;
+  traditionalLabel?: string;
+  guaranteedLabel?: string;
+  negativeItems?: ComparisonListItem[];
+  positiveItems?: ComparisonListItem[];
+  idealTitle?: string;
+  idealCards?: IdealCard[];
+  ctaTitle?: string;
+  ctaDescription?: string;
+  ctaButtonLabel?: string;
+  ctaButtonUrl?: string;
+}
+
+const {
+  badgeText = 'Rentabilidade Garantida',
+  heading = 'Durma Descansado. O Seu Rendimento Está Garantido.',
+  subtitle = 'Sem preocupações com vacância, sem surpresas desagradáveis. Apenas um valor fixo na sua conta todos os meses, como um relógio.',
+  cardLabel = 'O Seu Rendimento Mensal',
+  guaranteedBadgeText = '100% Garantido',
+  amountPeriod = '/mês',
+  infoItems = [
+    { text: 'Independente da ocupação' },
+    { text: 'Pagamento mensal previsível' },
+    { text: 'Contratos de 3 a 10 anos' },
+  ],
+  statCards = [
+    { value: 'Risco de Ocupação Assumido', label: 'Rendimento Independente da Ocupação', colorClass: 'green', iconKey: 'chartLine' },
+    { value: 'Manutenção Incluída', label: 'Manutenções Preventivas ao Imóvel', colorClass: 'orange', iconKey: 'euro' },
+  ],
+  howItWorksTitle = 'Como Funciona o Modelo de Rentabilidade Garantida?',
+  steps = [
+    { number: '1', title: 'Análise do Imóvel', description: 'Analisamos o seu imóvel com base nas fotografias, planta, localização e características enviadas. Utilizamos dados de mercado e histórico operacional para avaliar o potencial e definir um valor de renda sustentável.', hasArrow: true },
+    { number: '2', title: 'Proposta Clara e Personalizada', description: 'Apresentamos uma proposta transparente com o valor de renda mensal fixa, condições do modelo e duração do contrato, ajustada ao perfil do imóvel.', hasArrow: true },
+    { number: '3', title: 'Contrato de Rentabilidade Garantida', description: 'Todos os meses, no mesmo dia, recebe o valor acordado na sua conta. Um fluxo de caixa estável, simples e previsível.', hasArrow: true },
+  ],
+  comparisonTitle = 'Rentabilidade Garantida vs Risco de Mercado',
+  traditionalLabel = 'Modelo Tradicional',
+  guaranteedLabel = 'Rentabilidade Garantida',
+  negativeItems = [
+    { text: 'Rendimento variável mês a mês' },
+    { text: 'Períodos de vacância sem receita' },
+    { text: 'Custos de manutenção imprevisíveis' },
+    { text: 'Dificuldade em planear financeiramente' },
+    { text: 'Envolvimento constante na gestão' },
+  ],
+  positiveItems = [
+    { text: 'Valor mensal fixo definido em contrato' },
+    { text: 'Receita independente da ocupação' },
+    { text: 'Gestão operacional e manutenção incluídas conforme contrato' },
+    { text: 'Previsibilidade financeira total' },
+    { text: 'Zero envolvimento na operação diária' },
+  ],
+  idealTitle = 'Este Modelo é Ideal Para Quem...',
+  idealCards = [
+    { iconKey: 'heart', title: 'Procura Tranquilidade Total', description: 'Não quer lidar com reservas, hóspedes, avarias, limpeza ou imprevistos do dia a dia. Prefere delegar toda a operação e receber o rendimento de forma automática.' },
+    { iconKey: 'chartBar', title: 'Precisa de Receita Previsível', description: 'Valoriza saber exatamente quanto vai receber todos os meses para planear despesas, poupança ou outros investimentos, sem depender da sazonalidade.' },
+    { iconKey: 'checkCircle', title: 'Prefere Estabilidade a Risco', description: 'Aceita um rendimento estável e contratualizado em vez de arriscar variações mensais, períodos de vacância ou custos inesperados.' },
+    { iconKey: 'clock', title: 'Não Está Disponível Para Gerir', description: 'Vive fora, viaja com frequência ou simplesmente não tem tempo (nem interesse) em acompanhar a gestão diária do imóvel.' },
+  ],
+  ctaTitle = 'Quer Saber se a Rentabilidade Garantida é Indicada Para o Seu Imóvel?',
+  ctaDescription = 'Solicite uma avaliação gratuita e descubra o valor mensal que pode receber com base nas características reais do seu imóvel.',
+  ctaButtonLabel = 'Solicitar Avaliação Gratuita',
+  ctaButtonUrl = 'https://hostwise.typeform.com/to/pWgP4EuZ',
+} = Astro.props;
 ---
 
 <section class="guaranteed-rent" id="rentabilidade-garantida">
@@ -7,132 +111,83 @@ import { iconMap } from '../icons/iconMap';
     <div class="section-header">
       <div class="header-badge">
         <div class="badge-icon" set:html={iconMap.shield} />
-        Rentabilidade Garantida
+        {badgeText}
       </div>
-      <h2>Durma Descansado. O Seu Rendimento Está Garantido.</h2>
-      <p>Sem preocupações com vacância, sem surpresas desagradáveis. Apenas um valor fixo na sua conta todos os meses, como um relógio.</p>
+      <h2>{heading}</h2>
+      <p>{subtitle}</p>
     </div>
 
     <!-- Hero Visual -->
     <div class="hero-visual">
       <div class="visual-card main-card">
         <div class="card-header">
-          <span class="card-label">O Seu Rendimento Mensal</span>
+          <span class="card-label">{cardLabel}</span>
           <div class="guaranteed-badge">
             <div class="badge-shield-icon" set:html={iconMap.shield} />
-            100% Garantido
+            {guaranteedBadgeText}
           </div>
         </div>
         <div class="amount-display">
           <span class="currency">€</span>
           <span class="amount" id="animatedAmount">1.200</span>
-          <span class="period">/mês</span>
+          <span class="period">{amountPeriod}</span>
         </div>
         <div class="payment-info">
-          <div class="info-item">
-            <div class="info-icon" set:html={iconMap.check} />
-            <span>Independente da ocupação</span>
-          </div>
-          <div class="info-item">
-            <div class="info-icon" set:html={iconMap.check} />
-            <span>Pagamento mensal previsível</span>
-          </div>
-          <div class="info-item">
-            <div class="info-icon" set:html={iconMap.check} />
-            <span>Contratos de 3 a 15 anos</span>
-          </div>
+          {infoItems.map((item) => (
+            <div class="info-item">
+              <div class="info-icon" set:html={iconMap.check} />
+              <span>{item.text}</span>
+            </div>
+          ))}
         </div>
       </div>
 
       <div class="visual-stats">
-        <div class="stat-card">
-          <div class="stat-icon green" set:html={iconMap.chartLine} />
-          <div class="stat-content">
-            <span class="stat-value">Risco de Ocupação Assumido</span>
-            <span class="stat-label">Rendimento Independente da Ocupação</span>
+        {statCards.map((stat) => (
+          <div class="stat-card">
+            <div class={`stat-icon ${stat.colorClass}`} set:html={iconMap[stat.iconKey]} />
+            <div class="stat-content">
+              <span class="stat-value">{stat.value}</span>
+              <span class="stat-label">{stat.label}</span>
+            </div>
           </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-icon orange" set:html={iconMap.euro} />
-          <div class="stat-content">
-            <span class="stat-value">Manutenção Incluída</span>
-            <span class="stat-label">Manutenções Preventivas ao Imóvel</span>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
 
     <!-- How it Works -->
     <div class="how-it-works">
-      <h3>Como Funciona o Modelo de Rentabilidade Garantida?</h3>
+      <h3>{howItWorksTitle}</h3>
       <div class="steps-grid">
-        <div class="step-card">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h4>Análise do Imóvel</h4>
-            <p>Analisamos o seu imóvel com base nas fotografias, planta, localização e características enviadas. Utilizamos dados de mercado e histórico operacional para avaliar o potencial e definir um valor de renda sustentável.</p>
+        {steps.map((step) => (
+          <div class="step-card">
+            <div class="step-number">{step.number}</div>
+            <div class="step-content">
+              <h4>{step.title}</h4>
+              <p>{step.description}</p>
+            </div>
+            {step.hasArrow && <div class="step-arrow" set:html={iconMap.arrowRight} />}
           </div>
-          <div class="step-arrow" set:html={iconMap.arrowRight} />
-        </div>
-
-        <div class="step-card">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h4>Proposta Clara e Personalizada</h4>
-            <p>Apresentamos uma proposta transparente com o valor de renda mensal fixa, condições do modelo e duração do contrato, ajustada ao perfil do imóvel.</p>
-          </div>
-          <div class="step-arrow" set:html={iconMap.arrowRight} />
-        </div>
-
-        <div class="step-card">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h4>Contrato de Rentabilidade Garantida</h4>
-            <p>Todos os meses, no mesmo dia, recebe o valor acordado na sua conta. Um fluxo de caixa estável, simples e previsível.</p>
-          </div>
-          <div class="step-arrow" set:html={iconMap.arrowRight} />
-        </div>
-
-        <div class="step-card">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <h4>Recebimento Mensal Previsível</h4>
-            <p>Todos os meses, no mesmo dia, recebe o valor acordado na sua conta. Simples, previsível, garantido.</p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
 
     <!-- Comparison -->
     <div class="comparison-section">
-      <h3>Rentabilidade Garantida vs Risco de Mercado</h3>
+      <h3>{comparisonTitle}</h3>
       <div class="comparison-grid">
         <div class="comparison-card left">
           <div class="comparison-header traditional">
             <div class="comparison-icon" set:html={iconMap.alert} />
-            <h4>Modelo Tradicional</h4>
+            <h4>{traditionalLabel}</h4>
           </div>
           <ul class="comparison-list negative">
-            <li>
-              <div class="list-icon" set:html={iconMap.close} />
-              Rendimento variável mês a mês
-            </li>
-            <li>
-              <div class="list-icon" set:html={iconMap.close} />
-              Períodos de vacância sem receita
-            </li>
-            <li>
-              <div class="list-icon" set:html={iconMap.close} />
-              Custos de manutenção imprevisíveis
-            </li>
-            <li>
-              <div class="list-icon" set:html={iconMap.close} />
-              Dificuldade em planear financeiramente
-            </li>
-            <li>
-              <div class="list-icon" set:html={iconMap.close} />
-              Envolvimento constante na gestão
-            </li>
+            {negativeItems.map((item) => (
+              <li>
+                <div class="list-icon" set:html={iconMap.close} />
+                {item.text}
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -143,29 +198,15 @@ import { iconMap } from '../icons/iconMap';
         <div class="comparison-card right">
           <div class="comparison-header guaranteed">
             <div class="comparison-icon" set:html={iconMap.shield} />
-            <h4>Rentabilidade Garantida</h4>
+            <h4>{guaranteedLabel}</h4>
           </div>
           <ul class="comparison-list positive">
-            <li>
-              <div class="list-icon" set:html={iconMap.check} />
-              Valor mensal fixo definido em contrato
-            </li>
-            <li>
-              <div class="list-icon" set:html={iconMap.check} />
-              Receita independente da ocupação
-            </li>
-            <li>
-              <div class="list-icon" set:html={iconMap.check} />
-              Gestão operacional e manutenção incluídas conforme contrato
-            </li>
-            <li>
-              <div class="list-icon" set:html={iconMap.check} />
-              Previsibilidade financeira total
-            </li>
-            <li>
-              <div class="list-icon" set:html={iconMap.check} />
-              Zero envolvimento na operação diária
-            </li>
+            {positiveItems.map((item) => (
+              <li>
+                <div class="list-icon" set:html={iconMap.check} />
+                {item.text}
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -173,42 +214,26 @@ import { iconMap } from '../icons/iconMap';
 
     <!-- Ideal For -->
     <div class="ideal-for">
-      <h3>Este Modelo é Ideal Para Quem...</h3>
+      <h3>{idealTitle}</h3>
       <div class="ideal-grid">
-        <div class="ideal-card">
-          <div class="ideal-icon" set:html={iconMap.heart} />
-          <h4>Procura Tranquilidade Total</h4>
-          <p>Não quer lidar com reservas, hóspedes, avarias, limpeza ou imprevistos do dia a dia. Prefere delegar toda a operação e receber o rendimento de forma automática.</p>
-        </div>
-
-        <div class="ideal-card">
-          <div class="ideal-icon" set:html={iconMap.chartBar} />
-          <h4>Precisa de Receita Previsível</h4>
-          <p>Valoriza saber exatamente quanto vai receber todos os meses para planear despesas, poupança ou outros investimentos, sem depender da sazonalidade.</p>
-        </div>
-
-        <div class="ideal-card">
-          <div class="ideal-icon" set:html={iconMap.checkCircle} />
-          <h4>Prefere Estabilidade a Risco</h4>
-          <p>Aceita um rendimento estável e contratualizado em vez de arriscar variações mensais, períodos de vacância ou custos inesperados.</p>
-        </div>
-
-        <div class="ideal-card">
-          <div class="ideal-icon" set:html={iconMap.clock} />
-          <h4>Não Está Disponível Para Gerir</h4>
-          <p>Vive fora, viaja com frequência ou simplesmente não tem tempo (nem interesse) em acompanhar a gestão diária do imóvel.</p>
-        </div>
+        {idealCards.map((card) => (
+          <div class="ideal-card">
+            <div class="ideal-icon" set:html={iconMap[card.iconKey]} />
+            <h4>{card.title}</h4>
+            <p>{card.description}</p>
+          </div>
+        ))}
       </div>
     </div>
 
     <!-- CTA Final -->
     <div class="final-cta">
       <div class="cta-content">
-        <h3>Quer Saber se a Rentabilidade Garantida é Indicada Para o Seu Imóvel?</h3>
-        <p>Solicite uma avaliação gratuita e descubra o valor mensal que pode receber com base nas características reais do seu imóvel.</p>
+        <h3>{ctaTitle}</h3>
+        <p>{ctaDescription}</p>
         <div class="cta-buttons">
-          <a href="https://hostwise.typeform.com/to/pWgP4EuZ?" class="btn-primary-large">
-            Solicitar Avaliação Gratuita
+          <a href={ctaButtonUrl} class="btn-primary-large">
+            {ctaButtonLabel}
           </a>
         </div>
       </div>
@@ -485,7 +510,7 @@ import { iconMap } from '../icons/iconMap';
 
   .steps-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
 

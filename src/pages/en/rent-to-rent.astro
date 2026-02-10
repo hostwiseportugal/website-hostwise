@@ -1,0 +1,332 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import HeroSectionV3 from '../../components/HeroSectionV3.astro';
+import IntroSection from '../../components/IntroSection.astro';
+import BenefitsGrid from '../../components/BenefitsGrid.astro';
+import GuaranteedRentSectionExplained from '../../components/GuaranteedRentSectionExplained.astro';
+import TraditionalRentalComparison from '../../components/TraditionalRentalComparison.astro';
+import ModelsComparison from '../../components/ModelsComparison.astro';
+import ModelsIntro from '../../components/ModelsIntro.astro';
+import OwnerTestimonials from '../../components/OwnerTestimonials.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { serviceSchema } from "../../lib/schema/service";
+import { faqPageSchemaFromCategories } from "../../lib/schema/faq-from-categories";
+import { iconMap } from '../../icons/iconMap';
+
+const benefits = [
+  {
+    title: "Fixed Monthly Rent, No Surprises",
+    description: "Forget the typical ups and downs of vacation rentals. With this model, you receive the same amount every month, regardless of how many bookings the property had. This means financial security, ideal for those who want to plan for the medium and long term.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "Profitability Without Risk",
+    description: "It doesn't matter if there are fewer tourists, if the market is unstable or if unexpected events arise — your income is guaranteed. It's the ideal solution for those who want to enjoy the benefits of vacation rentals without the associated risks.",
+    color: "rgba(12, 68, 99, 1)"
+  },
+  {
+    title: "Maintenance Included",
+    description: "We take care of your property as if it were our own. We carry out preventive maintenance, minor repairs and ensure everything is impeccable for guests. This not only protects your investment but also contributes to property appreciation.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "No Worries About Monthly Bills",
+    description: "The management and payment of utilities (water, electricity, internet, etc.) are on our side. This means less bureaucracy and fewer worries for you.",
+    color: "rgba(12, 68, 99, 1)"
+  },
+  {
+    title: "Guest/Tenant Screening and Selection",
+    description: "Host Wise fully manages the guest profile, ensuring quality and good behaviour, based on clear rules and screening processes.",
+    color: "rgba(92, 176, 214, 1)"
+  },
+  {
+    title: "Inventory Renewal Included",
+    description: "During the contract, we replace and update inventory (bed linen, utensils, appliances, etc.) as needed — and at the end, we leave everything with you.",
+    color: "rgba(12, 68, 99, 1)"
+  }
+];
+
+const categories = [
+  {
+    id: 'model',
+    label: 'About the Model',
+    questions: [
+      {
+        question: 'What is the guaranteed income model?',
+        answer: '<p>In the guaranteed income model, the owner receives a fixed monthly rent, regardless of the property\'s occupancy during a period that can last up to 10 years.</p><br><p>This model guarantees you long-term financial stability without the worry of tenant management or minor maintenance.</p>',
+      },
+      {
+        question: 'How do you determine my property\'s value in the guaranteed income model?',
+        answer: '<p>The valuation is done through a profitability study based on the analysis of several factors, including location, size and condition of the property, and current real estate market trends and the location where the accommodation is situated.</p><br><p>This study allows us to predict the net revenue generated for the proposed contract term.</p>',
+      },
+    ],
+  },
+  {
+    id: 'host-wise',
+    label: 'About Host Wise',
+    questions: [
+      {
+        question: 'Why choose Host Wise?',
+        answer: 'Host Wise is a vacation rental management company with extensive experience in the Portuguese market, ensuring a complete and hassle-free service for property owners, while providing an excellent experience for guests, with permanent support to guarantee positive reviews and higher occupancy rates.',
+      },
+      {
+        question: 'Why choose Host Wise instead of managing the property yourself?',
+        answer: '<p>Managing a vacation rental requires time, dedication and experience to ensure maximum profitability. Without the right strategy, you may miss opportunities to increase your profits and optimize occupancy.</p><br><p>Host Wise offers professional and comprehensive vacation rental management, freeing you from operational tasks and ensuring excellent service for both you and your guests.</p><br><p>We have a team of specialists who deeply understand the market and implement intelligent pricing, marketing and operational strategies to optimize your returns without complications.</p><br><p>By trusting Host Wise, you transform your property into a passive income source, without worrying about bookings, check-ins, cleaning or maintenance.</p>',
+      },
+    ],
+  },
+];
+
+const schemas = [
+  serviceSchema({
+    serviceName: "Guaranteed Income in Vacation Rentals",
+    url: Astro.url.href,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Portugal", type: "Country" }],
+  }),
+  ...(categories.length ? [faqPageSchemaFromCategories(categories)] : []),
+];
+
+const alternates = [
+  {
+    hreflang: "pt-PT",
+    href: "https://www.hostwise.pt/rentabilidade-garantida",
+  },
+  {
+    hreflang: "en",
+    href: "https://www.hostwise.pt/en/rent-to-rent",
+  },
+  {
+    hreflang: "x-default",
+    href: "https://www.hostwise.pt/rentabilidade-garantida",
+  },
+];
+---
+
+<Layout title="Guaranteed Income in Vacation Rentals"
+description='Guaranteed income in vacation rentals for property owners seeking stability, predictability and zero involvement in daily management.'
+schemas={schemas}
+alternates={alternates}>
+  <!-- Hero Section V3 -->
+  <HeroSectionV3
+    badge_text="Guaranteed Income"
+    badge_icon_key="shield"
+    heading="Fixed Monthly Income. Total Predictability."
+    description="Host Wise takes on the daily operation of the accommodation, the risk of revenue variation and operational management, allowing you to plan your investment with confidence and without uncertainties."
+    primary_cta_label="Get a Proposal"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+    secondary_cta_label="Learn More"
+    secondary_cta_url="#intro-section"
+    image="/images/exterior-alojamento-local-obidos.webp"
+  />
+
+  <!-- Intro Section -->
+  <IntroSection
+    intro_title="A model designed for those who want financial predictability, without depending on occupancy."
+    intro_text={`
+      <p>
+        Managing a property can be unpredictable — ups and downs in demand, last-minute cancelled bookings, unexpected expenses. With Host Wise's guaranteed income model, we transform that uncertainty into stability: we guarantee a fixed monthly amount for your property, regardless of seasonality or occupancy.
+      </p>
+      <p>
+        While we take care of everything — from maintenance to guest management — you receive the income, month after month.
+      </p>
+      <p>
+        Simple. Secure. And hassle-free.
+      </p>
+    `}
+    intro_cta_label="Get a Proposal"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- Benefits Grid -->
+  <BenefitsGrid
+    benefits={benefits}
+    badgeText="Model Advantages"
+    heading="Why Choose the Guaranteed Income Model?"
+    hintText="Click a card to learn more"
+  />
+
+  <!-- Traditional Rental Comparison -->
+  <TraditionalRentalComparison
+    title="A Safer Alternative to Traditional Renting"
+    introText="Renting a home long-term may seem like the simplest choice — but is it the most advantageous?"
+    warningText="The truth is that traditional renting is far from risk-free:"
+    risks={[
+      {
+        title: "Tenants who don't pay on time (or don't pay at all)",
+        icon: iconMap.euro,
+        color: "rgba(239, 68, 68, 1)"
+      },
+      {
+        title: "Legal difficulties in case of non-compliance",
+        icon: iconMap.gavel,
+        color: "rgba(245, 158, 11, 1)"
+      },
+      {
+        title: "Maintenance at your expense",
+        icon: iconMap.tools,
+        color: "rgba(239, 68, 68, 1)"
+      }
+    ]}
+    riskBadgeText="Risk Eliminated"
+    solutionText="And even when everything goes well, there's the time and effort spent finding, evaluating and managing tenants, plus the requests and repairs that arise throughout the contract."
+    solutionHighlight="With Host Wise's guaranteed income model, you get the best of both worlds:"
+    advantages={[
+      "Income stability, like traditional renting",
+      "Contractual security, but with more flexibility",
+      "Professional property management, without having to be involved",
+      "Heritage appreciation, with maintenance and renovation included",
+      "And all of this, without risks with tenants or legal bureaucracies"
+    ]}
+    ctaLabel="Discover How It Works"
+    ctaUrl="#contacto"
+  />
+
+  <!-- Guaranteed Rent Explained -->
+  <GuaranteedRentSectionExplained
+    badgeText="Guaranteed Income"
+    heading="Sleep Well. Your Income is Guaranteed."
+    subtitle="No worries about vacancy, no unpleasant surprises. Just a fixed amount in your account every month, like clockwork."
+    cardLabel="Your Monthly Income"
+    guaranteedBadgeText="100% Guaranteed"
+    amountPeriod="/month"
+    infoItems={[
+      { text: 'Independent of occupancy' },
+      { text: 'Predictable monthly payment' },
+      { text: 'Contracts from 3 to 10 years' },
+    ]}
+    statCards={[
+      { value: 'Occupancy Risk Assumed', label: 'Income Independent of Occupancy', colorClass: 'green', iconKey: 'chartLine' },
+      { value: 'Maintenance Included', label: 'Preventive Property Maintenance', colorClass: 'orange', iconKey: 'euro' },
+    ]}
+    howItWorksTitle="How Does the Guaranteed Income Model Work?"
+    steps={[
+      { number: '1', title: 'Property Analysis', description: 'We analyse your property based on the photographs, floor plan, location and characteristics submitted. We use market data and operational history to assess its potential and define a sustainable rent value.', hasArrow: true },
+      { number: '2', title: 'Clear and Personalized Proposal', description: 'We present a transparent proposal with the fixed monthly rent amount, model conditions and contract duration, tailored to the property\'s profile.', hasArrow: true },
+      { number: '3', title: 'Guaranteed Income Contract', description: 'Every month, on the same day, you receive the agreed amount in your account. A stable, simple and predictable cash flow.', hasArrow: true },
+    ]}
+    comparisonTitle="Guaranteed Income vs Market Risk"
+    traditionalLabel="Traditional Model"
+    guaranteedLabel="Guaranteed Income"
+    negativeItems={[
+      { text: 'Variable income month to month' },
+      { text: 'Vacancy periods without revenue' },
+      { text: 'Unpredictable maintenance costs' },
+      { text: 'Difficulty in financial planning' },
+      { text: 'Constant involvement in management' },
+    ]}
+    positiveItems={[
+      { text: 'Fixed monthly amount defined in contract' },
+      { text: 'Revenue independent of occupancy' },
+      { text: 'Operational management and maintenance included as per contract' },
+      { text: 'Total financial predictability' },
+      { text: 'Zero involvement in daily operations' },
+    ]}
+    idealTitle="This Model is Ideal for Those Who..."
+    idealCards={[
+      { iconKey: 'heart', title: 'Seek Total Peace of Mind', description: 'Don\'t want to deal with bookings, guests, breakdowns, cleaning or day-to-day surprises. Prefer to delegate all operations and receive income automatically.' },
+      { iconKey: 'chartBar', title: 'Need Predictable Revenue', description: 'Value knowing exactly how much you\'ll receive every month to plan expenses, savings or other investments, without depending on seasonality.' },
+      { iconKey: 'checkCircle', title: 'Prefer Stability Over Risk', description: 'Accept a stable, contractualized income instead of risking monthly variations, vacancy periods or unexpected costs.' },
+      { iconKey: 'clock', title: 'Not Available to Manage', description: 'Live abroad, travel frequently or simply don\'t have the time (or interest) to follow the daily management of the property.' },
+    ]}
+    ctaTitle="Want to Know if Guaranteed Income is Right for Your Property?"
+    ctaDescription="Request a free assessment and discover the monthly amount you can receive based on the real characteristics of your property."
+    ctaButtonLabel="Request Free Assessment"
+  />
+
+  <!-- Models Comparison -->
+  <ModelsComparison
+    badgeLabel="Compare Our Models"
+    title="Vacation Rental Management That Adapts to Your Investment Profile"
+    paragraphs={[
+      'Every owner has different objectives — stability, growth or a balance between risk and return.',
+      'That\'s why at Host Wise we offer two vacation rental management models designed to adapt to your profile and your property.',
+      'Whether you prefer a flexible approach, with shared results, or a stable and guaranteed income every month, we have the right solution for you.',
+    ]}
+    guaranteedColumnTitle="Guaranteed Income"
+    commissionColumnTitle="Commission Model"
+    comparisonData={[
+      {
+        feature: "Ideal For",
+        guaranteed: "Those who value stability and want to receive a fixed monthly amount, worry-free.",
+        commission: "Those who want to track results and benefit from the property's performance."
+      },
+      {
+        feature: "Revenue",
+        guaranteed: "Medium",
+        commission: "High",
+        highlight: true
+      },
+      {
+        feature: "Monthly Amount Received",
+        guaranteed: "Fixed",
+        commission: "Dependent on Occupancy",
+        highlight: true
+      },
+      {
+        feature: "Risk",
+        guaranteed: "Low",
+        commission: "High",
+        highlight: true
+      },
+      {
+        feature: "Property/Inventory Wear",
+        guaranteed: "Host Wise handles Property Maintenance (except structural) and inventory purchase if needed.",
+        commission: "Owner responsible for Maintenance and Property Decoration."
+      },
+      {
+        feature: "Utilities",
+        guaranteed: "Covered by Host Wise",
+        commission: "Covered by the Owner"
+      },
+      {
+        feature: "Work for the Owner",
+        guaranteed: "Reduced or None",
+        commission: "Responsible for Maintenance"
+      },
+      {
+        feature: "Contract Type",
+        guaranteed: "Long-Term",
+        commission: "Annual"
+      }
+    ]}
+    mobileBtnGuaranteed="Guaranteed Income"
+    mobileBtnCommission="Commission Model"
+    mobileCta="Talk to a Specialist"
+    ctaTitle="Which Model is Right for You?"
+    ctaDescription="Receive a personalized analysis and discover which model maximizes your property's returns."
+    ctaButtonLabel="Talk to a Specialist"
+  />
+
+  <!-- Owner Testimonials -->
+  <OwnerTestimonials
+    badgeLabel="Testimonials"
+    title="Meet Our Property Owners"
+    subtitle="With solutions tailored to our owners' needs, we ensure the best experience so you can maximize your returns with total peace of mind."
+    testimonials={[
+      {
+        name: 'João M.',
+        location: 'Property Owner in Porto',
+        rating: 5,
+        comment: 'Since I handed over the management of my apartment to Host Wise, my experience as an owner has completely transformed. I chose guaranteed income and can say it was the best decision I made. Now I have a fixed rent every month, without worrying about maintenance or property occupancy. The Host Wise team is extremely professional and always available to answer any questions. I highly recommend it to all property owners in Porto!',
+      },
+      {
+        name: 'Sofia L.',
+        location: 'Property Owner in Lagos',
+        rating: 5,
+        comment: 'When I decided to invest in properties in the Algarve, I wanted a trusted company to manage my properties. Host Wise was the perfect choice. I chose guaranteed income and have been receiving a fixed rent without fail every month. The best part is not having to worry about maintenance or guest issues. The service is impeccable and has given me enormous peace of mind.',
+      },
+    ]}
+    ctaTitle="Ready to guarantee your monthly income?"
+    ctaSubtitle="Receive a personalized proposal for your property in less than 24 hours."
+    ctaLabel="Get a Free Proposal"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
+
+  <!-- FAQ Section -->
+  <FAQSection
+    title="We Answer Your Questions"
+    subtitle="Everything you need to know about managing your property with Host Wise."
+    categories={categories}
+  />
+</Layout>

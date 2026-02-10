@@ -10,6 +10,7 @@ function stripHtml(html: string) {
     .replace(/<\/p>\s*<p>/gi, "\n\n")
     .replace(/<[^>]*>/g, "")
     .replace(/\n{3,}/g, "\n\n")
+    .replace(/\s+/g, " ")
     .trim();
 }
 

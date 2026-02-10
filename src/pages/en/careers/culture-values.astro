@@ -1,0 +1,997 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
+import { aboutPageSchema } from "../../../lib/schema/about-page";
+
+
+const culturePillars = [
+{
+    title: "Responsible Freedom",
+    description: [
+      "At Host Wise, we believe that freedom only makes sense when accompanied by responsibility. We trust people to manage their work, their time and their decisions, knowing that each choice impacts the team, clients and business.",
+      "We don't work with micromanagement, but with commitment. Here you have autonomy to act — with the clear expectation of delivering results, meeting deadlines and taking responsibility for decisions made.",
+      "Freedom, for us, is not the absence of rules. It's trust with accountability."
+    ],
+    icon: "/images/values-culture/liberdade-responsavel.svg",
+    image: "/images/values-culture/team-building-host-wise-porto-2.webp",
+    imageAlt: "Host Wise Team Building in Porto"
+  },
+  {
+    title: "Ownership",
+    description: [
+      "At Host Wise, each person acts as if the business were their own. We don't expect someone to just \"complete tasks\" — we expect involvement, critical thinking and a sense of responsibility for what they do.",
+      "Ownership means not pushing problems forward, not working in silos and not saying \"that's not my job\". It means identifying challenges, proposing solutions and following through until the end.",
+      "We value those who take responsibility, learn from mistakes and actively contribute to the company's continuous improvement."
+    ],
+    icon: "/images/values-culture/ownership.svg",
+    image: "/images/values-culture/team-building-host-wise-porto.webp",
+    imageAlt: "Host Wise Team Building in Porto"
+  },
+{
+    title: "Empowerment",
+    description: [
+      "At Host Wise, we believe that success comes from autonomy and the ability to innovate. Here, you have space to create, test new approaches and implement solutions that make a difference.",
+      "We value initiative and encourage ideas that challenge the conventional. If you're looking for an environment where your suggestions are heard and where you have freedom to execute, this is the right place for you."
+    ],
+    icon: "/images/values-culture/empowerment.svg",
+    image: "/images/values-culture/team-building-host-wise-burro-ville.webp",
+    imageAlt: "Host Wise Team Building at Burro Ville"
+  },
+   {
+    title: "Speed and Agility",
+    description: [
+      "We move fast because the market demands speed — but never at the cost of quality. At Host Wise, we prioritize informed decisions, efficient execution and constant adaptability.",
+      "We test, adjust and continuously improve. We prefer to move forward with a good solution today rather than wait for the perfect solution tomorrow. Learning fast is part of the process.",
+      "Agility is not disorganized haste. It's focus, clarity of priorities and the ability to respond to real challenges effectively."
+    ],
+    icon: "/images/values-culture/velocity.svg",
+    image: "/images/carreiras/team-building-arouca-6.webp",
+    imageAlt: "Host Wise Team Building in Arouca"
+  },
+   {
+    title: "Innovation",
+    description: [
+      "Innovation at Host Wise is not a buzzword — it's a daily practice. We develop solutions, processes and tools that allow us to operate better, scale efficiently and deliver more value to clients.",
+      "We invest in technology, automation and artificial intelligence to optimize management, reduce friction and improve decisions. But we believe that true innovation comes from the combination of technology, people and critical thinking.",
+      "Questioning the status quo is part of our DNA. If something can be done in a simpler, faster or smarter way, we want to be the first to try."
+    ],
+    icon: "/images/values-culture/innovation.svg",
+    image: "/images/values-culture/jantar-natal-2025-5.webp",
+    imageAlt: "Host Wise Christmas Dinner 2025"
+  },
+];
+
+const benefits = [
+  {
+    category: "Flexible Work",
+    items: [
+      { title: "Remote and Hybrid Work", description: "Flexibility to choose where you work" },
+      { title: "Flexible Hours", description: "Manage your time in the most productive way" }
+    ],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+    </svg>`
+  },
+  {
+    category: "Health and Wellness",
+    items: [
+      { title: "Health Insurance", description: "Complete health coverage" },
+      { title: "Free Personal Training", description: "Online or in-person training sessions" }
+    ],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1 16h2v-2h-2v2zm0-4h2V7h-2v7z"/>
+    </svg>`
+  },
+  {
+    category: "Financial Rewards",
+    items: [
+      { title: "Annual Bonuses", description: "Share in the company's results" },
+      { title: "20% Discount", description: "On all Host Wise accommodations" }
+    ],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+    </svg>`
+  },
+  {
+    category: "Team and Community",
+    items: [
+      { title: "Regular Team Building", description: "Frequent team activities" },
+      { title: "Social Events", description: "Dinners, celebrations and social moments" }
+    ],
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+    </svg>`
+  }
+];
+
+const teamPhotos = [
+  { src: "/images/values-culture/festa-500-propriedades-4.webp", alt: "500 Properties Celebration" },
+  { src: "/images/values-culture/jantar-aniversario-2024-1.webp", alt: "8th Anniversary Dinner" },
+  { src: "/images/values-culture/team-building-arouca-5.webp", alt: "Team Building at Paiva River" },
+  { src: "/images/values-culture/team-building-paintball-1.webp", alt: "Team Building Paintball" }
+];
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+
+const canonicalUrl = new URL(Astro.url);
+canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const metaDescription =
+  "Discover the culture, values and benefits of working at Host Wise, a company that invests in autonomy, innovation and growth.";
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: new URL("/en", site).href },
+  { name: "Careers", url: new URL("/en/careers", site).href },
+  { name: "Culture and Values", url: canonical },
+]);
+
+const schemas = [
+  breadcrumbs,
+  aboutPageSchema({
+    url: canonical,
+    name: "Host Wise Culture and Values",
+    description: metaDescription,
+    inLanguage: "en",
+  }),
+];
+
+const alternates = [
+  { hreflang: "pt-PT", href: new URL("/carreiras/cultura-valores", site).href },
+  { hreflang: "en", href: canonical },
+  { hreflang: "x-default", href: new URL("/carreiras/cultura-valores", site).href },
+];
+
+---
+
+<Layout title="Host Wise Culture and Values | Careers"
+description={metaDescription}
+  canonical={canonical}
+  alternates={alternates}
+  schemas={schemas}>
+  <!-- Hero Section -->
+  <section class="work-hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span>Our Culture</span>
+      </div>
+      <h1 class="hero-title">What is it like to work at Host Wise?</h1>
+      <p class="hero-description">
+        We are more than a property management company. We are a dynamic and passionate team,
+        focused on creating memorable experiences for guests, owners and employees.
+      </p>
+    </div>
+  </section>
+
+  <!-- Culture Pillars Section -->
+  <section class="culture-section">
+    <div class="section-header-culture">
+      <h2>Our Values and Culture</h2>
+      <p>Five pillars that define how we work</p>
+    </div>
+
+    <div class="culture-container">
+      {culturePillars.map((pillar, index) => (
+        <div class="culture-row" data-index={index}>
+          <div class="culture-content-sticky">
+            <div class="culture-text-wrapper">
+              <div class="culture-icon-wrapper">
+                <img src={pillar.icon} alt={`${pillar.title} Icon`} class="culture-icon-svg" />
+              </div>
+              <h3 class="culture-title">{pillar.title}</h3>
+              <div class="culture-description">
+                {pillar.description.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+            <div class="culture-image-wrapper">
+              <img src={pillar.image} alt={pillar.imageAlt} class="culture-image" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Benefits Package Section -->
+  <section id="benefits" class="benefits-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Benefits Package</h2>
+        <p>We take care of those who are part of our family</p>
+      </div>
+
+      <div class="benefits-grid">
+        {benefits.map((benefit, index) => (
+          <div class="benefit-category-card" data-index={index}>
+            <div class="category-header">
+              <div class="category-icon" set:html={benefit.icon} />
+              <h3>{benefit.category}</h3>
+            </div>
+            <ul class="benefit-list">
+              {benefit.items.map((item) => (
+                <li>
+                  <div class="benefit-item">
+                    <h4>{item.title}</h4>
+                    <p>{item.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Photos Section -->
+  <section class="team-photos-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Team in Action</h2>
+        <p>Moments that define our culture</p>
+      </div>
+
+      <div class="photos-grid">
+        {teamPhotos.map((photo, index) => (
+          <div class="photo-card" data-index={index}>
+            <div class="photo-wrapper">
+              <img src={photo.src} alt={photo.alt} />
+              <div class="photo-overlay">
+                <p>{photo.alt}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Join the Team?</h2>
+        <p>
+          Discover available opportunities and join a team where your talent is valued
+          and your growth is a priority.
+        </p>
+        <div class="cta-buttons">
+          <a href="/en/careers/job-openings" class="btn-primary-cta">
+            Explore Opportunities
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+          <a href="/en/careers" class="btn-secondary-cta">
+            Back to Careers
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .work-hero {
+    padding: 180px 20px 100px;
+    background: linear-gradient(135deg, #F8FCFF 0%, #E5F4FE 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .work-hero::before {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    left: -150px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(92, 176, 214, 0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+    animation: fadeInDown 0.6s ease-out;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-title {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1.1;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-description {
+    font-size: 1.3rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out 0.4s backwards;
+  }
+
+  /* Culture Section */
+  .culture-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .section-header-culture {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 80px;
+    padding: 0 20px;
+  }
+
+  .section-header-culture h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .section-header-culture p {
+    font-size: 1.2rem;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .culture-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+  }
+
+  .culture-row {
+    min-height: 60vh;
+    display: flex;
+    align-items: flex-start;
+    padding: 0 40px;
+  }
+
+  .culture-row[data-index="0"] .culture-content-sticky {
+    top: 50px;
+  }
+
+  .culture-row[data-index="1"] .culture-content-sticky {
+    top: 100px;
+  }
+
+  .culture-row[data-index="2"] .culture-content-sticky {
+    top: 150px;
+  }
+
+  .culture-row[data-index="3"] .culture-content-sticky {
+    top: 200px;
+  }
+
+  .culture-row[data-index="4"] .culture-content-sticky {
+    top: 250px;
+  }
+
+  .culture-content-sticky {
+    position: sticky;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    border: 2px solid var(--gray-light);
+    border-radius: 24px;
+    padding: 60px 50px;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(12, 68, 99, 0.1);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Accent line at the top of each card */
+  .culture-content-sticky::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+  }
+
+  /* Card 1 - Primary Blue */
+  .culture-row[data-index="0"] .culture-content-sticky {
+    background: linear-gradient(135deg, #E8F4FC 0%, rgba(12, 68, 99, 0.03) 100%);
+    border-left: 4px solid var(--primary);
+  }
+  .culture-row[data-index="0"] .culture-content-sticky::before {
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  }
+  .culture-row[data-index="0"] .culture-content-sticky:hover {
+    border-color: var(--primary);
+  }
+
+  /* Card 2 - Teal/Cyan */
+  .culture-row[data-index="1"] .culture-content-sticky {
+    background: linear-gradient(135deg, #E0F7F6 0%, rgba(38, 166, 154, 0.03) 100%);
+    border-left: 4px solid #26A69A;
+  }
+  .culture-row[data-index="1"] .culture-content-sticky::before {
+    background: linear-gradient(90deg, #26A69A 0%, #4DB6AC 100%);
+  }
+  .culture-row[data-index="1"] .culture-content-sticky:hover {
+    border-color: #26A69A;
+  }
+
+  /* Card 3 - Secondary Blue */
+  .culture-row[data-index="2"] .culture-content-sticky {
+    background: linear-gradient(135deg, var(--blue-light) 0%, rgba(92, 176, 214, 0.05) 100%);
+    border-left: 4px solid var(--secondary);
+  }
+  .culture-row[data-index="2"] .culture-content-sticky::before {
+    background: linear-gradient(90deg, var(--secondary) 0%, #7EC8E3 100%);
+  }
+  .culture-row[data-index="2"] .culture-content-sticky:hover {
+    border-color: var(--secondary);
+  }
+
+  /* Card 4 - Purple/Lavender */
+  .culture-row[data-index="3"] .culture-content-sticky {
+    background: linear-gradient(135deg, #EDE7F6 0%, rgba(103, 58, 183, 0.03) 100%);
+    border-left: 4px solid #7E57C2;
+  }
+  .culture-row[data-index="3"] .culture-content-sticky::before {
+    background: linear-gradient(90deg, #7E57C2 0%, #9575CD 100%);
+  }
+  .culture-row[data-index="3"] .culture-content-sticky:hover {
+    border-color: #7E57C2;
+  }
+
+  /* Card 5 - Coral/Orange */
+  .culture-row[data-index="4"] .culture-content-sticky {
+    background: linear-gradient(135deg, #FFF3E0 0%, rgba(255, 138, 101, 0.03) 100%);
+    border-left: 4px solid #FF8A65;
+  }
+  .culture-row[data-index="4"] .culture-content-sticky::before {
+    background: linear-gradient(90deg, #FF8A65 0%, #FFAB91 100%);
+  }
+  .culture-row[data-index="4"] .culture-content-sticky:hover {
+    border-color: #FF8A65;
+  }
+
+  .culture-content-sticky:hover {
+    box-shadow: 0 16px 48px rgba(12, 68, 99, 0.15);
+  }
+
+  .culture-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .culture-icon-wrapper {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .culture-icon-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .culture-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .culture-description {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .culture-description p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text);
+    opacity: 0.85;
+    margin: 0;
+  }
+
+  .culture-image-wrapper {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease;
+  }
+
+  .culture-content-sticky:hover .culture-image-wrapper {
+    transform: scale(1.02);
+  }
+
+  .culture-image {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Benefits Section */
+  .benefits-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, white 0%, var(--blue-light) 50%, white 100%);;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+  }
+
+  .section-header h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .section-header p {
+    font-size: 1.2rem;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .benefit-category-card {
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 20px;
+    padding: 40px 32px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideInUp 0.6s ease-out forwards;
+  }
+
+  .benefit-category-card[data-index="0"] { animation-delay: 0.1s; }
+  .benefit-category-card[data-index="1"] { animation-delay: 0.2s; }
+  .benefit-category-card[data-index="2"] { animation-delay: 0.3s; }
+  .benefit-category-card[data-index="3"] { animation-delay: 0.4s; }
+
+  @keyframes slideInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .benefit-category-card:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 12px 40px rgba(12, 68, 99, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--gray-light);
+  }
+
+  .category-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .category-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+  }
+
+  .benefit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .benefit-item {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .benefit-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    background: var(--secondary);
+    border-radius: 50%;
+  }
+
+  .benefit-item h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+
+  .benefit-item p {
+    font-size: 1rem;
+    color: var(--text);
+    opacity: 0.85;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Team Photos Section */
+  .team-photos-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .photos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .photo-card {
+    opacity: 0;
+    transform: scale(0.95);
+    animation: zoomIn 0.6s ease-out forwards;
+  }
+
+  .photo-card[data-index="0"] { animation-delay: 0.1s; }
+  .photo-card[data-index="1"] { animation-delay: 0.2s; }
+  .photo-card[data-index="2"] { animation-delay: 0.3s; }
+  .photo-card[data-index="3"] { animation-delay: 0.4s; }
+
+  @keyframes zoomIn {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .photo-wrapper {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .photo-wrapper:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(12, 68, 99, 0.2);
+  }
+
+  .photo-wrapper img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .photo-wrapper:hover img {
+    transform: scale(1.05);
+  }
+
+  .photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(12, 68, 99, 0.95) 0%, transparent 100%);
+    padding: 24px 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .photo-wrapper:hover .photo-overlay {
+    transform: translateY(0);
+  }
+
+  .photo-overlay p {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+  }
+
+  .cta-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  .cta-content p {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    opacity: 0.95;
+    margin-bottom: 40px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 40px;
+    background: white;
+    color: var(--primary);
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-primary-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-secondary-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 20px 40px;
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary-cta:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .work-hero {
+      padding: 160px 20px 80px;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+    }
+
+    .section-header h2,
+    .section-header-culture h2,
+    .cta-content h2 {
+      font-size: 2.5rem;
+    }
+
+    .culture-row {
+      min-height: auto;
+      padding: 0 20px;
+      margin-bottom: 40px;
+    }
+
+    .culture-content-sticky {
+      position: relative;
+      top: 0 !important;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 50px 40px;
+    }
+
+    .culture-image {
+      height: 400px;
+    }
+
+    .benefits-grid,
+    .photos-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .work-hero {
+      padding: 140px 20px 60px;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-description {
+      font-size: 1.15rem;
+    }
+
+    .culture-section,
+    .benefits-section,
+    .team-photos-section,
+    .cta-section {
+      padding: 80px 20px;
+    }
+
+    .section-header h2,
+    .section-header-culture h2 {
+      font-size: 2rem;
+    }
+
+    .cta-content h2 {
+      font-size: 2.25rem;
+    }
+
+    .culture-row {
+      margin-bottom: 30px;
+    }
+
+    .culture-content-sticky {
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .culture-icon-wrapper {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+    }
+
+    .culture-title {
+      font-size: 2rem;
+    }
+
+    .culture-description p {
+      font-size: 1.05rem;
+    }
+
+    .culture-image {
+      height: 350px;
+    }
+
+    .benefit-category-card {
+      padding: 32px 24px;
+    }
+
+    .photo-wrapper img {
+      height: 280px;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+
+    .btn-primary-cta,
+    .btn-secondary-cta {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .section-header h2,
+    .section-header-culture h2 {
+      font-size: 1.75rem;
+    }
+
+    .cta-content h2 {
+      font-size: 1.85rem;
+    }
+
+    .culture-content-sticky {
+      padding: 32px 24px;
+    }
+
+    .culture-title {
+      font-size: 1.65rem;
+    }
+
+    .culture-description p {
+      font-size: 1rem;
+    }
+
+    .culture-image {
+      height: 280px;
+    }
+
+    .photo-wrapper img {
+      height: 240px;
+    }
+  }
+</style>

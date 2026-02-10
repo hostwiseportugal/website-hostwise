@@ -1,16 +1,140 @@
 ---
 // Commission Model vs Traditional Rental Comparison
+
+interface ChartBar {
+  month: string;
+  value: string;
+  height: string;
+  type?: string;
+}
+
+interface Props {
+  badgeText?: string;
+  title?: string;
+  description?: string;
+  traditionalTitle?: string;
+  traditionalTag?: string;
+  revenueLabel?: string;
+  traditionalAmount?: string;
+  traditionalNote?: string;
+  traditionalBars?: ChartBar[];
+  traditionalFeatures?: string[];
+  totalLabel?: string;
+  traditionalTotal?: string;
+  traditionalTotalNote?: string;
+  commissionPopularBadge?: string;
+  commissionTitle?: string;
+  commissionTag?: string;
+  commissionAmount?: string;
+  commissionNote?: string;
+  commissionBars?: ChartBar[];
+  traditionalLineTip?: string;
+  legendMiddleTerm?: string;
+  legendShortTerm?: string;
+  legendMixed?: string;
+  commissionFeatures?: string[];
+  commissionTotal?: string;
+  commissionTotalNote?: string;
+  strategyTitle?: string;
+  lowSeasonTitle?: string;
+  lowSeasonPeriod?: string;
+  lowSeasonDescription?: string;
+  highSeasonTitle?: string;
+  highSeasonPeriod?: string;
+  highSeasonDescription?: string;
+  resultTitle?: string;
+  resultDescription?: string;
+  ctaTitle?: string;
+  ctaDescription?: string;
+  ctaButtonLabel?: string;
+  ctaButtonUrl?: string;
+}
+
+const {
+  badgeText = 'Modelo de Comissão',
+  title = 'Potencial de Rendimento Ilimitado vs. Arrendamento Tradicional',
+  description = 'No arrendamento tradicional, o seu rendimento é fixo — ou pior, pode nem existir se não tiver inquilino. Com o modelo de comissão da Host Wise, o seu imóvel adapta-se à procura do mercado, maximizando o retorno em cada época do ano.',
+  traditionalTitle = 'Arrendamento Tradicional',
+  traditionalTag = 'Rendimento Limitado',
+  revenueLabel = 'Rendimento Mensal',
+  traditionalAmount = '€800',
+  traditionalNote = 'Fixo (quando há inquilino)',
+  traditionalBars = [
+    { month: 'Jan', value: '€800', height: '60%' },
+    { month: 'Fev', value: '€0', height: '10%', type: 'empty' },
+    { month: 'Mar', value: '€800', height: '60%' },
+    { month: 'Abr', value: '€800', height: '60%' },
+    { month: 'Mai', value: '€800', height: '60%' },
+    { month: 'Jun', value: '€800', height: '60%' },
+    { month: 'Jul', value: '€800', height: '60%' },
+    { month: 'Ago', value: '€800', height: '60%' },
+    { month: 'Set', value: '€800', height: '60%' },
+    { month: 'Out', value: '€0', height: '10%', type: 'empty' },
+    { month: 'Nov', value: '€800', height: '60%' },
+    { month: 'Dez', value: '€800', height: '60%' },
+  ],
+  traditionalFeatures = [
+    'Rendimento fixo, sem potencial de crescimento',
+    'Risco de meses sem inquilino = €0',
+    'Não aproveita épocas altas',
+    'Dependência total de um único inquilino',
+  ],
+  totalLabel = 'Total Anual Estimado',
+  traditionalTotal = '€8,000',
+  traditionalTotalNote = 'Com 2 meses de vacância',
+  commissionPopularBadge = 'Maior Potencial',
+  commissionTitle = 'Modelo de Comissão Host Wise',
+  commissionTag = 'Potencial Ilimitado',
+  commissionAmount = '€800 - €2,500+',
+  commissionNote = 'Variável conforme a procura',
+  commissionBars = [
+    { month: 'Jan', value: '€700', height: '50%', type: 'middle-term' },
+    { month: 'Fev', value: '€750', height: '55%', type: 'middle-term' },
+    { month: 'Mar', value: '€900', height: '65%', type: 'mixed' },
+    { month: 'Abr', value: '€1,200', height: '80%', type: 'short-term' },
+    { month: 'Mai', value: '€1,400', height: '90%', type: 'short-term' },
+    { month: 'Jun', value: '€1,800', height: '100%', type: 'short-term' },
+    { month: 'Jul', value: '€2,200', height: '115%', type: 'short-term' },
+    { month: 'Ago', value: '€2,500', height: '120%', type: 'short-term' },
+    { month: 'Set', value: '€1,500', height: '95%', type: 'short-term' },
+    { month: 'Out', value: '€1,000', height: '70%', type: 'mixed' },
+    { month: 'Nov', value: '€700', height: '50%', type: 'middle-term' },
+    { month: 'Dez', value: '€1,100', height: '75%', type: 'mixed' },
+  ],
+  traditionalLineTip = 'Nível do arrendamento tradicional',
+  legendMiddleTerm = 'Middle-term (época baixa)',
+  legendShortTerm = 'Short-term AL (época alta)',
+  legendMixed = 'Estratégia mista',
+  commissionFeatures = [
+    'Potencial ilimitado nas épocas altas',
+    'Middle-term na época baixa = estabilidade',
+    'Short-term na época alta = maximização',
+    'Diversificação de hóspedes = menos risco',
+  ],
+  commissionTotal = '€15,750',
+  commissionTotalNote = '+97% vs. arrendamento tradicional',
+  strategyTitle = 'A Nossa Estratégia: O Melhor dos Dois Mundos',
+  lowSeasonTitle = 'Época Baixa',
+  lowSeasonPeriod = 'Nov - Mar',
+  lowSeasonDescription = 'Priorizamos <strong>estadias de média duração</strong> (1-3 meses) para garantir ocupação estável e rendimento consistente, mesmo quando a procura turística é menor.',
+  highSeasonTitle = 'Época Alta',
+  highSeasonPeriod = 'Abr - Out',
+  highSeasonDescription = 'Maximizamos o rendimento com <strong>alojamento local de curta duração</strong>, aproveitando a forte procura turística e eventos para praticar preços premium.',
+  resultTitle = 'Resultado: Ocupação otimizada durante todo o ano',
+  resultDescription = 'Ao combinar estratégias, eliminamos os "buracos" de ocupação típicos do alojamento local puro e superamos consistentemente o rendimento do arrendamento tradicional.',
+  ctaTitle = 'Descubra o Potencial Real do Seu Imóvel',
+  ctaDescription = 'Receba uma simulação personalizada que compara o seu rendimento atual com o potencial no modelo de comissão.',
+  ctaButtonLabel = 'Receber Simulação Gratuita',
+  ctaButtonUrl = 'https://hostwise.typeform.com/to/pWgP4EuZ',
+} = Astro.props;
 ---
 
 <section class="commission-vs-traditional">
   <div class="container">
     <div class="section-header">
-      <span class="section-badge">Modelo de Comissão</span>
-      <h2>Potencial de Rendimento Ilimitado vs. Arrendamento Tradicional</h2>
-      <p>
-        No arrendamento tradicional, o seu rendimento é fixo — ou pior, pode nem existir se não tiver inquilino.
-        Com o modelo de comissão da Host Wise, o seu imóvel adapta-se à procura do mercado, maximizando o retorno em cada época do ano.
-      </p>
+      <span class="section-badge">{badgeText}</span>
+      <h2>{title}</h2>
+      <p>{description}</p>
     </div>
 
     <div class="comparison-grid">
@@ -22,251 +146,113 @@
               <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/>
             </svg>
           </div>
-          <h3>Arrendamento Tradicional</h3>
-          <span class="card-tag">Rendimento Limitado</span>
+          <h3>{traditionalTitle}</h3>
+          <span class="card-tag">{traditionalTag}</span>
         </div>
 
         <div class="card-content">
           <div class="revenue-display fixed">
-            <span class="revenue-label">Rendimento Mensal</span>
-            <span class="revenue-amount">€800</span>
-            <span class="revenue-note">Fixo (quando há inquilino)</span>
+            <span class="revenue-label">{revenueLabel}</span>
+            <span class="revenue-amount">{traditionalAmount}</span>
+            <span class="revenue-note">{traditionalNote}</span>
           </div>
 
           <div class="monthly-chart traditional-chart">
             <div class="chart-bars">
-              <div class="bar-group" data-month="Jan">
-                <div class="bar" style="height: 60%;">
-                  <span class="bar-value">€800</span>
+              {traditionalBars.map((bar) => (
+                <div class="bar-group" data-month={bar.month}>
+                  <div class={`bar${bar.type === 'empty' ? ' empty' : ''}`} style={`height: ${bar.height};`}>
+                    <span class="bar-value">{bar.value}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="bar-group" data-month="Fev">
-                <div class="bar empty" style="height: 10%;">
-                  <span class="bar-value">€0</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Mar">
-                <div class="bar" style="height: 60%;">
-                  <span class="bar-value">€800</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Abr">
-                <div class="bar" style="height: 60%;">
-                  <span class="bar-value">€800</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Mai">
-                <div class="bar" style="height: 60%;">
-                  <span class="bar-value">€800</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Jun">
-                <div class="bar" style="height: 60%;">
-                  <span class="bar-value">€800</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Jul">
-                <div class="bar" style="height: 60%;">
-                  <span class="bar-value">€800</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Ago">
-                <div class="bar" style="height: 60%;">
-                  <span class="bar-value">€800</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Set">
-                <div class="bar" style="height: 60%;">
-                  <span class="bar-value">€800</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Out">
-                <div class="bar empty" style="height: 10%;">
-                  <span class="bar-value">€0</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Nov">
-                <div class="bar" style="height: 60%;">
-                  <span class="bar-value">€800</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Dez">
-                <div class="bar" style="height: 60%;">
-                  <span class="bar-value">€800</span>
-                </div>
-              </div>
+              ))}
             </div>
             <div class="chart-baseline"></div>
           </div>
 
           <ul class="card-features negative">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-              </svg>
-              Rendimento fixo, sem potencial de crescimento
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-              </svg>
-              Risco de meses sem inquilino = €0
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-              </svg>
-              Não aproveita épocas altas
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-              </svg>
-              Dependência total de um único inquilino
-            </li>
+            {traditionalFeatures.map((feature) => (
+              <li>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+                {feature}
+              </li>
+            ))}
           </ul>
 
           <div class="annual-total">
-            <span class="total-label">Total Anual Estimado</span>
-            <span class="total-value">€8,000</span>
-            <span class="total-note">Com 2 meses de vacância</span>
+            <span class="total-label">{totalLabel}</span>
+            <span class="total-value">{traditionalTotal}</span>
+            <span class="total-note">{traditionalTotalNote}</span>
           </div>
         </div>
       </div>
 
       <!-- Commission Model -->
       <div class="comparison-card commission">
-        <div class="card-badge-popular">Maior Potencial</div>
+        <div class="card-badge-popular">{commissionPopularBadge}</div>
         <div class="card-header">
           <div class="card-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
               <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z"/>
             </svg>
           </div>
-          <h3>Modelo de Comissão Host Wise</h3>
-          <span class="card-tag success">Potencial Ilimitado</span>
+          <h3>{commissionTitle}</h3>
+          <span class="card-tag success">{commissionTag}</span>
         </div>
 
         <div class="card-content">
           <div class="revenue-display variable">
-            <span class="revenue-label">Rendimento Mensal</span>
-            <span class="revenue-amount">€800 - €2,500+</span>
-            <span class="revenue-note">Variável conforme a procura</span>
+            <span class="revenue-label">{revenueLabel}</span>
+            <span class="revenue-amount">{commissionAmount}</span>
+            <span class="revenue-note">{commissionNote}</span>
           </div>
 
           <div class="monthly-chart commission-chart">
             <div class="chart-bars">
-              <div class="bar-group" data-month="Jan">
-                <div class="bar middle-term" style="height: 50%;">
-                  <span class="bar-value">€700</span>
+              {commissionBars.map((bar) => (
+                <div class="bar-group" data-month={bar.month}>
+                  <div class={`bar ${bar.type || ''}`} style={`height: ${bar.height};`}>
+                    <span class="bar-value">{bar.value}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="bar-group" data-month="Fev">
-                <div class="bar middle-term" style="height: 55%;">
-                  <span class="bar-value">€750</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Mar">
-                <div class="bar mixed" style="height: 65%;">
-                  <span class="bar-value">€900</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Abr">
-                <div class="bar short-term" style="height: 80%;">
-                  <span class="bar-value">€1,200</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Mai">
-                <div class="bar short-term" style="height: 90%;">
-                  <span class="bar-value">€1,400</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Jun">
-                <div class="bar short-term" style="height: 100%;">
-                  <span class="bar-value">€1,800</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Jul">
-                <div class="bar short-term" style="height: 115%;">
-                  <span class="bar-value">€2,200</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Ago">
-                <div class="bar short-term" style="height: 120%;">
-                  <span class="bar-value">€2,500</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Set">
-                <div class="bar short-term" style="height: 95%;">
-                  <span class="bar-value">€1,500</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Out">
-                <div class="bar mixed" style="height: 70%;">
-                  <span class="bar-value">€1,000</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Nov">
-                <div class="bar middle-term" style="height: 50%;">
-                  <span class="bar-value">€700</span>
-                </div>
-              </div>
-              <div class="bar-group" data-month="Dez">
-                <div class="bar mixed" style="height: 75%;">
-                  <span class="bar-value">€1,100</span>
-                </div>
-              </div>
+              ))}
             </div>
             <div class="chart-baseline"></div>
-            <div class="traditional-line" title="Nível do arrendamento tradicional"></div>
+            <div class="traditional-line" title={traditionalLineTip}></div>
           </div>
 
           <div class="strategy-legend">
             <div class="legend-item">
               <span class="legend-color middle-term"></span>
-              <span>Middle-term (época baixa)</span>
+              <span>{legendMiddleTerm}</span>
             </div>
             <div class="legend-item">
               <span class="legend-color short-term"></span>
-              <span>Short-term AL (época alta)</span>
+              <span>{legendShortTerm}</span>
             </div>
             <div class="legend-item">
               <span class="legend-color mixed"></span>
-              <span>Estratégia mista</span>
+              <span>{legendMixed}</span>
             </div>
           </div>
 
           <ul class="card-features positive">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-              </svg>
-              Potencial ilimitado nas épocas altas
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-              </svg>
-              Middle-term na época baixa = estabilidade
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-              </svg>
-              Short-term na época alta = maximização
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-              </svg>
-              Diversificação de hóspedes = menos risco
-            </li>
+            {commissionFeatures.map((feature) => (
+              <li>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                {feature}
+              </li>
+            ))}
           </ul>
 
           <div class="annual-total highlight">
-            <span class="total-label">Total Anual Estimado</span>
-            <span class="total-value">€15,750</span>
-            <span class="total-note">+97% vs. arrendamento tradicional</span>
+            <span class="total-label">{totalLabel}</span>
+            <span class="total-value">{commissionTotal}</span>
+            <span class="total-note">{commissionTotalNote}</span>
           </div>
         </div>
       </div>
@@ -274,7 +260,7 @@
 
     <!-- Strategy Explanation -->
     <div class="strategy-section">
-      <h3>A Nossa Estratégia: O Melhor dos Dois Mundos</h3>
+      <h3>{strategyTitle}</h3>
       <div class="strategy-cards">
         <div class="strategy-card">
           <div class="strategy-icon low-season">
@@ -282,9 +268,9 @@
               <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/>
             </svg>
           </div>
-          <h4>Época Baixa</h4>
-          <p class="strategy-period">Nov - Mar</p>
-          <p>Priorizamos <strong>estadias de média duração</strong> (1-3 meses) para garantir ocupação estável e rendimento consistente, mesmo quando a procura turística é menor.</p>
+          <h4>{lowSeasonTitle}</h4>
+          <p class="strategy-period">{lowSeasonPeriod}</p>
+          <p set:html={lowSeasonDescription} />
         </div>
 
         <div class="strategy-arrow">
@@ -299,9 +285,9 @@
               <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"/>
             </svg>
           </div>
-          <h4>Época Alta</h4>
-          <p class="strategy-period">Abr - Out</p>
-          <p>Maximizamos o rendimento com <strong>alojamento local de curta duração</strong>, aproveitando a forte procura turística e eventos para praticar preços premium.</p>
+          <h4>{highSeasonTitle}</h4>
+          <p class="strategy-period">{highSeasonPeriod}</p>
+          <p set:html={highSeasonDescription} />
         </div>
       </div>
 
@@ -312,18 +298,18 @@
           </svg>
         </div>
         <div class="result-content">
-          <h4>Resultado: Ocupação otimizada durante todo o ano</h4>
-          <p>Ao combinar estratégias, eliminamos os "buracos" de ocupação típicos do alojamento local puro e superamos consistentemente o rendimento do arrendamento tradicional.</p>
+          <h4>{resultTitle}</h4>
+          <p>{resultDescription}</p>
         </div>
       </div>
     </div>
 
     <!-- CTA Section -->
     <div class="section-cta">
-      <h3>Descubra o Potencial Real do Seu Imóvel</h3>
-      <p>Receba uma simulação personalizada que compara o seu rendimento atual com o potencial no modelo de comissão.</p>
-      <a href="https://hostwise.typeform.com/to/pWgP4EuZ?" class="cta-btn">
-        Receber Simulação Gratuita
+      <h3>{ctaTitle}</h3>
+      <p>{ctaDescription}</p>
+      <a href={ctaButtonUrl} class="cta-btn">
+        {ctaButtonLabel}
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
         </svg>

@@ -7,9 +7,101 @@ import PlatformsMarquee from '../../components/PlatformsMarquee.astro';
 import ModelsIntro from '../../components/ModelsIntro.astro';
 import OwnerTestimonials from '../../components/OwnerTestimonials.astro';
 import FAQSection from '../../components/FAQSection.astro';
+import { serviceSchema } from "../../lib/schema/service";
+import { faqPageSchemaFromCategories } from "../../lib/schema/faq-from-categories";
+import { breadcrumbSchema } from "../../lib/schema/breadcrumbs";
+
+const categories = [
+  {
+    id: 'essencial',
+    label: 'O Essencial',
+    questions: [
+      {
+        question: 'Porquê escolher a Host Wise?',
+        answer: 'A Host Wise é uma empresa de gestão de alojamento local com vasta experiência no mercado português, garantindo um serviço completo e sem complicações para os proprietários, enquanto asseguramos uma experiência de excelência para os hóspedes, com apoio permanente para garantir avaliações positivas e maior taxa de ocupação.',
+      },
+      {
+        question: 'Como é que a Host Wise vai aumentar a minha rentabilidade?',
+        answer: '<p>A nossa equipa de gestão de receitas implementa uma estratégia dinâmica baseada em dados, ajustando os preços do seu airbnb em tempo real de acordo com múltiplos fatores, como tendências de mercado, taxa de ocupação local, análise da concorrência e eventos na região.</p><br><p>Utilizamos ferramentas especializadas, como o PriceLabs, para maximizar o seu rendimento sem comprometer a taxa de ocupação. Além disso, em colaboração com a equipa de marketing, otimizamos os anúncios com descrições persuasivas, fotografias profissionais e técnicas de SEO para aumentar a visibilidade da sua propriedade e atrair mais hóspedes.</p>',
+      },
+      {
+        question: 'Porquê escolher a Host Wise e não gerir o meu imóvel por conta própria?',
+        answer: '<p>Gerir um alojamento local exige tempo, dedicação e experiência para garantir a máxima rentabilidade. Sem a estratégia certa, pode perder oportunidades de aumentar os seus lucros e otimizar a ocupação.</p><br><p>A Host Wise oferece uma gestão profissional de alojamento local e completa, libertando-o das tarefas operacionais e garantindo um serviço de excelência tanto para si como para os seus hóspedes.</p><br><p>Contamos com uma equipa de especialistas que conhece profundamente o mercado e implementamos estratégias inteligentes de pricing, marketing e operação para otimizar os seus rendimentos sem complicações.</p><br><p>Ao confiar na Host Wise, transforma o seu imóvel numa fonte de rendimento passivo, sem preocupações com reservas, check-ins, limpezas ou manutenção.</p>',
+      },
+    ],
+  },
+  {
+    id: 'pagamentos-precos',
+    label: 'Pagamentos e Preços',
+    questions: [
+      {
+        question: 'Quanto custa o serviço da Host Wise?',
+        answer: '<p>O custo do serviço da Host Wise varia dependendo do modelo de gestão escolhido (rentabilidade garantida ou comissão), da localização e das especificidades do imóvel.</p><br><p>Oferecemos um modelo transparente e sem custos escondidos, adaptando a nossa proposta às necessidades de cada proprietário.</p>',
+      },
+    ],
+  },
+  {
+    id: 'rentabilidade-garantida',
+    label: 'Rentabilidade Garantida',
+    questions: [
+      {
+        question: 'O que é o modelo de rentabilidade garantida?',
+        answer: '<p>No modelo de rentabilidade garantida, o proprietário recebe uma renda fixa mensal, independentemente da ocupação do imóvel durante um período que pode ir até 10 anos.</p><br><p>Este modelo garante-lhe estabilidade financeira durante um longo prazo e sem a preocupação de gestão de inquilinos ou pequenas manutenções.</p>',
+      },
+      {
+        question: 'Como determinam o valor da minha propriedade no modelo de rentabilidade garantida?',
+        answer: '<p>A avaliação é feita através da realização de um estudo de rentabilidade que tem por base a análise de vários fatores, incluindo a localização, o tamanho e condições da propriedade, e as tendências do mercado imobiliário atual e da localização do onde o alojamento está inserido.</p><br><p>Este estudo permite prever a receita líquida gerada para o prazo do contrato proposto.</p>',
+      },
+    ],
+  },
+  {
+    id: 'comissao',
+    label: 'Comissão',
+    questions: [
+      {
+        question: 'Posso usar a minha propriedade enquanto ela está a ser gerida pela Host Wise?',
+        answer: 'Sim, os proprietários podem reservar as suas propriedades para uso pessoal, desde que notifiquem a Host Wise com antecedência. Bloquearemos as datas no calendário de reservas para garantir que nenhuma reserva seja feita durante a sua estadia.',
+      },
+    ],
+  },
+];
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const canonicalUrl = new URL(Astro.url); canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", url: site.href },
+  { name: "Gestão de Alojamento Local", url: new URL("/gestao-alojamento-local", site).href },
+  { name: "Algarve", url: canonical },
+]);
+
+const schemas = [
+  breadcrumbs,
+  serviceSchema({
+    serviceName: "Gestão de Alojamento Local",
+    url: canonical,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Algarve", type: "Place" }],
+  }),
+  ...(categories.length ? [faqPageSchemaFromCategories(categories)] : []),
+];
+
+// Como os slugs EN serão diferentes, define alternates manualmente.
+// Ajusta o slug EN conforme a tua estrutura final.
+const alternates = [
+  { hreflang: "pt-PT", href: "https://www.hostwise.pt/gestao-alojamento-local/algarve" },
+  { hreflang: "en", href: "https://www.hostwise.pt/en/vacation-rental-management/algarve" },
+  { hreflang: "x-default", href: "https://www.hostwise.pt/gestao-alojamento-local/algarve" },
+];
+
 ---
 
-<Layout title="Gestão de Alojamento Local no Porto - Host Wise">
+<Layout title="Gestão de Alojamento Local no Algarve"
+description='Gestão de alojamento local no Algarve orientada a performance, sazonalidade e retorno do investimento, com operação profissional e pricing dinâmico.'
+schemas={schemas}
+alternates={alternates}
+canonical={canonical}>
   <!-- Hero Section -->
   <HeroSectionV3
     badge_text="Gestão de Alojamento Local Algarve"
@@ -17,7 +109,7 @@ import FAQSection from '../../components/FAQSection.astro';
     heading="O Algarve é Mais do que Sol. É Performance."
     description="Gerimos alojamento local com foco em ocupação inteligente, pricing sazonal e operação eficiente, adaptada às dinâmicas únicas do mercado algarvio."
     primary_cta_label="Receber Proposta"
-    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+    primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
     secondary_cta_label="Saber Mais"
     secondary_cta_url="#intro-section"
     image="/images/alojamento-local-algarve-header.webp"
@@ -41,7 +133,7 @@ import FAQSection from '../../components/FAQSection.astro';
       </p>
     `}
     intro_cta_label="Quero Receber uma Proposta"
-    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ?"
+    intro_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
   />
 
   <!-- Services Accordion Text -->
@@ -97,7 +189,7 @@ import FAQSection from '../../components/FAQSection.astro';
       },
     ]}
     ctaLabel="Receber Proposta Gratuita"
-    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ?"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
   />
 
   <!-- Platforms Marquee -->
@@ -155,67 +247,14 @@ import FAQSection from '../../components/FAQSection.astro';
     ctaTitle="Pronto para Maximizar os Seus Rendimentos no Algarve?"
     ctaSubtitle="Receba uma proposta personalizada para o seu imóvel em 24 horas."
     ctaLabel="Receber Proposta Gratuita"
-    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ?"
+    ctaUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
   />
 
   <!-- FAQ Section -->
   <FAQSection
     title="Respondemos às suas Perguntas"
     subtitle="Tudo o que precisa de saber sobre a gestão do seu imóvel com a Host Wise."
-    categories={[
-      {
-        id: 'essencial',
-        label: 'O Essencial',
-        questions: [
-          {
-            question: 'Porquê escolher a Host Wise?',
-            answer: 'A Host Wise é uma empresa de gestão de alojamento local com vasta experiência no mercado português, garantindo um serviço completo e sem complicações para os proprietários, enquanto asseguramos uma experiência de excelência para os hóspedes, com apoio permanente para garantir avaliações positivas e maior taxa de ocupação.',
-          },
-          {
-            question: 'Como é que a Host Wise vai aumentar a minha rentabilidade?',
-            answer: '<p>A nossa equipa de gestão de receitas implementa uma estratégia dinâmica baseada em dados, ajustando os preços do seu airbnb em tempo real de acordo com múltiplos fatores, como tendências de mercado, taxa de ocupação local, análise da concorrência e eventos na região.</p><br><p>Utilizamos ferramentas especializadas, como o PriceLabs, para maximizar o seu rendimento sem comprometer a taxa de ocupação. Além disso, em colaboração com a equipa de marketing, otimizamos os anúncios com descrições persuasivas, fotografias profissionais e técnicas de SEO para aumentar a visibilidade da sua propriedade e atrair mais hóspedes.</p>',
-          },
-          {
-            question: 'Porquê escolher a Host Wise e não gerir o meu imóvel por conta própria?',
-            answer: '<p>Gerir um alojamento local exige tempo, dedicação e experiência para garantir a máxima rentabilidade. Sem a estratégia certa, pode perder oportunidades de aumentar os seus lucros e otimizar a ocupação.</p><br><p>A Host Wise oferece uma gestão profissional de alojamento local e completa, libertando-o das tarefas operacionais e garantindo um serviço de excelência tanto para si como para os seus hóspedes.</p><br><p>Contamos com uma equipa de especialistas que conhece profundamente o mercado e implementamos estratégias inteligentes de pricing, marketing e operação para otimizar os seus rendimentos sem complicações.</p><br><p>Ao confiar na Host Wise, transforma o seu imóvel numa fonte de rendimento passivo, sem preocupações com reservas, check-ins, limpezas ou manutenção.</p>',
-          },
-        ],
-      },
-      {
-        id: 'pagamentos-precos',
-        label: 'Pagamentos e Preços',
-        questions: [
-          {
-            question: 'Quanto custa o serviço da Host Wise?',
-            answer: '<p>O custo do serviço da Host Wise varia dependendo do modelo de gestão escolhido (rentabilidade garantida ou comissão), da localização e das especificidades do imóvel.</p><br><p>Oferecemos um modelo transparente e sem custos escondidos, adaptando a nossa proposta às necessidades de cada proprietário.</p>',
-          },
-        ],
-      },
-      {
-        id: 'rentabilidade-garantida',
-        label: 'Rentabilidade Garantida',
-        questions: [
-          {
-            question: 'O que é o modelo de rentabilidade garantida?',
-            answer: '<p>No modelo de rentabilidade garantida, o proprietário recebe uma renda fixa mensal, independentemente da ocupação do imóvel durante um período que pode ir até 10 anos.</p><br><p>Este modelo garante-lhe estabilidade financeira durante um longo prazo e sem a preocupação de gestão de inquilinos ou pequenas manutenções.</p>',
-          },
-          {
-            question: 'Como determinam o valor da minha propriedade no modelo de rentabilidade garantida?',
-            answer: '<p>A avaliação é feita através da realização de um estudo de rentabilidade que tem por base a análise de vários fatores, incluindo a localização, o tamanho e condições da propriedade, e as tendências do mercado imobiliário atual e da localização do onde o alojamento está inserido.</p><br><p>Este estudo permite prever a receita líquida gerada para o prazo do contrato proposto.</p>',
-          },
-        ],
-      },
-      {
-        id: 'comissao',
-        label: 'Comissão',
-        questions: [
-          {
-            question: 'Posso usar a minha propriedade enquanto ela está a ser gerida pela Host Wise?',
-            answer: 'Sim, os proprietários podem reservar as suas propriedades para uso pessoal, desde que notifiquem a Host Wise com antecedência. Bloquearemos as datas no calendário de reservas para garantir que nenhuma reserva seja feita durante a sua estadia.',
-          },
-        ],
-      },
-    ]}
+    categories={categories}
   />
 
 </Layout>
