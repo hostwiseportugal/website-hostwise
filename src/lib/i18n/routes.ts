@@ -19,6 +19,15 @@ const prefixRules = [
     from: "/en/vacation-rental-management/",
     to: "/gestao-alojamento-local/",
   },
+  // Vagas de emprego
+  {
+    from: "/carreiras/vagas-emprego/",
+    to: "/en/careers/job-openings/",
+  },
+  {
+    from: "/en/careers/job-openings/",
+    to: "/carreiras/vagas-emprego/",
+  },
 ] as const;
 
 /**
@@ -29,7 +38,7 @@ const exactMap: Record<string, string> = {
   "/gestao-alojamento-local": "/en/vacation-rental-management",
   "/gestao-empreendimentos-turisticos": "/en/serviced-accommodation",
   "/gestao-ativos-hoteleiros": "/en/hotel-asset-management",
-  "/rentabilidade-garantida": "/en/guaranteed-profitability",
+  "/rentabilidade-garantida": "/en/rent-to-rent",
   "/comissao": "/en/commission",
   "/referrals": "/en/referrals",
 };

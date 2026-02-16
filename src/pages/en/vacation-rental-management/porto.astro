@@ -219,7 +219,49 @@ const alternates = [
   />
 
   <!-- Models Intro -->
-  <ModelsIntro />
+  <ModelsIntro
+    title="Two Profitability Models. The Choice Is Yours."
+    paragraphs={[
+      { paragraph: 'At Host Wise, we offer <strong>two distinct models</strong> to maximise your property\'s income. Each is designed for different owner profiles and investment goals.' },
+      { paragraph: 'Do you prefer <strong>full flexibility</strong> with commissions only on what you generate? Or do you prefer the <strong>security of a guaranteed fixed income</strong> every month, regardless of occupancy?' },
+      { paragraph: 'There is no wrong choice – only the right choice <strong>for you</strong>. Compare the models below and discover which one best suits your profile.' },
+    ]}
+    models={[
+      {
+        key: 'guaranteed',
+        badge_label: 'Most Popular',
+        title: 'Guaranteed Income',
+        subtitle: 'Occupancy Risk Assumed',
+        description: 'Receive a <strong>guaranteed fixed amount every month</strong>, regardless of occupancy. Total predictability and zero worries.',
+        benefits: [
+          { text: 'Zero occupancy risk' },
+          { text: 'Maintenance at our expense' },
+          { text: 'Full operational expense management' },
+          { text: 'Long-term contracts' },
+        ],
+        cta_label: 'View Model Details',
+        cta_url: '/en/rent-to-rent',
+      },
+      {
+        key: 'commission',
+        title: 'Commission Model',
+        subtitle: 'Performance-Based',
+        description: 'Pay only a <strong>percentage of the revenue generated</strong>. The more your property earns, the more you earn – and we earn alongside you.',
+        benefits: [
+          { text: 'No fixed monthly costs' },
+          { text: 'Commission only on revenue' },
+          { text: 'Full transparency on earnings' },
+          { text: 'Unlimited revenue potential' },
+        ],
+        cta_label: 'View Model Details',
+        cta_url: '/en/commission',
+      },
+    ]}
+    ctaTitle="Still not sure which model is right for you?"
+    ctaText="Talk to us and receive a personalised analysis for your property."
+    ctaButtonLabel="Get a Free Proposal"
+    ctaButtonUrl="https://hostwise.typeform.com/to/pWgP4EuZ"
+  />
 
   <!-- Owner Testimonials -->
   <OwnerTestimonials

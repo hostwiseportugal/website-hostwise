@@ -1,0 +1,641 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import { iconMap } from '../../../../icons/iconMap';
+import { breadcrumbSchema } from "../../../../lib/schema/breadcrumbs";
+import { itemListSchema } from "../../../../lib/schema/item-list";
+import { collectionPageSchema } from "../../../../lib/schema/collection-page";
+
+
+const apiBase = import.meta.env.WORDPRESS_API_URL;
+
+// Fetch job openings from WordPress
+let jobs: any[] = [];
+try {
+  const res = await fetch(`${apiBase}/job_openings?lang=en&_embed&per_page=100`);
+  if (res.ok) {
+    jobs = await res.json();
+  }
+} catch (error) {
+  console.error('Error fetching jobs:', error);
+}
+
+function decodeHtml(str: string) {
+  if (!str) return '';
+  return str
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(code))
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+// Transform jobs data
+const jobsData = jobs.map((job: any) => {
+  const workModelRaw = job.acf?.job_work_model || 'On-site';
+  return {
+    slug: job.slug,
+    title: decodeHtml(job.title.rendered),
+    department: job.acf?.job_department || 'General',
+    workModels: Array.isArray(workModelRaw) ? workModelRaw : [workModelRaw],
+    location: job.acf?.job_location || 'Portugal',
+  };
+});
+
+// Group jobs by department
+const jobsByDepartment = jobsData.reduce((acc: Record<string, typeof jobsData>, job) => {
+  const dept = job.department;
+  if (!acc[dept]) {
+    acc[dept] = [];
+  }
+  acc[dept].push(job);
+  return acc;
+}, {});
+
+// Sort departments alphabetically
+const sortedDepartments = Object.keys(jobsByDepartment).sort();
+
+// Work model badge classes (support both PT and EN values)
+const workModelClasses: Record<string, string> = {
+  'Remote': 'badge-remoto',
+  'Remoto': 'badge-remoto',
+  'Hybrid': 'badge-hibrido',
+  'Híbrido': 'badge-hibrido',
+  'On-site': 'badge-presencial',
+  'Presencial': 'badge-presencial',
+};
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+
+// Clean canonical
+const canonicalUrl = new URL(Astro.url);
+canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const metaDescription =
+  "Browse open job positions at Host Wise and find opportunities to grow in a vacation rental management company.";
+
+// Absolute job URLs (for schema)
+const jobItems = jobsData.map((j, idx) => ({
+  name: j.title,
+  url: new URL(`/en/careers/job-openings/${j.slug}`, site).href,
+  position: idx + 1,
+}));
+
+const schemas = [
+  breadcrumbSchema([
+    { name: "Home", url: site.href },
+    { name: "Careers", url: new URL("/en/careers", site).href },
+    { name: "Job Openings", url: canonical },
+  ]),
+
+  collectionPageSchema({
+    url: canonical,
+    name: "Job Openings - Host Wise",
+    description: metaDescription,
+    inLanguage: "en",
+  }),
+
+  itemListSchema({
+    url: canonical,
+    name: "Job Openings List",
+    items: jobItems,
+  }),
+];
+
+// hreflang
+const alternates = [
+  { hreflang: "pt-PT", href: new URL("/carreiras/vagas-emprego", site).href },
+  { hreflang: "en", href: canonical },
+  { hreflang: "x-default", href: new URL("/carreiras/vagas-emprego", site).href },
+];
+
+---
+
+<Layout title="Job Openings"
+description={metaDescription}
+  schemas={schemas}
+  alternates={alternates}
+  canonical={canonical}>
+  <!-- Hero Section -->
+  <section class="jobs-hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span>Job Openings</span>
+        </div>
+        <h1 class="hero-title">Explore Our Opportunities</h1>
+        <p class="hero-description">
+          Discover available positions and join a team where your talent makes a difference.
+          All positions are open for applications.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Jobs Listing Section -->
+  <section class="jobs-section">
+    <div class="container">
+      {jobsData.length > 0 ? (
+        <div class="jobs-listing">
+          {sortedDepartments.map((department) => (
+            <div class="department-group">
+              <div class="department-header">
+                <div class="department-icon" set:html={iconMap.briefcase} />
+                <h2 class="department-title">{department}</h2>
+                <span class="department-count">{jobsByDepartment[department].length} {jobsByDepartment[department].length === 1 ? 'position' : 'positions'}</span>
+              </div>
+
+              <div class="jobs-grid">
+                {jobsByDepartment[department].map((job) => (
+                  <a href={`/en/careers/job-openings/${job.slug}`} class="job-card">
+                    <div class="job-card-content">
+                      <h3 class="job-title">{job.title}</h3>
+                      <div class="job-meta">
+                        <div class="work-model-badges">
+                          {job.workModels.map((model: string) => (
+                            <span class={`work-model-badge ${workModelClasses[model] || 'badge-presencial'}`}>
+                              {model}
+                            </span>
+                          ))}
+                        </div>
+                        <span class="job-location">
+                          <span class="location-icon" set:html={iconMap.location} />
+                          {job.location}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="job-card-arrow" set:html={iconMap.chevronRight} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state">
+          <div class="empty-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="64" height="64">
+              <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+            </svg>
+          </div>
+          <h2 class="empty-title">We currently have no open positions</h2>
+          <p class="empty-description">
+            We're always looking for exceptional talent. Send us your CV
+            and we'll get in touch when new opportunities arise.
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bottom-cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Didn't Find the Right Position?</h2>
+        <p>
+          Send us your CV. We're always looking for exceptional talent to join our team.
+        </p>
+        <a href="mailto:recrutamento@hostwise.pt" class="btn-cta-email">
+          Send Your CV
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .jobs-hero {
+    padding: 180px 20px 80px;
+    background: linear-gradient(135deg, #F8FCFF 0%, #E5F4FE 100%);
+    text-align: center;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+    animation: fadeInDown 0.6s ease-out;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-description {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+    animation: fadeInUp 0.8s ease-out 0.4s backwards;
+  }
+
+  /* Jobs Section */
+  .jobs-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .jobs-listing {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  /* Department Group */
+  .department-group {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .department-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--blue-light);
+  }
+
+  .department-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--secondary);
+  }
+
+  .department-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .department-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+  }
+
+  .department-count {
+    margin-left: auto;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    opacity: 0.6;
+    background: var(--blue-light);
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  /* Jobs Grid */
+  .jobs-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Job Card */
+  .job-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .job-card:hover {
+    border-color: var(--secondary);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(12, 68, 99, 0.12);
+  }
+
+  .job-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .job-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+    transition: color 0.3s;
+  }
+
+  .job-card:hover .job-title {
+    color: var(--secondary);
+  }
+
+  .job-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* Work Model Badges */
+  .work-model-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .work-model-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .badge-remoto {
+    background: #E8F5E9;
+    color: #2E7D32;
+  }
+
+  .badge-hibrido {
+    background: #FFF3E0;
+    color: #E65100;
+  }
+
+  .badge-presencial {
+    background: #E3F2FD;
+    color: #1565C0;
+  }
+
+  /* Location */
+  .job-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+    color: var(--text);
+    opacity: 0.7;
+  }
+
+  .location-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--secondary);
+  }
+
+  .location-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Card Arrow */
+  .job-card-arrow {
+    width: 24px;
+    height: 24px;
+    color: var(--secondary);
+    opacity: 0.5;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+
+  .job-card-arrow :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .job-card:hover .job-card-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .empty-icon {
+    color: var(--secondary);
+    opacity: 0.3;
+    margin-bottom: 24px;
+  }
+
+  .empty-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 16px;
+  }
+
+  .empty-description {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.7;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Bottom CTA Section */
+  .bottom-cta-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .cta-box {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    background: white;
+    border: 2px solid var(--gray-light);
+    border-radius: 24px;
+    padding: 60px 40px;
+    box-shadow: 0 8px 32px rgba(12, 68, 99, 0.1);
+  }
+
+  .cta-box h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .cta-box p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+    margin-bottom: 36px;
+  }
+
+  .btn-cta-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(12, 68, 99, 0.25);
+  }
+
+  .btn-cta-email:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(12, 68, 99, 0.35);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .jobs-hero {
+      padding: 160px 20px 60px;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .jobs-hero {
+      padding: 140px 20px 50px;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+    }
+
+    .jobs-section,
+    .bottom-cta-section {
+      padding: 80px 20px;
+    }
+
+    .jobs-listing {
+      gap: 48px;
+    }
+
+    .department-header {
+      flex-wrap: wrap;
+    }
+
+    .department-count {
+      margin-left: 0;
+      margin-top: 8px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .job-card {
+      padding: 20px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .job-card-arrow {
+      align-self: flex-end;
+    }
+
+    .cta-box {
+      padding: 50px 30px;
+    }
+
+    .cta-box h2 {
+      font-size: 2rem;
+    }
+
+    .btn-cta-email {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .department-title {
+      font-size: 1.25rem;
+    }
+
+    .job-title {
+      font-size: 1.1rem;
+    }
+
+    .job-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .empty-title {
+      font-size: 1.5rem;
+    }
+
+    .cta-box h2 {
+      font-size: 1.75rem;
+    }
+
+    .cta-box p {
+      font-size: 1.05rem;
+    }
+  }
+</style>

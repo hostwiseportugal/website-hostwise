@@ -41,7 +41,7 @@ export const SERVICES = {
     },
     en: {
       name: "Guaranteed Profitability",
-      slug: "guaranteed-profitability",
+      slug: "rent-to-rent",
     },
   },
 

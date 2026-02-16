@@ -1,37 +1,64 @@
 ---
-const regions = [
-  {
-    name: 'Porto',
-    tag: 'Cidade Invicta',
-    title: 'História, cultura e alta procura turística',
-    description: 'A segunda maior cidade de Portugal atrai milhões de visitantes todos os anos. Com a nossa gestão especializada, garanta ocupação máxima no seu alojamento.',
-    image: '/images/regions/porto.webp',
-    url: '/gestao-alojamento-local/porto'
-  },
-  {
-    name: 'Algarve',
-    tag: 'Sol & Praia',
-    title: 'O destino de férias mais procurado de Portugal',
-    description: 'Praias paradisíacas, clima excecional e golfe de classe mundial. O Algarve oferece retorno sobre investimento incomparável durante todo o ano.',
-    image: '/images/regions/algarve.webp',
-    url: '/gestao-alojamento-local/algarve'
-  },
-  {
-    name: 'Douro',
-    tag: 'Património Mundial',
-    title: 'Turismo premium em paisagens únicas',
-    description: 'Vinhedos em socalcos, quintas históricas e experiências enogastronómicas. O Douro atrai turistas de luxo dispostos a pagar preços premium.',
-    image: '/images/regions/douro.webp',
-    url: '/gestao-alojamento-local/douro'
-  }
-];
+interface Region {
+  name: string;
+  tag: string;
+  title: string;
+  description: string;
+  image: string;
+  url: string;
+}
+
+interface Props {
+  sectionTitle?: string;
+  sectionSubtitle?: string;
+  regions?: Region[];
+  prevAriaLabel?: string;
+  nextAriaLabel?: string;
+  dotAriaLabel?: string;
+  imageAltPrefix?: string;
+}
+
+const {
+  sectionTitle = 'Onde Operamos',
+  sectionSubtitle = 'Presença consolidada nas regiões mais procuradas de Portugal',
+  regions = [
+    {
+      name: 'Porto',
+      tag: 'Cidade Invicta',
+      title: 'História, cultura e alta procura turística',
+      description: 'A segunda maior cidade de Portugal atrai milhões de visitantes todos os anos. Com a nossa gestão especializada, garanta ocupação máxima no seu alojamento.',
+      image: '/images/regions/porto.webp',
+      url: '/gestao-alojamento-local/porto'
+    },
+    {
+      name: 'Algarve',
+      tag: 'Sol & Praia',
+      title: 'O destino de férias mais procurado de Portugal',
+      description: 'Praias paradisíacas, clima excecional e golfe de classe mundial. O Algarve oferece retorno sobre investimento incomparável durante todo o ano.',
+      image: '/images/regions/algarve.webp',
+      url: '/gestao-alojamento-local/algarve'
+    },
+    {
+      name: 'Douro',
+      tag: 'Património Mundial',
+      title: 'Turismo premium em paisagens únicas',
+      description: 'Vinhedos em socalcos, quintas históricas e experiências enogastronómicas. O Douro atrai turistas de luxo dispostos a pagar preços premium.',
+      image: '/images/regions/douro.webp',
+      url: '/gestao-alojamento-local/douro'
+    }
+  ],
+  prevAriaLabel = 'Região anterior',
+  nextAriaLabel = 'Próxima região',
+  dotAriaLabel = 'Ir para slide',
+  imageAltPrefix = 'Gestão de alojamento local no',
+} = Astro.props as Props;
 ---
 
 <section class="regions-carousel-section">
   <div class="carousel-container">
     <div class="carousel-header">
-      <h2>Onde Operamos</h2>
-      <p>Presença consolidada nas regiões mais procuradas de Portugal</p>
+      <h2>{sectionTitle}</h2>
+      <p>{sectionSubtitle}</p>
     </div>
 
     <div class="carousel-wrapper">
@@ -39,7 +66,7 @@ const regions = [
         {regions.map((region, index) => (
           <a href={region.url} class="carousel-slide" data-index={index}>
             <div class="slide-image">
-              <img src={region.image} alt={`Gestão de alojamento local no ${region.name}`} />
+              <img src={region.image} alt={`${imageAltPrefix} ${region.name}`} />
               <div class="slide-overlay"></div>
             </div>
             <div class="slide-content">
@@ -54,7 +81,7 @@ const regions = [
     </div>
 
     <div class="carousel-controls">
-      <button class="carousel-btn carousel-prev" id="prevBtn" aria-label="Região anterior">
+      <button class="carousel-btn carousel-prev" id="prevBtn" aria-label={prevAriaLabel}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
         </svg>
@@ -65,12 +92,12 @@ const regions = [
           <button 
             class={`carousel-dot ${index === 0 ? 'active' : ''}`}
             data-index={index}
-            aria-label={`Ir para slide ${index + 1}`}
+            aria-label={`${dotAriaLabel} ${index + 1}`}
           ></button>
         ))}
       </div>
 
-      <button class="carousel-btn carousel-next" id="nextBtn" aria-label="Próxima região">
+      <button class="carousel-btn carousel-next" id="nextBtn" aria-label={nextAriaLabel}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
         </svg>
