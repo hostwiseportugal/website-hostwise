@@ -2,6 +2,17 @@
 import Layout from '../../layouts/Layout.astro';
 import { breadcrumbSchema } from "../../lib/schema/breadcrumbs";
 import { aboutPageSchema } from "../../lib/schema/about-page";
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import tbPorto2 from '../../assets/images/values-culture/team-building-host-wise-porto-2.webp';
+import tbPorto from '../../assets/images/values-culture/team-building-host-wise-porto.webp';
+import tbBurroVille from '../../assets/images/values-culture/team-building-host-wise-burro-ville.webp';
+import tbArouca6 from '../../assets/images/carreiras/team-building-arouca-6.webp';
+import jantarNatal5 from '../../assets/images/values-culture/jantar-natal-2025-5.webp';
+import festa500_4 from '../../assets/images/values-culture/festa-500-propriedades-4.webp';
+import jantarAniv from '../../assets/images/values-culture/jantar-aniversario-2024-1.webp';
+import tbArouca5 from '../../assets/images/values-culture/team-building-arouca-5.webp';
+import tbPaintball from '../../assets/images/values-culture/team-building-paintball-1.webp';
 
 
 const culturePillars = [
@@ -13,7 +24,7 @@ const culturePillars = [
       "Liberdade, para nós, não é ausência de regras. É confiança com accountability."
     ],
     icon: "/images/values-culture/liberdade-responsavel.svg",
-    image: "/images/values-culture/team-building-host-wise-porto-2.webp",
+    image: tbPorto2,
     imageAlt: "Team Building da Host Wise no Porto"
   }, 
   {
@@ -24,7 +35,7 @@ const culturePillars = [
       "Valorizamos quem assume responsabilidade, aprende com os erros e contribui ativamente para a melhoria contínua da empresa."
     ],
     icon: "/images/values-culture/ownership.svg",
-    image: "/images/values-culture/team-building-host-wise-porto.webp",
+    image: tbPorto,
     imageAlt: "Team Building da Host Wise no Porto"
   },  
 {
@@ -34,7 +45,7 @@ const culturePillars = [
       "Valorizamos a iniciativa e encorajamos ideias que desafiam o convencional. Se procuras um ambiente onde as tuas sugestões são ouvidas e onde tens liberdade para executar, este é o lugar certo para ti."
     ],
     icon: "/images/values-culture/empowerment.svg",
-    image: "/images/values-culture/team-building-host-wise-burro-ville.webp",
+    image: tbBurroVille,
     imageAlt: "Team Building da Host Wise no Burro Ville"
   },
    {
@@ -45,7 +56,7 @@ const culturePillars = [
       "A agilidade não é pressa desorganizada. É foco, clareza de prioridades e capacidade de responder a desafios reais com eficácia."
     ],
     icon: "/images/values-culture/velocity.svg",
-    image: "/images/carreiras/team-building-arouca-6.webp",
+    image: tbArouca6,
     imageAlt: "Team Building da Host Wise em Arouca"
   }, 
    {
@@ -56,7 +67,7 @@ const culturePillars = [
       "Questionar o status quo faz parte do nosso ADN. Se algo pode ser feito de forma mais simples, mais rápida ou mais inteligente, queremos ser os primeiros a tentar."
     ],
     icon: "/images/values-culture/innovation.svg",
-    image: "/images/values-culture/jantar-natal-2025-5.webp",
+    image: jantarNatal5,
     imageAlt: "Jantar de Natal da Host Wise 2025"
   },
 ];
@@ -105,10 +116,10 @@ const benefits = [
 ];
 
 const teamPhotos = [
-  { src: "/images/values-culture/festa-500-propriedades-4.webp", alt: "Celebração das 500 Propriedades" },
-  { src: "/images/values-culture/jantar-aniversario-2024-1.webp", alt: "Jantar do 8º Aniversário" },
-  { src: "/images/values-culture/team-building-arouca-5.webp", alt: "Team Building no Rio Paiva" },
-  { src: "/images/values-culture/team-building-paintball-1.webp", alt: "Team Building Paintball" }
+  { src: festa500_4, alt: "Celebração das 500 Propriedades" },
+  { src: jantarAniv, alt: "Jantar do 8º Aniversário" },
+  { src: tbArouca5, alt: "Team Building no Rio Paiva" },
+  { src: tbPaintball, alt: "Team Building Paintball" },
 ];
 
 const site = Astro.site ?? new URL("https://www.hostwise.pt");
@@ -188,7 +199,7 @@ description={metaDescription}
               </div>
             </div>
             <div class="culture-image-wrapper">
-              <img src={pillar.image} alt={pillar.imageAlt} class="culture-image" />
+              <Image src={pillar.image} alt={pillar.imageAlt} class="culture-image" />
             </div>
           </div>
         </div>
@@ -239,7 +250,7 @@ description={metaDescription}
         {teamPhotos.map((photo, index) => (
           <div class="photo-card" data-index={index}>
             <div class="photo-wrapper">
-              <img src={photo.src} alt={photo.alt} />
+              <Image src={photo.src} alt={photo.alt} />
               <div class="photo-overlay">
                 <p>{photo.alt}</p>
               </div>

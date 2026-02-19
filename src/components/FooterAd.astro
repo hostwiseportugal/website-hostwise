@@ -1,0 +1,88 @@
+---
+// Minimal footer for Meta ad landing pages — no escape points
+import { Image } from 'astro:assets';
+import prrImage from '../assets/images/PRR-financiamento.webp';
+
+const pathname = Astro.url.pathname;
+const isEn = pathname === "/en" || pathname.startsWith("/en/");
+
+const currentYear = new Date().getFullYear();
+
+const links = isEn
+  ? { privacy: "/en/privacy-policy", cookies: "/en/cookie-policy" }
+  : { privacy: "/politica-de-privacidade", cookies: "/politica-de-cookies" };
+
+const t = isEn
+  ? { copyright: "All rights reserved.", privacy: "Privacy Policy", terms: "Cookie Policy" }
+  : { copyright: "Todos os direitos reservados.", privacy: "Política de Privacidade", terms: "Política de Cookies" };
+---
+
+<footer class="footer-ad">
+  <div class="footer-ad-container">
+    <img src="/images/logo-white.svg" alt="Host Wise" class="footer-ad-logo" />
+
+    <p class="footer-ad-copyright">&copy; {currentYear} Host Wise. {t.copyright}</p>
+
+    <div class="footer-ad-prr">
+      <Image src={prrImage} alt="Financiado pelo PRR - Plano de Recuperação e Resiliência" class="prr-logo" />
+    </div>
+
+    <div class="footer-ad-links">
+      <a href={links.privacy}>{t.privacy}</a>
+      <a href={links.cookies}>{t.terms}</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-ad {
+    background: var(--primary);
+    color: white;
+    padding: 40px 20px;
+  }
+
+  .footer-ad-container {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .footer-ad-logo {
+    height: 36px;
+    width: auto;
+  }
+
+  .footer-ad-copyright {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  .footer-ad-prr {
+    display: flex;
+  }
+
+  .prr-logo {
+    height: 32px;
+    width: auto;
+    opacity: 0.95;
+  }
+
+  .footer-ad-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-ad-links a {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .footer-ad-links a:hover {
+    opacity: 1;
+  }
+</style>

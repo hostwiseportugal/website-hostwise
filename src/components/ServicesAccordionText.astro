@@ -1,4 +1,8 @@
 ---
+import OptimizedImage from './OptimizedImage.astro';
+import type { ImageMetadata } from 'astro';
+import { property1 } from '../lib/fallback-images';
+
 interface Service {
   title: string;
   content: string; // HTML text content instead of bullet points
@@ -8,7 +12,7 @@ interface Props {
   title?: string;
   description?: string;
   services?: Service[];
-  image?: string;
+  image?: ImageMetadata | string;
   ctaLabel?: string;
   ctaUrl?: string;
 }
@@ -16,7 +20,7 @@ interface Props {
 const {
   title = 'O que fazemos',
   description = 'Placeholder - Descrição da secção de serviços.',
-  image = '/images/property-1.webp',
+  image = property1,
   ctaLabel = 'Receber uma proposta',
   ctaUrl = '#contacto',
   services = [
@@ -40,7 +44,7 @@ const {
   <div class="container">
     {image && (
       <div class="section-image">
-        <img src={image} alt={title} loading="lazy" />
+        <OptimizedImage src={image} alt={title || ''} />
       </div>
     )}
 

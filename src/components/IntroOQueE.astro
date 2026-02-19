@@ -1,7 +1,15 @@
 ---
+import OptimizedImage from './OptimizedImage.astro';
+import type { ImageMetadata } from 'astro';
+import predioGuimaraes from '../assets/images/predio-largo-repubica-brasil-guimaraes-fachada-exterior-2.webp';
+import predioCasteloPaiva from '../assets/images/predio-castelo-paiva-exterior.webp';
+import salaSantaCatarina from '../assets/images/sala-cozinha-apartamento-predio-santa-catarina.webp';
+import casasPalacio from '../assets/images/casas-palacio-exterior.webp';
+import salaRuaFabrica2 from '../assets/images/sala-apartamento-predio-rua-fabrica-2.webp';
+
 interface ServiceType {
   title: string;
-  image: string;
+  image: ImageMetadata | string;
 }
 
 interface Props {
@@ -18,23 +26,23 @@ const {
   serviceTypes = [
     {
       title: 'Prédios inteiros para exploração turística',
-      image: '/images/predio-largo-repubica-brasil-guimaraes-fachada-exterior-2.webp',
+      image: predioGuimaraes,
     },
     {
       title: 'Edifícios turísticos',
-      image: '/images/predio-castelo-paiva-exterior.webp',
+      image: predioCasteloPaiva,
     },
     {
       title: 'Serviced apartments',
-      image: '/images/sala-cozinha-apartamento-predio-santa-catarina.webp',
+      image: salaSantaCatarina,
     },
     {
       title: 'Aparthotéis sem operação hoteleira clássica',
-      image: '/images/casas-palacio-exterior.webp',
+      image: casasPalacio,
     },
     {
       title: 'Projetos híbridos de curta e média duração',
-      image: '/images/sala-apartamento-predio-rua-fabrica-2.webp',
+      image: salaRuaFabrica2,
     },
   ],
 } = Astro.props;
@@ -52,7 +60,7 @@ const {
       {serviceTypes.map((service, index) => (
         <div class="service-type-card" style={`--delay: ${index * 0.1}s`}>
           <div class="card-image">
-            <img src={service.image} alt={service.title} loading="lazy" />
+            <OptimizedImage src={service.image} alt={service.title} />
           </div>
           <div class="card-content">
             <h3>{service.title}</h3>

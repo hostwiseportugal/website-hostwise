@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import { property1, property2 } from '../../../lib/fallback-images';
 import { blogPostingSchema } from "../../../lib/schema/blog-posting";
 import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
 import { wpFetchJson } from "../../../lib/wpFetch";
@@ -94,9 +95,9 @@ const date = new Date(post.date).toLocaleDateString('en-US', {
 
 const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
 const fallbackImages = [
-  '/images/property-1.webp',
-  '/images/property-2.webp',
-  '/images/property-3.webp'
+  property1.src,
+  property2.src,
+  property1.src,
 ];
 const randomFallback = fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
 const imageUrl = featuredImage || randomFallback;

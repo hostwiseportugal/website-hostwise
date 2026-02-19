@@ -77,14 +77,14 @@ const finalAlternates = alternates?.length
   ? alternates
   : [
       { hreflang: "pt-PT", href: autoPtUrl },
-      { hreflang: "en_US", href: autoEnUrl },
+      { hreflang: "en", href: autoEnUrl },
       { hreflang: "x-default", href: autoPtUrl },
     ];
  
 ---
 
 <!DOCTYPE html>
-<html lang={isEn ? "en_US" : "pt-PT"}>
+<html lang={isEn ? "en" : "pt-PT"}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -112,7 +112,7 @@ const finalAlternates = alternates?.length
     <meta property="og:title" content={`${title} | ${siteName}`} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
-    <meta property="og:locale" content={isEn ? "en_US" : "pt_PT"} />
+    <meta property="og:locale" content={isEn ? "en" : "pt_PT"} />
     <meta property="og:url" content={canonical} />
     {resolvedOgImage && <meta property="og:image" content={resolvedOgImage} />}
 

@@ -1,0 +1,113 @@
+---
+import HeaderAd from "../components/HeaderAd.astro";
+import FooterAd from "../components/FooterAd.astro";
+import "../styles/global.css";
+import { organizationSchema } from "../lib/schema/organization";
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  canonical?: string;
+  ogImage?: string;
+  schemas?: any[];
+  ogType?: "website" | "article";
+  alternates?: { hreflang: string; href: string }[];
+}
+
+const siteName = "Host Wise";
+
+const {
+  title,
+  description = "A Host Wise é uma empresa de gestão de alojamento local especializada em maximizar a rentabilidade de imóveis turísticos, do apartamento ao hotel.",
+  noindex = false,
+  canonical: canonicalOverride,
+  ogImage,
+  schemas = [],
+  ogType = "website",
+  alternates,
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+const isEn = pathname === "/en" || pathname.startsWith("/en/");
+const ptPath = isEn ? pathname.replace(/^\/en/, "") : pathname;
+const safePtPath = ptPath === "" ? "/" : ptPath;
+const enPath = isEn ? pathname : `/en${pathname}`;
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const autoPtUrl = new URL(safePtPath, site).href;
+const autoEnUrl = new URL(enPath, site).href;
+
+const canonicalUrl = new URL(Astro.url.pathname, site);
+canonicalUrl.search = "";
+const canonical = canonicalOverride ?? canonicalUrl.href;
+
+const resolvedOgImage = ogImage
+  ? (ogImage.startsWith("http") ? ogImage : new URL(ogImage, site).href)
+  : new URL("/images/og/default.webp", site).href;
+
+const org = organizationSchema({
+  siteUrl: site.href,
+  logoUrl: new URL("/images/host-wise-logo-quadrado.svg", site).href,
+});
+
+const allSchemas = [org, ...schemas];
+
+const finalAlternates = alternates?.length
+  ? alternates
+  : [
+      { hreflang: "pt-PT", href: autoPtUrl },
+      { hreflang: "en", href: autoEnUrl },
+      { hreflang: "x-default", href: autoPtUrl },
+    ];
+---
+
+<!DOCTYPE html>
+<html lang={isEn ? "en" : "pt-PT"}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title} | {siteName}</title>
+    <meta name="description" content={description} />
+
+    <link rel="canonical" href={canonical} />
+    {finalAlternates.map((a) => (
+      <link rel="alternate" hreflang={a.hreflang} href={a.href} />
+    ))}
+
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <link rel="icon" type="image/png" href="/images/icon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={`${title} | ${siteName}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content={isEn ? "en" : "pt_PT"} />
+    <meta property="og:url" content={canonical} />
+    {resolvedOgImage && <meta property="og:image" content={resolvedOgImage} />}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | ${siteName}`} />
+    <meta name="twitter:description" content={description} />
+    {resolvedOgImage && <meta name="twitter:image" content={resolvedOgImage} />}
+    {allSchemas.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
+  </head>
+
+  <body>
+    <HeaderAd />
+    <main>
+      <slot />
+    </main>
+    <FooterAd />
+  </body>
+</html>

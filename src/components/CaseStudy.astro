@@ -1,4 +1,10 @@
 ---
+import OptimizedImage from './OptimizedImage.astro';
+import type { ImageMetadata } from 'astro';
+import fervencaExterior from '../assets/images/fervenca-palace-fachada-exterior.webp';
+import fervencaInterior from '../assets/images/fervenca-palace-fachada-interior.webp';
+import fervencaSala from '../assets/images/sala-apartamento-fervenca-boutique-palace.webp';
+
 interface Stat {
   label: string;
   value: string;
@@ -11,7 +17,7 @@ interface Props {
   propertyLocation?: string;
   badge?: string;
   stats?: Stat[];
-  images?: string[];
+  images?: (ImageMetadata | string)[];
 }
 
 const {
@@ -28,9 +34,9 @@ const {
     { label: 'Rentabilidade', value: '12.4%' },
   ],
   images = [
-    '/images/fervenca-palace-fachada-exterior.webp',
-    '/images/fervenca-palace-fachada-interior.webp',
-    '/images/sala-apartamento-fervenca-boutique-palace.webp',
+    fervencaExterior,
+    fervencaInterior,
+    fervencaSala,
   ],
 } = Astro.props;
 ---
@@ -58,7 +64,7 @@ const {
       <div class="images-grid">
         {images.map((image, index) => (
           <div class={`image-item ${index === 0 ? 'main' : ''}`}>
-            <img src={image} alt={`${propertyName} - Imagem ${index + 1}`} loading="lazy" />
+            <OptimizedImage src={image} alt={`${propertyName} - Imagem ${index + 1}`} />
           </div>
         ))}
       </div>

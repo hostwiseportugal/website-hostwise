@@ -3,6 +3,13 @@ import Layout from '../../layouts/Layout.astro';
 import { breadcrumbSchema } from "../../lib/schema/breadcrumbs";
 import { collectionPageSchema } from "../../lib/schema/collection-page";
 import { itemListSchema } from "../../lib/schema/item-list";
+import { Image } from 'astro:assets';
+import jantarNatal2025 from '../../assets/images/carreiras/jantar-natal-2025.webp';
+import festa500_1 from '../../assets/images/carreiras/festa-500-propriedades-1.webp';
+import festa500_2 from '../../assets/images/carreiras/festa-500-propriedades-2.webp';
+import jantarNatal2025_2 from '../../assets/images/carreiras/jantar-natal-2025-2.webp';
+import teamBuildingArouca4 from '../../assets/images/carreiras/team-building-arouca-4.webp';
+import festa500_3 from '../../assets/images/carreiras/festa-500-propriedades-3.webp';
 
 
 const benefits = [
@@ -166,7 +173,7 @@ description={metaDescription}
           </div>
         </div>
         <div class="hero-image">
-          <img src="/images/carreiras/jantar-natal-2025.webp" alt="Jantar de Natal da Equipa Host Wise" />
+          <Image src={jantarNatal2025} alt="Jantar de Natal da Equipa Host Wise" />
         </div>
       </div>
     </div>
@@ -176,19 +183,19 @@ description={metaDescription}
   <section class="philosophy-section">
     <div class="gallery-grid">
         <div class="gallery-item gallery-large">
-          <img src="/images/carreiras/festa-500-propriedades-1.webp" alt="Equipa Host Wise a celebrar as 500 propriedades" />
+          <Image src={festa500_1} alt="Equipa Host Wise a celebrar as 500 propriedades" />
         </div>
         <div class="gallery-item">
-          <img src="/images/carreiras/festa-500-propriedades-2.webp" alt="Equipa Host Wise a brindar às 500 propriedades" />
+          <Image src={festa500_2} alt="Equipa Host Wise a brindar às 500 propriedades" />
         </div>
         <div class="gallery-item">
-          <img src="/images/carreiras/jantar-natal-2025-2.webp" alt="Festa de Natal da Equipa Host Wise" />
+          <Image src={jantarNatal2025_2} alt="Festa de Natal da Equipa Host Wise" />
         </div>
         <div class="gallery-item">
-          <img src="/images/carreiras/team-building-arouca-4.webp" alt="Celebrações de equipa" />
+          <Image src={teamBuildingArouca4} alt="Celebrações de equipa" />
         </div>
         <div class="gallery-item">
-          <img src="/images/carreiras/festa-500-propriedades-3.webp" alt="Equipa Host Wise na celebração das 500 propriedades" />
+          <Image src={festa500_3} alt="Equipa Host Wise na celebração das 500 propriedades" />
         </div>
       </div>
     <!-- <div class="container">

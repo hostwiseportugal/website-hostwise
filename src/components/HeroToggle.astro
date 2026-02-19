@@ -1,5 +1,8 @@
 ---
 import GuestySearchWidget from '../components/GuestySearchWidget.astro';
+import OptimizedImage from './OptimizedImage.astro';
+import type { ImageMetadata } from 'astro';
+import { property1, property2, heroDefault } from '../lib/fallback-images';
 
 interface HeroImage {
   image?: { url?: string; alt?: string };
@@ -43,16 +46,16 @@ const {
 } = Astro.props as HeroToggleProps;
 
 // fallback de imagens se ainda não tiveres nada no ACF
-const heroImages: { url: string; alt: string }[] =
+const heroImages: { src: ImageMetadata | string; alt: string }[] =
   images.length > 0
     ? images.map((item, index) => ({
-        url: item.image?.url || '',
+        src: item.image?.url || '',
         alt: item.alt || item.image?.alt || `Hero image ${index + 1}`,
-      })).filter(img => img.url)
+      })).filter(img => img.src)
     : [
-        { url: '/images/property-1.webp', alt: 'Apartamento moderno' },
-        { url: '/images/hero.webp', alt: 'Sala ampla com vista' },
-        { url: '/images/property-2.webp', alt: 'Espaço de refeições' },
+        { src: property1, alt: 'Apartamento moderno' },
+        { src: heroDefault, alt: 'Sala ampla com vista' },
+        { src: property2, alt: 'Espaço de refeições' },
       ];
 ---
 
@@ -73,7 +76,7 @@ const heroImages: { url: string; alt: string }[] =
       <div class="hero-images">
         {heroImages.map((img, index) => (
           <div class="image-item">
-            <img src={img.url} alt={img.alt} loading={index === 0 ? 'eager' : 'lazy'} />
+            <OptimizedImage src={img.src} alt={img.alt} loading={index === 0 ? 'eager' : 'lazy'} />
           </div>
         ))}
       </div>
@@ -202,11 +205,38 @@ const heroImages: { url: string; alt: string }[] =
     transform: translateY(15px);
   }
 
-  .image-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  .image-item {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  height: 100%; /* garante que cada card ocupa a altura do grid */
+}
+
+/* quando OptimizedImage gera <picture> */
+.image-item :global(picture) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.image-item :global(img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  height: 500px;
+}
+
+.image-item {
+  height: 100%;
+}
+
 
   .hero-main {
     position: relative;

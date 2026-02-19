@@ -1,21 +1,17 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-// Check what team photos exist
-import { readdir } from 'fs/promises';
-import { join } from 'path';
+import { Image } from 'astro:assets';
 import { aboutPageSchema } from "../../lib/schema/about-page";
+import type { ImageMetadata } from 'astro';
+import salaGeneralSilveira from '../../assets/images/sala-apartamento-predio-general-silveira.webp';
+import salaMatosinhos from '../../assets/images/sala-alojamento-local-matosinhos-sousa-aroso.webp';
+import quartoRuaFabrica from '../../assets/images/quarto-alojamento-rua-fabrica-porto.webp';
+import quartoObidos from '../../assets/images/quarto-alojamento-local-obidos.webp';
+import ourVision from '../../assets/images/about-host-wise-our-vision.webp';
+import ourMission from '../../assets/images/about-host-wise-our-mission.webp';
 
-let teamPhotos: string[] = [];
-try {
-  const teamDir = join(process.cwd(), 'public', 'images', 'team');
-  const files = await readdir(teamDir);
-  teamPhotos = files
-    .filter(file => file.match(/\.(jpg|jpeg|png|webp)$/i))
-    .map(file => `/images/team/${file}`);
-} catch (error) {
-  console.log('Team photos directory not found');
-}
+const teamGlob = import.meta.glob<{ default: ImageMetadata }>('../../assets/images/team/*.webp', { eager: true });
+const teamPhotos: ImageMetadata[] = Object.values(teamGlob).map(m => m.default);
 
 const stats = [
   { value: "9", label: "Years of Excellence", suffix: "" },
@@ -83,22 +79,22 @@ alternates={alternates}>
       <div class="story-grid">
         <div class="story-images">
           <div class="image-box">
-            <img src="/images/sala-apartamento-predio-general-silveira.webp" alt="Apartment living room in Porto managed by Host Wise" />
+            <Image src={salaGeneralSilveira} alt="Apartment living room in Porto managed by Host Wise" />
           </div>
           <div class="image-box">
-            <img src="/images/sala-alojamento-local-matosinhos-sousa-aroso.webp" alt="Local accommodation living room in Matosinhos" />
+            <Image src={salaMatosinhos} alt="Local accommodation living room in Matosinhos" />
           </div>
           <div class="image-box">
-            <img src="/images/quarto-alojamento-rua-fabrica-porto.webp" alt="Local accommodation in Porto managed by Host Wise" />
+            <Image src={quartoRuaFabrica} alt="Local accommodation in Porto managed by Host Wise" />
           </div>
           <div class="image-box">
-            <img src="/images/quarto-alojamento-local-obidos.webp" alt="Local accommodation bedroom in Obidos" />
+            <Image src={quartoObidos} alt="Local accommodation bedroom in Obidos" />
           </div>
         </div>
 
         <div class="story-content">
           <p class="story-description">
-            The company has grown and evolved, but the goals have remained the same since the start: maximize your investment and provide financial stability through your property with excellent vacation rental management and medium- and long-term rental services.
+            The company has grown and evolved, but the goals have remained the same since the start: maximize your investment and provide financial stability through your property with excellent vacation rental and hotel asset management in Portugal.
           </p>
 
           <div class="stats-grid">
@@ -121,7 +117,7 @@ alternates={alternates}>
     <div class="container">
       <div class="vision-grid">
         <div class="vision-image">
-          <img src="/images/about-host-wise-our-vision.webp" alt="Host Wise vision" />
+          <Image src={ourVision} alt="Host Wise vision" />
         </div>
         <div class="vision-content">
           <h2>Our Vision</h2>
@@ -143,7 +139,7 @@ alternates={alternates}>
             <p>Host Wise's mission is built on three pillars:</p>
           </div>
           <div class="mission-image">
-            <img src="/images/about-host-wise-our-mission.webp" alt="Host Wise mission" />
+            <Image src={ourMission} alt="Host Wise mission" />
           </div>
         </div>
 
@@ -183,13 +179,13 @@ alternates={alternates}>
             <div class="team-marquee-track">
               {teamPhotos.map((photo) => (
                 <div class="team-photo-card">
-                  <img src={photo} alt="Host Wise team member" />
+                  <Image src={photo} alt="Host Wise team member" />
                 </div>
               ))}
               {/* Duplicate for seamless loop */}
               {teamPhotos.map((photo) => (
                 <div class="team-photo-card">
-                  <img src={photo} alt="Host Wise team member" />
+                  <Image src={photo} alt="Host Wise team member" />
                 </div>
               ))}
             </div>
@@ -200,13 +196,13 @@ alternates={alternates}>
             <div class="team-marquee-track team-marquee-reverse">
               {teamPhotos.map((photo) => (
                 <div class="team-photo-card">
-                  <img src={photo} alt="Host Wise team member" />
+                  <Image src={photo} alt="Host Wise team member" />
                 </div>
               ))}
               {/* Duplicate for seamless loop */}
               {teamPhotos.map((photo) => (
                 <div class="team-photo-card">
-                  <img src={photo} alt="Host Wise team member" />
+                  <Image src={photo} alt="Host Wise team member" />
                 </div>
               ))}
             </div>

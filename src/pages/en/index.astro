@@ -13,6 +13,7 @@ import PartnersMarquee from '../../components/PartnersMarquee.astro';
 import { faqPageSchemaFromCategories } from "../../lib/schema/faq-from-categories";
 import { websiteSchema } from "../../lib/schema/website";
 import { wpListAllPosts } from "../../lib/wpListAll";
+import { property1 } from '../../lib/fallback-images';
 
 const siteUrl = "https://www.hostwise.pt";
 const apiBase = import.meta.env.WORDPRESS_API_URL;
@@ -83,7 +84,7 @@ const blogPosts = posts.map((post) => {
     slug: post.slug,
     title: decodeHtml(post.title.rendered),
     excerpt: excerptText,
-    image: post.featured_image_url ?? "/images/property-1.webp",
+    image: post.featured_image_url ?? property1,
     categories: [] as string[],
   };
 });

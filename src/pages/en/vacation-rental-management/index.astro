@@ -1,5 +1,8 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import regionPorto from '../../../assets/images/regions/porto.webp';
+import regionAlgarve from '../../../assets/images/regions/algarve.webp';
+import regionDouro from '../../../assets/images/regions/douro.webp';
 import HeroSectionV2 from '../../../components/HeroSectionV2.astro';
 import IntroSectionWStats from '../../../components/IntroSectionWStats.astro';
 import ManagementBenefitsCards from '../../../components/ManagementBenefitsCards.astro';
@@ -18,7 +21,7 @@ import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
 
 
 const apiBase = import.meta.env.WORDPRESS_API_URL;
-const PAGE_ID = 192;
+const PAGE_ID = 877;
 const res = await fetch(`${apiBase}/pages/${PAGE_ID}?lang=en&_embed`);
 const page = await res.json();
 const acf = page.acf || {};
@@ -125,11 +128,13 @@ const alternates = [
     owners_subtitle={acf.owners_subtitle}
     owners_image={acf.owners_image?.url}
     owners_features={acf.owners_features}
+    owners_tab_label="Property Management"
 
     guests_title={acf.guests_title}
     guests_subtitle={acf.guests_subtitle}
     guests_image={acf.guests_image?.url}
     guests_features={acf.guests_features}
+    guests_tab_label="Guest Experience"
 
     cta_label={acf.cta_label}
     cta_url={acf.cta_url}
@@ -257,7 +262,7 @@ const alternates = [
         tag: 'The Unvanquished City',
         title: 'History, culture and high tourist demand',
         description: 'Portugal\'s second-largest city attracts millions of visitors every year. With our specialised management, ensure maximum occupancy for your property.',
-        image: '/images/regions/porto.webp',
+        image: regionPorto,
         url: '/en/vacation-rental-management/porto'
       },
       {
@@ -265,7 +270,7 @@ const alternates = [
         tag: 'Sun & Beach',
         title: 'Portugal\'s most popular holiday destination',
         description: 'Paradise beaches, exceptional climate and world-class golf. The Algarve offers unmatched return on investment all year round.',
-        image: '/images/regions/algarve.webp',
+        image: regionAlgarve,
         url: '/en/vacation-rental-management/algarve'
       },
       {
@@ -273,7 +278,7 @@ const alternates = [
         tag: 'World Heritage',
         title: 'Premium tourism in unique landscapes',
         description: 'Terraced vineyards, historic estates and wine & gastronomy experiences. The Douro attracts luxury tourists willing to pay premium rates.',
-        image: '/images/regions/douro.webp',
+        image: regionDouro,
         url: '/en/vacation-rental-management/douro'
       }
     ]}

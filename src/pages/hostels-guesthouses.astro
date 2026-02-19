@@ -1,0 +1,736 @@
+---
+import LayoutAd from '../layouts/LayoutAd.astro';
+import hostelHeader from '../assets/images/hostel-guesthouse-header-desktop.webp';
+import HeroSectionV3 from '../components/HeroSectionV3.astro';
+import FAQSection from '../components/FAQSection.astro';
+import { iconMap } from '../icons/iconMap';
+import { serviceSchema } from "../lib/schema/service";
+import { faqPageSchemaFromCategories } from "../lib/schema/faq-from-categories";
+import { breadcrumbSchema } from "../lib/schema/breadcrumbs";
+import { Image } from 'astro:assets';
+import hostelArvore from '../assets/images/hostels-host-wise-arvore.webp';
+import portoLoungeRefeitorio from '../assets/images/porto-lounge-hostel-refeitorio.webp';
+import hostelPortoLounge from '../assets/images/hostels-porto-lounge-hostel.webp';
+import arvoreVistaAerea from '../assets/images/host-wise-arvore-vista-aerea.webp';
+import hostelBurroVille from '../assets/images/hostels-burro-ville.webp';
+
+const site = Astro.site ?? new URL("https://www.hostwise.pt");
+const canonicalUrl = new URL(Astro.url); canonicalUrl.search = "";
+const canonical = canonicalUrl.href;
+
+const metaDescription = "Renda fixa mensal para o seu hostel ou guesthouse. Gestão total do seu alojamento em troca de rendimento previsível, todos os meses, com a Host Wise.";
+
+const faqCategories = [
+  {
+    id: 'modelo',
+    label: 'Sobre o Modelo',
+    questions: [
+      {
+        question: 'Porquê escolher a Host Wise?',
+        answer: '<p>A Host Wise conta com 8 anos de experiência na gestão de alojamento local em Portugal. A nossa taxa de ocupação média está nos 80%, com um aumento médio de rentabilidade de 40% para os proprietários que trabalham connosco.</p>',
+      },
+      {
+        question: 'Como garantem o valor total da renda?',
+        answer: '<p>O valor da renda está protegido por garantia bancária, assegurando o pagamento integral da renda estipulada durante a duração do contrato.</p>',
+      },
+      {
+        question: 'Como determinam o valor da minha propriedade?',
+        answer: '<p>A avaliação é feita através da realização de um estudo de rentabilidade que considera a localização, o tamanho e condições da propriedade, e as tendências do mercado imobiliário atual. Este estudo permite-nos prever a receita líquida gerada para o período de contrato proposto.</p>',
+      },
+    ],
+  },
+  {
+    id: 'contrato',
+    label: 'Contrato e Pagamento',
+    questions: [
+      {
+        question: 'Qual a duração do contrato?',
+        answer: '<p>Os contratos celebrados com a Host Wise têm durações variáveis de acordo com as suas pretensões, que podem ir até 10 anos.</p>',
+      },
+      {
+        question: 'Quais são as condições de pagamento?',
+        answer: '<p>Irá receber o dinheiro na sua conta automaticamente todos os meses até dia 8.</p>',
+      },
+      {
+        question: 'Qual o próximo passo?',
+        answer: '<p>O processo é simples: primeiro, submete as informações do seu alojamento para uma avaliação gratuita. Em seguida, receberá uma oferta justa baseada no mercado atual. Se aceitar a oferta, procederemos com os trâmites legais para concluir o arrendamento.</p>',
+      },
+    ],
+  },
+];
+
+const schemas = [
+  breadcrumbSchema([
+    { name: "Home", url: site.href },
+    { name: "Hostels & Guesthouses", url: canonical },
+  ]),
+  serviceSchema({
+    serviceName: "Gestão de Hostels e Guesthouses",
+    url: canonical,
+    providerUrl: "https://www.hostwise.pt",
+    areaServed: [{ name: "Portugal", type: "Country" }],
+  }),
+  ...(faqCategories.length ? [faqPageSchemaFromCategories(faqCategories)] : []),
+];
+
+const alternates = [
+  { hreflang: "pt-PT", href: canonical },
+  { hreflang: "en", href: new URL("/en/hostels-guesthouses", site).href },
+  { hreflang: "x-default", href: canonical },
+];
+---
+
+<LayoutAd
+  title="Hostels & Guesthouses — Renda Fixa Mensal"
+  description={metaDescription}
+  schemas={schemas}
+  alternates={alternates}
+  canonical={canonical}
+>
+  <!-- Hero Section -->
+  <HeroSectionV3
+    badge_text="Hostels & Guesthouses"
+    badge_icon_key="hotel"
+    heading="Renda Fixa Mensal para o seu Hostel e/ou Guesthouse"
+    description="Gestão total do seu alojamento em troca de rendimento previsível, todos os meses."
+    primary_cta_label="Quero Receber uma Proposta"
+    primary_cta_url="#formulario"
+    secondary_cta_label="Saber Mais"
+    secondary_cta_url="#problema"
+    image={hostelHeader}
+  />
+
+  <!-- Typeform Embed (after hero) -->
+  <section class="typeform-section" id="formulario">
+    <div class="container">
+      <div class="typeform-header">
+        <span class="section-badge">Proposta Gratuita</span>
+        <h2>Receba uma avaliação do seu alojamento</h2>
+        <p>Preencha o formulário e a nossa equipa entrará em contacto consigo brevemente.</p>
+      </div>
+      <div class="form-container">
+        <div data-tf-live="01J881SMFDDP5K5A65ZF2F7XEQ"></div>
+        <script src="//embed.typeform.com/next/embed.js" is:inline></script>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="problem-section" id="problema">
+    <div class="container">
+      <div class="problem-card">
+        <span class="section-badge">O Desafio</span>
+        <h2>O problema não é o seu alojamento. É o modelo.</h2>
+        <p>
+          Meses vazios, custos fixos, concorrência crescente e dependência da época alta fazem parte
+          da realidade de muitos hostels e guesthouses em Portugal. Mesmo com um bom produto, a
+          sazonalidade e a gestão diária tornam o rendimento imprevisível e o negócio excessivamente
+          dependente do proprietário.
+        </p>
+        <p class="highlight-text">
+          Com o modelo de Rentabilidade Garantida da Host Wise, a ocupação pode mudar — <strong>a sua renda não.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefit 1 -->
+  <section class="benefit-section">
+    <div class="container">
+      <div class="benefit-grid">
+        <div class="benefit-image">
+          <Image src={hostelArvore} alt="Host Wise Árvore - Guesthouse" loading="lazy" />
+        </div>
+        <div class="benefit-content">
+          <span class="section-badge">Estabilidade Financeira</span>
+          <h2>Proteja-se da Sazonalidade e receba uma Renda Fixa Todos os Meses</h2>
+          <p>
+            A falta de ocupação deixa de ser problema. Com o modelo de rentabilidade garantida da
+            Host Wise, todos os meses recebe o mesmo valor, seja época alta ou época baixa.
+          </p>
+          <a href="#formulario" class="btn-secondary-cta">
+            Quanto vale o meu alojamento?
+            <span class="btn-arrow" set:html={iconMap.chevronRight} />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefit 2 -->
+  <section class="benefit-section benefit-reversed">
+    <div class="container">
+      <div class="benefit-grid">
+        <div class="benefit-image">
+          <Image src={portoLoungeRefeitorio} alt="Porto Lounge Hostel - Refeitório" loading="lazy" />
+        </div>
+        <div class="benefit-content">
+          <span class="section-badge">Liberdade Financeira</span>
+          <h2>Obtenha cash-flow para procurar outros investimentos</h2>
+          <p>
+            A Host Wise fornece-lhe todas as garantias bancárias para procurar outros investimentos,
+            enquanto gerimos o seu alojamento e lhe garantimos estabilidade financeira.
+          </p>
+          <a href="#formulario" class="btn-secondary-cta">
+            Gostaria de Receber uma Proposta
+            <span class="btn-arrow" set:html={iconMap.chevronRight} />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="features-header">
+        <span class="section-badge">Vantagens</span>
+        <h2>O que ganho?</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon" set:html={iconMap.euro} />
+          <h3>Renda Fixa Todos os Meses</h3>
+          <p>Receba um valor mensal acordado à partida, independentemente da ocupação do alojamento.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" set:html={iconMap.briefcase} />
+          <h3>Um Negócio a Funcionar Sem Preocupações</h3>
+          <p>Assumimos reservas, pricing, staff, limpezas, manutenção e apoio ao hóspede.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" set:html={iconMap.clock} />
+          <h3>Mais Tempo para Si</h3>
+          <p>O seu hostel deixa de ser um emprego a tempo inteiro e passa a ser um ativo financeiro.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon" set:html={iconMap.trendingUp} />
+          <h3>Cash-Flow para Futuros Investimentos</h3>
+          <p>Use o rendimento previsível para investir noutros projetos, imobiliários ou pessoais.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Properties Section -->
+  <section class="properties-section">
+    <div class="container">
+      <div class="properties-header">
+        <span class="section-badge">Portefólio</span>
+        <h2>Conheça alguns dos nossos alojamentos do modelo de Rentabilidade Garantida</h2>
+      </div>
+      <div class="properties-grid">
+        <div class="property-card">
+          <div class="property-image">
+            <Image src={hostelPortoLounge} alt="Porto Lounge Hostel" loading="lazy" />
+          </div>
+          <div class="property-content">
+            <h3>Porto Lounge Hostel</h3>
+            <span class="property-location">
+              <span class="location-icon" set:html={iconMap.location} />
+              Porto
+            </span>
+            <p>
+              Bem dentro do coração do Porto, este hostel combina a arquitetura oitocentista com um
+              interior contemporâneo e adaptado às necessidades de solo travellers, famílias ou grupos
+              de amigos que desejam explorar a cidade invicta.
+            </p>
+          </div>
+        </div>
+
+        <div class="property-card">
+          <div class="property-image">
+            <Image src={arvoreVistaAerea} alt="Host Wise Árvore - Vista Aérea" loading="lazy" />
+          </div>
+          <div class="property-content">
+            <h3>Host Wise Árvore</h3>
+            <span class="property-location">
+              <span class="location-icon" set:html={iconMap.location} />
+              Vila do Conde
+            </span>
+            <p>
+              Destinado aos amantes de maresia, o Host Wise Árvore fica a poucos metros da Praia da
+              Azurara e a uma caminhada de minutos da Praia do Mindelo. Caso a nortada não dê
+              tréguas, existe uma piscina e um jacuzzi para colmatar o desejo de mar.
+            </p>
+          </div>
+        </div>
+
+        <div class="property-card">
+          <div class="property-image">
+            <Image src={hostelBurroVille} alt="Burro Ville" loading="lazy" />
+          </div>
+          <div class="property-content">
+            <h3>Burro Ville</h3>
+            <span class="property-location">
+              <span class="location-icon" set:html={iconMap.location} />
+              Portimão, Algarve
+            </span>
+            <p>
+              Se deseja fugir da multidão de banhistas que invade o Algarve, mas não quer deixar de
+              usufruir do tempo ameno da região, o Burro Ville é a escolha certa. A 17km do centro
+              de Portimão, é um local perfeito para uma escapadela a dois.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <FAQSection
+    badgeLabel="FAQ"
+    title="Respondemos às suas perguntas"
+    subtitle="Tudo o que precisa de saber sobre a gestão do seu hostel ou guesthouse com a Host Wise."
+    categories={faqCategories}
+  />
+
+  <!-- Typeform Embed (after FAQs) -->
+  <section class="typeform-section" id="formulario-final">
+    <div class="container">
+      <div class="typeform-header">
+        <span class="section-badge">Comece Agora</span>
+        <h2>Pronto para ouvir a nossa proposta?</h2>
+        <p>
+          Transforme o seu hostel ou guesthouse num ativo que gera rendimento previsível, sem stress
+          e sem depender da ocupação.
+        </p>
+      </div>
+      <div class="form-container">
+        <div data-tf-live="01J881SMFDDP5K5A65ZF2F7XEQ"></div>
+      </div>
+    </div>
+  </section>
+</LayoutAd>
+
+<style>
+  /* Container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Section Badge */
+  .section-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Typeform Section */
+  .typeform-section {
+    padding-top: 120px;
+    padding-bottom: 120px;
+    text-align: center;
+    background: linear-gradient(135deg, #F8FCFF 0%, #E5F4FE 100%);
+  }
+
+  .typeform-header {
+    text-align: center;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .typeform-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .typeform-header p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .form-container {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(12, 68, 99, 0.1);
+    min-height: 600px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Problem Section */
+  .problem-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .problem-card {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .problem-card h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.15;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+  }
+
+  .problem-card p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--text);
+    opacity: 0.85;
+  }
+
+  .highlight-text {
+    margin-top: 24px;
+    font-size: 1.25rem !important;
+    opacity: 1 !important;
+    color: var(--primary) !important;
+    font-weight: 600;
+  }
+
+  /* Benefit Sections */
+  .benefit-section {
+    padding: 100px 20px;
+    background: var(--gray-light);
+  }
+
+  .benefit-section.benefit-reversed {
+    background: white;
+  }
+
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .benefit-reversed .benefit-grid {
+    direction: rtl;
+  }
+
+  .benefit-reversed .benefit-grid > * {
+    direction: ltr;
+  }
+
+  .benefit-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(12, 68, 99, 0.15);
+  }
+
+  .benefit-content h2 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .benefit-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text);
+    opacity: 0.85;
+    margin-bottom: 32px;
+  }
+
+  .btn-secondary-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--secondary);
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary-cta:hover {
+    gap: 14px;
+    color: var(--primary);
+  }
+
+  .btn-arrow {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+  }
+
+  .btn-arrow :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .btn-secondary-cta:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  /* Features Section */
+  .features-section {
+    padding: 100px 20px;
+    background: white;
+  }
+
+  .features-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .features-header h2 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .feature-card {
+    background: var(--gray-light);
+    padding: 40px 28px;
+    border-radius: 20px;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(12, 68, 99, 0.06);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--secondary);
+    box-shadow: 0 16px 40px rgba(12, 68, 99, 0.12);
+  }
+
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--secondary);
+    margin: 0 auto 20px;
+  }
+
+  .feature-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .feature-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .feature-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  /* Properties Section */
+  .properties-section {
+    padding: 100px 20px;
+    background: var(--gray-light);
+  }
+
+  .properties-header {
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .properties-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .properties-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .property-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(12, 68, 99, 0.06);
+  }
+
+  .property-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--secondary);
+    box-shadow: 0 16px 40px rgba(12, 68, 99, 0.12);
+  }
+
+  .property-image {
+    overflow: hidden;
+    height: 240px;
+  }
+
+  .property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .property-card:hover .property-image img {
+    transform: scale(1.05);
+  }
+
+  .property-content {
+    padding: 28px;
+  }
+
+  .property-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+
+  .property-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .location-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .location-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .property-content p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.8;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .properties-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .properties-grid .property-card:last-child {
+      grid-column: 1 / -1;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .typeform-section,
+    .problem-section,
+    .benefit-section,
+    .features-section,
+    .properties-section {
+      padding: 80px 20px;
+    }
+
+    .typeform-header h2 {
+      font-size: 2rem;
+    }
+
+    .form-container {
+      padding: 24px;
+      min-height: 500px;
+    }
+
+    .problem-card h2 {
+      font-size: 2rem;
+    }
+
+    .benefit-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .benefit-reversed .benefit-grid {
+      direction: ltr;
+    }
+
+    .benefit-content h2 {
+      font-size: 1.75rem;
+    }
+
+    .features-header h2 {
+      font-size: 2rem;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .properties-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .properties-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .properties-grid .property-card:last-child {
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .typeform-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .problem-card h2 {
+      font-size: 1.75rem;
+    }
+
+    .benefit-content h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>

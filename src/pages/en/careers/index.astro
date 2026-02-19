@@ -3,6 +3,13 @@ import Layout from '../../../layouts/Layout.astro';
 import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
 import { collectionPageSchema } from "../../../lib/schema/collection-page";
 import { itemListSchema } from "../../../lib/schema/item-list";
+import { Image } from 'astro:assets';
+import jantarNatal2025 from '../../../assets/images/carreiras/jantar-natal-2025.webp';
+import festa500_1 from '../../../assets/images/carreiras/festa-500-propriedades-1.webp';
+import festa500_2 from '../../../assets/images/carreiras/festa-500-propriedades-2.webp';
+import jantarNatal2025_2 from '../../../assets/images/carreiras/jantar-natal-2025-2.webp';
+import teamBuildingArouca4 from '../../../assets/images/carreiras/team-building-arouca-4.webp';
+import festa500_3 from '../../../assets/images/carreiras/festa-500-propriedades-3.webp';
 
 
 const benefits = [
@@ -163,7 +170,7 @@ description={metaDescription}
           </div>
         </div>
         <div class="hero-image">
-          <img src="/images/carreiras/jantar-natal-2025.webp" alt="Host Wise Team Christmas Dinner" />
+          <Image src={jantarNatal2025} alt="Host Wise Team Christmas Dinner" />
         </div>
       </div>
     </div>
@@ -173,19 +180,19 @@ description={metaDescription}
   <section class="philosophy-section">
     <div class="gallery-grid">
         <div class="gallery-item gallery-large">
-          <img src="/images/carreiras/festa-500-propriedades-1.webp" alt="Host Wise team celebrating 500 properties" />
+          <Image src={festa500_1} alt="Host Wise team celebrating 500 properties" />
         </div>
         <div class="gallery-item">
-          <img src="/images/carreiras/festa-500-propriedades-2.webp" alt="Host Wise team toasting to 500 properties" />
+          <Image src={festa500_2} alt="Host Wise team toasting to 500 properties" />
         </div>
         <div class="gallery-item">
-          <img src="/images/carreiras/jantar-natal-2025-2.webp" alt="Host Wise Team Christmas Party" />
+          <Image src={jantarNatal2025_2} alt="Host Wise Team Christmas Party" />
         </div>
         <div class="gallery-item">
-          <img src="/images/carreiras/team-building-arouca-4.webp" alt="Team celebrations" />
+          <Image src={teamBuildingArouca4} alt="Team celebrations" />
         </div>
         <div class="gallery-item">
-          <img src="/images/carreiras/festa-500-propriedades-3.webp" alt="Host Wise team at 500 properties celebration" />
+          <Image src={festa500_3} alt="Host Wise team at 500 properties celebration" />
         </div>
       </div>
     </div>

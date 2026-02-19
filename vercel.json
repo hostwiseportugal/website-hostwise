@@ -1,0 +1,762 @@
+{
+  "redirects": [
+    {
+      "source": "/pt",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/quem-somos",
+      "destination": "/sobre-hostwise",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/nossos-servicos",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/gestao-alojamento-local",
+      "destination": "/gestao-alojamento-local",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/rentabilidade-garantida",
+      "destination": "/rentabilidade-garantida",
+      "permanent": true
+    },
+    {
+      "source": "/pt/products/comissao-gestao-alojamento-local",
+      "destination": "/comissao",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/gestao-alojamento-local-porto",
+      "destination": "/gestao-alojamento-local/porto",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/gestao-alojamento-local-algarve",
+      "destination": "/gestao-alojamento-local/algarve",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/gestao-alojamento-local-douro",
+      "destination": "/gestao-alojamento-local/douro",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/gestao-alojamento-local-madeira",
+      "destination": "/gestao-alojamento-local/madeira",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/faq",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/livro-informacoes-alojamento-local",
+      "destination": "/blog/livro-informacoes-alojamento-local-guia-completo",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/alojamento-local-vs-arrendamento-tradicional",
+      "destination": "/blog/alojamento-local-vs-arrendamento-tradicional-diferencas-essenciais",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/alojamento-local-condominios-que-precisa-saber",
+      "destination": "/blog/alojamento-local-condominios-que-precisa-saber",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/sinaletica-alojamento-local",
+      "destination": "/blog/sinaletica-alojamento-local-guia-completo",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/4-sinais-esta-hora-trocar-empresa-gestao-alojamento-local",
+      "destination": "/blog/4-sinais-esta-na-hora-trocar-empresa-gestao-alojamento-local",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/caucao-alojamento-local-pros-contras-dicas-essenciais",
+      "destination": "/blog/caucao-alojamento-local-pros-contras-dicas-essenciais",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/regulamento-alojamento-local-lisboa",
+      "destination": "/blog/regulamento-alojamento-local-lisboa-guia-completo",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/regulamento-licenca-alojamento-local-porto",
+      "destination": "/blog/regulamento-licenca-alojamento-local-porto",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/como-otimizar-precos-alojamento-local-price-labs",
+      "destination": "/blog/como-otimizar-precos-alojamento-local-price-labs",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/legislacao-alojamento-local-outubro-2024",
+      "destination": "/blog/legislacao-alojamento-local-outubro-2024",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/futuro-alojamento-local-2025-insights-estrategias-essenciais",
+      "destination": "/blog/futuro-alojamento-local-2025-insights-estrategias-essenciais",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/oportunidades-para-seu-alojamento-local-para-resto-2024",
+      "destination": "/blog/oportunidades-alojamento-local-para-resto-2024",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/como-host-wise-esta-preparar-para-epoca-baixa",
+      "destination": "/blog/como-host-wise-esta-preparar-para-epoca-baixa",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/alojamentos-locais-porto-geridos-pela-host-wise-registam-ocuapcao-acima-media-este-verao",
+      "destination": "/blog/alojamentos-locais-porto-geridos-host-wise-registam-ocupacao-acima-mercado-verao",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/alojamento-local-esta-preparada-para-epoca-baixa",
+      "destination": "/blog/alojamento-local-esta-preparado-para-epoca-baixa",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/qual-melhor-modelo-gestao-propriedades-para-si",
+      "destination": "/blog/qual-melhor-modelo-gestao-propriedades",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/como-eventos-podem-aumentar-sua-receita",
+      "destination": "/blog/como-eventos-podem-aumentar-receita",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/como-nico-rentabilizou-seu-apartamento-porto",
+      "destination": "/blog/como-nico-rentabilizou-apartamento-porto",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/comunique-forma-eficaz-com-seus-hospedes",
+      "destination": "/blog/comunique-forma-eficaz-com-seus-hospedes",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/comodidades-mais-valorizadas-pelos-hospedes",
+      "destination": "/blog/comodidades-mais-valorizadas-pelos-hospedes",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/limpeza-fator-sucesso-alojamento-local",
+      "destination": "/blog/limpeza-fator-sucesso-alojamento-local",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/zendesk-plataforma-revolucionou-nossa-gestao-propriedades",
+      "destination": "/blog/zendesk-plataforma-revolucionou-gestao-propriedades",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/conheca-breezeway-eficiencia-qualidade-gestao-alojamento-local",
+      "destination": "/blog/conheca-breezeway-eficiencia-qualidade-gestao-alojamento-local",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/importante-investir-fotografias-para-alojamento-local-sim-bastante",
+      "destination": "/blog/importante-investir-fotografia-para-alojamento-local",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/simplifique-gestao-alojamento-local-com-self-check-in",
+      "destination": "/blog/simplifique-gestao-alojamento-local-com-self-check-in",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/descubra-como-aumentar-sua-receita-alojamento-local-mais-30",
+      "destination": "/blog/descubra-como-aumentar-receita-alojamento-local-mais-de-30",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/5-dicas-para-decorar-mobilar-alojamento-local",
+      "destination": "/blog/5-dicas-para-decorar-mobilar-alojamento-local",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/esta-familiarizado-arrendamento-media-duracao",
+      "destination": "/blog/esta-familiarizado-com-arrendamento-media-duracao",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/esta-preparado-para-atrair-viajantes-negocios-saiba-como-fazer",
+      "destination": "/blog/esta-preparado-para-atrair-mais-viajantes-negocios-descubra-como-fazer",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/mudancas-programa-mais-habitacao-alojamento-local",
+      "destination": "/blog/mudancas-programa-mais-habitacao-alojamento-local",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/quais-vantagens-cada-plataforma-reservas-para-promover-seu-alojamento-local",
+      "destination": "/blog/quais-vantagens-cada-plataforma-reservas-para-promover-alojamento-local",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/aproveite-mudancas-mercado-para-aumentar-suas-reservas",
+      "destination": "/blog/aproveite-mudancas-mercado-para-aumentar-reservas",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/2023-viagem-unica-obrigado",
+      "destination": "/blog/2023-viagem-unica-obrigado",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/alojamento-local-procura-dispara-porto-passagem-ano",
+      "destination": "/blog/al-procura-dispara-porto-para-passagem-ano",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/abracar-mudanca-manual-estrategico-host-wise-legislacao-mais-habitacao-portugal",
+      "destination": "/blog/manual-estrategico-host-wise-para-legislacao-mais-habitacao",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/cinema-batalha-mistura-fascinio-arquitetonico-maravilha-cinematografica",
+      "destination": "/blog/cinema-batalha-mistura-fascinio-arquitetonico-maravilha-cinematografica",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/agosto-2023-melhor-mes-sempre-host-wise-mes-recordes",
+      "destination": "/blog/agosto-2023-marca-melhor-mes-sempre-host-wise-mes-recordes",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/porto-unveils-new-sustainable-growth-regulation-for-local-accommodation",
+      "destination": "/blog/porto-divulga-novo-regulamento-crescimento-sustentavel-para-alojamento-local",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/curta-media-longa-duracao-qual-melhor-tipo-arrendamento",
+      "destination": "/blog/curta-media-longa-duracao-qual-melhor-arrendamento",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/beneficios-empresa-gestao-alojamento-local",
+      "destination": "/blog/beneficios-empresa-gestao-alojamento-local",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/como-abrir-alojamento-local-portugal",
+      "destination": "/blog/como-abrir-alojamento-local-em-portugal",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/airbnb-for-family-vacations",
+      "destination": "/blog/airbnb-ferias-familia-estadias-acessiveis-espacosas",
+      "permanent": true
+    },
+    {
+      "source": "/pt/blogs/blog/:path*",
+      "destination": "/blog/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/contactos",
+      "destination": "/contacto",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/partnerships",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/projeto",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/projeto-2",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/arrendamento-24-horas",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/obrigado-proposta",
+      "destination": "/obrigado-proposta",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/jorge-filho",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/daniel-goncalves",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/raissa-souza",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/carolina-sousa",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/diogo-china",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/diogo-cardoso",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/renato-chainho",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/tiago-lopes",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/referrals-host-wise",
+      "destination": "/referrals",
+      "permanent": true
+    },
+    {
+      "source": "/pt/pages/hostel-guesthouse",
+      "destination": "/hostels-guesthouses",
+      "permanent": true
+    },
+    {
+      "source": "/pt/policies/privacy-policy",
+      "destination": "/politica-privacidade",
+      "permanent": true
+    },
+    {
+      "source": "/pages/about-us",
+      "destination": "/en/about-hostwise",
+      "permanent": true
+    },
+    {
+      "source": "/pages/services",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/vacation-rental-management",
+      "destination": "/en/vacation-rental-management",
+      "permanent": true
+    },
+    {
+      "source": "/products/guaranteed-profitability",
+      "destination": "/en/rent-to-rent",
+      "permanent": true
+    },
+    {
+      "source": "/products/management-commission-model",
+      "destination": "/en/commission",
+      "permanent": true
+    },
+    {
+      "source": "/pages/vacation-rental-management-porto",
+      "destination": "/en/vacation-rental-management/porto",
+      "permanent": true
+    },
+    {
+      "source": "/pages/vacation-rental-management-algarve",
+      "destination": "/en/vacation-rental-management/algarve",
+      "permanent": true
+    },
+    {
+      "source": "/pages/vacation-rental-management-douro",
+      "destination": "/en/vacation-rental-management/douro",
+      "permanent": true
+    },
+    {
+      "source": "/pages/vacation-rental-management-madeira",
+      "destination": "/en/vacation-rental-management/madeira",
+      "permanent": true
+    },
+    {
+      "source": "/pages/faq",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog",
+      "destination": "/en/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/information-book-for-short-term-rentals-portugal",
+      "destination": "/en/blog/information-book-short-term-rentals-portugal-complete-guide",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/vacation-rental-vs-traditional-leasing",
+      "destination": "/en/blog/vacation-rental-vs-traditional-leasing-essential-differences",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/short-term-rentals-in-condominium-buildings-what-you-need-to-know",
+      "destination": "/en/blog/short-term-rentals-condumunium-buildings",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/short-term-rental-signage-portugal",
+      "destination": "/en/blog/short-term-rental-signage-portugal-complete-guide",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/4-signs-you-need-to-switch-vacation-rental-management",
+      "destination": "/en/blog/4-signs-you-need-switch-vacation-rental-management",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/security-deposit-vacation-rental-pros-cons-essential-tips",
+      "destination": "/en/blog/security-deposit-vacation-rental-pros-cons-essential-tips",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/short-term-rental-regulations-lisbon",
+      "destination": "/en/blog/lisbon-short-term-rental-regulations-complete-guide",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/porto-short-term-rentals-license-information",
+      "destination": "/en/blog/porto-short-term-rentals-license-information",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/how-optimize-prices-vacation-rental-price-labs",
+      "destination": "/en/blog/how-optimize-prices-vacation-rental-price-labs",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/changes-in-the-portuguese-short-term-rentals-legislation-october-2024",
+      "destination": "/en/blog/changes-portuguese-short-term-rentals-legislation-october-2024",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/future-vacation-rentals-2025-insights-strategies",
+      "destination": "/en/blog/future-vacation-rentals-in-2025-essential-insights-strategies",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/opportunities-for-your-vacation-rental-for-rest-2024",
+      "destination": "/en/blog/opportunities-for-your-vacation-rental-for-the-rest-2024",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/how-host-wise-preparing-low-season",
+      "destination": "/en/blog/how-host-wise-preparing-for-low-season",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/rentals-porto-managed-host-wise-register-above-market-occupancy-this-summer",
+      "destination": "/en/blog/rentals-porto-managed-host-wise-register-above-market-occupancy-this-summer",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/your-vacation-rental-prepared-for-low-season",
+      "destination": "/en/blog/is-your-vacation-rental-prepared-for-low-season",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/what-the-best-property-management-model-for-you",
+      "destination": "/en/blog/best-property-management-model-for-you",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/how-events-can-increase-your-revenue",
+      "destination": "/en/blog/how-events-can-increase-your-revenue-up-500",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/how-did-nico-rentabilize-his-apartment-in-porto",
+      "destination": "/en/blog/how-did-nico-rentabilize-his-apartment-in-porto",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/communicate-effectively-with-your-guests",
+      "destination": "/en/blog/communicate-effectively-with-your-guests",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/most-valued-amenities-by-guest",
+      "destination": "/en/blog/most-valued-amenities-by-guest",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/cleanliness-sucess-factor-vacation-rental",
+      "destination": "/en/blog/cleanliness-success-factor-vacation-rental",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/zendesk-platform-revolutionized-property-management",
+      "destination": "/en/blog/zendesk-platform-that-revolutionized-our-property-management",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/meet-breezeway-efficiency-quality-vacation-rental-management",
+      "destination": "/en/blog/meet-breezeway-efficiency-quality-vacation-rental-management",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/is-it-important-to-invest-in-photography-for-your-vacation-rental-yes-fairly",
+      "destination": "/en/blog/is-important-invest-in-photography-for-your-vacation-rental",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/simplify-your-vacation-rental-management-with-self-check-in",
+      "destination": "/en/blog/simplify-your-vacation-rental-management-with-self-check-in",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/discover-how-increase-your-vacation-rental-more-than-30",
+      "destination": "/en/blog/discover-how-to-increase-your-vacation-rental-revenue-more-than-30",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/5-tips-for-decorating-furnishing-your-vacation-rental",
+      "destination": "/en/blog/5-tips-decorating-furnishing-your-vacation-rental",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/are-you-familiar-with-middle-term-rentals",
+      "destination": "/en/blog/are-you-familiar-with-middle-term-rentals",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/are-you-ready-to-attract-more-business-travelers-find-out-how",
+      "destination": "/en/blog/are-you-ready-attract-more-business-travelers",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/changes-in-the-mais-habitacao-package-and-alojamento-local",
+      "destination": "/en/blog/changes-mais-habitacao-package-alojamento-local",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/do-you-know-the-advantages-of-each-platform-to-promote-your-property",
+      "destination": "/en/blog/advantages-each-platform-promote-your-property",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/capitalize-on-market-changes-to-boost-your-bookings",
+      "destination": "/en/blog/capitalize-market-changes-boost-your-bookings",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/2023-a-unique-journey-thank-you",
+      "destination": "/en/blog/2023-unique-journey-thank-you",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/al-demand-skyrockets-in-porto-for-new-years-eve",
+      "destination": "/en/blog/al-demand-skyrockets-in-porto-for-new-years-eve",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/mais-habitacao-strategy",
+      "destination": "/en/blog/host-wise-strategic-playbook-portugal-mais-habitacao-legislation",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/the-batalha-cinema-cinematic-wonder",
+      "destination": "/en/blog/batalha-cinema-blend-architectural-allure-cinematic-wonder",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/host-wise-best-month-ever-august-2023-metrics",
+      "destination": "/en/blog/host-wise-celebrates-best-month-ever-with-record-numbers-august-2023",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/porto-unveils-new-sustainable-growth-regulation-for-local-accommodation",
+      "destination": "/en/blog/porto-unveils-new-sustainable-growth-regulation-local-accommodation",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/short-medium-long-term-which-is-the-best-for-me",
+      "destination": "/en/blog/short-medium-long-term-which-is-best-rental-for-me",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/benefits-vacation-rental-management-company",
+      "destination": "/en/blog/benefits-vacation-rental-management-company",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/how-open-vacation-rental-portugal",
+      "destination": "/en/blog/open-vacation-rental-in-portugal",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/airbnb-for-family-vacations",
+      "destination": "/en/blog/airbnb-for-family-vacations-affordable-spacious-stays",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/our-blog/:path*",
+      "destination": "/en/blog/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/pages/contact",
+      "destination": "/en/contact",
+      "permanent": true
+    },
+    {
+      "source": "/pages/partnerships",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/projeto",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/projeto-2",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/arrendamento-24-horas",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/obrigado-proposta",
+      "destination": "/en/obrigado-proposta",
+      "permanent": true
+    },
+    {
+      "source": "/pages/jorge-filho",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/daniel-goncalves",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/raissa-souza",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/carolina-sousa",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/diogo-china",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/diogo-cardoso",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/renato-chainho",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/tiago-lopes",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/pages/referrals-host-wise",
+      "destination": "/en/referrals",
+      "permanent": true
+    },
+    {
+      "source": "/pages/hostel-guesthouse",
+      "destination": "/en/hostels-guesthouses",
+      "permanent": true
+    },
+    {
+      "source": "/policies/privacy-policy",
+      "destination": "/en/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "carreiras.hostwise.pt"
+        }
+      ],
+      "destination": "https://www.hostwise.pt/carreiras",
+      "permanent": true
+    },
+    {
+      "source": "/vagas-de-emprego/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "carreiras.hostwise.pt"
+        }
+      ],
+      "destination": "https://www.hostwise.pt/carreiras/vagas-emprego/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/trabalhar-host-wise",
+      "has": [
+        {
+          "type": "host",
+          "value": "carreiras.hostwise.pt"
+        }
+      ],
+      "destination": "https://www.hostwise.pt/carreiras/cultura-valores",
+      "permanent": true
+    },
+    {
+      "source": "/pt/:path*",
+      "destination": "/:path*",
+      "permanent": true
+    }
+  ]
+}

@@ -1,5 +1,8 @@
 ---
 import { iconMap } from '../icons/iconMap';
+import OptimizedImage from './OptimizedImage.astro';
+import type { ImageMetadata } from 'astro';
+import { property1, heroDefault } from '../lib/fallback-images';
 
 interface FeatureItem {
   feature_icon?: string;
@@ -13,13 +16,16 @@ interface FeaturesAccordionProps {
 
   owners_title?: string;
   owners_subtitle?: string;
-  owners_image?: string;
+  owners_image?: ImageMetadata | string;
   owners_features?: FeatureItem[];
 
   guests_title?: string;
   guests_subtitle?: string;
-  guests_image?: string;
+  guests_image?: ImageMetadata | string;
   guests_features?: FeatureItem[];
+
+  owners_tab_label?: string;
+  guests_tab_label?: string;
 
   cta_label?: string;
   cta_url?: string;
@@ -31,13 +37,16 @@ const {
 
   owners_title = 'A Tranquilidade de Saber que Está Tudo Tratado',
   owners_subtitle = 'Gerir um alojamento local exige tempo e conhecimento. Nós tratamos de tudo.',
-  owners_image = '/images/property-1.webp',
+  owners_image = property1,
   owners_features = [],
 
   guests_title = 'Acolher Bem é a Nossa Prioridade',
   guests_subtitle = 'Cuidamos de todos os detalhes para uma estadia memorável.',
-  guests_image = '/images/hero.webp',
+  guests_image = heroDefault,
   guests_features = [],
+
+  owners_tab_label = 'Gestão da Propriedade',
+  guests_tab_label = 'Gestão da Estadia',
 
   cta_label = 'Receber Proposta Gratuita',
   cta_url = '#contacto'
@@ -88,10 +97,10 @@ const defaultGuests = guests_features.length
     <!-- Toggle Tabs -->
     <div class="toggle-tabs">
       <button class="toggle-tab active" data-tab="owners">
-        Gestão da Propriedade
+        {owners_tab_label}
       </button>
       <button class="toggle-tab" data-tab="guests">
-        Gestão da Estadia
+        {guests_tab_label}
       </button>
     </div>
 
@@ -99,8 +108,12 @@ const defaultGuests = guests_features.length
       <!-- Image Sidebar -->
       <div class="image-sidebar">
         <div class="image-wrapper sticky-image">
-          <img src={owners_image} alt="Host Wise Owners" class="feature-image owners-image" />
-          <img src={guests_image} alt="Host Wise Guests" class="feature-image guests-image" />
+          <div class="owners-img-wrap">
+            <OptimizedImage src={owners_image} alt="Host Wise Owners" />
+          </div>
+          <div class="guests-img-wrap">
+            <OptimizedImage src={guests_image} alt="Host Wise Guests" />
+          </div>
         </div>
 
         {cta_label && (
@@ -285,38 +298,46 @@ const defaultGuests = guests_features.length
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
 
-  .feature-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  border-radius: 16px;
+  .owners-img-wrap {
+    position: relative;
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
 
-  .guests-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transform: scale(0.95);
+  .owners-img-wrap :global(img) {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
   }
 
-  .owners-image {
-  position: relative;
-  opacity: 1;
-  transform: scale(1);
+  .guests-img-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    overflow: hidden;
+  }
+
+  .guests-img-wrap :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   /* Show guests image when guests tab is active */
-  .features-accordion-section:has(.toggle-tab[data-tab="guests"].active) .guests-image {
+  .features-accordion-section:has(.toggle-tab[data-tab="guests"].active) .guests-img-wrap {
     opacity: 1;
     transform: scale(1);
   }
 
-  .features-accordion-section:has(.toggle-tab[data-tab="guests"].active) .owners-image {
+  .features-accordion-section:has(.toggle-tab[data-tab="guests"].active) .owners-img-wrap {
     opacity: 0;
     transform: scale(0.95);
   }

@@ -1,5 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import algarveHeader from '../../../assets/images/alojamento-local-algarve-header.webp';
+import salaOlhosAgua from '../../../assets/images/sala-alojamento-local-olhos-agua-algarve.webp';
 import HeroSectionV3 from '../../../components/HeroSectionV3.astro';
 import IntroSection from '../../../components/IntroSection.astro';
 import ServicesAccordionText from '../../../components/ServicesAccordionText.astro';
@@ -110,7 +112,7 @@ canonical={canonical}>
     primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
     secondary_cta_label="Learn More"
     secondary_cta_url="#intro-section"
-    image="/images/alojamento-local-algarve-header.webp"
+    image={algarveHeader}
   />
 
   <!-- Intro Section -->
@@ -138,7 +140,7 @@ canonical={canonical}>
   <ServicesAccordionText
     title="Our Vacation Rental Management Services in Algarve"
     description="At Host Wise, each service was designed to meet the real needs of the Algarve market. We know that managing a vacation rental in Lagos is not the same as in Albufeira or Tavira — and that's why we adapt our approach to each area, property profile and guest type."
-    image="/images/sala-alojamento-local-olhos-agua-algarve.webp"
+    image={salaOlhosAgua}
     services={[
       {
         title: 'Self Check-in and Check-out Systems',

@@ -1,5 +1,6 @@
 ---
-
+import { Image } from 'astro:assets';
+import prrImage from '../assets/images/PRR-financiamento.webp';
 import { footerCopy } from "../lib/i18n/footer";
 import { getAlternateHref } from "../lib/i18n/routes";
 
@@ -59,11 +60,11 @@ const links = lang === "en"
         <img src="/images/logo-white.svg" alt="Host Wise" class="footer-logo" />
         <p>{t.tagline}</p>
         <div class="social-links">
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-          <a href="#" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+          <a href="https://www.facebook.com/hostwiseonline" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/hostwisept/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/hostwiseonline/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.tiktok.com/@hostwiseonline" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://open.spotify.com/show/4E3kLNNlrvAfscE1qvZWKJ" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
         </div>
       </div>
 
@@ -112,7 +113,7 @@ const links = lang === "en"
       <div class="footer-bottom-row">
         <p class="copyright">&copy; {currentYear} Host Wise. {t.copyright}</p>
         <div class="footer-prr">
-          <img src="/images/PRR-financiamento.webp" alt="Financiado pelo PRR - Plano de Recuperação e Resiliência" class="prr-logo" />
+          <Image src={prrImage} alt="Financiado pelo PRR - Plano de Recuperação e Resiliência" class="prr-logo" />
         </div>
       </div>
       <div class="footer-links">

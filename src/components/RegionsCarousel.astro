@@ -1,10 +1,16 @@
 ---
+import OptimizedImage from './OptimizedImage.astro';
+import type { ImageMetadata } from 'astro';
+import regionPorto from '../assets/images/regions/porto.webp';
+import regionAlgarve from '../assets/images/regions/algarve.webp';
+import regionDouro from '../assets/images/regions/douro.webp';
+
 interface Region {
   name: string;
   tag: string;
   title: string;
   description: string;
-  image: string;
+  image: ImageMetadata | string;
   url: string;
 }
 
@@ -27,7 +33,7 @@ const {
       tag: 'Cidade Invicta',
       title: 'História, cultura e alta procura turística',
       description: 'A segunda maior cidade de Portugal atrai milhões de visitantes todos os anos. Com a nossa gestão especializada, garanta ocupação máxima no seu alojamento.',
-      image: '/images/regions/porto.webp',
+      image: regionPorto,
       url: '/gestao-alojamento-local/porto'
     },
     {
@@ -35,7 +41,7 @@ const {
       tag: 'Sol & Praia',
       title: 'O destino de férias mais procurado de Portugal',
       description: 'Praias paradisíacas, clima excecional e golfe de classe mundial. O Algarve oferece retorno sobre investimento incomparável durante todo o ano.',
-      image: '/images/regions/algarve.webp',
+      image: regionAlgarve,
       url: '/gestao-alojamento-local/algarve'
     },
     {
@@ -43,7 +49,7 @@ const {
       tag: 'Património Mundial',
       title: 'Turismo premium em paisagens únicas',
       description: 'Vinhedos em socalcos, quintas históricas e experiências enogastronómicas. O Douro atrai turistas de luxo dispostos a pagar preços premium.',
-      image: '/images/regions/douro.webp',
+      image: regionDouro,
       url: '/gestao-alojamento-local/douro'
     }
   ],
@@ -66,7 +72,7 @@ const {
         {regions.map((region, index) => (
           <a href={region.url} class="carousel-slide" data-index={index}>
             <div class="slide-image">
-              <img src={region.image} alt={`${imageAltPrefix} ${region.name}`} />
+              <OptimizedImage src={region.image} alt={`${imageAltPrefix} ${region.name}`} />
               <div class="slide-overlay"></div>
             </div>
             <div class="slide-content">
@@ -175,16 +181,26 @@ const {
   }
 
   .slide-image {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
 
-  .slide-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+/* picture 100% */
+.slide-image :global(picture) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.slide-image :global(img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;  /* ajusta o foco (ex: 35% puxa para cima) */
+}
+
 
   .slide-overlay {
     position: absolute;

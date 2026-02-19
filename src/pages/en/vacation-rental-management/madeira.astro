@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import madeiraHeader from '../../../assets/images/gestao-alojamento-local-madeira-header.webp';
 import HeroSectionV3 from '../../../components/HeroSectionV3.astro';
 import IntroSection from '../../../components/IntroSection.astro';
 import ServicesAccordionText from '../../../components/ServicesAccordionText.astro';
@@ -110,7 +111,7 @@ schemas={schemas}
     primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
     secondary_cta_label="Learn More"
     secondary_cta_url="#intro-section"
-    image="/images/gestao-alojamento-local-madeira-header.webp"
+    image={madeiraHeader}
   />
 
   <!-- Intro Section -->
@@ -137,6 +138,66 @@ schemas={schemas}
 
  <!-- Features Grid -->
   <FeaturesGrid
+    badge="Included Services"
+    title="Our Complete Management Service"
+    subtitle="Complete end-to-end management so you don't have to worry about anything"
+    features={[
+      {
+        title: "Self Check-In & Check-Out Systems",
+        description: "Flexible entry and exit, hassle-free. Guests can access the property independently, ensuring total convenience.",
+        icon: "key"
+      },
+      {
+        title: "24/7 Guest Support",
+        description: "Assistance available at any time of day or night, to resolve any issue and ensure guests have a flawless experience.",
+        icon: "support247"
+      },
+      {
+        title: "Bed Linen & Towels",
+        description: "Quality sheets and towels, always clean and well maintained, to ensure a pleasant and comfortable stay.",
+        icon: "bed"
+      },
+      {
+        title: "Toiletries",
+        description: "Each property is carefully prepared with quality amenities, designed to provide a comfortable, elegant and worry-free experience from the very first moment.",
+        icon: "amenities"
+      },
+      {
+        title: "AL Licensing Support",
+        description: "We help with the entire process of registering the property as a vacation rental, facilitating licensing and ensuring compliance with legal requirements.",
+        icon: "license"
+      },
+      {
+        title: "Listing Creation & Optimization",
+        description: "We create appealing and well-structured descriptions that highlight each property's unique features and increase booking conversion rates.",
+        icon: "adOptimization"
+      },
+      {
+        title: "Guest Verification",
+        description: "We apply strict screening criteria to ensure your property is occupied by responsible and trustworthy guests.",
+        icon: "userVerify"
+      },
+      {
+        title: "Professional Photography",
+        description: "We capture the best of your property with a technical and refined eye, creating images that enhance the space, spark interest and make the listing stand out in a highly competitive market.",
+        icon: "camera"
+      },
+      {
+        title: "Cleaning Services",
+        description: "Our experienced teams ensure careful and consistent cleaning between stays, maintaining high standards of hygiene and presentation.",
+        icon: "cleaning"
+      },
+      {
+        title: "Property Maintenance",
+        description: "We carry out preventive and corrective maintenance quickly and efficiently, ensuring the property remains in great condition long-term.",
+        icon: "maintenance"
+      },
+      {
+        title: "Reviews & Complaints Management",
+        description: "We monitor and respond to comments and reviews, promoting a positive reputation and ensuring ongoing guest satisfaction.",
+        icon: "reviews"
+      }
+    ]}
   />
 
   <!-- Platforms Marquee -->

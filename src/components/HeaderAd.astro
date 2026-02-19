@@ -1,0 +1,39 @@
+---
+// Minimal header for Meta ad landing pages — logo only, no navigation
+---
+
+<header class="header-ad">
+  <div class="header-ad-container">
+    <a href="/" class="header-ad-logo" aria-label="Host Wise">
+      <img src="/images/logo.svg" alt="Host Wise" />
+    </a>
+  </div>
+</header>
+
+<style>
+  .header-ad {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(12, 68, 99, 0.08);
+    padding: 16px 20px;
+  }
+
+  .header-ad-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .header-ad-logo img {
+    height: 36px;
+    width: auto;
+  }
+</style>

@@ -1,4 +1,9 @@
 ---
+import OptimizedImage from './OptimizedImage.astro';
+import type { ImageMetadata } from 'astro';
+import natixisLogo from '../assets/images/partners/natixis-logo.webp';
+import atlantidaLogo from '../assets/images/partners/atlantida-wta-logo.webp';
+
 interface WPImage {
   url?: string;
   source_url?: string;
@@ -6,7 +11,7 @@ interface WPImage {
 }
 
 interface PartnerItem {
-  logo_image?: WPImage | string;
+  logo_image?: WPImage | ImageMetadata | string;
   logo_alt?: string;
   logo_url?: string;
 }
@@ -17,18 +22,24 @@ interface PartnersProps {
 }
 
 function normalizeImage(
-  img: WPImage | string | undefined,
+  img: WPImage | ImageMetadata | string | undefined,
   fallback: string,
   alt: string
-) {
-  if (!img) return { url: fallback, alt };
+): { src: ImageMetadata | string; alt: string } {
+  if (!img) return { src: fallback, alt };
 
-  if (typeof img === 'string') {
-    return { url: img, alt };
+  // ImageMetadata (imported local image)
+  if (typeof img === 'object' && 'src' in img && 'width' in img) {
+    return { src: img as ImageMetadata, alt };
   }
 
+  if (typeof img === 'string') {
+    return { src: img, alt };
+  }
+
+  // WPImage
   return {
-    url: img.url || img.source_url || fallback,
+    src: img.url || img.source_url || fallback,
     alt: img.alt || alt,
   };
 }
@@ -44,8 +55,8 @@ const defaultPartners: PartnerItem[] =
     ? partners
     : [
         { logo_image: '/images/partners/farfetch-logo.svg', logo_alt: 'Farfetch' },
-        { logo_image: '/images/partners/natixis-logo.webp', logo_alt: 'Natixis' },
-        { logo_image: '/images/partners/atlantida-wta-logo.webp', logo_alt: 'Atlântida WTA' },
+        { logo_image: natixisLogo, logo_alt: 'Natixis' },
+        { logo_image: atlantidaLogo, logo_alt: 'Atlântida WTA' },
         { logo_image: '/images/partners/apartool-logo.svg', logo_alt: 'Apartool' },
         { logo_image: '/images/partners/revolut-logo.svg', logo_alt: 'Revolut' },
         { logo_image: '/images/partners/devexperts-logo.svg', logo_alt: 'DevExperts' },
@@ -78,7 +89,7 @@ const marqueePartners = [...defaultPartners, ...defaultPartners];
               <WrapperTag
                 {...(partner.logo_url ? { href: partner.logo_url, target: '_blank', rel: 'noopener noreferrer' } : {})}
               >
-                <img src={img.url} alt={img.alt} loading="lazy" />
+                <OptimizedImage src={img.src} alt={img.alt} loading="lazy" />
               </WrapperTag>
             </div>
           );

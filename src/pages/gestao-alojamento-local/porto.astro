@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import portoVistaGaia from '../../assets/images/porto-visto-gaia.webp';
+import quartoCapitaoPombeiro from '../../assets/images/quarto-alojamento-prédio-capitão-pombeiro.webp';
 import HeroSectionV3 from '../../components/HeroSectionV3.astro';
 import IntroSection from '../../components/IntroSection.astro';
 import ServicesAccordionText from '../../components/ServicesAccordionText.astro';
@@ -113,7 +115,7 @@ const alternates = [
     primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
     secondary_cta_label="Saber Mais"
     secondary_cta_url="#intro-section"
-    image="/images/porto-visto-gaia.webp"
+    image={portoVistaGaia}
   />
 
   <!-- Intro Section -->
@@ -147,7 +149,7 @@ const alternates = [
   <ServicesAccordionText
     title="Os Nossos Serviços de Gestão de Alojamento Local no Porto"
     description="Na Host Wise, cada serviço foi pensado para responder às necessidades reais do mercado portuense. Sabemos que gerir um alojamento local na Foz do Douro não é o mesmo que na Baixa ou em Matosinhos — e é por isso que adaptamos a nossa atuação a cada zona, perfil de imóvel e público-alvo."
-    image="/images/quarto-alojamento-prédio-capitão-pombeiro.webp"
+    image={quartoCapitaoPombeiro}
     services={[
       {
         title: 'Sistemas de Self Check-in e Check-out',

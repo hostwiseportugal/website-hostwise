@@ -2,6 +2,16 @@
 import Layout from '../../../layouts/Layout.astro';
 import { breadcrumbSchema } from "../../../lib/schema/breadcrumbs";
 import { aboutPageSchema } from "../../../lib/schema/about-page";
+import { Image } from 'astro:assets';
+import tbPorto2 from '../../../assets/images/values-culture/team-building-host-wise-porto-2.webp';
+import tbPorto from '../../../assets/images/values-culture/team-building-host-wise-porto.webp';
+import tbBurroVille from '../../../assets/images/values-culture/team-building-host-wise-burro-ville.webp';
+import tbArouca6 from '../../../assets/images/carreiras/team-building-arouca-6.webp';
+import jantarNatal5 from '../../../assets/images/values-culture/jantar-natal-2025-5.webp';
+import festa500_4 from '../../../assets/images/values-culture/festa-500-propriedades-4.webp';
+import jantarAniv from '../../../assets/images/values-culture/jantar-aniversario-2024-1.webp';
+import tbArouca5 from '../../../assets/images/values-culture/team-building-arouca-5.webp';
+import tbPaintball from '../../../assets/images/values-culture/team-building-paintball-1.webp';
 
 
 const culturePillars = [
@@ -13,7 +23,7 @@ const culturePillars = [
       "Freedom, for us, is not the absence of rules. It's trust with accountability."
     ],
     icon: "/images/values-culture/liberdade-responsavel.svg",
-    image: "/images/values-culture/team-building-host-wise-porto-2.webp",
+    image: tbPorto2,
     imageAlt: "Host Wise Team Building in Porto"
   },
   {
@@ -24,7 +34,7 @@ const culturePillars = [
       "We value those who take responsibility, learn from mistakes and actively contribute to the company's continuous improvement."
     ],
     icon: "/images/values-culture/ownership.svg",
-    image: "/images/values-culture/team-building-host-wise-porto.webp",
+    image: tbPorto,
     imageAlt: "Host Wise Team Building in Porto"
   },
 {
@@ -34,7 +44,7 @@ const culturePillars = [
       "We value initiative and encourage ideas that challenge the conventional. If you're looking for an environment where your suggestions are heard and where you have freedom to execute, this is the right place for you."
     ],
     icon: "/images/values-culture/empowerment.svg",
-    image: "/images/values-culture/team-building-host-wise-burro-ville.webp",
+    image: tbBurroVille,
     imageAlt: "Host Wise Team Building at Burro Ville"
   },
    {
@@ -45,7 +55,7 @@ const culturePillars = [
       "Agility is not disorganized haste. It's focus, clarity of priorities and the ability to respond to real challenges effectively."
     ],
     icon: "/images/values-culture/velocity.svg",
-    image: "/images/carreiras/team-building-arouca-6.webp",
+    image: tbArouca6,
     imageAlt: "Host Wise Team Building in Arouca"
   },
    {
@@ -56,7 +66,7 @@ const culturePillars = [
       "Questioning the status quo is part of our DNA. If something can be done in a simpler, faster or smarter way, we want to be the first to try."
     ],
     icon: "/images/values-culture/innovation.svg",
-    image: "/images/values-culture/jantar-natal-2025-5.webp",
+    image: jantarNatal5,
     imageAlt: "Host Wise Christmas Dinner 2025"
   },
 ];
@@ -105,10 +115,10 @@ const benefits = [
 ];
 
 const teamPhotos = [
-  { src: "/images/values-culture/festa-500-propriedades-4.webp", alt: "500 Properties Celebration" },
-  { src: "/images/values-culture/jantar-aniversario-2024-1.webp", alt: "8th Anniversary Dinner" },
-  { src: "/images/values-culture/team-building-arouca-5.webp", alt: "Team Building at Paiva River" },
-  { src: "/images/values-culture/team-building-paintball-1.webp", alt: "Team Building Paintball" }
+  { src: festa500_4, alt: "500 Properties Celebration" },
+  { src: jantarAniv, alt: "8th Anniversary Dinner" },
+  { src: tbArouca5, alt: "Team Building at Paiva River" },
+  { src: tbPaintball, alt: "Team Building Paintball" }
 ];
 
 const site = Astro.site ?? new URL("https://www.hostwise.pt");
@@ -186,7 +196,7 @@ description={metaDescription}
               </div>
             </div>
             <div class="culture-image-wrapper">
-              <img src={pillar.image} alt={pillar.imageAlt} class="culture-image" />
+              <Image src={pillar.image} alt={pillar.imageAlt} class="culture-image" />
             </div>
           </div>
         </div>
@@ -237,7 +247,7 @@ description={metaDescription}
         {teamPhotos.map((photo, index) => (
           <div class="photo-card" data-index={index}>
             <div class="photo-wrapper">
-              <img src={photo.src} alt={photo.alt} />
+              <Image src={photo.src} alt={photo.alt} />
               <div class="photo-overlay">
                 <p>{photo.alt}</p>
               </div>

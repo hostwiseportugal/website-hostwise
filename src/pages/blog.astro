@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { property1, property2 } from '../lib/fallback-images';
 import { breadcrumbSchema } from "../lib/schema/breadcrumbs";
 import { blogSchema } from "../lib/schema/blog";
 import { wpFetchJson } from "../lib/wpFetch";
@@ -32,8 +33,8 @@ function decodeHtml(str) {
 
 
 const fallbackImages = [
-  '/images/property-1.webp',
-  '/images/property-2.webp',
+  property1.src,
+  property2.src,
 ];
 
 const allBlogPosts = posts.map((post, idx) => ({

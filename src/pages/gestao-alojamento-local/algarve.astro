@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import algarveHeader from '../../assets/images/alojamento-local-algarve-header.webp';
+import salaOlhosAgua from '../../assets/images/sala-alojamento-local-olhos-agua-algarve.webp';
 import HeroSectionV3 from '../../components/HeroSectionV3.astro';
 import IntroSection from '../../components/IntroSection.astro';
 import ServicesAccordionText from '../../components/ServicesAccordionText.astro';
@@ -112,7 +114,7 @@ canonical={canonical}>
     primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
     secondary_cta_label="Saber Mais"
     secondary_cta_url="#intro-section"
-    image="/images/alojamento-local-algarve-header.webp"
+    image={algarveHeader}
   />
 
   <!-- Intro Section -->
@@ -140,7 +142,7 @@ canonical={canonical}>
   <ServicesAccordionText
     title="Os Nossos Serviços de Gestão de Alojamento Local no Algarve"
     description="Na Host Wise, cada serviço foi pensado para responder às necessidades reais do mercado algarvio. Sabemos que gerir um alojamento local em Lagos não é o mesmo que em Albufeira ou Tavira — e é por isso que adaptamos a nossa atuação a cada zona, perfil de imóvel e tipo de hóspede."
-    image="/images/sala-alojamento-local-olhos-agua-algarve.webp"
+    image={salaOlhosAgua}
     services={[
       {
         title: 'Sistemas de Self Check-in e Check-out',

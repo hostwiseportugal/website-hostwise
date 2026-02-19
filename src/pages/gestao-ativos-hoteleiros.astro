@@ -1,5 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import quartoRuaFabrica from '../assets/images/quarto-alojamento-rua-fabrica-porto.webp';
+import quartoRuaFabrica2 from '../assets/images/quarto-alojamento-rua-fabrica-porto-2.webp';
+import quartoParedes from '../assets/images/quarto-alojamento-paredes.webp';
+import quartoParedes2 from '../assets/images/quarto-alojamento-paredes-2.webp';
+import quartoPortoLounge from '../assets/images/quarto-porto-lounge-hostel.webp';
+import guesthouseLadeira from '../assets/images/guesthouse-ladeira-exterior-piscina.webp';
+import burroVillePool from '../assets/images/burro-ville-backyard-view-pool.webp';
+import burroVilleAerial from '../assets/images/burro-ville-aerial-view.webp';
+import burroVilleHouse from '../assets/images/burro-ville-house-backyard-area.webp';
+import burroVilleOutside from '../assets/images/burro-ville-outside-view-with-pool.webp';
 import HeroSectionV3 from '../components/HeroSectionV3.astro';
 import IntroOQueE from '../components/IntroOQueE.astro';
 import IntroSection from '../components/IntroSection.astro';
@@ -144,7 +154,7 @@ canonical={canonical}>
     primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
     secondary_cta_label="Saber Mais"
     secondary_cta_url="#intro-section"
-    image="/images/quarto-alojamento-rua-fabrica-porto.webp"
+    image={quartoRuaFabrica}
   />
 
   <!-- Intro O Que É -->
@@ -153,11 +163,11 @@ canonical={canonical}>
     description="A gestão de ativos hoteleiros destina-se a unidades com operação hoteleira estruturada, que exigem controlo operacional, estratégia de revenue e execução consistente."
     subtitle="Este serviço aplica-se a:"
     serviceTypes={[
-      { title: 'Hotéis Independentes', image: '/images/quarto-alojamento-paredes.webp' },
-      { title: 'Boutique Hotéis', image: '/images/quarto-alojamento-paredes-2.webp' },
-      { title: 'Hostels', image: '/images/quarto-porto-lounge-hostel.webp' },
-      { title: 'Guesthouses', image: '/images/guesthouse-ladeira-exterior-piscina.webp' },
-      { title: 'Projetos Hoteleiros em Reposicionamento', image: '/images/burro-ville-backyard-view-pool.webp' },
+      { title: 'Hotéis Independentes', image: quartoParedes },
+      { title: 'Boutique Hotéis', image: quartoParedes2 },
+      { title: 'Hostels', image: quartoPortoLounge },
+      { title: 'Guesthouses', image: guesthouseLadeira },
+      { title: 'Projetos Hoteleiros em Reposicionamento', image: burroVillePool },
     ]}
   />
 
@@ -202,7 +212,7 @@ canonical={canonical}>
   <ServicesAccordion
     title="O que fazemos"
     description="A Host Wise atua como parceiro de gestão hoteleira, adaptando-se à realidade e maturidade de cada operação."
-    image="/images/quarto-alojamento-rua-fabrica-porto-2.webp"
+    image={quartoRuaFabrica2}
     services={[
       {
         title: 'Gestão Operacional Day-to-Day',
@@ -245,7 +255,7 @@ canonical={canonical}>
     ]}
   />
 
-  <!-- Case Study -->
+  <!-- Case Study 
   <CaseStudy
     title="Caso de Estudo"
     description="Conheça os resultados de um dos edifícios que gerimos. Números reais que demonstram o impacto da nossa abordagem integrada na rentabilidade e eficiência operacional."
@@ -259,11 +269,11 @@ canonical={canonical}>
       { label: 'Rentabilidade', value: '14.2%' },
     ]}
     images={[
-      '/images/burro-ville-aerial-view.webp',
-      '/images/burro-ville-house-backyard-area.webp',
-      '/images/burro-ville-outside-view-with-pool.webp',
+      burroVilleAerial,
+      burroVilleHouse,
+      burroVilleOutside,
     ]}
-  />
+  />-->
 
   <!-- Models Intro -->
   <ModelsIntro />

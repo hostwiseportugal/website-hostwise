@@ -1,5 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import salaGeneralSilveira from '../../assets/images/sala-apartamento-predio-general-silveira.webp';
+import predioGuimaraes from '../../assets/images/predio-largo-repubica-brasil-guimaraes-fachada-exterior-2.webp';
+import predioCasteloPaiva from '../../assets/images/predio-castelo-paiva-exterior.webp';
+import salaSantaCatarina from '../../assets/images/sala-cozinha-apartamento-predio-santa-catarina.webp';
+import casasPalacio from '../../assets/images/casas-palacio-exterior.webp';
+import salaRuaFabrica2 from '../../assets/images/sala-apartamento-predio-rua-fabrica-2.webp';
+import apartamentoCapitao from '../../assets/images/apartamento-predio-capitao-pombeiro.webp';
+import apartamentoAlvaro from '../../assets/images/apartamento-predio-alvaro-casteloes.webp';
+import salaGeneralSilveira3 from '../../assets/images/sala-apartamento-predio-general-silveira-3.webp';
 import HeroSectionV3 from '../../components/HeroSectionV3.astro';
 import IntroOQueE from '../../components/IntroOQueE.astro';
 import IntroSection from '../../components/IntroSection.astro';
@@ -148,7 +157,7 @@ canonical={canonical}>
     primary_cta_url="https://hostwise.typeform.com/to/pWgP4EuZ"
     secondary_cta_label="Learn More"
     secondary_cta_url="#intro-section"
-    image="/images/sala-apartamento-predio-general-silveira.webp"
+    image={salaGeneralSilveira}
   />
 
   <!-- Intro O Que É -->
@@ -159,23 +168,23 @@ canonical={canonical}>
     serviceTypes={[
       {
         title: 'Entire buildings for tourist operation',
-        image: '/images/predio-largo-repubica-brasil-guimaraes-fachada-exterior-2.webp',
+        image: predioGuimaraes,
       },
       {
         title: 'Tourist buildings',
-        image: '/images/predio-castelo-paiva-exterior.webp',
+        image: predioCasteloPaiva,
       },
       {
         title: 'Serviced apartments',
-        image: '/images/sala-cozinha-apartamento-predio-santa-catarina.webp',
+        image: salaSantaCatarina,
       },
       {
         title: 'Aparthotels without traditional hotel operations',
-        image: '/images/casas-palacio-exterior.webp',
+        image: casasPalacio,
       },
       {
         title: 'Hybrid short and mid-term stay projects',
-        image: '/images/sala-apartamento-predio-rua-fabrica-2.webp',
+        image: salaRuaFabrica2,
       },
     ]}
   />
@@ -274,7 +283,7 @@ canonical={canonical}>
       {
         number: '01',
         title: 'Personalized Strategy',
-        image: '/images/apartamento-predio-capitao-pombeiro.webp',
+        image: apartamentoCapitao,
         items: [
           { text: 'Each asset is analyzed individually, considering type, location, target audience and financial objectives.' },
           { text: 'We define a management strategy aligned with the owner\'s goals and market characteristics.' },
@@ -284,7 +293,7 @@ canonical={canonical}>
       {
         number: '02',
         title: 'In-House Technology and AI',
-        image: '/images/apartamento-predio-alvaro-casteloes.webp',
+        image: apartamentoAlvaro,
         items: [
           { text: 'We develop proprietary automation and artificial intelligence solutions to optimize processes, enhance the guest experience and support strategic decisions.' },
           { text: 'Technology enables more efficient management, reducing operational costs and increasing profitability.' },
@@ -293,7 +302,7 @@ canonical={canonical}>
       {
         number: '03',
         title: 'Agile, Results-Oriented Execution',
-        image: '/images/sala-apartamento-predio-general-silveira-3.webp',
+        image: salaGeneralSilveira3,
         items: [
           { text: 'Lean structure, minimal bureaucracy and total focus on operational and financial performance.' },
           { text: 'Ability to quickly adapt to new opportunities or market challenges.' },
@@ -302,7 +311,7 @@ canonical={canonical}>
     ]}
   />
 
-  <!-- Case Study -->
+  <!-- Case Study 
   <CaseStudy
     title="Case Study"
     description="Discover the results of one of the buildings we manage. Real numbers that demonstrate the impact of our integrated approach on profitability and operational efficiency."
@@ -314,7 +323,7 @@ canonical={canonical}>
       { label: 'Occupancy', value: '87%' },
       { label: 'Profitability', value: '12.4%' },
     ]}
-  />
+  /> -->
 
   <!-- Models Intro -->
   <ModelsIntro

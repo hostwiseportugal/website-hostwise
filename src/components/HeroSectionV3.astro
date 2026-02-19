@@ -1,5 +1,8 @@
 ---
 import { iconMap } from '../icons/iconMap';
+import OptimizedImage from './OptimizedImage.astro';
+import type { ImageMetadata } from 'astro';
+import { property1 } from '../lib/fallback-images';
 
 interface WPImage {
   url?: string;
@@ -32,23 +35,29 @@ interface HeroSectionV2Props {
   primary_cta_url?: string;
   secondary_cta_label?: string;
   secondary_cta_url?: string;
-  image?: WPImage | string;
+  image?: WPImage | ImageMetadata | string;
 }
 
 // helper imagem com fallback
 function normalizeImage(
-  img: WPImage | string | undefined,
-  fallbackUrl: string,
+  img: WPImage | ImageMetadata | string | undefined,
+  fallback: ImageMetadata,
   fallbackAlt: string
-) {
-  if (!img) return { url: fallbackUrl, alt: fallbackAlt };
+): { src: ImageMetadata | string; alt: string } {
+  if (!img) return { src: fallback, alt: fallbackAlt };
 
-  if (typeof img === 'string') {
-    return { url: img || fallbackUrl, alt: fallbackAlt };
+  // ImageMetadata (imported local image)
+  if (typeof img === 'object' && 'src' in img && 'width' in img) {
+    return { src: img as ImageMetadata, alt: fallbackAlt };
   }
 
+  if (typeof img === 'string') {
+    return { src: img || fallback, alt: fallbackAlt };
+  }
+
+  // WPImage
   return {
-    url: img.url || img.source_url || fallbackUrl,
+    src: img.url || img.source_url || fallback,
     alt: img.alt || fallbackAlt,
   };
 }
@@ -81,7 +90,7 @@ para planear o seu futuro com tranquilidade.`,
 
 const heroImage = normalizeImage(
   image,
-  '/images/property-1.webp',
+  property1,
   'Propriedade em Alojamento Local'
 );
 
@@ -130,11 +139,11 @@ const badgeIcon = getIcon(badge_icon_key, 'shield');
     <!-- Featured Image -->
     <div class="hero-v2-visual">
       <div class="hero-v2-image-wrapper">
-        <img
-          src={heroImage.url}
+        <OptimizedImage
+          src={heroImage.src}
           alt={heroImage.alt}
           class="hero-v2-image"
-          loading="lazy"
+          loading="eager"
         />
 
         <div class="hero-v2-gradient"></div>
