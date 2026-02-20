@@ -20,6 +20,7 @@ interface BlogSectionProps {
   subtitle?: string;
   ctaLabel?: string;
   ctaUrl?: string;
+  lang?: "pt" | "en";
 }
 
 const {
@@ -31,7 +32,11 @@ const {
   subtitle = 'Mantenha-se atualizado com as últimas tendências, estratégias e novidades do mercado de alojamento local em Portugal.',
   ctaLabel = 'Ver Todos os Artigos',
   ctaUrl = '/blog',
+  lang = "pt",
 } = Astro.props as BlogSectionProps;
+
+const basePath = lang === "en" ? "/en" : "";
+const blogBase = `${basePath}/blog`;
 
 // fallback se ainda não houver posts vindos do WP
 const fallbackPosts: BlogPost[] =
@@ -87,7 +92,7 @@ const displayPosts = showAll
               <OptimizedImage src={post.image} alt={post.title} loading={index === 0 ? 'eager' : 'lazy'} />
               <div class="blog-gradient"></div>
 
-              <a href={`/blog/${post.slug}`} class="blog-arrow-btn" aria-label={`Ler artigo: ${post.title}`}>
+              <a href={`${blogBase}/${post.slug}`} class="blog-arrow-btn" aria-label={`Ler artigo: ${post.title}`}>
                 <svg class="arrow-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -106,7 +111,7 @@ const displayPosts = showAll
                 </div>
               )}
 
-              <a href={`/blog/${post.slug}`} class="blog-link">
+              <a href={`${blogBase}/${post.slug}`} class="blog-link">
                 <h3>{post.title}</h3>
               </a>
 
@@ -119,7 +124,8 @@ const displayPosts = showAll
 
     {!showAll && ctaLabel && (
       <div class="blog-cta">
-        <a href={ctaUrl} class="btn-blog-all">
+        <a href={ctaUrl.startsWith("http") ? ctaUrl : `${basePath}${ctaUrl}`} class="btn-blog-all">
+
           {ctaLabel}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />

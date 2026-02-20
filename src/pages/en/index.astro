@@ -20,7 +20,7 @@ const apiBase = import.meta.env.WORDPRESS_API_URL;
 
 // 1) Home (ACF)
 const HOME_PAGE_ID = 78; 
-const res = await fetch(`${apiBase}/pages/${HOME_PAGE_ID}?lang=pt&_embed`);
+const res = await fetch(`${apiBase}/pages/${HOME_PAGE_ID}?lang=en&_embed`);
 const page = await res.json();
 const acf = page.acf || {};
 
@@ -82,6 +82,7 @@ const blogPosts = posts.map((post) => {
 
   return {
     slug: post.slug,
+    href: `/en/blog/${post.slug}`,
     title: decodeHtml(post.title.rendered),
     excerpt: excerptText,
     image: post.featured_image_url ?? property1,
@@ -169,6 +170,7 @@ schemas={schemas}>
 
   <!-- Blog Section -->
   <BlogSection
+  lang="en"
   posts={blogPosts}
   limit={3}
   badgeLabel={acf.blog_badge_label}
