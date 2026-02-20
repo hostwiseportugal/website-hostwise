@@ -1,0 +1,283 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Obrigado pelo seu pedido"
+  description="A sua proposta foi recebida. A equipa comercial da Host Wise irá contactá-lo em breve."
+  noindex={true}
+  canonical="https://www.hostwise.pt/obrigado-proposta"
+>
+  <section class="thank-you-page">
+    <div class="container">
+
+      <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="31" stroke="currentColor" stroke-width="2"/>
+          <path d="M18 33l10 10 18-20" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="badge">Pedido recebido</div>
+
+      <h1>Obrigado pelo seu pedido de proposta!</h1>
+
+      <p class="subtitle">
+        A sua mensagem chegou até nós com sucesso. A nossa equipa comercial já está a tratar do seu pedido e em breve entrará em contacto consigo.
+      </p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-body">
+            <h3>Pedido recebido</h3>
+            <p>O seu pedido de proposta foi registado e entregue à nossa equipa comercial.</p>
+          </div>
+        </div>
+
+        <div class="step-connector"></div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-body">
+            <h3>Análise do imóvel</h3>
+            <p>A nossa equipa irá analisar os dados do seu imóvel e preparar uma proposta personalizada.</p>
+          </div>
+        </div>
+
+        <div class="step-connector"></div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-body">
+            <h3>Proposta enviada</h3>
+            <p>Receberá os próximos passos e a proposta no seu <strong>email</strong> e <strong>WhatsApp</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-note">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+        </svg>
+        <span>Caso não receba nenhum contacto nas próximas 24 horas úteis, pode sempre falar connosco em <a href="mailto:comercial@hostwise.pt">comercial@hostwise.pt</a></span>
+      </div>
+
+      <a href="/" class="btn-home">
+        Voltar ao início
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .thank-you-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 140px 20px 100px;
+    background: linear-gradient(135deg, #F8FCFF 0%, #fff 50%, #F8FCFF 100%);
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    color: var(--secondary);
+    margin: 0 auto 28px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+
+  .success-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.6); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(92, 176, 214, 0.12);
+    color: var(--secondary);
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeUp 0.5s 0.1s both;
+  }
+
+  h1 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+    animation: fadeUp 0.5s 0.15s both;
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text);
+    opacity: 0.8;
+    margin-bottom: 52px;
+    animation: fadeUp 0.5s 0.2s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Steps */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 40px;
+    text-align: left;
+    animation: fadeUp 0.5s 0.25s both;
+  }
+
+  .step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 20px rgba(12, 68, 99, 0.07);
+  }
+
+  .step-connector {
+    width: 2px;
+    height: 20px;
+    background: rgba(92, 176, 214, 0.3);
+    margin-left: 35px;
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .step-body h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+
+  .step-body p {
+    font-size: 0.95rem;
+    color: var(--text);
+    opacity: 0.75;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .step-body strong {
+    color: var(--primary);
+    font-weight: 700;
+    opacity: 1;
+  }
+
+  /* Contact note */
+  .contact-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(92, 176, 214, 0.07);
+    border: 1px solid rgba(92, 176, 214, 0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.55;
+    margin-bottom: 40px;
+    text-align: left;
+    animation: fadeUp 0.5s 0.3s both;
+  }
+
+  .contact-note svg {
+    flex-shrink: 0;
+    color: var(--secondary);
+    margin-top: 2px;
+  }
+
+  .contact-note a {
+    color: var(--secondary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .contact-note a:hover {
+    text-decoration: underline;
+  }
+
+  /* CTA */
+  .btn-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--primary);
+    color: white;
+    padding: 16px 36px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.25s, gap 0.25s;
+    animation: fadeUp 0.5s 0.35s both;
+  }
+
+  .btn-home:hover {
+    background: var(--secondary);
+    gap: 14px;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 1.9rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+    }
+
+    .step {
+      padding: 20px;
+    }
+
+    .step-connector {
+      margin-left: 29px;
+    }
+  }
+</style>
