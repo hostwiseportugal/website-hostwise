@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 
 const lastUpdated = "28 January 2025";
 
+const canonical = "https://www.hostwise.pt/en/privacy-policy";
 const alternates = [
   { hreflang: "pt-PT", href: "https://www.hostwise.pt/politica-de-privacidade" },
   { hreflang: "en", href: "https://www.hostwise.pt/en/privacy-policy" },
@@ -10,7 +11,7 @@ const alternates = [
 ];
 ---
 
-<Layout title="Privacy Policy" description="Read Host Wise's privacy policy and learn how we collect, protect and use your personal data." alternates={alternates}>
+<Layout title="Privacy Policy" description="Read Host Wise's privacy policy and learn how we collect, protect and use your personal data." canonical={canonical} alternates={alternates}>
   <section class="legal-page">
     <div class="container">
       <div class="legal-header">

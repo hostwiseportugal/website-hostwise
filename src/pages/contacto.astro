@@ -1,10 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { iconMap } from '../icons/iconMap';
+
+const canonical = "https://www.hostwise.pt/contacto";
+const alternates = [
+  { hreflang: "pt-PT", href: "https://www.hostwise.pt/contacto" },
+  { hreflang: "en", href: "https://www.hostwise.pt/en/contact" },
+  { hreflang: "x-default", href: "https://www.hostwise.pt/contacto" },
+];
 ---
 
 <Layout title="Contactos"
-description='Entre em contacto com a Host Wise para saber mais sobre os nossos serviços de gestão de alojamento local e ativos turísticos.'>
+description='Entre em contacto com a Host Wise para saber mais sobre os nossos serviços de gestão de alojamento local e ativos turísticos.'
+canonical={canonical}
+alternates={alternates}>
   <section class="contact-hero">
     <div class="container">
       <span class="badge">Contacto</span>

@@ -2,9 +2,16 @@
 import Layout from '../layouts/Layout.astro';
 
 const lastUpdated = "28 de Janeiro de 2025";
+
+const canonical = "https://www.hostwise.pt/politica-de-privacidade";
+const alternates = [
+  { hreflang: "pt-PT", href: "https://www.hostwise.pt/politica-de-privacidade" },
+  { hreflang: "en", href: "https://www.hostwise.pt/en/privacy-policy" },
+  { hreflang: "x-default", href: "https://www.hostwise.pt/politica-de-privacidade" },
+];
 ---
 
-<Layout title="Política de Privacidade" description="Consulte a política de privacidade da Host Wise e saiba como tratamos, protegemos e utilizamos os seus dados pessoais.">
+<Layout title="Política de Privacidade" description="Consulte a política de privacidade da Host Wise e saiba como tratamos, protegemos e utilizamos os seus dados pessoais." canonical={canonical} alternates={alternates}>
   <section class="legal-page">
     <div class="container">
       <div class="legal-header">

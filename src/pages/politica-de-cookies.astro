@@ -2,9 +2,16 @@
 import Layout from '../layouts/Layout.astro';
 
 const lastUpdated = "28 de Janeiro de 2025";
+
+const canonical = "https://www.hostwise.pt/politica-de-cookies";
+const alternates = [
+  { hreflang: "pt-PT", href: "https://www.hostwise.pt/politica-de-cookies" },
+  { hreflang: "en", href: "https://www.hostwise.pt/en/cookie-policy" },
+  { hreflang: "x-default", href: "https://www.hostwise.pt/politica-de-cookies" },
+];
 ---
 
-<Layout title="Política de Cookies" description="Saiba como a Host Wise utiliza cookies para melhorar a experiência de navegação e cumprir as obrigações legais.">
+<Layout title="Política de Cookies" description="Saiba como a Host Wise utiliza cookies para melhorar a experiência de navegação e cumprir as obrigações legais." canonical={canonical} alternates={alternates}>
   <section class="legal-page">
     <div class="container">
       <div class="legal-header">

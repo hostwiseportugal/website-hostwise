@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 
 const lastUpdated = "28 January 2025";
 
+const canonical = "https://www.hostwise.pt/en/cookie-policy";
 const alternates = [
   { hreflang: "pt-PT", href: "https://www.hostwise.pt/politica-de-cookies" },
   { hreflang: "en", href: "https://www.hostwise.pt/en/cookie-policy" },
@@ -10,7 +11,7 @@ const alternates = [
 ];
 ---
 
-<Layout title="Cookie Policy" description="Learn how Host Wise uses cookies to improve your browsing experience and comply with legal obligations." alternates={alternates}>
+<Layout title="Cookie Policy" description="Learn how Host Wise uses cookies to improve your browsing experience and comply with legal obligations." canonical={canonical} alternates={alternates}>
   <section class="legal-page">
     <div class="container">
       <div class="legal-header">
