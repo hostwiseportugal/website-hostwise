@@ -3,6 +3,21 @@ import OptimizedImage from './OptimizedImage.astro';
 import type { ImageMetadata } from 'astro';
 import { property1, property2, heroDefault } from '../lib/fallback-images';
 
+function withBasePath(url: string) {
+  // URLs absolutas: não mexer
+  if (!url || url.startsWith("http")) return url;
+
+  // garantir que começa com /
+  const normalized = url.startsWith("/") ? url : `/${url}`;
+
+  // se já estiver com /en (ou se não houver basePath), não duplicar
+  if (!basePath) return normalized;
+  if (normalized === basePath || normalized.startsWith(`${basePath}/`)) return normalized;
+
+  return `${basePath}${normalized}`;
+}
+
+
 interface BlogPost {
   title: string;
   excerpt: string;
@@ -124,7 +139,7 @@ const displayPosts = showAll
 
     {!showAll && ctaLabel && (
       <div class="blog-cta">
-        <a href={ctaUrl.startsWith("http") ? ctaUrl : `${basePath}${ctaUrl}`} class="btn-blog-all">
+        <a href={withBasePath(ctaUrl)} class="btn-blog-all">
 
           {ctaLabel}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
